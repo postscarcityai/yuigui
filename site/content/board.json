@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T06:05:58.618Z",
+  "updated": "2026-10-06T06:21:00.103Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -337,6 +337,8 @@
         {
           "key": "YUI-311",
           "title": "/web plays motion films full screen, twin of MOTION-1d",
+          "summary": "Films play on the web",
+          "progress": "/progress#films-play-on-the-web",
           "owner": "CJohnDesign"
         },
         {
