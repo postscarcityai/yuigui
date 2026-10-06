@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 509,
-    "site": 1564,
+    "site": 1567,
     "builds": 57,
-    "shipped": 676,
-    "screenshots": 1814
+    "shipped": 677,
+    "screenshots": 1817
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-06T10:53:04.179Z",
+          "at": "2026-10-06T11:02:22.726Z",
+          "title": "A Thought: every small model draws",
+          "card": "SITE-214",
+          "anchor": "a-thought-every-small-model-draws",
+          "images": [
+            {
+              "src": "/progress/site214-chart-dark.webp",
+              "alt": "Chart of three small models, each with three of three live runs drawing a screen"
+            },
+            {
+              "src": "/progress/site214-remembers-dark.webp",
+              "alt": "Three dark threads where each model answers TEA after the tap"
+            },
+            {
+              "src": "/progress/site214-screens-light.webp",
+              "alt": "The Drink screen drawn by qwen2.5:7b, gemma4:e4b and llama3.2:3b"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 509,
+            "site": 1567,
+            "builds": 57,
+            "shipped": 677
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T10:53:10.000Z",
           "title": "A second small local model family draws screens",
           "card": "INT-25",
           "anchor": "a-second-small-local-model-family-draws-screens",
@@ -35,10 +63,10 @@
               "alt": "llama3.2:3b draws the Drink screen, then adds a stray [Response:] bubble"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 509,
-            "site": 1564,
+            "site": 1565,
             "builds": 57,
             "shipped": 676
           }
@@ -350,6 +378,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "527ea804",
+          "at": "2026-10-06T11:00:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/527ea804"
+        },
+        {
+          "repo": "site",
+          "sha": "718974b3",
+          "at": "2026-10-06T10:55:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/718974b3"
+        },
+        {
+          "repo": "site",
+          "sha": "faa41bcb",
+          "at": "2026-10-06T10:53:10.000Z",
+          "text": "A second small local model family draws screens (INT-25)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/faa41bcb"
+        },
         {
           "repo": "app",
           "sha": "4d8850e4",
