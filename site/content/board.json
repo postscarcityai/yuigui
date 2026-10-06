@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T06:51:08.077Z",
+  "updated": "2026-10-06T07:09:14.782Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -333,6 +333,11 @@
         {
           "key": "YUI-312",
           "title": "A real agent's film on /web, live and timed",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-209",
+          "title": "Films on your phone, the build note",
           "owner": "CJohnDesign"
         },
         {
