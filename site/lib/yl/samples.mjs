@@ -186,6 +186,15 @@ end`,
     yl: BASIL_WEEK.split("\n").filter((l) => !l.startsWith("~")).join("\n"),
   },
   {
+    // One thought per full screen (feedback APOmDkahSl2ApP7vrgIC820): three ways to stop the stage
+    // piling up unrelated pages (playground/stagetopics.js). Hand-drawn mock, rows are examples.
+    name: "Stage topics: one thought per screen",
+    slug: "stage-topics",
+    agent: "Yui",
+    stagetopics: true,
+    yl: `say "Three ways to keep one thought per screen."`,
+  },
+  {
     // Stage motion (spec/YL.md section 5, YUI-120 step 1): the same turn on
     // two agents with different characters (playground/stagemotion.js). The
     // doing words pick the mood (reading is looking, drafting is making,

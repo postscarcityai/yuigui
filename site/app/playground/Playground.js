@@ -24,6 +24,7 @@ import { SYNC_VIEWS, SyncDemo } from "./sync";
 import { MYFLOWS_VIEWS, MyFlowsDemo } from "./myflows";
 import { STAGEFIRST_VIEWS, StageFirstDemo } from "./stagefirst";
 import { STAGEMOTION_VIEWS, StageMotionDemo } from "./stagemotion";
+import { STAGETOPICS_VIEWS, StageTopicsDemo } from "./stagetopics";
 import { WEEKDECK_VIEWS, WeekDeckDemo } from "./weekdeck";
 import { MotionLooksDemo } from "./motionlooks";
 import { VisualizerDemo } from "./visualizer";
@@ -144,6 +145,8 @@ export default function Playground({ release = "" }) {
   // Stage motion (YL.md section 5, YUI-120): the stage moves with the agent, per mood and per character.
   const stagemotion = shared ? null : ALL[idx].stagemotion;
   const [moView, setMoView] = useState("side");
+  const stagetopics = shared ? null : ALL[idx].stagetopics;
+  const [stView, setStView] = useState("now");
   // Motion looks (YL.md section 4 theme, YUI-123): say how each agent moves, in words.
   const motionlooks = shared ? null : ALL[idx].motionlooks;
   // The visual (spec/VISUAL.md, YUI-124): a live shader behind the stage that hears a voice or music.
@@ -153,7 +156,7 @@ export default function Playground({ release = "" }) {
   // The working row (YL.md section 5): the turn plays, `doing` lines in the row, then the reply.
   const working = shared ? null : ALL[idx].working;
   const [turn, playTurn] = useWorkingTurn(text, working ? idx : null);
-  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!motionlooks || !!visualizer || !!shaderlook;
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!stagetopics || !!motionlooks || !!visualizer || !!shaderlook;
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
@@ -195,6 +198,12 @@ export default function Playground({ release = "" }) {
     if (k === "deck") url.searchParams.delete("view"); else url.searchParams.set("view", k);
     window.history.replaceState(null, "", url);
     setWdView(k);
+  }, []);
+  const goStagetopics = useCallback((k) => {
+    const url = new URL(window.location.href);
+    if (k === "now") url.searchParams.delete("view"); else url.searchParams.set("view", k);
+    window.history.replaceState(null, "", url);
+    setStView(k);
   }, []);
   const goStagemotion = useCallback((k) => {
     const url = new URL(window.location.href);
@@ -241,6 +250,7 @@ export default function Playground({ release = "" }) {
     if (STAGEFIRST_VIEWS.some(([k]) => k === q.get("view"))) setSfView(q.get("view"));
     if (WEEKDECK_VIEWS.some(([k]) => k === q.get("view"))) setWdView(q.get("view"));
     if (STAGEMOTION_VIEWS.some(([k]) => k === q.get("view"))) setMoView(q.get("view"));
+    if (STAGETOPICS_VIEWS.some(([k]) => k === q.get("view"))) setStView(q.get("view"));
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
     // ?yl= holds a Share code (SITE-19) or plain lines (the community gallery); readYL takes both.
@@ -589,6 +599,9 @@ export default function Playground({ release = "" }) {
           {stagemotion ? STAGEMOTION_VIEWS.map(([k, label]) => (
             <button key={k} className={`pg-tab ${k === moView ? "on" : ""}`} onClick={() => goStagemotion(k)}>{label}</button>
           )) : null}
+          {stagetopics ? STAGETOPICS_VIEWS.map(([k, label]) => (
+            <button key={k} className={`pg-tab ${k === stView ? "on" : ""}`} onClick={() => goStagetopics(k)}>{label}</button>
+          )) : null}
           {client ? null : screens.map((k) => (
             <button key={k} className={`pg-tab ${k === shown ? "on" : ""}`} onClick={() => setView(k)}>
               Screen {k}{state.screens[k].length ? ` · ${state.screens[k].length}` : ""}
@@ -623,6 +636,7 @@ export default function Playground({ release = "" }) {
             {stagefirst ? <StageFirstDemo key={`sf:${epoch}`} text={text} view={sfView} onEvent={groupEvent} /> : null}
             {weekdeck ? <WeekDeckDemo key={`wd:${epoch}`} text={text} view={wdView} onEvent={groupEvent} /> : null}
             {stagemotion ? <StageMotionDemo key={`mo:${epoch}`} text={text} view={moView} /> : null}
+            {stagetopics ? <StageTopicsDemo key={`st:${epoch}`} view={stView} /> : null}
             {motionlooks ? <MotionLooksDemo key={`ml:${epoch}`} text={text} /> : null}
             {visualizer ? <VisualizerDemo key={`vz:${epoch}`} text={text} dark={!light} agent={agent} /> : null}
             {shaderlook ? <ShaderLookDemo key={`sl:${epoch}`} dark={!light} /> : null}
