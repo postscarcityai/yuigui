@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T16:48:28.316Z",
+  "updated": "2026-10-06T16:55:23.439Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -321,16 +321,19 @@
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         },
         {
           "key": "NOTE-8417",
           "title": "One thought per full screen",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
