@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T18:30:36.804Z",
+  "updated": "2026-10-06T18:35:38.051Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,10 +290,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-223",
-          "title": "A Thought",
-          "summary": "A Thought: Chat is home, the stage is for pictures",
-          "progress": "/progress#a-thought-chat-is-home-the-stage-is-for-pictures",
+          "key": "YUI-315",
+          "title": "Try chat is home in the playground",
           "owner": "CJohnDesign"
         }
       ]
@@ -302,6 +300,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-223",
+          "title": "A Thought",
+          "summary": "A Thought: Chat is home, the stage is for pictures",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-thought-chat-is-home-the-stage-is-for-pictures",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3291e084"
+        },
         {
           "key": "YUI-314",
           "title": "/web proves chat is home",
