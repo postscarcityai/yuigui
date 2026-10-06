@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T18:05:35.204Z",
+  "updated": "2026-10-06T18:20:36.055Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -297,7 +297,8 @@
         {
           "key": "YUI-314",
           "title": "/web proves chat is home",
-          "summary": "Plain answers stay in chat, older stage replies fold, in a real browser",
+          "summary": "Chat is home on the web too",
+          "progress": "/progress#chat-is-home-on-the-web-too",
           "owner": "CJohnDesign"
         }
       ]
