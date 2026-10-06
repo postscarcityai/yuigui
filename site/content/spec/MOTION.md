@@ -208,6 +208,7 @@ A real agent (the plugin's own film writer) behind a throwaway account, a real b
 
 - 6 of 9 first frames under 10 s (median 6.7 s). The goal was 8 of 9. The three misses are the plugin's claude-CLI writer on a busy host, not the site: the player starts the instant scene 1 arrives. Follow-up: a small fast model for scene 1.
 - No raw motion text on any run. Close returns to the thread with one line and one Watch again chip per film, every run.
+- YUI-313 re-run (Oct 6): scene 1 now comes from claude-haiku-4-5 with thinking off (it thought ~25 s before its first word otherwise), the other scenes from sonnet, both started at once. First frames 5.1, 5.9, 8.0 (engine), 5.6, 6.5, 7.3 (settings), 4.9, 5.7, 5.8 (interest): **9 of 9 under 10 s**, median 5.8 s. Films end 34 to 81 s. Two traps found on the way: haiku names scenes with spaces (the parser now accepts them) and a cold CLI start costs about 3 s.
 - Gateway arm: the gateway's plugin still carries the MOTION_BUILD sentinel, so the same ask draws as a sketch, never raw text. Streaming films there needs the gateway restarted onto the lifted sentinel.
 
 ## 4. Cards
