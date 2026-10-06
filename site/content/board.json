@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T17:15:36.920Z",
+  "updated": "2026-10-06T17:30:29.644Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -316,12 +316,6 @@
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "needsDemo": true
-        },
-        {
-          "key": "YUI-267",
-          "title": "Pick the drawing look, A, B or C",
-          "commit": "https://github.com/postscarcityai/yui/commit/3076482",
-          "needsDemo": true
         }
       ]
     },
@@ -334,6 +328,7 @@
           "title": "Drawings that look designed",
           "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
           "blocked": "chris",
+          "progress": "/progress#a-drawn-phone-is-an-animated-wireframe",
           "owner": "CJohnDesign"
         }
       ]
@@ -342,6 +337,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-267",
+          "title": "Pick the drawing look, A, B or C",
+          "summary": "A drawn phone is an animated wireframe",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-drawn-phone-is-an-animated-wireframe",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1e47082a"
+        },
         {
           "key": "SITE-221",
           "title": "The any-model Thought gets the Grok, Le Chat and Gemini how-to",
