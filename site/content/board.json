@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T00:56:01.666Z",
+  "updated": "2026-10-06T01:01:02.762Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -336,13 +336,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-201",
-          "title": "Thought, a question carries its own context",
-          "summary": "New Thought: A question carries its own context",
-          "progress": "/progress#new-thought-a-question-carries-its-own-context",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -360,6 +353,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-201",
+          "title": "Thought, a question carries its own context",
+          "summary": "New Thought: A question carries its own context",
+          "shipped": "2026-10-05",
+          "progress": "/progress#new-thought-a-question-carries-its-own-context",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/42aeae02"
+        },
         {
           "key": "YUI-308",
           "title": "/web questions show what they ask about, right above the buttons",
