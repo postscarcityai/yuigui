@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T02:55:17.825Z",
+  "updated": "2026-10-06T03:00:18.835Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -342,13 +342,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-205",
-          "title": "Thought, the question sits with its answer",
-          "summary": "A Thought: a question sits with its answers",
-          "progress": "/progress#a-thought-a-question-sits-with-its-answers",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -372,6 +365,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-205",
+          "title": "Thought, the question sits with its answer",
+          "summary": "A Thought: a question sits with its answers",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-thought-a-question-sits-with-its-answers",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7f64a695"
+        },
         {
           "key": "SITE-204",
           "title": "Thought, reminders ring with the tab closed",
