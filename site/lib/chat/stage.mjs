@@ -6,7 +6,7 @@
 // SITE-68: a plan or a flow is one chunk that plays its own steps (pages, then questions, one Send),
 // the playground's runtime, so the steps go by with no model turn between them.
 import { apply, initialState, parse } from "../yl/yl.mjs";
-import { stageChunks, textChunks } from "../yl/chunks.mjs";
+import { QUESTIONS, stageChunks, textChunks } from "../yl/chunks.mjs";
 import { splitReply } from "./lines.mjs";
 import { inThread } from "./pages.mjs";
 
@@ -35,7 +35,7 @@ function playsOwnSteps(nodes) {
 //   parts:     [{ nodes, state }] one per ```yui block, for the renderers
 //   chunks:    [{ key, part, text, line, page, pic }] text: chat words (links and lists), line: a `say`
 //              or a page title, page: a deck or plan page's props, pic: the node that draws
-//   questions: [{ part, node }] in line order
+//   questions: [{ part, node, about }] in line order; about: the chunk right before it in its own reply, or null
 //   plan:      { part, node } when the questions came from a plan (Send answers as the plan)
 export function readAnswer(content) {
   return answerOf(splitReply(content).map((p) => (p.text ? { text: p.text } : { yl: p.yl })));
@@ -46,6 +46,7 @@ export function readAnswer(content) {
 export function answerOf(pieces) {
   const parts = [], chunks = [], questions = [];
   let plan = null, open = null; // open: a text chunk still waiting for its picture
+  let taken = -1; // the last chunk a question took as its context (YUI-308)
   for (const p of pieces) {
     if (p.text) {
       for (const t of textParts(p.text)) {
@@ -64,13 +65,23 @@ export function answerOf(pieces) {
     const nodes = Object.entries(state.screens).flatMap(([k, l]) => l.filter((n) => inThread(k, n))).sort((a, b) => a.seq - b.seq);
     const part = parts.push({ nodes, state }) - 1;
     const r = stageChunks(playsOwnSteps(nodes));
+    const waiting = open ? chunks.indexOf(open) : -1; // the words just before this fence
+    const at = []; // this fence's chunk i -> its index in the answer
     r.chunks.forEach((c, i) => {
       if (c.pic?.steps) c = { ...c, pic: c.pic.steps };
-      if (i === 0 && open && c.pic && !c.line && !c.page) { open.part = part; open.pic = c.pic; return; }
-      chunks.push({ ...c, key: `${part}:${c.key}`, part, text: null });
+      if (i === 0 && open && c.pic && !c.line && !c.page) { open.part = part; open.pic = c.pic; at.push(chunks.indexOf(open)); return; }
+      at.push(chunks.push({ ...c, key: `${part}:${c.key}`, part, text: null }) - 1);
     });
     open = null;
-    for (const node of r.questions) questions.push({ part, node });
+    // What a question asks about (TestFlight Oct 5, "I need context and action on the same screen"): the line and
+    // picture of its own reply that came right before it, taken by one question only. A chunk that is itself a
+    // question (a deck page you act on) is not context. The app's StageQuestion.about.
+    r.questions.forEach((node, k) => {
+      const q = { part, node, about: null };
+      const i = r.after[k] ? at[r.after[k] - 1] : waiting;
+      if (i > taken && i >= 0 && !QUESTIONS.has(chunks[i].pic?.preset)) { q.about = chunks[i]; taken = i; }
+      questions.push(q);
+    });
     if (r.plan) plan = { part, node: r.plan };
   }
   return { parts, chunks, questions, plan };

@@ -1,7 +1,7 @@
 // node --test site/lib/chat/stage.test.mjs (SITE-66): answers play on the stage as chunks.
 import assert from "node:assert/strict";
 import test from "node:test";
-import { micLine, readAnswer, textParts } from "./stage.mjs";
+import { answerOf, micLine, readAnswer, textParts } from "./stage.mjs";
 
 const view = (reply) => {
   const r = readAnswer(reply);
@@ -55,4 +55,32 @@ test("headings and Label: value lines stay whole for the reader (SITE-97)", () =
   const md = "## Status\n✅ Tests: 27 passed\n❌ Lint: 2 warnings";
   assert.deepEqual(textParts(md), [md]);
   assert.deepEqual(textParts("**Fixed:** the timer\n**Next:** ship it"), ["**Fixed:** the timer\n**Next:** ship it"]);
+});
+
+test("each question carries the line before it in its own reply (YUI-308, Chris's note ADoBKyIK)", () => {
+  const a = answerOf([
+    { yl: 'say "Explainers draw every page."\nchoose@a "Ship it?" "Ship it"|"Not yet"' },
+    { yl: 'say "Left drawer shows Done cards."\nchoose@b "Ship it?" "Ship it"|"Not yet"' },
+  ]);
+  assert.deepEqual(a.questions.map((q) => q.about && q.about.line), ["Explainers draw every page.", "Left drawer shows Done cards."]);
+});
+
+test("words before a question's fence are its context", () => {
+  const a = readAnswer('The timer fix is ready.\n```yui\nchoose "Ship it?" Yes|No\n```');
+  assert.equal(a.questions[0].about.text, "The timer fix is ready.");
+});
+
+test("a context belongs to one question: the second asks bare", () => {
+  const a = readAnswer('```yui\nsay "Pick both."\nchoose "A?" Yes|No\nchoose "B?" Yes|No\n```');
+  assert.deepEqual(a.questions.map((q) => q.about && q.about.line), ["Pick both.", null]);
+});
+
+test("a plan plays its own pages, so its last page is never repeated above a question", () => {
+  const a = readAnswer('```yui\nplan@p "Before I go"\npage "Chalk look" body="Hand drawn."\nchoose@a "Chalk?" Yes|No\npage "Glass look" body="Frosted."\nchoose@b "Glass?" Yes|No\nend\n```');
+  assert.deepEqual(a.questions, []);
+  assert.equal(a.chunks.length, 1);
+});
+
+test("a question with nothing before it has no context", () => {
+  assert.equal(readAnswer('```yui\nchoose "Pick one" A|B\n```').questions[0].about, null);
 });

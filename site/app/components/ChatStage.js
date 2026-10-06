@@ -139,11 +139,12 @@ export default function ChatStage({ content, answer, agent = "Yui", live, onTap,
       ) : null}
       <div className="ys-scroll">
         {sentAt ? <time className="ys-when" dateTime={new Date(sentAt).toISOString()}>{stageTime(sentAt)}</time> : null}
-        {c ? <Chunk key={`${c.key}:${at}`} a={a} c={c} dir={dir} emitFor={emitFor} Text={Text} go={go} small={asking} home={onHome} agent={agent} /> : null}
+        {c && !(asking && a.questions.some((q) => q.about === c)) ? <Chunk key={`${c.key}:${at}`} a={a} c={c} dir={dir} emitFor={emitFor} Text={Text} go={go} small={asking} home={onHome} agent={agent} /> : null}
         {asking ? (
           <div className="ys-qs">
             {a.questions.map((q, i) => (
               <div key={q.node.key} className="mo-q" style={{ "--n": i }}>
+                {q.about ? <div className="ys-qabout" data-testid="stage-question-context"><Chunk a={a} c={q.about} dir={dir} emitFor={emitFor} Text={Text} go={go} small home={onHome} agent={agent} /></div> : null}
                 <Ctx part={a.parts[q.part]} agent={agent} home={onHome}>
                   <div className="yc-screen pg-screen"><CrewOr node={q.node} emit={one ? emitFor(q.node) : capture(q)} Render={Render} /></div>
                 </Ctx>

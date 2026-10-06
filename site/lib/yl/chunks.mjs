@@ -16,7 +16,7 @@ const FLOWS = new Set(["deck", "plan"]);
 
 // nodes: one screen's adds in order ({key, id, preset, props, in?}), or
 // several screens' concatenated in seq order. Returns
-//   { chunks: [{ key, line, page, pic }], questions: [node], plan }
+//   { chunks: [{ key, line, page, pic }], questions: [node], after: [n], plan }
 // line: the words to read (a `say`, or a page's title); page: the page's
 // props when the chunk is a page (body, points); pic: the node that draws,
 // a group head for sketch/shapes/timeline (its members are found by `in`).
@@ -27,6 +27,7 @@ export function stageChunks(nodes) {
   const head = (n) => (n.in ? byId.get(n.in) : null);
   const chunks = [];
   const questions = [];
+  const after = []; // per question: how many chunks came before it, in line order
   let plan = null;
   let open = null; // the chunk still waiting for its picture
   const start = (c) => { chunks.push(c); open = c.pic ? null : c; };
@@ -47,6 +48,7 @@ export function stageChunks(nodes) {
     }
     if (QUESTIONS.has(n.preset)) {
       questions.push(n);
+      after.push(chunks.length);
       if (h && h.preset === "plan") plan = h;
       continue;
     }
@@ -58,7 +60,7 @@ export function stageChunks(nodes) {
     start({ key: n.key, line: null, page: null, pic: n });
     open = null;
   }
-  return { chunks, questions, plan };
+  return { chunks, questions, after, plan };
 }
 
 // A period ends a sentence only when whitespace follows and then a capital, a
