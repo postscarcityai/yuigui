@@ -302,7 +302,8 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const base = Math.max(0, list.length - win);
   const shown = base ? list.slice(base) : list;
   // Older stage replies fold into one chip (pick A, Oct 6); a tap opens them in place.
-  const fold = useMemo(() => foldStage(shown), [shown]);
+  // `shown` is the thread's own array when no film row hides, and the thread adds to it in place: key on the version, not the array.
+  const fold = useMemo(() => foldStage(shown), [shown, thread.version]); // eslint-disable-line react-hooks/exhaustive-deps
   const [foldOpen, setFoldOpen] = useState(false);
   const nearTop = useRef(false);
   const topGrown = useRef(false);
@@ -462,7 +463,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
                   {foldOpen ? "Fold earlier screens" : `${fold.folded.length} earlier screens`}
                 </button>
               ) : null}
-              {m.id === fold.chipAt && !foldOpen ? null : <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay} fresh={!old.has(m.id) && !stageOn}
+              {m.id === fold.chipAt && !foldOpen ? null : <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay} fresh={!old.has(m.id) && !stageOn && !fold.folded.includes(m.id)}
                 reaction={thread.reactions.get(rowOf(m.id))} wears={wearers.get(rowOf(m.id)) === m.id} onMenu={openMenu} onPicture={setViewer} onOpenAgent={onOpenAgent} onJump={jump} />}
               {m.role === "agent" && !m.from && !(m.id === fold.chipAt && !foldOpen) && (i === list.length - 1 || list[i + 1].role === "user") && askOf(i) ? (
                 <button className="wb-play" data-testid="play-on-stage" onClick={() => toStage({ ask: askOf(i) })}>Play on the stage</button>
