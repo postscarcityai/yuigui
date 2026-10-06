@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T00:36:03.841Z",
+  "updated": "2026-10-06T00:46:00.295Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -342,6 +342,8 @@
         {
           "key": "YUI-308",
           "title": "/web questions show what they ask about, right above the buttons",
+          "summary": "Web questions say what they ask about",
+          "progress": "/progress#web-questions-say-what-they-ask-about",
           "owner": "CJohnDesign"
         },
         {
