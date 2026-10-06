@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T00:51:07.571Z",
+  "updated": "2026-10-06T00:56:01.666Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -338,6 +338,8 @@
         {
           "key": "SITE-201",
           "title": "Thought, a question carries its own context",
+          "summary": "New Thought: A question carries its own context",
+          "progress": "/progress#new-thought-a-question-carries-its-own-context",
           "owner": "CJohnDesign"
         },
         {
