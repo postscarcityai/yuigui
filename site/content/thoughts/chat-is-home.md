@@ -29,6 +29,7 @@ after: /progress/yui314-web-fold-chip-after-dark.webp | Dark: the chip tapped, t
 This is in the app and on /web. The app change rides the next TestFlight build. On the web it was checked in a real browser, dark and light, and that check found two bugs: the chip did not appear as new replies arrived, and opening it threw a timer over the chat. Both are fixed.
 
 ```try
+/playground?demo=chat-is-home | Try it in the playground
 /web | Open Yui on the web
 /thoughts/yui-makes-its-own-design-picks | The pick behind this
 ```

@@ -25,6 +25,7 @@ import { MYFLOWS_VIEWS, MyFlowsDemo } from "./myflows";
 import { STAGEFIRST_VIEWS, StageFirstDemo } from "./stagefirst";
 import { STAGEMOTION_VIEWS, StageMotionDemo } from "./stagemotion";
 import { STAGETOPICS_VIEWS, StageTopicsDemo } from "./stagetopics";
+import ChatHomeDemo from "./chathome";
 import { WEEKDECK_VIEWS, WeekDeckDemo } from "./weekdeck";
 import { MotionLooksDemo } from "./motionlooks";
 import { HybridPiece, MotionDemo } from "./motion";
@@ -147,6 +148,7 @@ export default function Playground({ release = "" }) {
   const stagemotion = shared ? null : ALL[idx].stagemotion;
   const [moView, setMoView] = useState("side");
   const stagetopics = shared ? null : ALL[idx].stagetopics;
+  const chathome = shared ? null : ALL[idx].chathome;
   const [stView, setStView] = useState("now");
   // Motion looks (YL.md section 4 theme, YUI-123): say how each agent moves, in words.
   const motionlooks = shared ? null : ALL[idx].motionlooks;
@@ -159,7 +161,7 @@ export default function Playground({ release = "" }) {
   // The working row (YL.md section 5): the turn plays, `doing` lines in the row, then the reply.
   const working = shared ? null : ALL[idx].working;
   const [turn, playTurn] = useWorkingTurn(text, working ? idx : null);
-  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!stagetopics || !!motionlooks || !!visualizer || !!shaderlook || motion === "free" || motion === "yl" || motion === "kit";
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!stagetopics || !!chathome || !!motionlooks || !!visualizer || !!shaderlook || motion === "free" || motion === "yl" || motion === "kit";
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
@@ -640,6 +642,7 @@ export default function Playground({ release = "" }) {
             {weekdeck ? <WeekDeckDemo key={`wd:${epoch}`} text={text} view={wdView} onEvent={groupEvent} /> : null}
             {stagemotion ? <StageMotionDemo key={`mo:${epoch}`} text={text} view={moView} /> : null}
             {stagetopics ? <StageTopicsDemo key={`st:${epoch}`} view={stView} /> : null}
+            {chathome ? <ChatHomeDemo key={`ch:${epoch}`} light={light} /> : null}
             {motionlooks ? <MotionLooksDemo key={`ml:${epoch}`} text={text} /> : null}
             {visualizer ? <VisualizerDemo key={`vz:${epoch}`} text={text} dark={!light} agent={agent} /> : null}
             {shaderlook ? <ShaderLookDemo key={`sl:${epoch}`} dark={!light} /> : null}

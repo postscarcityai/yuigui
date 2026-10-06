@@ -195,6 +195,16 @@ end`,
     yl: `say "Three ways to keep one thought per screen."`,
   },
   {
+    // Chat is home (YUI-314, YUI-315, Thought chat-is-home): the real web thread on its demo relay, played by a
+    // script (playground/chathome.js). Plain answers and a choose stay in the chat; a sketch, a deck and a timer
+    // take the stage in turn; the older ones fold into ONE chip in the thread, and a tap on it opens that reply in place.
+    name: "Chat is home: the stage is for what needs it",
+    slug: "chat-is-home",
+    agent: "Penny",
+    chathome: true,
+    yl: `say "Plain answers stay in the chat. A picture, a deck or a timer takes the stage."`,
+  },
+  {
     // Stage motion (spec/YL.md section 5, YUI-120 step 1): the same turn on
     // two agents with different characters (playground/stagemotion.js). The
     // doing words pick the mood (reading is looking, drafting is making,

@@ -1,0 +1,189 @@
+{
+ "agents": [
+  {
+   "id": "demo-yui",
+   "name": "Yui",
+   "handle": "yui",
+   "color": "brand",
+   "avatar": "yui",
+   "kind": "hermes",
+   "status": "connected",
+   "presence": "online",
+   "is_default": true,
+   "sort": 0,
+   "theme": {
+    "preset": "yui"
+   },
+   "tagline": "Your agent, drawn as screens",
+   "commands": [
+    {
+     "name": "new",
+     "description": "Start a new session",
+     "args": "[name]"
+    },
+    {
+     "name": "model",
+     "description": "Show or change the model",
+     "args": "[name]"
+    },
+    {
+     "name": "help",
+     "description": "What I can do"
+    }
+   ],
+   "about": "Yui is the app's own helper. Ask it for a screen, or to make a new agent.",
+   "can": [
+    "What's new in Yui?",
+    "Make me a timer",
+    "Add an agent"
+   ]
+  },
+  {
+   "id": "demo-penny",
+   "name": "Penny",
+   "handle": "penny",
+   "color": "candy",
+   "kind": "hermes",
+   "status": "connected",
+   "presence": "online",
+   "is_default": false,
+   "sort": 1,
+   "theme": {
+    "preset": "candy"
+   },
+   "tagline": "Plans your week",
+   "about": "Penny keeps your week. Lists, plans and the evening review.",
+   "can": [
+    "What's next today?",
+    "Add a to-do",
+    "Plan my week"
+   ],
+   "controls": {
+    "v": 1,
+    "sections": {
+     "soul": "rw",
+     "memory": "rwd",
+     "skills": "rwd",
+     "schedules": "rwd",
+     "model": "r",
+     "channels": "r"
+    }
+   },
+   "connector_name": "Maya's Mac",
+   "remote_ref": "penny",
+   "client_safe": false,
+   "share_why": [
+    "terminal: local shell"
+   ]
+  },
+  {
+   "id": "demo-basil",
+   "name": "Basil",
+   "handle": "basil",
+   "color": "forest",
+   "kind": "hosted",
+   "status": "connected",
+   "presence": "asleep",
+   "is_default": false,
+   "sort": 2,
+   "theme": {
+    "preset": "forest"
+   },
+   "tagline": "Meals and groceries",
+   "connector_name": "Maya's Mac",
+   "last_seen_at": "2026-10-01T12:00:00+00:00",
+   "controls": {
+    "v": 1,
+    "sections": {
+     "soul": "rw",
+     "memory": "rwd"
+    }
+   }
+  }
+ ],
+ "threads": {
+  "demo-penny": [
+   {
+    "id": "00000000-0000-4000-8000-0000000000c1",
+    "sender": "agent",
+    "body": "Hi. Ask me anything.",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 30
+   }
+  ],
+  "demo-yui": [],
+  "demo-basil": []
+ },
+ "replies": {},
+ "crew": [
+  {
+   "base": "yui",
+   "name": "Yui",
+   "role": "Helper and maker",
+   "color": "brand",
+   "agent_id": "demo-yui",
+   "tagline": "Ask anything, or make a new agent"
+  },
+  {
+   "base": "arnold",
+   "name": "Arnold",
+   "role": "Trainer",
+   "color": "coral",
+   "agent_id": null,
+   "tagline": "Workouts built around your week and body"
+  },
+  {
+   "base": "basil",
+   "name": "Basil",
+   "role": "Nutritionist",
+   "color": "forest",
+   "agent_id": "demo-basil",
+   "tagline": "Eat better without counting everything"
+  },
+  {
+   "base": "gouda",
+   "name": "Gouda",
+   "role": "Musician",
+   "color": "sunset",
+   "agent_id": null,
+   "tagline": "Beats, chords and practice, right on screen"
+  },
+  {
+   "base": "penny",
+   "name": "Penny",
+   "role": "Planner",
+   "color": "candy",
+   "agent_id": "demo-penny",
+   "tagline": "Get your week out of your head"
+  },
+  {
+   "base": "quill",
+   "name": "Quill",
+   "role": "Study buddy",
+   "color": "wizard",
+   "agent_id": null,
+   "tagline": "Learn anything fast, then get quizzed"
+  }
+ ],
+ "chats": {
+  "demo-penny": [
+   {
+    "id": "demo-penny-c1",
+    "title": null,
+    "is_first": true,
+    "ago_min": 0
+   },
+   {
+    "id": "demo-penny-c2",
+    "title": "Race week plan",
+    "ago_min": 300
+   },
+   {
+    "id": "demo-penny-c3",
+    "title": "Groceries",
+    "ago_min": 3000
+   }
+  ]
+ }
+}

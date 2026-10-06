@@ -1,0 +1,3 @@
+/* Chat is home demo (YUI-315). Every class is ch-. */
+.ch-app { flex: 1; min-height: 0; display: flex; }
+.ch-frame { flex: 1; width: 100%; border: 0; border-radius: 28px; background: transparent; color-scheme: normal; }

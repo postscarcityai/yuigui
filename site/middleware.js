@@ -6,7 +6,7 @@ import { webCsp, makeNonce, themeScriptHash } from "./lib/web/csp.mjs";
 
 export async function middleware(request) {
   const nonce = makeNonce();
-  const csp = webCsp(nonce, await themeScriptHash());
+  const csp = webCsp(nonce, await themeScriptHash(), request.nextUrl.searchParams.has("demo"));
   const headers = new Headers(request.headers);
   headers.set("content-security-policy", csp);
   headers.set("x-nonce", nonce);

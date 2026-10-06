@@ -6,9 +6,10 @@ import { createDemoGroups } from "../../lib/web/groups-demo.mjs";
 import fixture from "./fixtures/penny.json";
 import sharedFixture from "./fixtures/shared.json";
 import goudaFixture from "./fixtures/gouda.json";
+import chathomeFixture from "./fixtures/chathome.json";
 import firstFixture from "./fixtures/first.json";
 
-export const FIXTURES = { penny: fixture, shared: sharedFixture, first: firstFixture, gouda: goudaFixture };
+export const FIXTURES = { penny: fixture, shared: sharedFixture, first: firstFixture, gouda: goudaFixture, chathome: chathomeFixture };
 
 const kit = { FIXTURES, createDemoRelay, createDemoGroups };
 

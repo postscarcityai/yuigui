@@ -9,7 +9,8 @@ import { themeInit } from "../theme-init.mjs";
 
 const BACKEND = "https://txuibjxyfpalzvpneqgp.supabase.co";
 
-export function webCsp(nonce, themeHash) {
+// `framed`: the account-free ?demo= thread may sit in an iframe of our own site (the playground's chat-is-home demo).
+export function webCsp(nonce, themeHash, framed = false) {
   return [
     "default-src 'self'",
     `script-src 'self' 'nonce-${nonce}' 'sha256-${themeHash}' 'strict-dynamic' https://appleid.cdn-apple.com`,
@@ -21,7 +22,7 @@ export function webCsp(nonce, themeHash) {
     `connect-src 'self' ${BACKEND} wss://txuibjxyfpalzvpneqgp.supabase.co https://appleid.apple.com`,
     // The motion player (YUI-311): a sandboxed iframe of our own page, scripts only, no origin, no network.
     "frame-src 'self' https://appleid.apple.com",
-    "frame-ancestors 'none'",
+    framed ? "frame-ancestors 'self'" : "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self' https://appleid.apple.com",
     "object-src 'none'",

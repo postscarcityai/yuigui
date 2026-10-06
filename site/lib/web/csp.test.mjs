@@ -34,3 +34,9 @@ test("the other directives are unchanged", async () => {
   assert.ok(dir(csp, "connect-src").includes("wss://txuibjxyfpalzvpneqgp.supabase.co"));
   assert.ok(dir(csp, "connect-src").includes("https://appleid.apple.com"));
 });
+
+test("only the account-free demo may be framed, and only by our own site", async () => {
+  const hash = await themeScriptHash();
+  assert.equal(dir(webCsp(makeNonce(), hash, true), "frame-ancestors"), "frame-ancestors 'self'");
+  assert.equal(dir(webCsp(makeNonce(), hash), "frame-ancestors"), "frame-ancestors 'none'");
+});
