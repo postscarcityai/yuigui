@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T15:06:08.442Z",
+  "updated": "2026-10-06T15:11:09.292Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -277,10 +277,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-219",
-          "title": "The small-models Thought says what the llama fix did"
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -322,10 +318,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "INT-29",
-          "title": "llama3.2:3b writes its film too",
-          "summary": "The small llama gets its film back",
-          "progress": "/progress#the-small-llama-gets-its-film-back",
+          "key": "SITE-219",
+          "title": "The small-models Thought says what the llama fix did",
           "owner": "CJohnDesign"
         },
         {
@@ -352,6 +346,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-29",
+          "title": "llama3.2:3b writes its film too",
+          "summary": "The small llama gets its film back",
+          "shipped": "2026-10-06",
+          "progress": "/progress#the-small-llama-gets-its-film-back",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5e4db93f"
+        },
         {
           "key": "SITE-218",
           "title": "The models page shows which small models draw screens and films",
