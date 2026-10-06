@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T09:46:01.479Z",
+  "updated": "2026-10-06T09:51:01.722Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -325,6 +325,8 @@
         {
           "key": "SITE-212",
           "title": "Thought, films start in about 6 seconds",
+          "summary": "A Thought: films start in about six seconds",
+          "progress": "/progress#a-thought-films-start-in-about-six-seconds",
           "owner": "CJohnDesign"
         },
         {
