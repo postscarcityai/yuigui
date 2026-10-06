@@ -59,13 +59,13 @@ The chips, the asks and the pages live on the phone and are rebuilt from the thr
 
 ## 3. Where the home comes from
 
-**Native agents** (NATIVE.md, section 4) get a sixth profile part: `home.yui`, the lines above. It is written once into the agent's thread as an agent row with `meta.native = "home"` (no push; the app keeps it out of the record and never brings a page forward for it), the first time `yui-agents list` sees the agent, and a crew agent made before homes existed gets its starter's. `{arnold}` in a line is the person's Arnold's agent id, and a line naming an agent they don't have is left out (Yui's crew page uses it: `card ... url=yui://agent/{arnold}/thread`). The profile check wants two to four `menu shortcut` lines, screens 2 to 12 only, and no `clear`. The agent sees its home in its prompt and keeps it current with patches. It is Yui Lines, so a forked profile edits its home like any other screen, and Ask Yui or Start blank can write one from the answers.
+**Native agents** (NATIVE.md, section 4) get a sixth profile part: `home.yui`, the lines above. It is written once into the agent's thread as an agent row with `meta.native = "home"` (no push; the app keeps it out of the record and never brings a page forward for it), the first time `yui-agents list` sees the agent, and a crew agent made before homes existed gets its starter's. `{arnold}` in a line is the person's Arnold's agent id, and a line naming an agent they don't have is left out (a home can open the person's other agents with `card ... url=yui://agent/{arnold}/thread`). The profile check wants two to four `menu shortcut` lines, screens 2 to 12 only, and no `clear`. Starter screens are optional: a home of chips alone is fine. The agent sees its home in its prompt and keeps it current with patches. It is Yui Lines, so a forked profile edits its home like any other screen, and Ask Yui or Start blank can write one from the answers.
 
 **Hermes and other agents** send the same lines themselves, once. The Hermes plugin sends a profile's `home.yui` (beside its SOUL.md, `~/.hermes/profiles/<name>/home.yui`) on first pair, so an owner can hand-write a home; `hermes -p <name> yui home` shows it and `--send` writes it again. Any agent can change its shortcuts later with `menu shortcut` and `menu done`, the same as the drawer. The channel guide carries one line about the home (Use it well: Your home).
 
 ## 4. The starter sets
 
-Two to four shortcuts each, and two or three starter screens. The chips are in the order they show.
+Two to four shortcuts each, and up to five starter screens; Yui has none. The chips are in the order they show.
 
 | Agent | Shortcuts | Starter screens |
 |---|---|---|
@@ -74,12 +74,13 @@ Two to four shortcuts each, and two or three starter screens. The chips are in t
 | Gouda | Jam · Tune up | 2 Looper · 3 Chords · 4 Keys, all ready to play |
 | Penny | Add a to-do · Plan my week | 2 Today (the list) · 3 This week (a timeline) |
 | Quill | Quiz me · What's next | 2 What you're studying (topic, cards left) · 3 Next review (when, and how many) |
-| Yui | Add an agent · What's new | 2 Your crew (every agent, what it does, one tap to open) |
+| Yui | Add an agent · What's new | None. A calm chat; the crew is in the agent list |
 
 - **Arnold.** "Start a workout" says `Start today's workout` (the timer takes the stage, as workouts always do). "My split" opens This week. Today's workout is patched as sets get ticked.
 - **Basil.** "Log a meal" fills the composer with `Log a meal: ` so the person says or types what they ate, or holds to snap (YUI-166). "Grocery list" opens page 3. Today's numbers are patched after every meal.
 - **Gouda.** The instruments are `loop`, `chords` and `keys` with `+inline`, so they sit on their pages ready to play instead of opening the stage. "Jam" says `Make me a beat to jam on`; "Tune up" says `Tune my guitar` (the tuner, YUI-136).
-- **Penny, Quill, Yui.** Their pages start nearly empty and fill as the person uses them. An empty page shows one line saying what will go there, never a blank screen.
+- **Yui.** No starter screens. Yui's home used to put the whole crew on page 2, a card per agent with an Open button. Chris, TestFlight, Oct 5: "Remove this screen." The agents live in the agent list (the drawer's agent bar), so the page went, and a phone that already had it drops it on the next launch: the app leaves the old `card@crew-*` lines and `save your crew` out of the home row, and the shelf lets go of `your crew` once.
+- **Penny, Quill.** Their pages start nearly empty and fill as the person uses them. An empty page shows one line saying what will go there, never a blank screen.
 
 ## 5. What it does not change
 
