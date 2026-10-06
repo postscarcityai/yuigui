@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T21:51:05.002Z",
+  "updated": "2026-10-06T21:56:05.422Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,19 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-226",
-          "title": "A Thought, films start fast",
-          "summary": "A Thought: Films did not start faster",
-          "progress": "/progress#a-thought-films-did-not-start-faster",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-226",
+          "title": "A Thought, films start fast",
+          "summary": "A Thought: Films did not start faster",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-thought-films-did-not-start-faster"
+        },
         {
           "key": "SITE-225",
           "title": "A Thought, films get a look pass",
