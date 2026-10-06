@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T09:30:56.890Z",
+  "updated": "2026-10-06T09:35:57.930Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -199,12 +199,6 @@
           "waiting": true
         },
         {
-          "key": "INT-23",
-          "title": "Own model",
-          "summary": "qwen2.5:7b stopped drawing screens on the phone run",
-          "waiting": true
-        },
-        {
           "key": "INT-24",
           "title": "Yui plugs into every model provider's ecosystem on launch day",
           "summary": "Sign in with ChatGPT, ChatGPT plugin extensions, the app marketplaces; a standing watch across providers",
@@ -283,6 +277,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-212",
+          "title": "Thought, films start in about 6 seconds"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -316,12 +314,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "YUI-313",
-          "title": "Faster scene 1, 9 of 9 first frames under 10 s",
-          "commit": "https://github.com/postscarcityai/yui/commit/57f1705",
-          "needsDemo": true
         }
       ]
     },
@@ -329,6 +321,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "SITE-211",
+          "title": "Content sync stops refusing timeline.json, no task ids on the site",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "INT-23",
+          "title": "A small local model draws screens again (qwen2.5:7b)",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
@@ -346,12 +348,6 @@
           "title": "One thought per full screen",
           "blocked": "chris",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-211",
-          "title": "Content sync stops refusing timeline.json, no task ids on the site",
-          "blocked": "other",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -359,6 +355,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-313",
+          "title": "Faster scene 1, 9 of 9 first frames under 10 s",
+          "summary": "Films start in about 6 seconds, every time",
+          "shipped": "2026-10-06",
+          "progress": "/progress#films-start-in-about-6-seconds-every-time",
+          "commit": "https://github.com/postscarcityai/yui/commit/57f1705"
+        },
         {
           "key": "SITE-210",
           "title": "Thought, films in your browser, timed",
