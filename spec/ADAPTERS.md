@@ -4,6 +4,8 @@ Chris, Sep 24: Yui should work with any agent. Hermes first, then OpenClaw, Meta
 
 This is the plan for getting there. It is backlog: nothing here starts until the MVP passes (YUI-29). Each framework has a parked card on the board, named in its section.
 
+For where each model provider lets a GUI like Yui plug in (sign in, app surface, directory rules), see `spec/ECOSYSTEMS.md`.
+
 Read first: `spec/RELAY.md` (how messages move), `spec/AGENTS.md` (connectors and agents), `spec/CHANNEL.md` (what an agent is told about Yui).
 
 ## The short version

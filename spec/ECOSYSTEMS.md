@@ -1,0 +1,44 @@
+# Where Yui can plug in | every model provider (checked Oct 6 2026)
+
+Chris, Sep 29: plug into the ecosystem wherever we can, and be first at the next launch.
+
+This page is research only. Nothing here is signed up for, applied to, joined or posted. Anything that needs one of those is marked **Chris sign-off (🔴)**. Every row has its source and the day it was read.
+
+What Yui already has that most rows lean on: the [Yui MCP server](/developers/mcp) (screens drawn inside the chat as an MCP App, taps read back), OAuth for it (dynamic client registration, approved in the Yui app), a Claude guide and a ChatGPT guide, and the [adapters plan](/developers/adapters) (a model bridge, an A2A bridge, a webhook). Sign in with Apple is Yui's own login.
+
+## The table
+
+| Provider | Sign in with | App surface | Directory and review | Yui fit | Status | Source, checked |
+| --- | --- | --- | --- | --- | --- | --- |
+| OpenAI | Sign in with ChatGPT (OAuth 2.0 and OpenID Connect). Limited trial for selected commercial partners: you contact an OpenAI rep to join a waitlist. Open-source apps get self-serve use of a user's ChatGPT plan. | ChatGPT plugins (MCP server plus a manifest), shared with Codex. Your own plugin in developer mode works for you today. | Plugin ZIP uploaded at the platform site. Needs a verified organization, website, support, privacy and terms URLs, a video, 5 positive and 3 negative test cases, reviewer login, domain verification. Automated checks, then review. No review window is published. | MCP server, OAuth and MCP App are built. Two blockers: a fixed domain for the verification token, and a reviewer login that needs no device approval. Yui is open source, so the plan-usage route fits. | Developer mode works. Directory and Sign in with ChatGPT: Chris sign-off (🔴). | [Sign in with ChatGPT](https://developers.openai.com/siwc/quickstart), [plugin submission](https://developers.openai.com/apps-sdk/deploy/submission), Oct 6 |
+| Anthropic | No Sign in with Claude found in the docs read. Not confirmed either way. | Connectors (remote MCP servers, MCP Apps). Your own custom connector works today. | Developer portal, any paid Claude plan. Automated policy scan; by default listed as a Community connector with no action. Some get a human review, times vary with the queue. Needs OAuth 2.0, a title and a read-only or destructive hint on every tool, a test account, a privacy URL, 3 to 5 screenshots for an MCP App. | Best fit. Remote MCP server, OAuth with dynamic client registration and MCP App all exist. Tool hints and a seeded test account are the gap. | Custom connector works. Listing: Chris sign-off (🔴). | [Submit a connector](https://claude.com/docs/connectors/building/submission), Oct 6 |
+| Google | Sign in with Google is open to any developer through the API console. Sensitive scopes need app verification. Not needed for a plain login. | Gemini app: since mid 2026 a user can paste a custom MCP URL into Connected Apps on a personal account (one secondary source, not Google's own page). Named partners need a business deal. Enterprise: custom MCP server as a data store, public preview since Apr 28 2026. Gemini CLI extensions gallery: being replaced by Antigravity CLI. | No public directory for outsiders and no verified badge. | Pasted URL works with the MCP server in theory (needs StreamableHTTP and OAuth). Gemini as a model and as an A2A agent are already in Yui. | Not tried in the app. A look in Gemini is a Chris browser step. Partner deal: Chris sign-off (🔴). | [OAuth policies](https://developers.google.com/identity/protocols/oauth2), [how to list an MCP server in Gemini](https://tallyfy.com/how-to-list-mcp-server-google-gemini/), Oct 6 |
+| xAI | Sign in with X (OAuth 2.0) exists; the page read does not say who is approved. Unconfirmed. | Grok connectors: any Grok user can add a custom MCP server by URL and finish its login. Built-in OAuth connectors are xAI's own. The xAI API takes a remote MCP URL as a tool. | No directory. No review. | Yui MCP server fits as is. Grok as a model is already in the model bridge. | Not tried in the app. A look in Grok is a Chris browser step. | [Grok connectors](https://docs.x.ai/grok/connectors), [X OAuth 2.0](https://docs.x.com/resources/fundamentals/authentication/oauth-2-0/authorization-code), Oct 6 |
+| Meta | Facebook Login is open, but permissions past the basics go through App Review. | No consumer AI app surface for outside apps found. Meta runs its own MCP servers for ads, Instagram, WhatsApp and Facebook (not a place to list Yui). The Model API is a model, in public preview for US developers. | No directory found. | Model bridge already has Meta's model. Nothing to list. | Skip for now. | [Meta MCP docs](https://developers.facebook.com/documentation/mcp), [Facebook Login](https://developers.facebook.com/docs/facebook-login/), Oct 6 |
+| Mistral | None found. | Le Chat custom MCP connectors: an admin adds a server by URL (no auth, bearer or basic, or OAuth 2.1 with dynamic client registration). On Free and Pro the account owner is the admin. | A curated directory exists. The page read does not say how an outsider gets in. | Yui MCP server fits as is: OAuth with dynamic client registration is the same flow. | Not tried. Getting into the curated directory is outreach: Chris sign-off (🔴). | [Le Chat MCP connectors](https://docs.mistral.ai/le-chat/knowledge-integrations/connectors/mcp-connectors), Oct 6 |
+| Apple | Sign in with Apple is open to any enrolled developer. Yui already uses it. | iOS 27 App Intents: Siri and Spotlight can act on an app's content and actions in plain language. Foundation Models framework takes any model that fits its Language Model protocol, Claude and Gemini named. Apple says Xcode uses MCP. No MCP for the iPhone and no Siri hook for third-party AI found on Apple's pages (one blog claimed a Siri Extensions SDK; Apple's own guide does not show it). | App Store review only. No separate directory. | Yui can expose its own actions (send to an agent, open a thread) to Siri through App Intents. | Open. Ships in a TestFlight build, no sign-off. | [Sign in with Apple](https://developer.apple.com/sign-in-with-apple/), [WWDC26 Apple Intelligence guide](https://developer.apple.com/wwdc26/guides/apple-intelligence/), Oct 6 |
+
+## What changed that matters
+
+- ChatGPT's plan sign-in opened to open-source apps at DevDay on Sep 29. Yui is open source. That could let a user run a model in Yui on their own ChatGPT plan, with no API key. It needs an application to OpenAI, so it is a sign-off.
+- Claude is the only directory with a self-serve path that lists you without a human step by default. Everything else is a pasted URL or a negotiated deal.
+- Grok, Le Chat and the Gemini app all take a pasted MCP URL. That costs Yui nothing and needs no review.
+- Gemini and Meta have no outside directory worth chasing today.
+
+## Ship first on
+
+Ranked. Each has the one build card it needs, its size, and whether Chris must sign off first.
+
+1. **Claude connector listing.** Build card: make the MCP server directory-ready (title and hint on every tool, a seeded test account, listing text, 3 to 5 screenshots). **S.** Sign-off: **Chris sign-off (🔴)**, a public listing is outreach.
+2. **Paste-a-URL guides for Grok, Le Chat and Gemini.** Build card: one live check in each app and a short how-to per app under the MCP spec. **S.** Sign-off: none for the docs. The live check is a Chris browser step in his own accounts.
+3. **Siri through App Intents.** Build card: expose send-to-agent and open-thread as App Intents on iOS 27. **M.** Sign-off: none, it ships in a normal build.
+4. **Sign in with ChatGPT plan usage (open source).** Build card: let a user run a model in Yui on their ChatGPT plan, behind the hosted connector. **M**, and it waits for the hosted connector. Sign-off: **Chris sign-off (🔴)**, it starts with an application to OpenAI.
+5. **ChatGPT plugin listing.** Build card: a custom domain for the MCP server (for the verification token), a demo account that signs in with no device step, a video, the manifest ZIP. **L.** Sign-off: **Chris sign-off (🔴)**, a public submission. The draft listing is in the repo as spec/CHATGPT_LISTING.md.
+
+Not on the list: Meta (nothing to list on), Gemini Enterprise (a per-company data store, a B2B path for later), a Gemini partner deal (needs a business deal first).
+
+## Caveats
+
+- Where a fact came from a blog and not the provider's own page, the row says so.
+- Review windows for OpenAI and Anthropic are not published. Do not promise one.
+- Some pages were read through a page summary tool, not word for word. Re-read the source before a submission.

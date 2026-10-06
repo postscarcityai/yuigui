@@ -23,6 +23,7 @@ const ORDER = [
   ["chats", "Chats (draft)", null, "Several chats with one agent, listed in the drawer: New chat, titles, rename and delete, and what the agent remembers across them."],
   ["home", "Agent home (draft)", null, "Every agent's home: its own shortcuts, what is waiting on you, and starter screens a swipe away, set with Yui Lines words that already exist."],
   ["adapters", "Adapters", null, "Every agent framework Yui plans to reach, Hermes first, and in what order."],
+  ["ecosystems", "Ecosystems", null, "Where Yui can plug in today at OpenAI, Anthropic, Google, xAI, Meta, Mistral and Apple: sign in, app surface, directory rules, and what to ship first."],
   ["hosting", "Hosting", null, "Where Yui's hosted connector runs (Cloudflare, beside the Supabase relay), what it costs, and why."],
   ["openclaw", "OpenClaw", null, "Your OpenClaw agent in Yui: install the channel plugin, pair, and what the agent is told."],
   ["webhook", "Webhook bridge", null, "Any agent that answers an HTTP POST, in Yui: what each turn sends and what to answer."],
