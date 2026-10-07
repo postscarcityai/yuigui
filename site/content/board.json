@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T03:45:57.008Z",
+  "updated": "2026-10-07T03:50:52.130Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-232",
           "title": "A Thought, we checked the film judge first",
+          "summary": "A Thought: We checked the film judge before fixing the films",
+          "progress": "/progress#a-thought-we-checked-the-film-judge-before-fixing-the-films",
           "owner": "CJohnDesign"
         }
       ]
