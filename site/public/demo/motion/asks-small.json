@@ -1,0 +1,7 @@
+[
+ {"id":"s-settings","kind":"small","small":true,"ask":"What changed on the settings screen: Log out moved to the bottom."},
+ {"id":"s-build","kind":"small","small":true,"ask":"Build 548 is live on TestFlight."},
+ {"id":"s-tasks","kind":"small","small":true,"ask":"Show that 14 of 20 tasks are done."},
+ {"id":"s-help","kind":"small","small":true,"ask":"The Help row was removed from Settings."},
+ {"id":"s-dark","kind":"small","small":true,"ask":"Dark mode is now on by default."}
+]

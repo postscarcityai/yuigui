@@ -14,7 +14,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import look as L
 
-ASKS = json.load(open(os.path.join(HERE, "..", "..", "public", "demo", "motion", "asks.json")))[:20]
+ASKDIR = os.path.join(HERE, "..", "..", "public", "demo", "motion")
+# The 20 films of the set, then the 5 small asks (MOTION-7; asks-small.json). --only picks any of them by id.
+ASKS = json.load(open(os.path.join(ASKDIR, "asks.json")))[:20] + json.load(open(os.path.join(ASKDIR, "asks-small.json")))
 
 
 def load_plugin(path):
@@ -89,6 +91,16 @@ if __name__ == "__main__":
                "first_scene_s": {"median": firsts[len(firsts) // 2] if firsts else None, "mean": round(sum(firsts) / len(firsts), 1) if firsts else None, "max": firsts[-1] if firsts else None},
                "per_film": {n: {"pass": f"{sum(r['pass'] for r in rows)}/{len(rows)}", "first_scene_s": f["stats"]["first_scene_s"], "total_s": f["stats"]["total_s"],
                                 "fails": [r["fail"] for r in rows], "detail": [{"scene": r["scene"], **r["plain"], **({"vision": r["vision"]} if r.get("vision") else {})} for r in rows]} for n, (f, rows) in done.items()}}
+    small_ids = {x["id"] for x in ASKS if x.get("small")}
+    def group(ns):
+        rows = [r for n in ns for r in done[n][1]]
+        st = [done[n][0]["stats"] for n in ns]
+        avg = lambda k: round(sum((x.get(k) or 0) for x in st) / max(1, len(st)), 3)
+        return {"films": len(ns), "frames": len(rows), "frame_pass_pct": rate(rows), "total_s_per_film": avg("total_s"), "first_scene_s": avg("first_scene_s"), "scenes_per_film": avg("scenes"), "film_s": avg("film_s")}
+    summary["by_group"] = {"small": group([n for n in names if n.rsplit("-r", 1)[0] in small_ids]),
+                           "full": group([n for n in names if n.rsplit("-r", 1)[0] not in small_ids])}
+    for n in names:
+        summary["per_film"][n].update({k: done[n][0]["stats"].get(k) for k in ("scenes", "film_s")})
     json.dump(summary, open(os.path.join(out, "summary.json"), "w"), indent=1)
     for i in range(0, len(names), 5):
         L.sheet([(n, done[n][1]) for n in names[i:i + 5] if done[n][1]], os.path.join(out, f"sheet-{i // 5 + 1}.png"))
