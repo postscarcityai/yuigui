@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T21:05:23.590Z",
+  "updated": "2026-10-07T21:10:51.350Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -295,7 +295,7 @@
       "cards": [
         {
           "key": "YUI-321",
-          "title": "Films draw right on the stage, scrub and touch the parts, no separate player",
+          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "owner": "CJohnDesign"
         }
       ]
