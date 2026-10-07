@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T19:21:02.472Z",
+  "updated": "2026-10-07T19:26:03.510Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-248",
           "title": "A Thought, new things learned after one ask",
+          "summary": "A Thought: films learn after one ask",
+          "progress": "/progress#a-thought-films-learn-after-one-ask",
           "owner": "CJohnDesign"
         }
       ]
