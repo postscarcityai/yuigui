@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T08:35:48.622Z",
+  "updated": "2026-10-07T08:40:33.683Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-317",
           "title": "The phone plays the new film kit, the hero shows up",
+          "summary": "Phone films draw the kit's objects",
+          "progress": "/progress#phone-films-draw-the-kit-s-objects",
           "owner": "CJohnDesign"
         }
       ]
