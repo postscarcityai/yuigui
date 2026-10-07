@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T02:35:41.111Z",
+  "updated": "2026-10-07T02:40:41.981Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-231",
           "title": "A Thought, a film check that answers the same twice",
+          "summary": "A Thought: A film check that answers the same twice",
+          "progress": "/progress#a-thought-a-film-check-that-answers-the-same-twice",
           "owner": "CJohnDesign"
         }
       ]
