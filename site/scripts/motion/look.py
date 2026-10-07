@@ -10,7 +10,7 @@ of the scene (and a second frame 0.6 s later) through the real player, then scor
   clipped    a text box runs off the screen
   overlap    two different labels sit on top of each other
   flat       under 3 colours used
-  still      nothing moved between the two frames
+  still      nothing moves anywhere in the scene (frames at 20, 35, 50, 65, 80% of it and 0.6 s after mid-scene all alike)
   throws     the scene threw (the player cut it short)
 
 plus one vision-model look (claude, the `claude` CLI) that scores the frame 1 to 5 as a designed explainer frame and
@@ -54,6 +54,12 @@ WRAP = """() => {
 # OV_NEED or more of the OV_AT sample times, so a label passing through another mid-move does not count, a collision that stays does.
 OV_PX, OV_SHARE = 2, 0.25
 OV_AT, OV_NEED = (0.2, 0.35, 0.5, 0.65, 0.8), 2
+
+# Still rule (MOTION-10). A scene is still only when nothing changes anywhere in it: no two of the frames at mid-scene, 0.6 s later,
+# and 20, 35, 50, 65 and 80% of the scene differ by STILL_MOVE (share of pixels that changed). A scene that moves, then holds for a
+# beat, is a hold beat and passes. The old rule compared two frames 0.6 s apart at mid-scene and called 43 of 277 frames still;
+# all 43 were hold beats, none a scene that never moves.
+STILL_MOVE = 0.002
 
 
 def overlaps(texts):
@@ -107,8 +113,11 @@ def render_scenes(film, theme=None):
             late = min(mid + 0.6, s["start"] + s["dur"] - 0.05)
             im1, texts = _shot(pg, mid)
             im2, _ = _shot(pg, late)
-            seen = [overlaps(_shot(pg, s["start"] + s["dur"] * f)[1]) for f in OV_AT]  # the overlap check samples five times
-            out.append((s, im1, im2, texts, seen))
+            shots = [_shot(pg, s["start"] + s["dur"] * f) for f in OV_AT]  # the overlap and still checks sample five times
+            seen = [overlaps(t) for _, t in shots]
+            frames = [im1, im2] + [im for im, _ in shots]
+            moved = max(changed(a, b) for i, a in enumerate(frames) for b in frames[i + 1:])
+            out.append((s, im1, moved, texts, seen))
         errors = pg.evaluate("window.__motion.errors()")
         ctx.close(); b.close()
     srv.shutdown()
@@ -130,7 +139,7 @@ def changed(a, b):
     return n / len(pa)
 
 
-def plain_checks(s, im1, im2, texts, errors, seen=None):
+def plain_checks(s, im1, moved, texts, errors, seen=None):
     fails = {}
     if s["name"] in errors:
         fails["throws"] = "scene threw"
@@ -146,8 +155,8 @@ def plain_checks(s, im1, im2, texts, errors, seen=None):
         fails["overlap"] = "; ".join(ov[:2])
     if colours(im1) < 3:
         fails["flat"] = f"{colours(im1)} colours"
-    if changed(im1, im2) < 0.002:
-        fails["still"] = "no change in 0.6 s"
+    if moved < STILL_MOVE:
+        fails["still"] = "nothing moves in the whole scene"
     return fails
 
 
