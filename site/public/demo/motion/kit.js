@@ -343,8 +343,8 @@
       c.save(); c.font = fontOf(o); var size = o.size || 24, lh = size * (o.lh || 1.22), al = o.align || "center";
       var lines = wrap(str, o), w = 0; lines.forEach(function (l) { w = Math.max(w, c.measureText(l).width); });
       var pad0 = o.bg ? (o.pad == null ? size * 0.4 : o.pad) : 0;
-      var tm = c.getTransform(),
-          flat = still;  // a still camera: the caption band and the screen edge apply
+      var tm = c.getTransform && c.getTransform(); if (!tm || typeof tm.a !== "number") tm = { a: DPR, b: 0, c: 0, d: DPR, e: 0, f: 0 };
+      var flat = still;  // a still camera: the caption band and the screen edge apply
       if (flat && !o.free) { if (al === "center") x = Math.min(W - 8 - pad0 - w / 2, Math.max(8 + pad0 + w / 2, x)); else if (al === "left") x = Math.max(8 + pad0, Math.min(x, W - 8 - pad0 - w)); else x = Math.min(W - 8 - pad0, Math.max(x, 8 + pad0 + w)); }
       var h = lh * lines.length, left = al === "left" ? x : al === "right" ? x - w : x - w / 2, top = o.base === "top" ? y : y - h / 2;
       if (!o.free && !tm.b && !tm.c) {  // look pass (MOTION-2, MOTION-8): a text never lands on another text, judged in screen pixels whatever the camera does, and never in the caption band
