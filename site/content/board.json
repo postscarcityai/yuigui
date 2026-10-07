@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T11:51:08.179Z",
+  "updated": "2026-10-07T12:06:09.837Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -271,6 +271,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-241",
+          "title": "A Thought, films start without the warm-up"
         },
         {
           "key": "NOTE-21045",
