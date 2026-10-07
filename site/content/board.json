@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T08:05:29.674Z",
+  "updated": "2026-10-07T08:10:27.880Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,18 +288,19 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-237",
-          "title": "A Thought, the kit draws the hero",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-237",
+          "title": "A Thought, the kit draws the hero",
+          "summary": "A Thought: The kit draws the hero, a real chicken at last",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-the-kit-draws-the-hero-a-real-chicken-at-last"
+        },
         {
           "key": "YUI-316",
           "title": "Films play on the phone, lift the motion gate to build 545",
