@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T06:50:17.497Z",
+  "updated": "2026-10-07T06:55:17.169Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,19 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-236",
-          "title": "A Thought, films learn from worked drawings",
-          "summary": "A Thought: Films shown worked drawings, the model read them and drew a blob anyway",
-          "progress": "/progress#a-thought-films-shown-worked-drawings-the-model-read-them-and-drew-a-blob-anyway",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-236",
+          "title": "A Thought, films learn from worked drawings",
+          "summary": "A Thought: Films shown worked drawings, the model read them and drew a blob anyway",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-films-shown-worked-drawings-the-model-read-them-and-drew-a-blob-anyway"
+        },
         {
           "key": "SITE-235",
           "title": "A Thought, films plan the hero first",
