@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T21:10:51.350Z",
+  "updated": "2026-10-07T21:55:32.585Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,7 @@
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
