@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T17:36:08.448Z",
+  "updated": "2026-10-07T17:40:57.062Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -297,11 +297,6 @@
           "key": "YUI-320",
           "title": "A film ends with Another take and Change it, not only Replay",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-246",
-          "title": "A Thought, films draw common things at once",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -309,6 +304,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-246",
+          "title": "A Thought, films draw common things at once",
+          "summary": "A Thought: films draw common things at once",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-films-draw-common-things-at-once",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/31bcfea5"
+        },
         {
           "key": "YUI-319",
           "title": "Films talk, the say lines are spoken on the phone with a mute button",
