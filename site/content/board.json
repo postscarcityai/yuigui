@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T17:45:58.454Z",
+  "updated": "2026-10-07T17:51:33.978Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,20 +292,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "YUI-320",
-          "title": "A film ends with Another take and Change it, not only Replay",
-          "summary": "Films end with Another take and Change it",
-          "progress": "/progress#films-end-with-another-take-and-change-it",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-320",
+          "title": "A film ends with Another take and Change it, not only Replay",
+          "summary": "Films end with Another take and Change it",
+          "shipped": "2026-10-07",
+          "progress": "/progress#films-end-with-another-take-and-change-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6b092b00"
+        },
         {
           "key": "SITE-246",
           "title": "A Thought, films draw common things at once",
