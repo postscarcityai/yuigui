@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T07:40:23.705Z",
+  "updated": "2026-10-07T07:45:29.482Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,20 +292,19 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "YUI-316",
-          "title": "Films play on the phone, lift the motion gate to build 545",
-          "summary": "Films now play on your phone",
-          "progress": "/progress#films-now-play-on-your-phone",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-316",
+          "title": "Films play on the phone, lift the motion gate to build 545",
+          "summary": "Films now play on your phone",
+          "shipped": "2026-10-07",
+          "progress": "/progress#films-now-play-on-your-phone"
+        },
         {
           "key": "SITE-236",
           "title": "A Thought, films learn from worked drawings",
