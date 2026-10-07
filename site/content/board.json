@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T07:05:18.939Z",
+  "updated": "2026-10-07T07:35:23.155Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,7 +292,13 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "YUI-316",
+          "title": "Films play on the phone, lift the motion gate to build 545",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
