@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T08:10:27.880Z",
+  "updated": "2026-10-07T08:35:48.622Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-238",
+          "title": "A Thought, films draw what the kit lacks"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -288,7 +292,13 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "YUI-317",
+          "title": "The phone plays the new film kit, the hero shows up",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
