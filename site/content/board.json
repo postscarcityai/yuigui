@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T12:06:09.837Z",
+  "updated": "2026-10-07T12:45:15.203Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-241",
-          "title": "A Thought, films start without the warm-up"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -292,7 +288,15 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "SITE-241",
+          "title": "A Thought, films start without the warm-up",
+          "summary": "A Thought: Films start without the warm-up",
+          "progress": "/progress#a-thought-films-start-without-the-warm-up",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
