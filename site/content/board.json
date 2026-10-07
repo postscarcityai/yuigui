@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T16:40:48.310Z",
+  "updated": "2026-10-07T17:00:50.411Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -277,10 +277,6 @@
           "title": "A film ends with Another take and Change it, not only Replay"
         },
         {
-          "key": "SITE-245",
-          "title": "A Thought, scene 2 ready when scene 1 ends"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -300,6 +296,11 @@
         {
           "key": "YUI-319",
           "title": "Films talk, the say lines are spoken on the phone with a mute button",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-245",
+          "title": "A Thought, scene 2 ready when scene 1 ends",
           "owner": "CJohnDesign"
         }
       ]
