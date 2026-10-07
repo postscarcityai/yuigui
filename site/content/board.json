@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T17:20:54.756Z",
+  "updated": "2026-10-07T17:30:56.656Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-246",
-          "title": "A Thought, films draw common things at once"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -296,6 +292,11 @@
         {
           "key": "YUI-320",
           "title": "A film ends with Another take and Change it, not only Replay",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-246",
+          "title": "A Thought, films draw common things at once",
           "owner": "CJohnDesign"
         }
       ]
