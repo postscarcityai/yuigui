@@ -23,7 +23,9 @@ HELDOUT = json.load(open(os.path.join(ASKDIR, "asks-heldout.json")))
 HELDOUT2 = json.load(open(os.path.join(ASKDIR, "asks-heldout2.json")))
 # MOTION-23: twenty held-out asks, 14 about a thing the seed draws (new wording) and 6 about a thing it does not. --set heldout3.
 HELDOUT3 = json.load(open(os.path.join(ASKDIR, "asks-heldout3.json")))
-SETS = {"heldout": HELDOUT, "heldout2": HELDOUT2, "heldout3": HELDOUT3}
+# MOTION-24: twenty more, 14 about a thing the 93-thing seed draws (fresh wording) and 6 about nouns in neither the kit nor the seed. --set heldout4.
+HELDOUT4 = json.load(open(os.path.join(ASKDIR, "asks-heldout4.json")))
+SETS = {"heldout": HELDOUT, "heldout2": HELDOUT2, "heldout3": HELDOUT3, "heldout4": HELDOUT4}
 
 
 def load_plugin(path):

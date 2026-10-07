@@ -19,7 +19,8 @@ def load(path):
 
 
 def ask_for(n):
-    return f"How a {n} works." if n in ("windmill", "microscope", "tractor", "helicopter", "guitar", "piano", "telescope", "submarine", "crane") else f"A {n}, shown clearly."
+    a = "an" if n[0] in "aeiou" else "a"
+    return f"How {a} {n} works." if n in ("windmill", "microscope", "tractor", "helicopter", "guitar", "piano", "telescope", "submarine", "crane") else f"{a.title()} {n}, shown clearly."
 
 
 def film_for(H, name, th):
