@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T20:15:10.673Z",
+  "updated": "2026-10-07T20:35:19.126Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,9 +273,8 @@
           "waiting": true
         },
         {
-          "key": "NOTE-1912",
-          "title": "Films still drawn as blobs",
-          "waiting": true
+          "key": "SITE-251",
+          "title": "Thought on MOTION-27, your own agents make films"
         },
         {
           "key": "NOTE-21045",
@@ -293,7 +292,13 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "NOTE-1912",
+          "title": "Films still drawn as blobs",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
