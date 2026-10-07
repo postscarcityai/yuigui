@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T08:40:33.683Z",
+  "updated": "2026-10-07T08:50:34.548Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,20 +292,19 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "YUI-317",
-          "title": "The phone plays the new film kit, the hero shows up",
-          "summary": "Phone films draw the kit's objects",
-          "progress": "/progress#phone-films-draw-the-kit-s-objects",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-317",
+          "title": "The phone plays the new film kit, the hero shows up",
+          "summary": "Phone films draw the kit's objects",
+          "shipped": "2026-10-07",
+          "progress": "/progress#phone-films-draw-the-kit-s-objects"
+        },
         {
           "key": "SITE-237",
           "title": "A Thought, the kit draws the hero",
