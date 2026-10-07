@@ -1,6 +1,58 @@
 {
   "builds": [
     {
+      "build": 576,
+      "date": "2026-10-07",
+      "uploaded": "2026-10-07T11:33:37-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "YUI-316: lift MOTION_BUILD to 545, films play on the phone"
+        },
+        {
+          "text": "MOTION-14: plugin picks the film's hero from the ask and the kit draws it (motion_hero.py)"
+        },
+        {
+          "text": "YUI-317: re-bundle the motion player with the film kit's api.thing, so phone films draw the kit objects"
+        },
+        {
+          "text": "MOTION-15: one cheap call draws a hero the kit lacks from kit shapes, cached by name, size capped"
+        },
+        {
+          "text": "YUI-318: re-bundle the phone player with api.defineThing, giraffe film test"
+        },
+        {
+          "text": "MOTION-18: warm claude for the parts call, film writers start on the noun"
+        },
+        {
+          "text": "MOTION-19: warm.shutdown cancels a process still starting; motion.prime fires (maker is split_film). Scene-2-early and warm scene 1 writer tried, missed, reverted"
+        },
+        {
+          "text": "MOTION-20: parse_reply reads the first JSON object (a second line no longer drops the hero). Shorter parts reply tried, missed, reverted"
+        },
+        {
+          "text": "MOTION-21: scene 1 writer starts with the parts call and goes out on the first shapes (no wait on the full parts reply)"
+        },
+        {
+          "text": "MOTION-22: scene 2+ writer starts with scene 1's, not after it (gap 2.4/1.8/2.6 s to 0 s, ready 0% to 65-70%)"
+        },
+        {
+          "text": "Films talk: say cues are spoken on device with a mute button in the film chrome",
+          "card": "YUI-319"
+        },
+        {
+          "text": "MOTION-23: 21 checked drawings ship with the plugin (motion_things_seed.json); a seed word skips the parts call"
+        },
+        {
+          "text": "Films end with Replay, Another take and Change it",
+          "card": "YUI-320"
+        },
+        {
+          "text": "MOTION-24: seed grows from 21 to 93 checked drawings; a seed word still skips the parts call"
+        }
+      ]
+    },
+    {
       "build": 562,
       "date": "2026-10-07",
       "uploaded": "2026-10-07T00:06:46-07:00",
@@ -2266,48 +2318,7 @@
   ],
   "next": [
     {
-      "text": "YUI-316: lift MOTION_BUILD to 545, films play on the phone"
-    },
-    {
-      "text": "MOTION-14: plugin picks the film's hero from the ask and the kit draws it (motion_hero.py)"
-    },
-    {
-      "text": "YUI-317: re-bundle the motion player with the film kit's api.thing, so phone films draw the kit objects"
-    },
-    {
-      "text": "MOTION-15: one cheap call draws a hero the kit lacks from kit shapes, cached by name, size capped"
-    },
-    {
-      "text": "YUI-318: re-bundle the phone player with api.defineThing, giraffe film test"
-    },
-    {
-      "text": "MOTION-18: warm claude for the parts call, film writers start on the noun"
-    },
-    {
-      "text": "MOTION-19: warm.shutdown cancels a process still starting; motion.prime fires (maker is split_film). Scene-2-early and warm scene 1 writer tried, missed, reverted"
-    },
-    {
-      "text": "MOTION-20: parse_reply reads the first JSON object (a second line no longer drops the hero). Shorter parts reply tried, missed, reverted"
-    },
-    {
-      "text": "MOTION-21: scene 1 writer starts with the parts call and goes out on the first shapes (no wait on the full parts reply)"
-    },
-    {
-      "text": "MOTION-22: scene 2+ writer starts with scene 1's, not after it (gap 2.4/1.8/2.6 s to 0 s, ready 0% to 65-70%)"
-    },
-    {
-      "text": "Films talk: say cues are spoken on device with a mute button in the film chrome",
-      "card": "YUI-319"
-    },
-    {
-      "text": "MOTION-23: 21 checked drawings ship with the plugin (motion_things_seed.json); a seed word skips the parts call"
-    },
-    {
-      "text": "Films end with Replay, Another take and Change it",
-      "card": "YUI-320"
-    },
-    {
-      "text": "MOTION-24: seed grows from 21 to 93 checked drawings; a seed word still skips the parts call"
+      "text": "Yui 0.6.5: daily release, 2026-10-07 [YUI-SHIP]"
     }
   ]
 }
