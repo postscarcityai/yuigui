@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T20:45:15.290Z",
+  "updated": "2026-10-07T20:55:16.638Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,11 @@
           "waiting": true
         },
         {
+          "key": "YUI-321",
+          "title": "Films draw right on the stage, scrub and touch the parts, no separate player",
+          "waiting": true
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -293,18 +298,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-251",
-          "title": "Thought on MOTION-27, your own agents make films",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-251",
+          "title": "Thought on MOTION-27, your own agents make films",
+          "summary": "A Thought: the agents Yui runs for you now make films",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-the-agents-yui-runs-for-you-now-make-films",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/70f103f2"
+        },
         {
           "key": "SITE-250",
           "title": "Thought on MOTION-26, explainers get a film",
