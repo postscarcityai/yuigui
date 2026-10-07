@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T19:41:05.750Z",
+  "updated": "2026-10-07T19:46:11.037Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,11 @@
           "waiting": true
         },
         {
+          "key": "NOTE-1912",
+          "title": "Films still drawn as blobs",
+          "waiting": true
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -288,25 +293,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-249",
-          "title": "Publish the 0.6.5 Thought, films talk",
-          "summary": "A Thought: Yui 0.6.5, films talk",
-          "progress": "/progress#a-thought-yui-0-6-5-films-talk",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-1912",
-          "title": "Films still drawn as blobs",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-249",
+          "title": "Publish the 0.6.5 Thought, films talk",
+          "summary": "A Thought: Yui 0.6.5, films talk",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-yui-0-6-5-films-talk",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/26bc467f"
+        },
         {
           "key": "SITE-248",
           "title": "A Thought, new things learned after one ask",
