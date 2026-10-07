@@ -1,0 +1,42 @@
+[
+ {
+  "id": "cat",
+  "ask": "How a cat always lands on its feet when it falls."
+ },
+ {
+  "id": "hammer",
+  "ask": "How a claw hammer drives a nail and pulls one out."
+ },
+ {
+  "id": "bus",
+  "ask": "How a city bus route works: the stops, the order, and how long each leg takes."
+ },
+ {
+  "id": "brain",
+  "ask": "What the brain does while you sleep, stage by stage."
+ },
+ {
+  "id": "castle",
+  "ask": "How a medieval castle was defended: the walls, the gate and the towers."
+ },
+ {
+  "id": "bee",
+  "ask": "How a bee turns nectar into honey and tells the hive where the flowers are."
+ },
+ {
+  "id": "elephant",
+  "ask": "How an elephant keeps cool in the heat using its ears and trunk."
+ },
+ {
+  "id": "telescope",
+  "ask": "How a telescope makes faraway stars look close."
+ },
+ {
+  "id": "submarine",
+  "ask": "How a submarine dives and comes back up."
+ },
+ {
+  "id": "lungs",
+  "ask": "How the lungs swap carbon dioxide for oxygen with every breath."
+ }
+]

@@ -128,3 +128,26 @@ test("the spike's api.path(points, close) still builds a path and leaves strokin
   assert.ok(kinds.includes("moveTo") && kinds.includes("quadraticCurveTo") && kinds.includes("closePath"));
   assert.ok(!kinds.includes("stroke") && !kinds.includes("fill"));
 });
+
+test("api.thing draws every kit thing part by part, fits it on screen and caps its size (MOTION-14)", () => {
+  const { c, api } = make();
+  assert.ok(api.things.length >= 60);
+  for (const n of api.things) {
+    c.log.length = 0;
+    api.thing(n, 195, 400, 300, { k: 1 });
+    assert.ok(c.log.some((e) => e[0] === "stroke"), n + " draws");
+    for (const e of c.log) if (e[0] === "moveTo" || e[0] === "lineTo") assert.ok(e[1] > -4 && e[1] < 394, n + " stays on a 390 px screen: " + e[1]);
+  }
+  c.log.length = 0; api.thing("heart", 195, 400, 300, { k: 0 });
+  const none = c.log.filter((e) => e[0] === "stroke").length;
+  c.log.length = 0; api.thing("heart", 195, 400, 300, { k: 1 });
+  assert.ok(c.log.filter((e) => e[0] === "stroke").length > none);
+  c.log.length = 0; api.thing("dog", 195, 400, 900, { k: 1 });  // asked far too big: capped at 80% of the width
+  const xs = c.log.filter((e) => e[0] === "lineTo" || e[0] === "moveTo").map((e) => e[1]);
+  assert.ok(Math.max(...xs) - Math.min(...xs) <= 390 * 0.8 + 30);
+  for (const n of ["cup", "drumstick", "bike", "building", "skyline", "earth"]) assert.ok(api.thingNames.includes(n), n + " is an alias");
+  c.log.length = 0; api.thing("star", 195, 400, 200, {});  // not a kit thing: falls back to the stock shape
+  assert.ok(c.log.length > 0);
+  c.log.length = 0; api.phoneUI(195, 420, 260, ["Wi-Fi", "Help"], { k: 1, mark: 0 });
+  assert.ok(c.log.filter((e) => e[0] === "fillText").length >= 2);
+});

@@ -2,7 +2,7 @@
 """Run the look pass on the 20-ask set, each ask twice, with films made by the plugin's own maker (MOTION-2).
 
   uv run --with playwright --with pillow python site/scripts/motion/look_set.py <out-dir> [--runs 2] [--jobs 2]
-      [--plugin ~/dev/yui/hermes-plugin/yui] [--only id,id] [--regen] [--no-vision] [--reuse-vision <old summary.json>]
+      [--plugin ~/dev/yui/hermes-plugin/yui] [--only id,id] [--set heldout] [--regen] [--no-vision] [--reuse-vision <old summary.json>]
 
 The maker is hermes-plugin/yui/motion.py `split_film` (haiku writes scene 1, sonnet the rest, both started at once),
 so the films and the first-scene seconds are what a phone gets. Films land in <out-dir>/films/<id>-r<n>.json and are
@@ -17,6 +17,8 @@ import look as L
 ASKDIR = os.path.join(HERE, "..", "..", "public", "demo", "motion")
 # The 20 films of the set, then the 5 small asks (MOTION-7; asks-small.json). --only picks any of them by id.
 ASKS = json.load(open(os.path.join(ASKDIR, "asks.json")))[:20] + json.load(open(os.path.join(ASKDIR, "asks-small.json")))
+# MOTION-14: ten held-out asks with a body, written after the kit was built and never used to build it. --set heldout runs only these.
+HELDOUT = json.load(open(os.path.join(ASKDIR, "asks-heldout.json")))
 
 
 def load_plugin(path):
@@ -62,7 +64,7 @@ if __name__ == "__main__":
     out = a[0]; os.makedirs(os.path.join(out, "films"), exist_ok=True)
     M = load_plugin(os.path.expanduser(opt("--plugin", "~/dev/yui/hermes-plugin/yui")))
     only = opt("--only", "").split(",") if "--only" in a else None
-    sel = [x for x in ASKS if not only or x["id"] in only]
+    sel = [x for x in (HELDOUT if opt("--set", "") == "heldout" else ASKS) if not only or x["id"] in only]
     jobs = [(x, r + 1) for x in sel for r in range(int(opt("--runs", 2)))]
     prior = json.load(open(opt("--reuse-vision", "")))["per_film"] if "--reuse-vision" in a else None
     done = {}
