@@ -41,7 +41,10 @@ async def make_film(M, ask):
     finally:
         await agen.aclose()
     return {"ask": ask, "scenes": scenes, "stats": {"first_scene_s": scenes[0]["at"] if scenes else None, "total_s": round(time.time() - t0, 1),
-                                                     "scenes": len(scenes), "film_s": sum(s["dur"] for s in scenes)}}
+                                                     "scenes": len(scenes), "film_s": sum(s["dur"] for s in scenes),
+                                                     # MOTION-19: when scene 2 arrives, and how long the player sits on scene 1's last frame waiting for it
+                                                     "second_scene_s": scenes[1]["at"] if len(scenes) > 1 else None,
+                                                     "gap_s": round(max(0.0, scenes[1]["at"] - scenes[0]["at"] - scenes[0]["dur"]), 1) if len(scenes) > 1 else None}}
 
 
 LOOP = None  # MOTION-18: one long-lived event loop for every film, like the gateway's, so a warm claude process lives between films
@@ -103,7 +106,11 @@ if __name__ == "__main__":
             classes[c] = classes.get(c, 0) + 1
     firsts = sorted(done[n][0]["stats"]["first_scene_s"] for n in names if done[n][0]["stats"]["first_scene_s"] is not None)
     films_ok = [n for n in names if done[n][1] and all(r["pass"] for r in done[n][1])]
-    summary = {"films": len(names), "frames": len(allrows), "frame_pass_pct": rate(allrows),
+    med = lambda xs: sorted(xs)[len(xs) // 2] if xs else None
+    seconds = [done[n][0]["stats"]["second_scene_s"] for n in names if done[n][0]["stats"].get("second_scene_s") is not None]
+    gaps = [done[n][0]["stats"]["gap_s"] for n in names if done[n][0]["stats"].get("gap_s") is not None]
+    summary = {"films": len(names),
+               "second_scene_s": {"median": med(seconds)}, "scene_gap_s": {"median": med(gaps), "ready_pct": round(100 * sum(1 for g in gaps if g <= 0.05) / max(1, len(gaps)), 1)}, "frames": len(allrows), "frame_pass_pct": rate(allrows),
                "film_all_pass_pct": round(100 * len(films_ok) / max(1, len(names)), 1),
                "film_pass_80_pct": round(100 * sum(1 for n in names if done[n][1] and rate(done[n][1]) >= 80) / max(1, len(names)), 1),
                "fail_classes": dict(sorted(classes.items(), key=lambda kv: -kv[1])),
