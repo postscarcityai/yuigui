@@ -2328,6 +2328,14 @@
     },
     {
       "text": "MOTION-27: native agents make films; explainers ask for a motion line, not a deck"
+    },
+    {
+      "text": "health_probe: treat a non-list logs response as a probe failure, not a crash",
+      "card": "YUI-211"
+    },
+    {
+      "text": "MOTION-29: native agents draw a noun the kit lacks and learn it",
+      "card": "MOTION-29"
     }
   ]
 }
