@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T03:50:52.130Z",
+  "updated": "2026-10-07T03:55:52.873Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,19 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-232",
-          "title": "A Thought, we checked the film judge first",
-          "summary": "A Thought: We checked the film judge before fixing the films",
-          "progress": "/progress#a-thought-we-checked-the-film-judge-before-fixing-the-films",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-232",
+          "title": "A Thought, we checked the film judge first",
+          "summary": "A Thought: We checked the film judge before fixing the films",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-thought-we-checked-the-film-judge-before-fixing-the-films"
+        },
         {
           "key": "SITE-231",
           "title": "A Thought, a film check that answers the same twice",
