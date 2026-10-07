@@ -309,7 +309,7 @@ export function score(c, reply) {
     const { chunks } = stageChunks(adds);
     const bare = chunks.filter((c, i) => c.line && !c.pic && (c.page || i > 0));
     const wall = chunks.filter((c) => c.page && String(c.page.body || "").split(/\s+/).filter(Boolean).length > 30);
-    if (!adds.some((o) => ["sketch", "shapes", "image", "chart", "stat"].includes(o.preset))) fails.push("show: nothing drawn");
+    if (!adds.some((o) => ["sketch", "shapes", "image", "chart", "stat", "motion"].includes(o.preset))) fails.push("show: nothing drawn");
     for (const c of bare) fails.push(`show: a part with no picture :: ${c.line}`);
     for (const c of wall) fails.push(`show: a heading over a paragraph :: ${c.line}`);
   }

@@ -463,13 +463,15 @@
           "ask",
           "math",
           "narrate",
-          "say"
+          "say",
+          "motion"
         ],
         "need": [
           "calc",
           "deck",
           "slide",
-          "chart"
+          "chart",
+          "motion"
         ]
       },
       "good": "Something interactive: a calc with sliders, or a short deck with a quiz question."
@@ -1376,11 +1378,13 @@
           "after",
           "shapes",
           "shape",
-          "end"
+          "end",
+          "motion"
         ],
         "need": [
           "deck",
-          "plan"
+          "plan",
+          "motion"
         ],
         "max_words": 50,
         "max_pages": 4
@@ -2051,11 +2055,13 @@
           "end",
           "choose",
           "ask",
-          "pick"
+          "pick",
+          "motion"
         ],
         "need": [
           "sketch",
-          "shapes"
+          "shapes",
+          "motion"
         ],
         "show_not_say": true,
         "max_words": 40,
@@ -2343,18 +2349,21 @@
           "route",
           "motion"
         ],
+        "drawn": true,
+        "max_pages": 0,
+        "max_words": 50,
         "need": [
-          "map",
-          "shapes",
-          "chart",
-          "image",
           "motion"
         ],
-        "drawn": true,
-        "max_pages": 4,
-        "max_words": 50
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ],
+        "motion_ask": 8
       },
-      "good": "One line and a picture: land heats, air rises, wet air off the ocean moves in, as a diagram in `shapes` with arrows or a `map` with the winds as routes, maybe a rainfall `chart` by month. Not a paragraph of weather words."
+      "good": "One line, then one `motion` line whose ask carries the facts, and at most one `choose` after it. No deck, no shapes standing in for the film."
     },
     {
       "id": "where-trip-route",
@@ -3755,10 +3764,12 @@
           "choose",
           "ask",
           "end",
-          "part"
+          "part",
+          "motion"
         ],
         "need": [
-          "diagram"
+          "diagram",
+          "motion"
         ],
         "one_line": true,
         "caveman": true,
@@ -4182,12 +4193,23 @@
           "pick",
           "end",
           "say",
-          "card"
+          "card",
+          "motion"
         ],
-        "explain": true,
-        "max_words": 40
+        "max_words": 40,
+        "need": [
+          "motion"
+        ],
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ],
+        "max_pages": 0,
+        "motion_ask": 8
       },
-      "good": "One line, then one deck on the stage: 2 to 4 pages, each a few words and its own drawing (shapes of a string vibrating into notes, a sketch of the extra rooms). Never a page of plain text."
+      "good": "One line, then one `motion` line whose ask carries the facts, and at most one `choose` after it. No deck, no shapes standing in for the film."
     },
     {
       "id": "explain-eli5-black-holes",
@@ -4226,12 +4248,23 @@
           "pick",
           "end",
           "say",
-          "card"
+          "card",
+          "motion"
         ],
-        "explain": true,
-        "max_words": 40
+        "max_words": 40,
+        "need": [
+          "motion"
+        ],
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ],
+        "max_pages": 0,
+        "motion_ask": 8
       },
-      "good": "One line, then a deck: each page has a drawing (shapes of mass pulling in, a sketch of the point of no return). No page that is only words."
+      "good": "One line, then one `motion` line whose ask carries the facts, and at most one `choose` after it. No deck, no shapes standing in for the film."
     },
     {
       "id": "explain-eli5-inflation",
@@ -4270,12 +4303,23 @@
           "pick",
           "end",
           "say",
-          "card"
+          "card",
+          "motion"
         ],
-        "explain": true,
-        "max_words": 40
+        "max_words": 40,
+        "need": [
+          "motion"
+        ],
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ],
+        "max_pages": 0,
+        "motion_ask": 8
       },
-      "good": "One line, then a deck with a chart or shapes on each page (a price that creeps up, a dollar that buys less). No text-only page."
+      "good": "One line, then one `motion` line whose ask carries the facts, and at most one `choose` after it. No deck, no shapes standing in for the film."
     },
     {
       "id": "explain-how-vaccines-work",
@@ -4314,12 +4358,23 @@
           "pick",
           "end",
           "say",
-          "card"
+          "card",
+          "motion"
         ],
-        "explain": true,
-        "max_words": 40
+        "max_words": 40,
+        "need": [
+          "motion"
+        ],
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ],
+        "max_pages": 0,
+        "motion_ask": 8
       },
-      "good": "Asked how something works: a short line, then a deck, a drawing on every page (shapes or a diagram of the practice run for the body)."
+      "good": "One line, then one `motion` line whose ask carries the facts, and at most one `choose` after it. No deck, no shapes standing in for the film."
     },
     {
       "id": "explain-what-is-a-mortgage",
@@ -4358,12 +4413,203 @@
           "pick",
           "end",
           "say",
-          "card"
+          "card",
+          "motion"
         ],
-        "explain": true,
-        "max_words": 40
+        "max_words": 40,
+        "need": [
+          "motion"
+        ],
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ],
+        "max_pages": 0,
+        "motion_ask": 8
       },
-      "good": "A line, then a deck with a drawing per page (a house, a loan paid down over time). No page is a paragraph."
+      "good": "One line, then one `motion` line whose ask carries the facts, and at most one `choose` after it. No deck, no shapes standing in for the film."
+    },
+    {
+      "id": "motion-explain-string-theory",
+      "category": "motion",
+      "agent": "Yui",
+      "message": "Take me through what string theory is",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "motion",
+          "say",
+          "choose",
+          "ask",
+          "card",
+          "stat",
+          "sketch",
+          "row",
+          "after",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "shapes",
+          "shape",
+          "chart",
+          "end",
+          "pick"
+        ],
+        "one_line": true,
+        "caveman": true,
+        "max_words": 40,
+        "max_pages": 0,
+        "max_components": 3,
+        "need": [
+          "motion"
+        ],
+        "motion_ask": 8,
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ]
+      },
+      "good": "One line, one `motion` line whose ask carries the facts (tiny vibrating strings, notes as particles, extra dimensions curled up). No deck, no shapes pages."
+    },
+    {
+      "id": "motion-explain-black-hole-forms",
+      "category": "motion",
+      "agent": "Yui",
+      "message": "How does a black hole form?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "motion",
+          "say",
+          "choose",
+          "ask",
+          "card",
+          "stat",
+          "sketch",
+          "row",
+          "after",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "shapes",
+          "shape",
+          "chart",
+          "end",
+          "pick"
+        ],
+        "one_line": true,
+        "caveman": true,
+        "max_words": 40,
+        "max_pages": 0,
+        "max_components": 3,
+        "need": [
+          "motion"
+        ],
+        "motion_ask": 8,
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ]
+      },
+      "good": "One line, one `motion` line with the facts in order (a huge star runs out of fuel, the core collapses, gravity wins, light cannot leave past the horizon)."
+    },
+    {
+      "id": "motion-explain-photosynthesis",
+      "category": "motion",
+      "agent": "Yui",
+      "message": "Walk me through photosynthesis",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "motion",
+          "say",
+          "choose",
+          "ask",
+          "card",
+          "stat",
+          "sketch",
+          "row",
+          "after",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "shapes",
+          "shape",
+          "chart",
+          "end",
+          "pick"
+        ],
+        "one_line": true,
+        "caveman": true,
+        "max_words": 40,
+        "max_pages": 0,
+        "max_components": 3,
+        "need": [
+          "motion"
+        ],
+        "motion_ask": 8,
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ]
+      },
+      "good": "One line, one `motion` line with the facts (light hits the leaf, water up the roots, CO2 in, sugar made, oxygen out)."
+    },
+    {
+      "id": "motion-explain-stock-market",
+      "category": "motion",
+      "agent": "Yui",
+      "message": "How does the stock market work?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "motion",
+          "say",
+          "choose",
+          "ask",
+          "card",
+          "stat",
+          "sketch",
+          "row",
+          "after",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "shapes",
+          "shape",
+          "chart",
+          "end",
+          "pick"
+        ],
+        "one_line": true,
+        "caveman": true,
+        "max_words": 40,
+        "max_pages": 0,
+        "max_components": 3,
+        "need": [
+          "motion"
+        ],
+        "motion_ask": 8,
+        "forbid": [
+          "deck",
+          "page",
+          "shapes",
+          "shape"
+        ]
+      },
+      "good": "One line, one `motion` line with the facts (a company sells shares, buyers and sellers meet on an exchange, price moves with demand)."
     }
   ]
 }
