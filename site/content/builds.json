@@ -2298,6 +2298,9 @@
     {
       "text": "Films talk: say cues are spoken on device with a mute button in the film chrome",
       "card": "YUI-319"
+    },
+    {
+      "text": "MOTION-23: 21 checked drawings ship with the plugin (motion_things_seed.json); a seed word skips the parts call"
     }
   ]
 }
