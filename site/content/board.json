@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T20:10:10.297Z",
+  "updated": "2026-10-07T20:15:10.673Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -293,20 +293,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-250",
-          "title": "Thought on MOTION-26, explainers get a film",
-          "summary": "A Thought: ask what string theory is, get a film",
-          "progress": "/progress#a-thought-ask-what-string-theory-is-get-a-film",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-250",
+          "title": "Thought on MOTION-26, explainers get a film",
+          "summary": "A Thought: ask what string theory is, get a film",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-ask-what-string-theory-is-get-a-film",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5649b92c"
+        },
         {
           "key": "SITE-249",
           "title": "Publish the 0.6.5 Thought, films talk",
