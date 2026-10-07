@@ -2,13 +2,13 @@
 """Run the look pass on the 20-ask set, each ask twice, with films made by the plugin's own maker (MOTION-2).
 
   uv run --with playwright --with pillow python site/scripts/motion/look_set.py <out-dir> [--runs 2] [--jobs 2]
-      [--plugin ~/dev/yui/hermes-plugin/yui] [--only id,id] [--set heldout] [--regen] [--no-vision] [--reuse-vision <old summary.json>]
+      [--plugin ~/dev/yui/hermes-plugin/yui] [--fresh-loop (one event loop per film, no warm process)] [--only id,id] [--set heldout] [--regen] [--no-vision] [--reuse-vision <old summary.json>]
 
 The maker is hermes-plugin/yui/motion.py `split_film` (haiku writes scene 1, sonnet the rest, both started at once),
 so the films and the first-scene seconds are what a phone gets. Films land in <out-dir>/films/<id>-r<n>.json and are
 reused unless --regen (so "after" can re-judge the same films). Writes <out-dir>/summary.json, index sheets
 <out-dir>/sheet-<n>.png (five films each) and prints the pass rates."""
-import asyncio, importlib.util, json, os, sys, time, concurrent.futures as cf
+import asyncio, importlib.util, json, os, sys, threading, time, concurrent.futures as cf
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
@@ -44,11 +44,23 @@ async def make_film(M, ask):
                                                      "scenes": len(scenes), "film_s": sum(s["dur"] for s in scenes)}}
 
 
+LOOP = None  # MOTION-18: one long-lived event loop for every film, like the gateway's, so a warm claude process lives between films
+
+
+def start_loop(M):
+    global LOOP
+    LOOP = asyncio.new_event_loop()
+    threading.Thread(target=LOOP.run_forever, daemon=True).start()
+    if hasattr(M, "prime"):
+        LOOP.call_soon_threadsafe(M.prime)
+        time.sleep(5)  # the warm process is up before the first film, as it is on a gateway that has been running
+
+
 def one(M, out, a, run, regen, vision, prior=None):
     name = f"{a['id']}-r{run}"
     fp = os.path.join(out, "films", name + ".json")
     if regen or not os.path.exists(fp):
-        f = asyncio.run(make_film(M, a["ask"]))
+        f = asyncio.run_coroutine_threadsafe(make_film(M, a["ask"]), LOOP).result() if LOOP else asyncio.run(make_film(M, a["ask"]))
         json.dump(f, open(fp, "w"), indent=1)
     f = json.load(open(fp))
     if not f["scenes"]:
@@ -66,6 +78,8 @@ if __name__ == "__main__":
     opt = lambda k, d: a[a.index(k) + 1] if k in a else d
     out = a[0]; os.makedirs(os.path.join(out, "films"), exist_ok=True)
     M = load_plugin(os.path.expanduser(opt("--plugin", "~/dev/yui/hermes-plugin/yui")))
+    if "--fresh-loop" not in a:
+        start_loop(M)
     only = opt("--only", "").split(",") if "--only" in a else None
     sel = [x for x in SETS.get(opt("--set", ""), ASKS) if not only or x["id"] in only]
     jobs = [(x, r + 1) for x in sel for r in range(int(opt("--runs", 2)))]
