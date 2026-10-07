@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T09:35:41.815Z",
+  "updated": "2026-10-07T09:45:48.269Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,18 +292,19 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "YUI-318",
-          "title": "The phone draws things the kit lacks, re-bundle the player",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-318",
+          "title": "The phone draws things the kit lacks, re-bundle the player",
+          "summary": "The phone draws things the kit lacks",
+          "shipped": "2026-10-07",
+          "progress": "/progress#the-phone-draws-things-the-kit-lacks"
+        },
         {
           "key": "SITE-238",
           "title": "A Thought, films draw what the kit lacks",
