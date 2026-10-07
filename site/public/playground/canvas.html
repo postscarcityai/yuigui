@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>The living canvas | Yui playground</title>
+<meta name="description" content="One canvas. The agent draws on it, and every mark is a live object: touch it, hold it, scrub it, ask about it.">
+<style>
+:root{--ink:#0b0813;--fg:#f6eef7;--dim:#a095b8;--line:#3d3460;--accent:#ff6b4a;--panel:#18132b}
+:root.light{--ink:#fbf6f1;--fg:#2b2233;--dim:#7d7290;--line:#e3d9e8;--accent:#ff5a7a;--panel:#ffffff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16px ui-rounded,"SF Pro Rounded",system-ui,-apple-system,sans-serif;overflow:hidden}
+#app{position:relative;margin:0 auto;max-width:430px;height:100vh;height:100dvh;background:var(--ink);overflow:hidden}
+@media (min-width:600px){#app{margin:16px auto;height:calc(100dvh - 32px);border-radius:36px;border:1px solid var(--line)}}
+#cv{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;background:var(--ink)}
+#line{position:absolute;left:18px;right:18px;bottom:calc(150px + env(safe-area-inset-bottom));min-height:0;pointer-events:none;text-align:center;font-weight:800;font-size:20px;line-height:1.25;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;text-shadow:0 0 12px var(--ink),0 0 3px var(--ink)}
+#line.on{opacity:1;transform:none}
+#line small{display:block;margin-top:8px;font:600 12px ui-monospace,Menlo,monospace;color:var(--dim);letter-spacing:.01em}
+#chips{position:absolute;left:0;right:0;bottom:calc(66px + env(safe-area-inset-bottom));display:flex;gap:8px;justify-content:center}
+#chips button{appearance:none;border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);color:var(--fg);font:inherit;font-size:14px;padding:9px 16px;border-radius:999px;cursor:pointer;backdrop-filter:blur(8px)}
+#chips button:active{transform:scale(.96)}
+#bar{position:absolute;left:0;right:0;bottom:0;padding:0 14px calc(10px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px}
+#prog{height:3px;border-radius:3px;background:var(--line);position:relative;overflow:hidden}
+#prog i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);border-radius:3px}
+.row{display:flex;align-items:center;gap:6px;height:44px}
+.row button{appearance:none;border:0;background:transparent;color:var(--fg);width:44px;height:44px;border-radius:22px;display:grid;place-items:center;cursor:pointer}
+.row button:active{background:var(--line)}
+.row svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.row .t{margin-left:auto;font:600 12px ui-monospace,Menlo,monospace;color:var(--dim)}
+#hint{position:absolute;top:calc(12px + env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:12px;color:var(--dim);pointer-events:none;transition:opacity .6s}
+</style>
+</head>
+<body>
+<div id="app">
+  <iframe id="cv" src="canvas/player.html" title="The canvas"></iframe>
+  <div id="hint">drag to scrub &middot; tap a part &middot; hold to ask</div>
+  <div id="line" aria-live="polite"></div>
+  <div id="chips"><button id="another">Another take</button><button id="change">Change it</button></div>
+  <div id="bar">
+    <div id="prog"><i></i></div>
+    <div class="row">
+      <button id="pp" aria-label="Pause"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
+      <button id="mute" aria-label="Mute"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM17 9c1.5 1.5 1.5 4.5 0 6"/></svg></button>
+      <span class="t" id="clock">0:00</span>
+    </div>
+  </div>
+</div>
+<script>
+"use strict";
+// The living canvas, web prototype (YUI-321). One canvas; the film is marks on it; every mark is a live object.
+// Same harness as the phone (canvas/player.html is the app's motion-player). The words an agent would write
+// back for a touched part are canned here: the touch, the hold and the "what the agent receives" line are real.
+var Q = new URLSearchParams(location.search);
+var LIGHT = Q.get("theme") ? Q.get("theme") === "light" : matchMedia("(prefers-color-scheme: light)").matches;
+document.documentElement.classList.toggle("light", LIGHT);
+var THEMES = {
+  dark:  { ink: "#0b0813", panel: "#18132b", fg: "#f6eef7", dim: "#a095b8", line: "#3d3460", accent: "#ff6b4a", a2: "#5fd3e0", a3: "#8a7dff", good: "#5fe0a0", bad: "#ff5d73", warn: "#ffc857" },
+  light: { ink: "#fbf6f1", panel: "#ffffff", fg: "#2b2233", dim: "#7d7290", line: "#e3d9e8", accent: "#ff5a7a", a2: "#2fa8c0", a3: "#7a6cf0", good: "#2fbf80", bad: "#e8445c", warn: "#f5a524" }
+};
+var TAKES = [{}, { accent: "#8a7dff", bad: "#ffc857" }, { accent: "#5fe0a0", bad: "#ff6b4a" }];
+var take = 0;
+
+var PRE = [
+  'var W = api.w, H = api.h;',
+  'var PARTS = [',
+  ' ["M-10 -30 C-12 -70 30 -70 30 -36 L22 -36 C22 -56 -2 -56 -2 -30Z", "accent", "fg", 0.5, "aorta"],',
+  ' ["M-3 -28 C-6 -50 -30 -54 -46 -42 C-58 -32 -56 -10 -50 -3 L-3 -3Z", "a2", "fg", 0.5, "right atrium"],',
+  ' ["M3 -28 C6 -50 30 -54 46 -42 C58 -32 56 -10 50 -3 L3 -3Z", "bad", "fg", 0.5, "left atrium"],',
+  ' ["M-50 2 L-3 2 L-3 54 C-30 44 -52 22 -50 2Z", "a2", "fg", 0.5, "right ventricle"],',
+  ' ["M50 2 L3 2 L3 54 C30 44 52 22 50 2Z", "bad", "fg", 0.5, "left ventricle"]',
+  '];',
+  'api.defineThing("heart4", PARTS);',
+  'function centres(x, y, size) {',
+  '  var sz = Math.min(size, W * 0.8, Math.max(120, H - 340)), x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;',
+  '  var box = function (d) { var a = 1e9, b = -1e9, c2 = 1e9, e = -1e9; api.pathPts(d, { s: 1 }).forEach(function (sb) { sb.forEach(function (p) { a = Math.min(a, p[0]); b = Math.max(b, p[0]); c2 = Math.min(c2, p[1]); e = Math.max(e, p[1]); }); }); return [a, b, c2, e]; };',
+  '  PARTS.forEach(function (p) { var q = box(p[0]); x0 = Math.min(x0, q[0]); x1 = Math.max(x1, q[1]); y0 = Math.min(y0, q[2]); y1 = Math.max(y1, q[3]); });',
+  '  var bw = Math.max(20, x1 - x0), bh = Math.max(20, y1 - y0), s = Math.min(sz / bw, sz * 1.25 / bh), ox = x - (x0 + x1) / 2 * s, oy = y - (y0 + y1) / 2 * s, out = {};',
+  '  PARTS.forEach(function (p) { var q = box(p[0]); out[p[4]] = [ox + (q[0] + q[1]) / 2 * s, oy + (q[2] + q[3]) / 2 * s]; });',
+  '  return out;',
+  '}'
+].join("\n");
+
+var SCENES = [
+  { name: "draw", dur: 6, code: PRE + [
+    'var k = api.seg(t, 0.2, 3.2);',
+    'api.text("Your heart", W / 2, 110, { size: 34, weight: 800, align: "center", k: api.seg(t, 0, 0.9) });',
+    'api.thing("heart4", W / 2, H * 0.44, 300, { k: k });',
+    'api.say("Two pumps, side by side.", 1.4, 5.6, { y: "bottom" });'
+  ].join("\n") },
+  { name: "beat", dur: 8, code: PRE + [
+    'var beat = Math.pow(api.pulse(t, 1.1), 5), sz = 300 * (1 + 0.045 * beat), cx = W / 2, cy = H * 0.44;',
+    'api.thing("heart4", cx, cy, sz, { k: 1 });',
+    'var C = centres(cx, cy, sz);',
+    'var blue = [[W * 0.12, cy - 150], C["right atrium"], C["right ventricle"], [W * 0.1, cy + 150]];',
+    'var red = [C["left atrium"], C["left ventricle"], C["aorta"], [W * 0.88, cy - 170]];',
+    'api.along(blue, 7, t, { c: "a2", r: 5, speed: 0.22, glow: 10 });',
+    'api.along(red, 7, t + 0.4, { c: "bad", r: 5, speed: 0.22, glow: 10 });',
+    'api.text("from the body", W * 0.2, cy - 176, { size: 15, c: "a2", align: "center", k: api.seg(t, 0.4, 1.2) });',
+    'api.text("to the body", W * 0.8, cy - 196, { size: 15, c: "bad", align: "center", k: api.seg(t, 0.6, 1.4) });',
+    'api.say("Blue blood comes in on the right.", 0.6, 4, { y: "bottom" });',
+    'api.say("Red blood leaves on the left.", 4.2, 7.6, { y: "bottom" });'
+  ].join("\n") },
+  { name: "choose", dur: 14, code: PRE + [
+    'var cx = W / 2, cy = H * 0.5, sz = 300, m = api.marked || "", name = m.indexOf("part:heart4:") === 0 ? m.slice(12).replace(/_/g, " ") : "";',
+    'var beat = Math.pow(api.pulse(t, 1.1), 5);',
+    'api.thing("heart4", cx, cy, sz * (1 + 0.03 * beat), { k: 1 });',
+    'var C = centres(cx, cy, sz), chain = ["right atrium", "right ventricle", "left atrium", "left ventricle", "aorta"];',
+    'api.text(name ? "Following the blood" : "Where should we start?", W / 2, 110, { size: 28, weight: 800, align: "center", k: api.seg(t, 0, 0.8) });',
+    'if (!name) {',
+    '  var q = api.seg(t, 1.2, 2);',
+    '  chain.forEach(function (n, i) { var p = C[n], r = 9 + 5 * api.pulse(t, 1.2 + i * 0.07); api.dot(p[0], p[1], r, { c: "warn", a: 0.85 * q, glow: 12 }); });',
+    '  api.text("tap a chamber", W / 2, H * 0.5 + 215, { size: 16, c: "dim", align: "center", k: q });',
+    '} else {',
+    '  var from = Math.max(0, chain.indexOf(name)), pts = chain.slice(from).map(function (n) { return C[n]; });',
+    '  if (pts.length < 2) pts = [C[name], [cx + 140, cy - 170]];',
+    '  api.along(pts, 6, t, { c: "warn", r: 5, speed: 0.3, glow: 12 });',
+    '  api.text(chain.slice(from).join(" \\u2192 "), W / 2, H * 0.5 + 205, { size: 15, c: "dim", align: "center", maxw: W - 40 });',
+    '}',
+    'api.say("Tap the part you want to follow.", 2.2, 7, { y: "bottom" });'
+  ].join("\n") }
+];
+var TOTAL = SCENES.reduce(function (a, s) { return a + s.dur; }, 0);
+var CHOOSE_AT = SCENES[0].dur + SCENES[1].dur;
+
+// What a part says when touched, and what the agent writes back when it is held. Canned in the prototype.
+var SAY = {
+  "aorta": "The big pipe out. Every red drop leaves here.",
+  "right atrium": "Blue blood from the body lands here first.",
+  "left atrium": "Fresh red blood from the lungs waits here.",
+  "right ventricle": "Pushes blue blood to the lungs. A gentle squeeze.",
+  "left ventricle": "The strongest chamber. It pushes red blood to your whole body."
+};
+var ASK = {
+  "aorta": "It is as wide as a garden hose. The left ventricle shoves blood in at about one metre a second.",
+  "right atrium": "It collects blood, then a little pacemaker patch right here sets the rhythm for the whole heart.",
+  "left atrium": "It fills from the lungs, then tips its load down in one beat. Thin walls: it only has to nudge.",
+  "right ventricle": "Short trip, to the lungs next door, so its wall is thin. Low pressure, the same volume.",
+  "left ventricle": "Thick wall because it pumps to your toes. About 70 beats a minute, about 100,000 a day."
+};
+var $ = function (id) { return document.getElementById(id); };
+var frame = $("cv"), line = $("line"), paused = false, muted = false, clock = 0, cues = [], spoken = {}, lineTimer = 0, ready = false;
+function Y() { return frame.contentWindow && frame.contentWindow.yui; }
+function theme() { var t = Object.assign({}, LIGHT ? THEMES.light : THEMES.dark, TAKES[take]); Y().theme(t); document.documentElement.style.setProperty("--accent", t.accent); }
+
+function say(text, sees, hold) {
+  clearTimeout(lineTimer);
+  line.innerHTML = "";
+  line.append(document.createTextNode(text));
+  if (sees) { var s = document.createElement("small"); s.textContent = sees; line.append(s); }
+  line.classList.add("on"); caps(false);
+  if (!hold) lineTimer = setTimeout(function () { line.classList.remove("on"); caps(true); }, 4200);
+}
+function speak(text) {
+  if (muted || !window.speechSynthesis) return;
+  try { speechSynthesis.cancel(); var u = new SpeechSynthesisUtterance(text); u.rate = 1.05; speechSynthesis.speak(u); } catch (e) {}
+}
+function setPaused(b) {
+  paused = b; Y().pause(b);
+  $("pp").setAttribute("aria-label", b ? "Play" : "Pause");
+  $("pp").innerHTML = b ? '<svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>';
+}
+function fmt(t) { var s = Math.floor(t); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
+function label(id) { return id.indexOf("part:heart4:") === 0 ? id.slice(12).replace(/_/g, " ") : ""; }
+function caps(on) { try { frame.contentWindow.__noCaps = !on; Y().mark(Y().__m || null); } catch (e) {} }
+function mark(id) { Y().__m = id || null; Y().mark(id || null); }
+function resetSpoken() { spoken = {}; }
+
+window.addEventListener("message", function (e) {
+  if (e.source !== frame.contentWindow) return;
+  var m = e.data && e.data.motion; if (!m) return;
+  if (m === "ready") {
+    ready = true; theme();
+    SCENES.forEach(function (s) { Y().scene(s); });
+    Y().end();
+    return;
+  }
+  if (m === "cues") { cues = cues.concat(e.data.cues || []); return; }
+  if (m === "time") {
+    clock = e.data.t; var tot = e.data.total || TOTAL;
+    $("prog").firstElementChild.style.width = (100 * clock / tot).toFixed(1) + "%";
+    $("clock").textContent = fmt(clock) + " / " + fmt(tot);
+    if (!e.data.paused) cues.forEach(function (c) { var key = c.text + c.from; if (clock >= c.from && clock < c.from + 0.6 && !spoken[key]) { spoken[key] = 1; speak(c.text); } });
+    return;
+  }
+  if (m === "scrub") {
+    if (e.data.phase === "begin") { setPaused(true); mark(null); line.classList.remove("on"); caps(true); speechSynthesis && speechSynthesis.cancel(); resetSpoken(); }
+    $("hint").style.opacity = 0;
+    return;
+  }
+  if (m === "tap") {
+    $("hint").style.opacity = 0;
+    var id = e.data.id;
+    if (!id) { mark(null); line.classList.remove("on"); caps(true); setPaused(!paused); return; }
+    var nm = label(id); mark(id);
+    if (clock >= CHOOSE_AT) {
+      // inside the question the touch is the answer: the canvas follows the part and keeps playing
+      if (clock > CHOOSE_AT + 9) Y().seek(CHOOSE_AT + 3);
+      if (paused) setPaused(false);
+    } else setPaused(true);
+    say(SAY[nm] || nm, null, false); speak(SAY[nm] || nm);
+    return;
+  }
+  if (m === "hold") {
+    var id2 = e.data.id, nm2 = label(id2);
+    setPaused(true);
+    if (id2 === "moment") {
+      mark(null);
+      var half = clock < 3.4 ? "Half drawn. I sketch the outline first, then each chamber fills." : clock < 6 ? "Drawn. Now two pumps, side by side." : "Here the heart is mid-beat: the chambers squeeze, the blood moves on.";
+      say(half, "[yui] heart motion ask moment @" + clock.toFixed(1) + "s", true); speak(half);
+    } else {
+      mark(id2);
+      say("…", "[yui] heart motion ask " + nm2, true);
+      setTimeout(function () { say(ASK[nm2] || SAY[nm2] || nm2, "[yui] heart motion ask " + nm2, true); speak(ASK[nm2] || ""); }, 650);
+    }
+    if (navigator.vibrate) navigator.vibrate(12);
+    return;
+  }
+});
+
+$("pp").onclick = function () {
+  if (clock >= TOTAL - 0.05 && paused === false) { Y().replay(); resetSpoken(); return; }
+  setPaused(!paused);
+};
+$("mute").onclick = function () {
+  muted = !muted; if (muted && window.speechSynthesis) speechSynthesis.cancel();
+  $("mute").innerHTML = muted ? '<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM17 9l4 6M21 9l-4 6"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM17 9c1.5 1.5 1.5 4.5 0 6"/></svg>';
+};
+$("another").onclick = function () { take = (take + 1) % TAKES.length; mark(null); line.classList.remove("on"); caps(true); theme(); setPaused(false); Y().replay(); resetSpoken(); };
+$("change").onclick = function () {
+  LIGHT = !LIGHT; document.documentElement.classList.toggle("light", LIGHT); theme();
+  say(LIGHT ? "Light." : "Dark.", null, false);
+};
+setTimeout(function () { $("hint").style.opacity = 0; }, 9000);
+window.__canvas = { total: TOTAL, chooseAt: CHOOSE_AT, yui: Y };
+</script>
+</body>
+</html>
