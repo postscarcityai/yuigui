@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T11:46:06.265Z",
+  "updated": "2026-10-07T11:51:08.179Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,18 +288,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-240",
-          "title": "A Thought, new drawings come back faster",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-240",
+          "title": "A Thought, new drawings come back faster",
+          "summary": "A Thought: We tried to make new drawings come back faster",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-we-tried-to-make-new-drawings-come-back-faster",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/92dac712"
+        },
         {
           "key": "SITE-239",
           "title": "A Thought, films start fast with new drawings",
