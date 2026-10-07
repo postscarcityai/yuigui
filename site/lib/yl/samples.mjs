@@ -5,6 +5,12 @@ import { BASIL_WEEK } from "./basil-week.mjs";
 // measured is exactly what renders.
 export const SCREENS = [
   {
+    name: "Yui is resting",
+    agent: "Yui",
+    yl: `say "Yui is resting for now. Add your own model key to keep going."
+card "Yui is resting" "The free model is out of juice. Your own key works right now." cta="Add my key" url=yui://settings/key`,
+  },
+  {
     name: "Tabata timer",
     agent: "Coach",
     yl: `timer 40/20x8 Tabata`,
