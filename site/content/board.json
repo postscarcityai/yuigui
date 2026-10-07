@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T00:05:23.353Z",
+  "updated": "2026-10-07T00:20:24.431Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-229",
           "title": "A Thought, films draw the real thing",
+          "summary": "A Thought: We tried to make films draw the real thing",
+          "progress": "/progress#a-thought-we-tried-to-make-films-draw-the-real-thing",
           "owner": "CJohnDesign"
         }
       ]
