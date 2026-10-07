@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T15:45:43.383Z",
+  "updated": "2026-10-07T15:50:42.883Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-244",
-          "title": "A Thought, scene 1 draws its own shapes",
-          "summary": "A Thought: scene 1 no longer waits for the shapes",
-          "progress": "/progress#a-thought-scene-1-no-longer-waits-for-the-shapes",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-244",
+          "title": "A Thought, scene 1 draws its own shapes",
+          "summary": "A Thought: scene 1 no longer waits for the shapes",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-scene-1-no-longer-waits-for-the-shapes",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4622879e"
+        },
         {
           "key": "SITE-243",
           "title": "A Thought, a shorter parts reply",
