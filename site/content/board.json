@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T09:30:40.303Z",
+  "updated": "2026-10-07T09:35:41.815Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-239",
+          "title": "A Thought, films start fast with new drawings"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -290,8 +294,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-238",
-          "title": "A Thought, films draw what the kit lacks",
+          "key": "YUI-318",
+          "title": "The phone draws things the kit lacks, re-bundle the player",
           "owner": "CJohnDesign"
         }
       ]
@@ -300,6 +304,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-238",
+          "title": "A Thought, films draw what the kit lacks",
+          "summary": "A Thought: Films learn to draw what the kit does not have",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-films-learn-to-draw-what-the-kit-does-not-have",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/74f1f71b"
+        },
         {
           "key": "YUI-317",
           "title": "The phone plays the new film kit, the hero shows up",
