@@ -74,6 +74,21 @@ end
 - Phones that cannot play it (compat gate): the title and the scenes' `say` lines in order, as words.
 - Sends no events, except taps on `api.hit` targets, which come back as `[yui] n1 motion tap=<id>`; a failure comes back as `[yui] n1 motion error=<reason>`.
 
+## 0b. The canvas (YUI-321, Oct 7): one living canvas, every mark is a live object
+
+Chris, Oct 7: "I'm trying to build the next generation of user interface." So there is no app chrome with content inside it. There is one canvas and the agent draws on it. Text, drawings, buttons, charts, a film: all of it is marks, and a mark is not a picture, it is an object the person can touch.
+
+Rules the guide and every agent can draw for:
+
+- **Touch answers.** A tap on a mark pauses the canvas, lights the mark, names it and plays its line. The agent hears nothing yet.
+- **Hold asks.** A long press on a mark sends `[yui] <film> motion ask <part>` and the agent works on just that part, in place, while the rest stays. A hold on nothing asks about the moment (`ask moment @4.2s`): the person stopped it half drawn and asked.
+- **Time is direct.** The scene is pure in `t`, so a drag sideways scrubs it, a tap on nothing pauses and plays it, and it ends on its last frame and stays. No end screen, no player.
+- **The answer and the UI are one thing.** A question is drawn into the picture: the choices are marks (the chambers of a heart, each a hit target), and the tap on one is the answer. The scene reads the touch (`api.marked`) and redraws.
+- **Nothing opens on top.** No cover, sheet or player. The canvas changes; it never stacks. The only chrome is the stage's own bar: pause, mute, a hairline of progress, and the chip row (Another take, Change it).
+- **Name the parts.** A thing's parts carry a name (`"n"` in the parts call, a 5th item in `defineThing`). A named part is its own target `part:<thing>:<name>`; an unnamed thing is one target.
+
+Live prototype: `/playground/canvas.html` (same harness as the phone, `canvas/player.html`). The host page is under 250 lines: it adds the progress hairline, mute, the chips and the in-place answer line. The words an agent writes back for a held part are canned there; the hold, the tap and the line the agent would receive are real.
+
 ## 1. The three prototypes
 
 | | A. Free code | B. YL grows motion | C. Hybrid |
