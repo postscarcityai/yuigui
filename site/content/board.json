@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T05:36:07.127Z",
+  "updated": "2026-10-07T06:00:10.805Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-235",
-          "title": "A Thought, films plan the hero first"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -292,7 +288,13 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "SITE-235",
+          "title": "A Thought, films plan the hero first",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
