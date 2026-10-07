@@ -1,0 +1,82 @@
+[
+ {
+  "id": "camel",
+  "ask": "What a camel does with its hump on a long desert walk."
+ },
+ {
+  "id": "telescope2",
+  "ask": "How a big telescope collects faint light from far stars."
+ },
+ {
+  "id": "octopus2",
+  "ask": "How an octopus hides from a shark."
+ },
+ {
+  "id": "tree",
+  "ask": "How a tree drinks water through its roots and sends it up."
+ },
+ {
+  "id": "pyramid",
+  "ask": "How the Egyptians stacked a pyramid, level by level."
+ },
+ {
+  "id": "spider",
+  "ask": "How a spider spins its web."
+ },
+ {
+  "id": "helicopter2",
+  "ask": "What happens when a helicopter tilts its rotor to move forward."
+ },
+ {
+  "id": "tower_crane",
+  "ask": "How a tower crane lifts steel beams onto a new building."
+ },
+ {
+  "id": "grand_piano",
+  "ask": "What happens inside a piano when you press a key hard."
+ },
+ {
+  "id": "snail",
+  "ask": "How a snail glides along on a trail of slime."
+ },
+ {
+  "id": "cactus2",
+  "ask": "How a cactus stores water for the dry months."
+ },
+ {
+  "id": "submarine2",
+  "ask": "How a submarine dives by taking in water and rises by pushing it out."
+ },
+ {
+  "id": "volcano2",
+  "ask": "What happens inside a volcano before it erupts."
+ },
+ {
+  "id": "horse",
+  "ask": "How a horse gallops: which legs touch the ground and when."
+ },
+ {
+  "id": "shark",
+  "ask": "How a shark finds food by smell and pressure in the water."
+ },
+ {
+  "id": "whale",
+  "ask": "How a whale dives deep and holds its breath for an hour."
+ },
+ {
+  "id": "penguin",
+  "ask": "How a penguin huddles with others to stay warm in the cold."
+ },
+ {
+  "id": "lightbulb",
+  "ask": "How a lightbulb turns electricity into light."
+ },
+ {
+  "id": "trumpet",
+  "ask": "How a trumpet makes a high note when the player presses a valve."
+ },
+ {
+  "id": "rabbit",
+  "ask": "Why a rabbit's ears are so long and what they do for it."
+ }
+]
