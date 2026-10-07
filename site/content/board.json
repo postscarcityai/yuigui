@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T06:00:10.805Z",
+  "updated": "2026-10-07T06:05:10.484Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-236",
+          "title": "A Thought, films learn from worked drawings"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -292,6 +296,8 @@
         {
           "key": "SITE-235",
           "title": "A Thought, films plan the hero first",
+          "summary": "A Thought: Films that plan the hero first, it wrote the list and drew a blob anyway",
+          "progress": "/progress#a-thought-films-that-plan-the-hero-first-it-wrote-the-list-and-drew-a-blob-anywa",
           "owner": "CJohnDesign"
         }
       ]
