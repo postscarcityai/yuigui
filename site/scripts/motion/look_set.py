@@ -19,6 +19,9 @@ ASKDIR = os.path.join(HERE, "..", "..", "public", "demo", "motion")
 ASKS = json.load(open(os.path.join(ASKDIR, "asks.json")))[:20] + json.load(open(os.path.join(ASKDIR, "asks-small.json")))
 # MOTION-14: ten held-out asks with a body, written after the kit was built and never used to build it. --set heldout runs only these.
 HELDOUT = json.load(open(os.path.join(ASKDIR, "asks-heldout.json")))
+# MOTION-15: ten more held-out asks whose noun is not in the kit (and never used to build the fix). --set heldout2 runs only these.
+HELDOUT2 = json.load(open(os.path.join(ASKDIR, "asks-heldout2.json")))
+SETS = {"heldout": HELDOUT, "heldout2": HELDOUT2}
 
 
 def load_plugin(path):
@@ -64,7 +67,7 @@ if __name__ == "__main__":
     out = a[0]; os.makedirs(os.path.join(out, "films"), exist_ok=True)
     M = load_plugin(os.path.expanduser(opt("--plugin", "~/dev/yui/hermes-plugin/yui")))
     only = opt("--only", "").split(",") if "--only" in a else None
-    sel = [x for x in (HELDOUT if opt("--set", "") == "heldout" else ASKS) if not only or x["id"] in only]
+    sel = [x for x in SETS.get(opt("--set", ""), ASKS) if not only or x["id"] in only]
     jobs = [(x, r + 1) for x in sel for r in range(int(opt("--runs", 2)))]
     prior = json.load(open(opt("--reuse-vision", "")))["per_film"] if "--reuse-vision" in a else None
     done = {}

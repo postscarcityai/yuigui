@@ -430,6 +430,17 @@
         api.path(pt[0], { x: x - b.cx * s, y: y - b.cy * s, s: s, c: col, w: w * pt[3], fill: fl, fillOpen: !!fl, k: kk, a: o.a == null ? 1 : o.a });
       });
     };
+    // MOTION-15: a thing the kit lacks, registered by a film for itself. The plugin builds the parts from the five shapes of the
+    // vocabulary (it never forwards free-form svg); here they are only checked for shape, then drawn like any other thing.
+    var FILLS = { ink: 1, panel: 1, accent: 1, a2: 1, warn: 1, good: 1, bad: 1 };
+    api.defineThing = function (name, parts) {
+      if (typeof name !== "string" || THINGS[name] || !Array.isArray(parts) || parts.length < 3 || parts.length > 16) return;
+      var ok = parts.every(function (p) {
+        return Array.isArray(p) && typeof p[0] === "string" && p[0].length < 900 && /^[MLCAZ0-9 .,\-]+$/.test(p[0]) &&
+          (p[1] === 0 || FILLS[p[1]]) && p[2] === "fg" && typeof p[3] === "number" && isFinite(p[3]);
+      });
+      if (ok) { THINGS[name] = parts.map(function (p) { return [p[0], p[1], p[2], p[3]]; }); delete BOX[name]; }
+    };
     api.things = Object.keys(THINGS).filter(function (n) { return !ALIAS[n]; });
     api.thingNames = Object.keys(THINGS);
     // a phone with its real rows written out: api.phoneUI(cx, cy, w, ['Wi-Fi','Dark mode',...], {k, mark: 2 (row to flag), title})

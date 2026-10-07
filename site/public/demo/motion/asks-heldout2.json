@@ -1,0 +1,12 @@
+[
+ {"id": "giraffe", "ask": "Why a giraffe has such a long neck and how it drinks from the ground."},
+ {"id": "windmill", "ask": "How a windmill turns wind into power, from the blades to the shaft."},
+ {"id": "volcano", "ask": "How a volcano erupts: the magma chamber, the vent and the ash cloud."},
+ {"id": "microscope", "ask": "How a microscope makes tiny things look big, lens by lens."},
+ {"id": "guitar", "ask": "How a guitar makes sound: the strings, the body and the frets."},
+ {"id": "tractor", "ask": "How a tractor pulls a plough across a field."},
+ {"id": "helicopter", "ask": "How a helicopter hovers: what the rotor does and what the tail does."},
+ {"id": "piano", "ask": "How a piano key becomes a note: the lever, the felt and the string."},
+ {"id": "octopus", "ask": "How an octopus changes colour and squeezes through tiny gaps."},
+ {"id": "cactus", "ask": "How a cactus survives the desert: spines, thick stem and shallow roots."}
+]

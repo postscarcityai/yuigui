@@ -151,3 +151,24 @@ test("api.thing draws every kit thing part by part, fits it on screen and caps i
   c.log.length = 0; api.phoneUI(195, 420, 260, ["Wi-Fi", "Help"], { k: 1, mark: 0 });
   assert.ok(c.log.filter((e) => e[0] === "fillText").length >= 2);
 });
+
+test("api.defineThing registers a film's own thing, refuses anything odd, and never replaces a kit thing (MOTION-15)", () => {
+  const { c, api } = make();
+  const parts = [["M-40 0 A40 24 0 1 1 40 0 A40 24 0 1 1 -40 0Z", "a2", "fg", 1], ["M-30 20 L-30 44 L-18 44 L-18 20", "ink", "fg", 1],
+    ["M30 20 L30 44 L18 44 L18 20", "ink", "fg", 1], ["M-44 -4 C-56 8 -52 30 -44 34", 0, "fg", 1.5]];
+  api.defineThing("blimp", parts);
+  c.log.length = 0; api.thing("blimp", 195, 400, 200, { k: 1 });
+  assert.ok(c.log.filter((e) => e[0] === "stroke").length >= parts.length, "drawn part by part");
+  const heart = api.things.includes("heart");
+  api.defineThing("heart", parts);  // a kit name stays the kit's drawing
+  c.log.length = 0; api.thing("heart", 195, 400, 200, { k: 1 });
+  assert.ok(heart && c.log.filter((e) => e[0] === "stroke").length > 4 && c.log.some((e) => e[0] === "bezierCurveTo" || e[0] === "quadraticCurveTo" || e[0] === "lineTo"));
+  for (const bad of [null, "x", [], [["M0 0", "ink", "fg", 1]], parts.map((p) => [p[0].replace("M", "<script>M"), p[1], p[2], p[3]]),
+    parts.map((p) => [p[0], "pink", p[2], p[3]]), parts.map((p) => [p[0], p[1], "#f00", p[3]]), parts.map((p) => [p[0], p[1], p[2], NaN]), Array(20).fill(parts[0])]) {
+    api.defineThing("junk", bad);
+    assert.ok(!api.thingNames.includes("junk") && !api.things.includes("junk"));
+  }
+  api.defineThing("blimp", [parts[0], parts[1], parts[2]]);  // already defined: a second call changes nothing (a film calls it every frame)
+  c.log.length = 0; api.thing("blimp", 195, 400, 200, { k: 1 });
+  assert.ok(c.log.filter((e) => e[0] === "stroke").length >= parts.length);
+});
