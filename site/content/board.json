@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T19:46:11.037Z",
+  "updated": "2026-10-07T20:06:15.336Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -293,7 +293,13 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "SITE-250",
+          "title": "Thought on MOTION-26, explainers get a film",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
