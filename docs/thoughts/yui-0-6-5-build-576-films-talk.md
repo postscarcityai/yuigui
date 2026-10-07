@@ -29,7 +29,7 @@ Replay plays it again. Another take asks your agent for a new film of the same a
 
 ## Something with no drawing yet
 
-Ask for a submarine. The kit has no submarine, so the film paints one itself and plays on. Nothing breaks, it just looks a little rougher.
+Ask for a giraffe. The kit has none, so your agent sends the parts to draw one and the phone draws it. Nothing breaks, and it works offline.
 
 ```try
 /web | Try Yui in your browser
