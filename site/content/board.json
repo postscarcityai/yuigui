@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T17:15:53.150Z",
+  "updated": "2026-10-07T17:20:54.756Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-320",
-          "title": "A film ends with Another take and Change it, not only Replay"
-        },
-        {
           "key": "SITE-246",
           "title": "A Thought, films draw common things at once"
         },
@@ -298,11 +294,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-319",
-          "title": "Films talk, the say lines are spoken on the phone with a mute button",
-          "summary": "Films talk",
-          "blocked": "other",
-          "progress": "/progress#films-talk",
+          "key": "YUI-320",
+          "title": "A film ends with Another take and Change it, not only Replay",
           "owner": "CJohnDesign"
         }
       ]
@@ -311,6 +304,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-319",
+          "title": "Films talk, the say lines are spoken on the phone with a mute button",
+          "summary": "Films talk",
+          "shipped": "2026-10-07",
+          "progress": "/progress#films-talk",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/44d1e2c2"
+        },
         {
           "key": "SITE-245",
           "title": "A Thought, scene 2 ready when scene 1 ends",
