@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T14:50:35.216Z",
+  "updated": "2026-10-07T14:55:35.618Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-243",
-          "title": "A Thought, a shorter parts reply",
-          "summary": "A Thought: a shorter shapes reply did not help",
-          "progress": "/progress#a-thought-a-shorter-shapes-reply-did-not-help",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-243",
+          "title": "A Thought, a shorter parts reply",
+          "summary": "A Thought: a shorter shapes reply did not help",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-a-shorter-shapes-reply-did-not-help",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f108081e"
+        },
         {
           "key": "SITE-242",
           "title": "A Thought, scene 2 is ready before scene 1 ends",
