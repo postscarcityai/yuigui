@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T17:10:56.014Z",
+  "updated": "2026-10-07T17:15:53.150Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -301,6 +301,7 @@
           "key": "YUI-319",
           "title": "Films talk, the say lines are spoken on the phone with a mute button",
           "summary": "Films talk",
+          "blocked": "other",
           "progress": "/progress#films-talk",
           "owner": "CJohnDesign"
         }
