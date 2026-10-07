@@ -1,6 +1,73 @@
 {
   "builds": [
     {
+      "build": 562,
+      "date": "2026-10-07",
+      "uploaded": "2026-10-07T00:06:46-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Film scene 1 from a small fast model (haiku, no thinking), the rest from sonnet in parallel",
+          "card": "YUI-313"
+        },
+        {
+          "text": "A small local model draws screens again: retag yml fences, short guide for small windows",
+          "card": "INT-23"
+        },
+        {
+          "text": "OpenAICompatTests opens Qwen's thread and waits for the keyboard",
+          "card": "INT-23"
+        },
+        {
+          "text": "Small models of a second family draw screens: fence repairs, ask again on an empty answer, model table",
+          "card": "INT-25"
+        },
+        {
+          "text": "Your own model remembers the thread: the live guide (~10k tokens) gets the short one on 8k and 16k windows, so history is kept",
+          "card": "INT-26"
+        },
+        {
+          "text": "INT-27: small models stop labelling their own replies"
+        },
+        {
+          "text": "Native: draw every page of an explanation (prompt block, redraw pass, evals)"
+        },
+        {
+          "text": "Native: rebuild _native/thread.ts after rebase"
+        },
+        {
+          "text": "Native: copy fences.ts into _native (thread.ts imports it; yui-native failed to bundle)"
+        },
+        {
+          "text": "Bridge: a small model's explain answer is one line and a film",
+          "card": "INT-28"
+        },
+        {
+          "text": "Bridge: repair a small model's explain film from its replies",
+          "card": "INT-29"
+        },
+        {
+          "text": "Stage: hold only the newest answer (pick A)"
+        },
+        {
+          "text": "Stage: chat is home, the stage stays up only for a real visual (pick A)"
+        },
+        {
+          "text": "Stage: older stage replies fold into one chip in chat (pick A)"
+        },
+        {
+          "text": "A drawn phone is an animated wireframe: one glass device plays the before into the after (YUI-267, direction B)"
+        },
+        {
+          "text": "Motion prompt: LAYOUT and SUBJECT blocks from the look pass",
+          "card": "MOTION-2"
+        },
+        {
+          "text": "MOTION-5: plugin writes Drawing scene N doing rows while a film is made"
+        }
+      ]
+    },
+    {
       "build": 545,
       "date": "2026-10-06",
       "uploaded": "2026-10-05T23:55:48-07:00",
@@ -2197,65 +2264,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Film scene 1 from a small fast model (haiku, no thinking), the rest from sonnet in parallel",
-      "card": "YUI-313"
-    },
-    {
-      "text": "A small local model draws screens again: retag yml fences, short guide for small windows",
-      "card": "INT-23"
-    },
-    {
-      "text": "OpenAICompatTests opens Qwen's thread and waits for the keyboard",
-      "card": "INT-23"
-    },
-    {
-      "text": "Small models of a second family draw screens: fence repairs, ask again on an empty answer, model table",
-      "card": "INT-25"
-    },
-    {
-      "text": "Your own model remembers the thread: the live guide (~10k tokens) gets the short one on 8k and 16k windows, so history is kept",
-      "card": "INT-26"
-    },
-    {
-      "text": "INT-27: small models stop labelling their own replies"
-    },
-    {
-      "text": "Native: draw every page of an explanation (prompt block, redraw pass, evals)"
-    },
-    {
-      "text": "Native: rebuild _native/thread.ts after rebase"
-    },
-    {
-      "text": "Native: copy fences.ts into _native (thread.ts imports it; yui-native failed to bundle)"
-    },
-    {
-      "text": "Bridge: a small model's explain answer is one line and a film",
-      "card": "INT-28"
-    },
-    {
-      "text": "Bridge: repair a small model's explain film from its replies",
-      "card": "INT-29"
-    },
-    {
-      "text": "Stage: hold only the newest answer (pick A)"
-    },
-    {
-      "text": "Stage: chat is home, the stage stays up only for a real visual (pick A)"
-    },
-    {
-      "text": "Stage: older stage replies fold into one chip in chat (pick A)"
-    },
-    {
-      "text": "A drawn phone is an animated wireframe: one glass device plays the before into the after (YUI-267, direction B)"
-    },
-    {
-      "text": "Motion prompt: LAYOUT and SUBJECT blocks from the look pass",
-      "card": "MOTION-2"
-    },
-    {
-      "text": "MOTION-5: plugin writes Drawing scene N doing rows while a film is made"
-    }
-  ]
+  "next": []
 }
