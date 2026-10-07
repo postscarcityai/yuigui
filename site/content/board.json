@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T16:05:49.285Z",
+  "updated": "2026-10-07T16:40:48.310Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "YUI-320",
+          "title": "A film ends with Another take and Change it, not only Replay"
+        },
+        {
           "key": "SITE-245",
           "title": "A Thought, scene 2 ready when scene 1 ends"
         },
@@ -292,7 +296,13 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "YUI-319",
+          "title": "Films talk, the say lines are spoken on the phone with a mute button",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
