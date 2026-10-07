@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T14:55:35.618Z",
+  "updated": "2026-10-07T15:05:44.231Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -271,6 +271,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-244",
+          "title": "A Thought, scene 1 draws its own shapes"
         },
         {
           "key": "NOTE-21045",

@@ -2285,6 +2285,9 @@
     },
     {
       "text": "MOTION-19: warm.shutdown cancels a process still starting; motion.prime fires (maker is split_film). Scene-2-early and warm scene 1 writer tried, missed, reverted"
+    },
+    {
+      "text": "MOTION-20: parse_reply reads the first JSON object (a second line no longer drops the hero). Shorter parts reply tried, missed, reverted"
     }
   ]
 }
