@@ -1,16 +1,2299 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 516,
-    "site": 1604,
-    "builds": 57,
-    "shipped": 686,
-    "screenshots": 1836
+    "app": 537,
+    "site": 1808,
+    "builds": 58,
+    "shipped": 751,
+    "screenshots": 1935
   },
   "days": [
     {
+      "date": "2026-10-07",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-10-07T18:08:20.000Z",
+          "title": "A Thought: 93 things drawn ahead",
+          "card": "SITE-247",
+          "anchor": "a-thought-93-things-drawn-ahead",
+          "images": [
+            {
+              "src": "/demo/motion/look/m24-chart.jpg",
+              "alt": "Bars: first scene median and mean, and frame pass share, with the 93-thing seed on and off"
+            },
+            {
+              "src": "/demo/motion/look/m24-seed.jpg",
+              "alt": "Contact sheet: the 72 new drawings that ship with the plugin"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 536,
+            "site": 1807,
+            "builds": 58,
+            "shipped": 751
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T18:00:29.000Z",
+          "title": "Films draw 93 common things at once: 72 more drawings ship with the plugin",
+          "card": "MOTION-24",
+          "anchor": "films-draw-93-common-things-at-once-72-more-drawings-ship-with-the-plugin",
+          "images": [
+            {
+              "src": "/demo/motion/look/m24-seed.jpg",
+              "alt": "Contact sheet: the 72 new drawings that ship with the plugin"
+            },
+            {
+              "src": "/demo/motion/look/m24-chart.jpg",
+              "alt": "Bars: first scene median and mean, and frame pass share, with the seed on and off, for asks that hit the seed and asks that do not"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 536,
+            "site": 1805,
+            "builds": 58,
+            "shipped": 750
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T17:42:50.000Z",
+          "title": "Films end with Another take and Change it",
+          "card": "YUI-320",
+          "anchor": "films-end-with-another-take-and-change-it",
+          "images": [
+            {
+              "src": "/progress/yui320-end-light.jpg",
+              "alt": "A film's last frame in light mode with Replay, Another take and Change it"
+            },
+            {
+              "src": "/progress/yui320-end-dark.jpg",
+              "alt": "The same end state in dark mode"
+            },
+            {
+              "src": "/progress/yui320-end-reduce.jpg",
+              "alt": "Reduce Motion: the still frame with the same three buttons"
+            },
+            {
+              "src": "/progress/yui320-change-it.jpg",
+              "alt": "Change it: the film quoted above the composer, keyboard up"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 535,
+            "site": 1802,
+            "builds": 58,
+            "shipped": 749
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T17:30:35.000Z",
+          "title": "A Thought: films draw common things at once",
+          "card": "SITE-246",
+          "anchor": "a-thought-films-draw-common-things-at-once",
+          "images": [
+            {
+              "src": "/demo/motion/look/m23-seed.jpg",
+              "alt": "Contact sheet: the 21 drawings that ship with the plugin"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 534,
+            "site": 1797,
+            "builds": 58,
+            "shipped": 748
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T17:23:33.000Z",
+          "title": "Films draw common things at once: 21 drawings ship with the plugin",
+          "card": "MOTION-23",
+          "anchor": "films-draw-common-things-at-once-21-drawings-ship-with-the-plugin",
+          "images": [
+            {
+              "src": "/demo/motion/look/m23-seed.jpg",
+              "alt": "Contact sheet: the 21 drawings that ship with the plugin"
+            },
+            {
+              "src": "/demo/motion/look/m23-chart.jpg",
+              "alt": "Bars: first scene median and mean, and frame pass share, with the seed on and off, for asks that hit the seed and asks that do not"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 534,
+            "site": 1795,
+            "builds": 58,
+            "shipped": 747
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T17:07:42.000Z",
+          "title": "Films talk",
+          "card": "YUI-319",
+          "anchor": "films-talk",
+          "images": [
+            {
+              "src": "/progress/yui319-mute-dark.jpg",
+              "alt": "Dark: the film chrome with pause, the speaker button and the scrubber"
+            },
+            {
+              "src": "/progress/yui319-mute-light.jpg",
+              "alt": "Light: the same chrome on the light look"
+            },
+            {
+              "src": "/progress/yui319-muted-dark.jpg",
+              "alt": "Dark: the speaker button struck through after a tap, film voice muted"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 533,
+            "site": 1791,
+            "builds": 58,
+            "shipped": 746
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T16:55:27.000Z",
+          "title": "A Thought: scene 2 is ready when scene 1 ends",
+          "card": "SITE-245",
+          "anchor": "a-thought-scene-2-is-ready-when-scene-1-ends",
+          "images": [
+            {
+              "src": "/demo/motion/look/m22-timing.jpg",
+              "alt": "Bars: the wait between scene 1 and scene 2, and films with scene 2 ready in time, before and after"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 533,
+            "site": 1788,
+            "builds": 58,
+            "shipped": 745
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T16:44:40.000Z",
+          "title": "Films stop stalling after scene 1: scene 2 is ready on time",
+          "card": "MOTION-22",
+          "anchor": "films-stop-stalling-after-scene-1-scene-2-is-ready-on-time",
+          "images": [
+            {
+              "src": "/demo/motion/look/m22-timing.jpg",
+              "alt": "Bars: scene 2 gap and ready-in-time share on the new held-out runs and held-out 10, before and after"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 532,
+            "site": 1787,
+            "builds": 58,
+            "shipped": 744
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T15:41:46.000Z",
+          "title": "A Thought: scene 1 no longer waits for the shapes",
+          "card": "SITE-244",
+          "anchor": "a-thought-scene-1-no-longer-waits-for-the-shapes",
+          "images": [
+            {
+              "src": "/demo/motion/look/m21-timing.jpg",
+              "alt": "Bars: first scene and bad frames on the new held-out runs and held-out 10, before and after"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 531,
+            "site": 1782,
+            "builds": 58,
+            "shipped": 743
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T15:34:29.000Z",
+          "title": "Films start without the shapes wait: first scene 5.4 s to 4.4 s",
+          "card": "MOTION-21",
+          "anchor": "films-start-without-the-shapes-wait-first-scene-5-4-s-to-4-4-s",
+          "images": [
+            {
+              "src": "/demo/motion/look/m21-timing.jpg",
+              "alt": "Bars: first scene median and bad frames on the new held-out runs and held-out 10, before and after"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 531,
+            "site": 1780,
+            "builds": 58,
+            "shipped": 742
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T14:45:29.000Z",
+          "title": "A Thought: a shorter shapes reply did not help",
+          "card": "SITE-243",
+          "anchor": "a-thought-a-shorter-shapes-reply-did-not-help",
+          "images": [
+            {
+              "src": "/demo/motion/look/m20-parts-timing.jpg",
+              "alt": "Bars: shapes call, first scene and gap between scenes, before and after the shorter reply, against the goals"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 530,
+            "site": 1775,
+            "builds": 58,
+            "shipped": 741
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T14:38:55.000Z",
+          "title": "A shorter parts reply: call 4.2 s to 2.9 s, drawings worse, so it is out",
+          "card": "MOTION-20",
+          "anchor": "a-shorter-parts-reply-call-4-2-s-to-2-9-s-drawings-worse-so-it-is-out",
+          "images": [
+            {
+              "src": "/demo/motion/look/m20-parts-timing.jpg",
+              "alt": "Bars: parts call, first scene and gap between scenes, before and after terse parts, against the goals"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 530,
+            "site": 1774,
+            "builds": 58,
+            "shipped": 740
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T13:44:43.000Z",
+          "title": "A Thought: Scene 2 was not ready in time",
+          "card": "SITE-242",
+          "anchor": "a-thought-scene-2-was-not-ready-in-time",
+          "images": [
+            {
+              "src": "/demo/motion/look/m19-scene-gap-timing.jpg",
+              "alt": "Bars: first scene median and gap between scenes, before and after, new held-out runs A and B and held-out 10, against the 4.5 s goal"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 529,
+            "site": 1769,
+            "builds": 58,
+            "shipped": 739
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T13:33:41.000Z",
+          "title": "Scene 2 early: tried it, missed, reverted. Gap between scenes 2.1 s to 1.4 s",
+          "card": "MOTION-19",
+          "anchor": "scene-2-early-tried-it-missed-reverted-gap-between-scenes-2-1-s-to-1-4-s",
+          "images": [
+            {
+              "src": "/demo/motion/look/m19-scene-gap-timing.jpg",
+              "alt": "Bars: first scene median and gap between scenes, before and after, new held-out runs A and B and held-out 10, against the 4.5 s goal"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 529,
+            "site": 1767,
+            "builds": 58,
+            "shipped": 738
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T12:42:13.000Z",
+          "title": "A Thought: Films start without the warm-up",
+          "card": "SITE-241",
+          "anchor": "a-thought-films-start-without-the-warm-up",
+          "images": [
+            {
+              "src": "/demo/motion/look/m18-first-scene-timing.jpg",
+              "alt": "Bars: drawing call median cold, warm and noun heard, and first-scene median before and after against the 6.5 s goal"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 528,
+            "site": 1763,
+            "builds": 58,
+            "shipped": 737
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T12:36:16.000Z",
+          "title": "Films start without the program warm-up: first scene on new drawings 9.2 s to 5 s",
+          "card": "MOTION-18",
+          "anchor": "films-start-without-the-program-warm-up-first-scene-on-new-drawings-9-2-s-to-5-s",
+          "images": [
+            {
+              "src": "/demo/motion/look/m18-first-scene-timing.jpg",
+              "alt": "Bars: parts call median cold, warm and noun heard, and first-scene median before and after against the 6.5 s goal"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 528,
+            "site": 1761,
+            "builds": 58,
+            "shipped": 736
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T11:43:57.000Z",
+          "title": "A Thought: We tried to make new drawings come back faster",
+          "card": "SITE-240",
+          "anchor": "a-thought-we-tried-to-make-new-drawings-come-back-faster",
+          "images": [
+            {
+              "src": "/demo/motion/look/m17-first-scene-timing.jpg",
+              "alt": "Bars: drawing call median per version against the one-third goal, and first-scene median on the new asks against the 6.5 s goal"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 527,
+            "site": 1756,
+            "builds": 58,
+            "shipped": 735
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T11:38:00.000Z",
+          "title": "A faster parts call, tried: speed up, drawings worse, so it is out",
+          "card": "MOTION-17",
+          "anchor": "a-faster-parts-call-tried-speed-up-drawings-worse-so-it-is-out",
+          "images": [
+            {
+              "src": "/demo/motion/look/m17-first-scene-timing.jpg",
+              "alt": "Bars: parts call median per version against the one-third goal, and first-scene median on the new held-out set against the 6.5 s goal"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 527,
+            "site": 1755,
+            "builds": 58,
+            "shipped": 734
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T10:54:26.000Z",
+          "title": "A Thought: We tried to start films faster on new drawings",
+          "card": "SITE-239",
+          "anchor": "a-thought-we-tried-to-start-films-faster-on-new-drawings",
+          "images": [
+            {
+              "src": "/demo/motion/look/m16-first-scene-timing.jpg",
+              "alt": "Bar chart of first-scene seconds on ten new asks, last fix against the parallel try, with the 5.5 s goal line"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 527,
+            "site": 1751,
+            "builds": 58,
+            "shipped": 733
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T10:46:39.000Z",
+          "title": "Films that start faster on new drawings: speed met, quality fell, so it is out",
+          "card": "MOTION-16",
+          "anchor": "films-that-start-faster-on-new-drawings-speed-met-quality-fell-so-it-is-out",
+          "images": [
+            {
+              "src": "/demo/motion/look/m16-first-scene-timing.jpg",
+              "alt": "Bar chart of first-scene seconds per new held-out ask, MOTION-15 against the parallel try, with the 5.5 s goal line"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 527,
+            "site": 1750,
+            "builds": 58,
+            "shipped": 732
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T09:38:27.000Z",
+          "title": "The phone draws things the kit lacks",
+          "card": "YUI-318",
+          "anchor": "the-phone-draws-things-the-kit-lacks",
+          "images": [
+            {
+              "src": "/progress/yui318-giraffe-dark.webp",
+              "alt": "Dark, a film's scene 1 on the phone: a drawn giraffe, captioned A giraffe"
+            },
+            {
+              "src": "/progress/yui318-giraffe-light.webp",
+              "alt": "Light, the same giraffe"
+            },
+            {
+              "src": "/progress/yui318-chicken-dark.webp",
+              "alt": "Dark, the kit chicken still draws"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 527,
+            "site": 1748,
+            "builds": 58,
+            "shipped": 731
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T09:29:11.000Z",
+          "title": "A Thought: Films learn to draw what the kit does not have",
+          "card": "SITE-238",
+          "anchor": "a-thought-films-learn-to-draw-what-the-kit-does-not-have",
+          "images": [
+            {
+              "src": "/demo/motion/look/m15-octopus.jpg",
+              "alt": "Octopus scenes before (kit only, 1 of 6 pass) and after (drawn from kit parts, 6 of 6 pass)"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 526,
+            "site": 1745,
+            "builds": 58,
+            "shipped": 730
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T09:21:15.000Z",
+          "title": "Films draw things the kit lacks: a giraffe, a windmill, a guitar, cached by name",
+          "card": "MOTION-15",
+          "anchor": "films-draw-things-the-kit-lacks-a-giraffe-a-windmill-a-guitar-cached-by-name",
+          "images": [
+            {
+              "src": "/demo/motion/look/m15-nouns.jpg",
+              "alt": "Cactus, giraffe and guitar films before (blobs and outlines) and after (a drawn cactus, giraffe and guitar), verdict under each frame"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 526,
+            "site": 1744,
+            "builds": 58,
+            "shipped": 729
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T08:38:01.000Z",
+          "title": "Phone films draw the kit's objects",
+          "card": "YUI-317",
+          "anchor": "phone-films-draw-the-kit-s-objects",
+          "images": [
+            {
+              "src": "/progress/yui317-chicken-dark.webp",
+              "alt": "Dark, a film's scene 1 on the phone: the kit chicken drawn on, captioned A chicken"
+            },
+            {
+              "src": "/progress/yui317-submarine-dark.webp",
+              "alt": "Dark, a film with a noun the kit lacks: a yellow submarine painted by the film itself"
+            },
+            {
+              "src": "/progress/yui317-chicken-light.webp",
+              "alt": "Light, the same kit chicken"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 525,
+            "site": 1740,
+            "builds": 58,
+            "shipped": 728
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T08:03:28.000Z",
+          "title": "A Thought: The kit draws the hero, a real chicken at last",
+          "card": "SITE-237",
+          "anchor": "a-thought-the-kit-draws-the-hero-a-real-chicken-at-last",
+          "images": [
+            {
+              "src": "/demo/motion/look/m15-chicken.jpg",
+              "alt": "Roast chicken scenes 3 and 6, before (model draws a blob) and after (kit draws a chicken on a plate)"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 524,
+            "site": 1735,
+            "builds": 58,
+            "shipped": 727
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T07:55:58.000Z",
+          "title": "Films draw the hero: the kit has the objects, plain and off-subject frames fall by half",
+          "card": "MOTION-14",
+          "anchor": "films-draw-the-hero-the-kit-has-the-objects-plain-and-off-subject-frames-fall-by",
+          "images": [
+            {
+              "src": "/demo/motion/look/m14-kit-hero.jpg",
+              "alt": "Before and after contact sheets for the same asks: dog box, jump-start, robot, Rome, roast chicken, cat, brain, hammer"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 523,
+            "site": 1734,
+            "builds": 58,
+            "shipped": 726
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T07:33:37.000Z",
+          "title": "Films now play on your phone",
+          "card": "YUI-316",
+          "anchor": "films-now-play-on-your-phone",
+          "images": [
+            {
+              "src": "/progress/yui311-film-dark.webp",
+              "alt": "A film playing full screen on the stage, dark: a blueprint piston drawing with Close, Pause and Replay on top"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 523,
+            "site": 1730,
+            "builds": 58,
+            "shipped": 725
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-10-07T07:06:46.000Z",
+          "build": 562,
+          "changes": 17,
+          "totals": {
+            "app": 522,
+            "site": 1727,
+            "builds": 58,
+            "shipped": 724
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T06:47:07.000Z",
+          "title": "A Thought: Films shown worked drawings, the model read them and drew a blob anyway",
+          "card": "SITE-236",
+          "anchor": "a-thought-films-shown-worked-drawings-the-model-read-them-and-drew-a-blob-anyway",
+          "images": [
+            {
+              "src": "/demo/motion/look/m14-chicken.jpg",
+              "alt": "Roast chicken scenes 3 and 6, before and after worked drawings, both blobs"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1724,
+            "builds": 57,
+            "shipped": 724
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T06:38:59.000Z",
+          "title": "Films shown worked drawings: no gain, so it is out",
+          "card": "MOTION-13",
+          "anchor": "films-shown-worked-drawings-no-gain-so-it-is-out",
+          "images": [
+            {
+              "src": "/demo/motion/look/m13-worked-drawings.jpg",
+              "alt": "Before and after contact sheets for the same asks, verdict under each frame"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 522,
+            "site": 1723,
+            "builds": 57,
+            "shipped": 723
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T05:59:15.000Z",
+          "title": "A Thought: Films that plan the hero first, it wrote the list and drew a blob anyway",
+          "card": "SITE-235",
+          "anchor": "a-thought-films-that-plan-the-hero-first-it-wrote-the-list-and-drew-a-blob-anywa",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1719,
+            "builds": 57,
+            "shipped": 722
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T05:49:28.000Z",
+          "title": "Films plan the hero first: no gain, so it is out",
+          "card": "MOTION-12",
+          "anchor": "films-plan-the-hero-first-no-gain-so-it-is-out",
+          "images": [
+            {
+              "src": "/demo/motion/look/m12-parts-first.jpg",
+              "alt": "After contact sheet for checkout, chicken and dog box films with a before and after pass table for all 20 asks"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 522,
+            "site": 1718,
+            "builds": 57,
+            "shipped": 721
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T05:10:42.000Z",
+          "title": "A Thought: Films that draw the real thing, our first fix made it worse",
+          "card": "SITE-234",
+          "anchor": "a-thought-films-that-draw-the-real-thing-our-first-fix-made-it-worse",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1713,
+            "builds": 57,
+            "shipped": 720
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T05:04:04.000Z",
+          "title": "Films draw the thing: the first fix did not work, so it is out",
+          "card": "MOTION-11",
+          "anchor": "films-draw-the-thing-the-first-fix-did-not-work-so-it-is-out",
+          "images": [
+            {
+              "src": "/demo/motion/look/m11-things.jpg",
+              "alt": "Before and after contact sheets for checkout, chicken and dog box films, verdict under each frame"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 522,
+            "site": 1712,
+            "builds": 57,
+            "shipped": 719
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T04:15:28.000Z",
+          "title": "A Thought: Films that sit still, we checked the check first",
+          "card": "SITE-233",
+          "anchor": "a-thought-films-that-sit-still-we-checked-the-check-first",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1707,
+            "builds": 57,
+            "shipped": 718
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T04:09:21.000Z",
+          "title": "Films that sit still: the check was wrong, not the films",
+          "card": "MOTION-10",
+          "anchor": "films-that-sit-still-the-check-was-wrong-not-the-films",
+          "images": [
+            {
+              "src": "/demo/motion/look/m10-still.jpg",
+              "alt": "43 scenes the old check called still, two frames each, all labelled hold beat with how much changed"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 522,
+            "site": 1706,
+            "builds": 57,
+            "shipped": 717
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "app",
+          "sha": "9459dda0",
+          "at": "2026-10-07T18:28:54.000Z",
+          "text": "Yui 0.6.5: daily release, 2026-10-07 [YUI-SHIP]",
+          "url": "https://github.com/postscarcityai/yui/commit/9459dda0"
+        },
+        {
+          "repo": "site",
+          "sha": "be809900",
+          "at": "2026-10-07T18:16:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/be809900"
+        },
+        {
+          "repo": "site",
+          "sha": "c2c236b0",
+          "at": "2026-10-07T18:08:20.000Z",
+          "text": "Thought: 93 things drawn ahead (SITE-247)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c2c236b0"
+        },
+        {
+          "repo": "site",
+          "sha": "7e513a25",
+          "at": "2026-10-07T18:06:20.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e513a25"
+        },
+        {
+          "repo": "site",
+          "sha": "cf9b2269",
+          "at": "2026-10-07T18:00:29.000Z",
+          "text": "MOTION-24: 72 more things drawn ahead, held-out 4, results in MOTION.md and progress",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cf9b2269"
+        },
+        {
+          "repo": "app",
+          "sha": "b4401626",
+          "at": "2026-10-07T18:00:26.000Z",
+          "text": "MOTION-24: seed grows from 21 to 93 checked drawings; a seed word still skips the parts call",
+          "url": "https://github.com/postscarcityai/yui/commit/b4401626"
+        },
+        {
+          "repo": "site",
+          "sha": "7e040047",
+          "at": "2026-10-07T17:51:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e040047"
+        },
+        {
+          "repo": "site",
+          "sha": "d02527d8",
+          "at": "2026-10-07T17:45:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d02527d8"
+        },
+        {
+          "repo": "site",
+          "sha": "6b092b00",
+          "at": "2026-10-07T17:42:50.000Z",
+          "text": "Progress: Films end with Another take and Change it (YUI-320)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6b092b00"
+        },
+        {
+          "repo": "app",
+          "sha": "36f092f4",
+          "at": "2026-10-07T17:42:33.000Z",
+          "text": "Films end with Replay, Another take and Change it (YUI-320)",
+          "url": "https://github.com/postscarcityai/yui/commit/36f092f4"
+        },
+        {
+          "repo": "site",
+          "sha": "8712817f",
+          "at": "2026-10-07T17:40:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8712817f"
+        },
+        {
+          "repo": "site",
+          "sha": "e6acc75e",
+          "at": "2026-10-07T17:39:31.000Z",
+          "text": "Channel guide: Another take tap is a bare flag, again (YUI-320)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e6acc75e"
+        },
+        {
+          "repo": "site",
+          "sha": "9ff2fe1e",
+          "at": "2026-10-07T17:36:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9ff2fe1e"
+        },
+        {
+          "repo": "site",
+          "sha": "ee681210",
+          "at": "2026-10-07T17:30:57.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ee681210"
+        },
+        {
+          "repo": "site",
+          "sha": "31bcfea5",
+          "at": "2026-10-07T17:30:35.000Z",
+          "text": "Thought: films draw common things at once (SITE-246)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31bcfea5"
+        },
+        {
+          "repo": "site",
+          "sha": "9b658ea1",
+          "at": "2026-10-07T17:30:06.000Z",
+          "text": "Channel guide: a film's Another take and Change it taps get a new motion line (YUI-320)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9b658ea1"
+        },
+        {
+          "repo": "site",
+          "sha": "9ffb7fc8",
+          "at": "2026-10-07T17:23:33.000Z",
+          "text": "MOTION-23: seed of 21 drawn things, held-out 3, results in MOTION.md and progress",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9ffb7fc8"
+        },
+        {
+          "repo": "app",
+          "sha": "62273818",
+          "at": "2026-10-07T17:23:30.000Z",
+          "text": "MOTION-23: 21 checked drawings ship with the plugin (motion_things_seed.json); a seed word skips the parts call",
+          "url": "https://github.com/postscarcityai/yui/commit/62273818"
+        },
+        {
+          "repo": "site",
+          "sha": "443a316c",
+          "at": "2026-10-07T17:20:55.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/443a316c"
+        },
+        {
+          "repo": "site",
+          "sha": "0c2cf075",
+          "at": "2026-10-07T17:15:54.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0c2cf075"
+        },
+        {
+          "repo": "site",
+          "sha": "230d9b2b",
+          "at": "2026-10-07T17:10:57.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/230d9b2b"
+        },
+        {
+          "repo": "site",
+          "sha": "44d1e2c2",
+          "at": "2026-10-07T17:07:42.000Z",
+          "text": "Progress: Films talk (YUI-319)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/44d1e2c2"
+        },
+        {
+          "repo": "site",
+          "sha": "6f0d0b24",
+          "at": "2026-10-07T17:06:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6f0d0b24"
+        },
+        {
+          "repo": "site",
+          "sha": "0691b533",
+          "at": "2026-10-07T17:00:51.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0691b533"
+        },
+        {
+          "repo": "site",
+          "sha": "fca6d9d4",
+          "at": "2026-10-07T16:55:27.000Z",
+          "text": "Thought: scene 2 is ready when scene 1 ends (SITE-245)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fca6d9d4"
+        },
+        {
+          "repo": "app",
+          "sha": "fc76f7cd",
+          "at": "2026-10-07T16:52:14.000Z",
+          "text": "Films talk: say cues are spoken on device with a mute button in the film chrome (YUI-319)",
+          "url": "https://github.com/postscarcityai/yui/commit/fc76f7cd"
+        },
+        {
+          "repo": "site",
+          "sha": "3644425b",
+          "at": "2026-10-07T16:44:40.000Z",
+          "text": "MOTION-22: scene 2 timing result, chart, spec",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3644425b"
+        },
+        {
+          "repo": "app",
+          "sha": "7bbf2068",
+          "at": "2026-10-07T16:44:37.000Z",
+          "text": "MOTION-22: scene 2+ writer starts with scene 1's, not after it (gap 2.4/1.8/2.6 s to 0 s, ready 0% to 65-70%)",
+          "url": "https://github.com/postscarcityai/yui/commit/7bbf2068"
+        },
+        {
+          "repo": "site",
+          "sha": "72265b40",
+          "at": "2026-10-07T16:40:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/72265b40"
+        },
+        {
+          "repo": "site",
+          "sha": "2019735c",
+          "at": "2026-10-07T16:05:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2019735c"
+        },
+        {
+          "repo": "site",
+          "sha": "20941f14",
+          "at": "2026-10-07T15:50:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/20941f14"
+        },
+        {
+          "repo": "site",
+          "sha": "95563a71",
+          "at": "2026-10-07T15:45:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/95563a71"
+        },
+        {
+          "repo": "site",
+          "sha": "4622879e",
+          "at": "2026-10-07T15:41:46.000Z",
+          "text": "Thought: scene 1 no longer waits for the shapes (SITE-244)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4622879e"
+        },
+        {
+          "repo": "site",
+          "sha": "4474ee46",
+          "at": "2026-10-07T15:35:52.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4474ee46"
+        },
+        {
+          "repo": "site",
+          "sha": "16603626",
+          "at": "2026-10-07T15:34:29.000Z",
+          "text": "MOTION-21: first scene starts with the parts call; spec paragraph, progress entry, timing chart",
+          "url": "https://github.com/postscarcityai/yuigui/commit/16603626"
+        },
+        {
+          "repo": "app",
+          "sha": "ed933b1b",
+          "at": "2026-10-07T15:34:11.000Z",
+          "text": "MOTION-21: scene 1 writer starts with the parts call and goes out on the first shapes (no wait on the full parts reply)",
+          "url": "https://github.com/postscarcityai/yui/commit/ed933b1b"
+        },
+        {
+          "repo": "site",
+          "sha": "1f9ff872",
+          "at": "2026-10-07T15:05:52.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1f9ff872"
+        },
+        {
+          "repo": "site",
+          "sha": "4d7206f8",
+          "at": "2026-10-07T14:55:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4d7206f8"
+        },
+        {
+          "repo": "site",
+          "sha": "cab06885",
+          "at": "2026-10-07T14:50:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cab06885"
+        },
+        {
+          "repo": "site",
+          "sha": "89b1ab07",
+          "at": "2026-10-07T14:45:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/89b1ab07"
+        },
+        {
+          "repo": "site",
+          "sha": "f108081e",
+          "at": "2026-10-07T14:45:29.000Z",
+          "text": "Thought: a shorter shapes reply did not help (SITE-243)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f108081e"
+        },
+        {
+          "repo": "site",
+          "sha": "57289cb6",
+          "at": "2026-10-07T14:38:55.000Z",
+          "text": "MOTION-20: shorter parts reply tried, missed, reverted; timing chart, spec and progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/57289cb6"
+        },
+        {
+          "repo": "app",
+          "sha": "f70d48c4",
+          "at": "2026-10-07T14:38:45.000Z",
+          "text": "MOTION-20: parse_reply reads the first JSON object (a second line no longer drops the hero). Shorter parts reply tried, missed, reverted",
+          "url": "https://github.com/postscarcityai/yui/commit/f70d48c4"
+        },
+        {
+          "repo": "site",
+          "sha": "dc17059e",
+          "at": "2026-10-07T14:05:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dc17059e"
+        },
+        {
+          "repo": "site",
+          "sha": "906eb70f",
+          "at": "2026-10-07T13:55:29.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/906eb70f"
+        },
+        {
+          "repo": "site",
+          "sha": "f838cb2c",
+          "at": "2026-10-07T13:50:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f838cb2c"
+        },
+        {
+          "repo": "site",
+          "sha": "9e8220c6",
+          "at": "2026-10-07T13:45:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9e8220c6"
+        },
+        {
+          "repo": "site",
+          "sha": "0a38ca31",
+          "at": "2026-10-07T13:44:43.000Z",
+          "text": "Thought: scene 2 was not ready in time (SITE-242)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0a38ca31"
+        },
+        {
+          "repo": "site",
+          "sha": "56bc8a31",
+          "at": "2026-10-07T13:35:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/56bc8a31"
+        },
+        {
+          "repo": "site",
+          "sha": "4e23d9e7",
+          "at": "2026-10-07T13:33:41.000Z",
+          "text": "MOTION-19: scene 2 and gap timing, spec paragraph, progress entry with chart",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4e23d9e7"
+        },
+        {
+          "repo": "app",
+          "sha": "e3c2352b",
+          "at": "2026-10-07T13:33:39.000Z",
+          "text": "MOTION-19: warm.shutdown cancels a process still starting; motion.prime fires (maker is split_film). Scene-2-early and warm scene 1...",
+          "url": "https://github.com/postscarcityai/yui/commit/e3c2352b"
+        },
+        {
+          "repo": "site",
+          "sha": "09d3d0a2",
+          "at": "2026-10-07T13:05:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/09d3d0a2"
+        },
+        {
+          "repo": "site",
+          "sha": "4644f41b",
+          "at": "2026-10-07T12:50:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4644f41b"
+        },
+        {
+          "repo": "site",
+          "sha": "ec56291f",
+          "at": "2026-10-07T12:45:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ec56291f"
+        },
+        {
+          "repo": "site",
+          "sha": "6070a928",
+          "at": "2026-10-07T12:42:13.000Z",
+          "text": "Thought: films start without the warm-up (SITE-241)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6070a928"
+        },
+        {
+          "repo": "site",
+          "sha": "c74de986",
+          "at": "2026-10-07T12:40:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c74de986"
+        },
+        {
+          "repo": "site",
+          "sha": "dac104c3",
+          "at": "2026-10-07T12:36:16.000Z",
+          "text": "MOTION-18: warm parts call, writers on the noun; spec paragraph, progress entry, timing chart",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dac104c3"
+        },
+        {
+          "repo": "app",
+          "sha": "7c16990f",
+          "at": "2026-10-07T12:36:12.000Z",
+          "text": "MOTION-18: warm claude for the parts call, film writers start on the noun",
+          "url": "https://github.com/postscarcityai/yui/commit/7c16990f"
+        },
+        {
+          "repo": "site",
+          "sha": "413acee6",
+          "at": "2026-10-07T12:06:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/413acee6"
+        },
+        {
+          "repo": "site",
+          "sha": "012753fd",
+          "at": "2026-10-07T12:02:14.000Z",
+          "text": "Roadmap: on phones is build 562 (freshness)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/012753fd"
+        },
+        {
+          "repo": "site",
+          "sha": "febfbd5b",
+          "at": "2026-10-07T11:51:09.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/febfbd5b"
+        },
+        {
+          "repo": "site",
+          "sha": "b4428b44",
+          "at": "2026-10-07T11:46:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b4428b44"
+        },
+        {
+          "repo": "site",
+          "sha": "92dac712",
+          "at": "2026-10-07T11:43:57.000Z",
+          "text": "Thought: we tried to make new drawings come back faster, reverted (SITE-240)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/92dac712"
+        },
+        {
+          "repo": "site",
+          "sha": "298935af",
+          "at": "2026-10-07T11:38:00.000Z",
+          "text": "MOTION-17: compact parts call tried (5.2 s to 3.2 s on haiku), drawings worse, reverted; numbers and chart on the site",
+          "url": "https://github.com/postscarcityai/yuigui/commit/298935af"
+        },
+        {
+          "repo": "site",
+          "sha": "174c1c00",
+          "at": "2026-10-07T11:06:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/174c1c00"
+        },
+        {
+          "repo": "site",
+          "sha": "7500af0a",
+          "at": "2026-10-07T11:01:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7500af0a"
+        },
+        {
+          "repo": "site",
+          "sha": "fa73ad8e",
+          "at": "2026-10-07T10:56:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fa73ad8e"
+        },
+        {
+          "repo": "site",
+          "sha": "0fc2f0bf",
+          "at": "2026-10-07T10:54:26.000Z",
+          "text": "Thought: we tried to start films faster on new drawings, reverted (SITE-239)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0fc2f0bf"
+        },
+        {
+          "repo": "site",
+          "sha": "5431a8f8",
+          "at": "2026-10-07T10:46:39.000Z",
+          "text": "MOTION-16: parts call beside scene 1, speed met, quality fell, reverted",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5431a8f8"
+        },
+        {
+          "repo": "site",
+          "sha": "8f88e82a",
+          "at": "2026-10-07T09:45:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8f88e82a"
+        },
+        {
+          "repo": "site",
+          "sha": "cc645393",
+          "at": "2026-10-07T09:38:27.000Z",
+          "text": "YUI-318: progress entry, phone draws things the kit lacks",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cc645393"
+        },
+        {
+          "repo": "app",
+          "sha": "2edc4c2c",
+          "at": "2026-10-07T09:38:04.000Z",
+          "text": "YUI-318: re-bundle the phone player with api.defineThing, giraffe film test",
+          "url": "https://github.com/postscarcityai/yui/commit/2edc4c2c"
+        },
+        {
+          "repo": "site",
+          "sha": "6dc5f316",
+          "at": "2026-10-07T09:35:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6dc5f316"
+        },
+        {
+          "repo": "site",
+          "sha": "4b0e2e3e",
+          "at": "2026-10-07T09:30:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4b0e2e3e"
+        },
+        {
+          "repo": "site",
+          "sha": "74f1f71b",
+          "at": "2026-10-07T09:29:11.000Z",
+          "text": "Thought: films learn to draw what the kit does not have (SITE-238)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/74f1f71b"
+        },
+        {
+          "repo": "site",
+          "sha": "5626aba9",
+          "at": "2026-10-07T09:21:15.000Z",
+          "text": "MOTION-15: films draw things the kit lacks (api.defineThing, ten new held-out asks), spec + progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5626aba9"
+        },
+        {
+          "repo": "app",
+          "sha": "f13c6f4b",
+          "at": "2026-10-07T09:20:41.000Z",
+          "text": "MOTION-15: one cheap call draws a hero the kit lacks from kit shapes, cached by name, size capped",
+          "url": "https://github.com/postscarcityai/yui/commit/f13c6f4b"
+        },
+        {
+          "repo": "site",
+          "sha": "b1d43317",
+          "at": "2026-10-07T08:50:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b1d43317"
+        },
+        {
+          "repo": "site",
+          "sha": "6a8aaedc",
+          "at": "2026-10-07T08:45:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6a8aaedc"
+        },
+        {
+          "repo": "site",
+          "sha": "ebe229bb",
+          "at": "2026-10-07T08:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ebe229bb"
+        },
+        {
+          "repo": "site",
+          "sha": "77a48ec3",
+          "at": "2026-10-07T08:38:01.000Z",
+          "text": "YUI-317: progress entry, phone films draw the kit objects",
+          "url": "https://github.com/postscarcityai/yuigui/commit/77a48ec3"
+        },
+        {
+          "repo": "app",
+          "sha": "339ec24b",
+          "at": "2026-10-07T08:37:40.000Z",
+          "text": "YUI-317: re-bundle the motion player with the film kit's api.thing, so phone films draw the kit objects",
+          "url": "https://github.com/postscarcityai/yui/commit/339ec24b"
+        },
+        {
+          "repo": "site",
+          "sha": "426f1bec",
+          "at": "2026-10-07T08:35:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/426f1bec"
+        },
+        {
+          "repo": "site",
+          "sha": "f4d1699a",
+          "at": "2026-10-07T08:15:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f4d1699a"
+        },
+        {
+          "repo": "site",
+          "sha": "040a5865",
+          "at": "2026-10-07T08:10:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/040a5865"
+        },
+        {
+          "repo": "site",
+          "sha": "8b2df9d0",
+          "at": "2026-10-07T08:05:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8b2df9d0"
+        },
+        {
+          "repo": "site",
+          "sha": "2cad755c",
+          "at": "2026-10-07T08:03:28.000Z",
+          "text": "SITE-237: Thought on the kit drawing the hero, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2cad755c"
+        },
+        {
+          "repo": "app",
+          "sha": "d1ba0cb4",
+          "at": "2026-10-07T08:01:44.000Z",
+          "text": "MOTION-14: plugin picks the film's hero from the ask and the kit draws it (motion_hero.py)",
+          "url": "https://github.com/postscarcityai/yui/commit/d1ba0cb4"
+        },
+        {
+          "repo": "site",
+          "sha": "26b56fa3",
+          "at": "2026-10-07T07:55:58.000Z",
+          "text": "MOTION-14: the kit draws the hero (api.thing, 69 objects), plain + off-subject 61 to 27, held-out 39 to 11",
+          "url": "https://github.com/postscarcityai/yuigui/commit/26b56fa3"
+        },
+        {
+          "repo": "site",
+          "sha": "d0adf2bd",
+          "at": "2026-10-07T07:45:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d0adf2bd"
+        },
+        {
+          "repo": "site",
+          "sha": "193d093a",
+          "at": "2026-10-07T07:40:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/193d093a"
+        },
+        {
+          "repo": "site",
+          "sha": "c76c5857",
+          "at": "2026-10-07T07:35:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c76c5857"
+        },
+        {
+          "repo": "site",
+          "sha": "491a2548",
+          "at": "2026-10-07T07:33:37.000Z",
+          "text": "YUI-316: films play on the phone (build 545+): library live, MOTION and YL specs, progress",
+          "url": "https://github.com/postscarcityai/yuigui/commit/491a2548"
+        },
+        {
+          "repo": "app",
+          "sha": "2ea682b8",
+          "at": "2026-10-07T07:33:35.000Z",
+          "text": "YUI-316: lift MOTION_BUILD to 545, films play on the phone",
+          "url": "https://github.com/postscarcityai/yui/commit/2ea682b8"
+        },
+        {
+          "repo": "site",
+          "sha": "a334d36d",
+          "at": "2026-10-07T07:15:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a334d36d"
+        },
+        {
+          "repo": "site",
+          "sha": "11a101ed",
+          "at": "2026-10-07T07:08:01.000Z",
+          "text": "progress: stage pick A and animated wireframe are on TestFlight build 562",
+          "url": "https://github.com/postscarcityai/yuigui/commit/11a101ed"
+        },
+        {
+          "repo": "site",
+          "sha": "02449829",
+          "at": "2026-10-07T07:05:20.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/02449829"
+        },
+        {
+          "repo": "site",
+          "sha": "5a90638f",
+          "at": "2026-10-07T06:55:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5a90638f"
+        },
+        {
+          "repo": "site",
+          "sha": "2ac38dc6",
+          "at": "2026-10-07T06:50:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2ac38dc6"
+        },
+        {
+          "repo": "site",
+          "sha": "9f6f3456",
+          "at": "2026-10-07T06:47:07.000Z",
+          "text": "SITE-236: Thought on films shown worked drawings, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9f6f3456"
+        },
+        {
+          "repo": "site",
+          "sha": "e1afb787",
+          "at": "2026-10-07T06:38:59.000Z",
+          "text": "MOTION-13: worked drawings of part shapes tried, no gain, reverted; progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e1afb787"
+        },
+        {
+          "repo": "site",
+          "sha": "822dd2b8",
+          "at": "2026-10-07T06:10:13.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/822dd2b8"
+        },
+        {
+          "repo": "site",
+          "sha": "5243ec02",
+          "at": "2026-10-07T06:05:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5243ec02"
+        },
+        {
+          "repo": "site",
+          "sha": "9e5dd9ae",
+          "at": "2026-10-07T06:00:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9e5dd9ae"
+        },
+        {
+          "repo": "site",
+          "sha": "31c0251a",
+          "at": "2026-10-07T05:59:15.000Z",
+          "text": "SITE-235: Thought on films that plan the hero first, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31c0251a"
+        },
+        {
+          "repo": "site",
+          "sha": "08e7b650",
+          "at": "2026-10-07T05:49:28.000Z",
+          "text": "MOTION-12: parts-first film prompt tried, reverted; look-pass paragraph and progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/08e7b650"
+        },
+        {
+          "repo": "site",
+          "sha": "17b9d7ae",
+          "at": "2026-10-07T05:36:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/17b9d7ae"
+        },
+        {
+          "repo": "site",
+          "sha": "e9cf8941",
+          "at": "2026-10-07T05:21:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e9cf8941"
+        },
+        {
+          "repo": "site",
+          "sha": "1cc2a8df",
+          "at": "2026-10-07T05:16:13.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1cc2a8df"
+        },
+        {
+          "repo": "site",
+          "sha": "acc46a9f",
+          "at": "2026-10-07T05:11:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/acc46a9f"
+        },
+        {
+          "repo": "site",
+          "sha": "acb07503",
+          "at": "2026-10-07T05:10:42.000Z",
+          "text": "SITE-234: Thought on films that draw the real thing, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/acb07503"
+        },
+        {
+          "repo": "site",
+          "sha": "28d1eaac",
+          "at": "2026-10-07T05:04:04.000Z",
+          "text": "MOTION-11: parts helper + subject rule tried, reverted; look-pass paragraph and progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/28d1eaac"
+        },
+        {
+          "repo": "site",
+          "sha": "61fc02a8",
+          "at": "2026-10-07T04:35:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/61fc02a8"
+        },
+        {
+          "repo": "site",
+          "sha": "799b70c4",
+          "at": "2026-10-07T04:25:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/799b70c4"
+        },
+        {
+          "repo": "site",
+          "sha": "814145b5",
+          "at": "2026-10-07T04:20:56.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/814145b5"
+        },
+        {
+          "repo": "site",
+          "sha": "e6bb8515",
+          "at": "2026-10-07T04:16:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e6bb8515"
+        },
+        {
+          "repo": "site",
+          "sha": "7bbf970f",
+          "at": "2026-10-07T04:15:28.000Z",
+          "text": "SITE-233: Thought on films that sit still, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7bbf970f"
+        },
+        {
+          "repo": "site",
+          "sha": "49563a99",
+          "at": "2026-10-07T04:09:21.000Z",
+          "text": "MOTION-10: still check samples five times, 43 of 43 'still' scenes were hold beats",
+          "url": "https://github.com/postscarcityai/yuigui/commit/49563a99"
+        },
+        {
+          "repo": "site",
+          "sha": "9e6d88e9",
+          "at": "2026-10-07T04:05:54.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9e6d88e9"
+        }
+      ]
+    },
+    {
       "date": "2026-10-06",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-10-07T03:45:59.000Z",
+          "title": "A Thought: We checked the film judge before fixing the films",
+          "card": "SITE-232",
+          "anchor": "a-thought-we-checked-the-film-judge-before-fixing-the-films",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1702,
+            "builds": 57,
+            "shipped": 716
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T03:32:39.000Z",
+          "title": "The film judge now agrees with a person on 93% of frames",
+          "card": "MOTION-9",
+          "anchor": "the-film-judge-now-agrees-with-a-person-on-93-of-frames",
+          "images": [
+            {
+              "src": "/demo/motion/look/m9-judge.jpg",
+              "alt": "Sixty hand-labelled film frames, each with my label and the old and new judge verdicts under it"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 522,
+            "site": 1698,
+            "builds": 57,
+            "shipped": 715
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T02:36:09.000Z",
+          "title": "A Thought: A film check that answers the same twice",
+          "card": "SITE-231",
+          "anchor": "a-thought-a-film-check-that-answers-the-same-twice",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1694,
+            "builds": 57,
+            "shipped": 714
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T02:26:39.000Z",
+          "title": "The film label check now gives the same answer every time",
+          "card": "MOTION-8",
+          "anchor": "the-film-label-check-now-gives-the-same-answer-every-time",
+          "images": [
+            {
+              "src": "/demo/motion/look/m8-overlap.jpg",
+              "alt": "Five scenes with overlapping labels before, and the same scenes after the kit change; four are clean"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 522,
+            "site": 1691,
+            "builds": 57,
+            "shipped": 713
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T01:04:39.000Z",
+          "title": "A Thought: We tried one short scene for small asks",
+          "card": "SITE-230",
+          "anchor": "a-thought-we-tried-one-short-scene-for-small-asks",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1687,
+            "builds": 57,
+            "shipped": 712
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T00:56:32.000Z",
+          "title": "We tried one short scene for small asks, and did not keep it",
+          "card": "MOTION-7",
+          "anchor": "we-tried-one-short-scene-for-small-asks-and-did-not-keep-it",
+          "images": [
+            {
+              "src": "/demo/motion/look/m7-before.jpg",
+              "alt": "Before: contact sheet, the full film made for each small ask, one frame per scene with a verdict under each"
+            },
+            {
+              "src": "/demo/motion/look/m7-after.jpg",
+              "alt": "After: the one-scene film for the same small asks; most frames are plain, small or cramped"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 522,
+            "site": 1686,
+            "builds": 57,
+            "shipped": 711
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-07T00:17:20.000Z",
+          "title": "A Thought: We tried to make films draw the real thing",
+          "card": "SITE-229",
+          "anchor": "a-thought-we-tried-to-make-films-draw-the-real-thing",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1682,
+            "builds": 57,
+            "shipped": 710
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T23:58:11.000Z",
+          "title": "We tried real objects for films, and did not keep them",
+          "card": "MOTION-6",
+          "anchor": "we-tried-real-objects-for-films-and-did-not-keep-them",
+          "images": [
+            {
+              "src": "/demo/motion/look/m6-before.jpg",
+              "alt": "Before: contact sheet, one frame per scene with a verdict under each"
+            },
+            {
+              "src": "/demo/motion/look/m6-after.jpg",
+              "alt": "After the tried objects: the same contact sheet; fewer plain frames, more cramped ones"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 522,
+            "site": 1680,
+            "builds": 57,
+            "shipped": 709
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T23:16:51.000Z",
+          "title": "A Thought: Films now say what they are drawing",
+          "card": "SITE-228",
+          "anchor": "a-thought-films-now-say-what-they-are-drawing",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 522,
+            "site": 1676,
+            "builds": 57,
+            "shipped": 708
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T23:07:23.000Z",
+          "title": "Films on /web now say what they are drawing",
+          "card": "MOTION-5",
+          "anchor": "films-on-web-now-say-what-they-are-drawing",
+          "images": [
+            {
+              "src": "/progress/motion5-before.webp",
+              "alt": "Dark phone: the stage says Drawing the first scene, 1s, while the film is written"
+            },
+            {
+              "src": "/progress/motion5-between.webp",
+              "alt": "Dark phone: a held frame of the engine with Drawing scene 2 at the bottom"
+            },
+            {
+              "src": "/progress/motion5-playing.webp",
+              "alt": "Dark phone: the engine scene playing with its own caption and no working line"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 521,
+            "site": 1674,
+            "builds": 57,
+            "shipped": 707
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T22:37:31.000Z",
+          "title": "A Thought: A shorter first scene did not help either",
+          "card": "SITE-227",
+          "anchor": "a-thought-a-shorter-first-scene-did-not-help-either",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 521,
+            "site": 1670,
+            "builds": 57,
+            "shipped": 706
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T22:30:12.000Z",
+          "title": "A shorter first scene did not make films start faster",
+          "card": "MOTION-4",
+          "anchor": "a-shorter-first-scene-did-not-make-films-start-faster",
+          "images": [
+            {
+              "src": "/progress/motion4-before.webp",
+              "alt": "Before: contact sheet of one frame per scene with a verdict under each"
+            },
+            {
+              "src": "/progress/motion4-after.webp",
+              "alt": "After: the same sheet with the one-idea scene 1, no scene 1 passing"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 521,
+            "site": 1667,
+            "builds": 57,
+            "shipped": 705
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T21:46:29.000Z",
+          "title": "A Thought: Films did not start faster",
+          "card": "SITE-226",
+          "anchor": "a-thought-films-did-not-start-faster",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 521,
+            "site": 1663,
+            "builds": 57,
+            "shipped": 704
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T21:39:23.000Z",
+          "title": "Scene 1 over the API did not make films start faster",
+          "card": "MOTION-3",
+          "anchor": "scene-1-over-the-api-did-not-make-films-start-faster",
+          "images": [
+            {
+              "src": "/progress/motion3-before.webp",
+              "alt": "Before: contact sheet of one frame per scene with a verdict under each"
+            },
+            {
+              "src": "/progress/motion3-after.webp",
+              "alt": "After: the same contact sheet with the small model writing scene 1, fewer frames passing"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 521,
+            "site": 1661,
+            "builds": 57,
+            "shipped": 703
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T20:41:06.000Z",
+          "title": "A Thought: Films get a look pass",
+          "card": "SITE-225",
+          "anchor": "a-thought-films-get-a-look-pass",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 521,
+            "site": 1657,
+            "builds": 57,
+            "shipped": 702
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T20:34:11.000Z",
+          "title": "Films are now checked frame by frame",
+          "card": "MOTION-2",
+          "anchor": "films-are-now-checked-frame-by-frame",
+          "images": [
+            {
+              "src": "/demo/motion/look/before-1.jpg",
+              "alt": "Before: contact sheet of one frame per scene with a verdict under each"
+            },
+            {
+              "src": "/demo/motion/look/after-1.jpg",
+              "alt": "After: the same contact sheet, more frames passing"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 521,
+            "site": 1654,
+            "builds": 57,
+            "shipped": 701
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T19:10:38.000Z",
+          "title": "The chat-is-home Thought now has a clip and a Try it link",
+          "card": "SITE-224",
+          "anchor": "the-chat-is-home-thought-now-has-a-clip-and-a-try-it-link",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 520,
+            "site": 1650,
+            "builds": 57,
+            "shipped": 700
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T18:58:23.000Z",
+          "title": "Try chat is home in the playground",
+          "card": "YUI-315",
+          "anchor": "try-chat-is-home-in-the-playground",
+          "images": [
+            {
+              "src": "/progress/yui315-chat-home-plain-answer-dark.webp",
+              "alt": "Dark, playground demo: a plain reply sits in the chat, no stage."
+            },
+            {
+              "src": "/progress/yui315-chat-home-visual-on-stage-dark.webp",
+              "alt": "Dark, playground demo: a sketch takes the stage."
+            },
+            {
+              "src": "/progress/yui315-chat-home-fold-chip-before-dark.webp",
+              "alt": "Dark, playground demo: older stage replies folded behind one chip."
+            },
+            {
+              "src": "/progress/yui315-chat-home-fold-chip-after-dark.webp",
+              "alt": "Dark, playground demo: the chip tapped, the earlier replies back in place."
+            },
+            {
+              "src": "/progress/yui315-chat-home-plain-answer-light.webp",
+              "alt": "Light, playground demo: a plain reply sits in the chat, no stage."
+            },
+            {
+              "src": "/progress/yui315-chat-home-visual-on-stage-light.webp",
+              "alt": "Light, playground demo: a sketch takes the stage."
+            },
+            {
+              "src": "/progress/yui315-chat-home-fold-chip-before-light.webp",
+              "alt": "Light, playground demo: older stage replies folded behind one chip."
+            },
+            {
+              "src": "/progress/yui315-chat-home-fold-chip-after-light.webp",
+              "alt": "Light, playground demo: the chip tapped, the earlier replies back in place."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 520,
+            "site": 1647,
+            "builds": 57,
+            "shipped": 699
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T18:27:53.000Z",
+          "title": "A Thought: Chat is home, the stage is for pictures",
+          "card": "SITE-223",
+          "anchor": "a-thought-chat-is-home-the-stage-is-for-pictures",
+          "images": [
+            {
+              "src": "/progress/yui314-web-plain-answer-dark.webp",
+              "alt": "Dark: a plain reply sits in the chat, no stage."
+            },
+            {
+              "src": "/progress/yui314-web-fold-chip-after-dark.webp",
+              "alt": "Dark: the fold chip tapped, earlier replies back in place."
+            },
+            {
+              "src": "/progress/yui314-web-plain-answer-light.webp",
+              "alt": "Light: a plain reply sits in the chat."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 520,
+            "site": 1644,
+            "builds": 57,
+            "shipped": 698
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T18:18:52.000Z",
+          "title": "Chat is home on the web too",
+          "card": "YUI-314",
+          "anchor": "chat-is-home-on-the-web-too",
+          "images": [
+            {
+              "src": "/progress/yui314-web-plain-answer-dark.webp",
+              "alt": "Dark, /web: a plain reply sits in the chat, no stage."
+            },
+            {
+              "src": "/progress/yui314-web-visual-on-stage-dark.webp",
+              "alt": "Dark, /web: a timer reply on the stage."
+            },
+            {
+              "src": "/progress/yui314-web-fold-chip-before-dark.webp",
+              "alt": "Dark, /web: older stage replies folded behind one chip."
+            },
+            {
+              "src": "/progress/yui314-web-fold-chip-after-dark.webp",
+              "alt": "Dark, /web: the chip tapped, the earlier replies back in place."
+            },
+            {
+              "src": "/progress/yui314-web-plain-answer-light.webp",
+              "alt": "Light, /web: a plain reply sits in the chat."
+            },
+            {
+              "src": "/progress/yui314-web-visual-on-stage-light.webp",
+              "alt": "Light, /web: a timer reply on the stage."
+            },
+            {
+              "src": "/progress/yui314-web-fold-chip-before-light.webp",
+              "alt": "Light, /web: the fold chip before a tap."
+            },
+            {
+              "src": "/progress/yui314-web-fold-chip-after-light.webp",
+              "alt": "Light, /web: the chip after a tap."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 520,
+            "site": 1641,
+            "builds": 57,
+            "shipped": 697
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T17:43:13.000Z",
+          "title": "A drawn phone plays before into after on the web too",
+          "card": [
+            "YUI-267"
+          ],
+          "anchor": "a-drawn-phone-plays-before-into-after-on-the-web-too",
+          "images": [
+            {
+              "src": "/progress/yui267-web-sketch-phone-before-dark.webp",
+              "alt": "Dark, /web: a drawn phone with a red BEFORE badge, two struck rows and a numbered note under it."
+            },
+            {
+              "src": "/progress/yui267-web-sketch-phone-after-dark.webp",
+              "alt": "Dark, /web: the same phone with a green AFTER badge, the new rows lit and two numbered notes under it."
+            },
+            {
+              "src": "/progress/yui267-web-sketch-phone-before-light.webp",
+              "alt": "Light, /web: the same phone on the before side."
+            },
+            {
+              "src": "/progress/yui267-web-sketch-phone-after-light.webp",
+              "alt": "Light, /web: the same phone on the after side."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 520,
+            "site": 1637,
+            "builds": 57,
+            "shipped": 696
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T17:36:32.000Z",
+          "title": "A Thought: Yui makes its own design picks",
+          "card": "SITE-222",
+          "anchor": "a-thought-yui-makes-its-own-design-picks",
+          "images": [
+            {
+              "src": "/progress/working-screen-dark.webp",
+              "alt": "Dark: the picked working screen, a short gist on top, Tinkering away lit by the blob, seconds in a glass pill"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 520,
+            "site": 1635,
+            "builds": 57,
+            "shipped": 695
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T17:32:18.000Z",
+          "title": "One thought per full screen, built",
+          "card": [
+            "NOTE-8417"
+          ],
+          "anchor": "one-thought-per-full-screen-built",
+          "images": [
+            {
+              "src": "/progress/stage-topics-now-dark.jpg",
+              "alt": "Before: one stage piled with unrelated pages"
+            },
+            {
+              "src": "/progress/stage-topics-a-dark.jpg",
+              "alt": "After: the stage holds the newest answer, older ones folded into a chip"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 520,
+            "site": 1633,
+            "builds": 57,
+            "shipped": 694
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T17:27:17.000Z",
+          "title": "A drawn phone is an animated wireframe",
+          "card": "YUI-267",
+          "anchor": "a-drawn-phone-is-an-animated-wireframe",
+          "images": [
+            {
+              "src": "/progress/sketch-phone-0-dark.webp",
+              "alt": "Before: a phone wireframe, one row struck out, a red BEFORE badge and a numbered note under it"
+            },
+            {
+              "src": "/progress/sketch-phone-1-dark.webp",
+              "alt": "After: the same phone, the new row lit, a green NOW badge and its note under it"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 520,
+            "site": 1631,
+            "builds": 57,
+            "shipped": 693
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T17:02:44.000Z",
+          "title": "The working screen is lighter and more alive",
+          "card": [
+            "ADv4muh06N4PD2IA1sV2Fhc",
+            "NOTE-50900"
+          ],
+          "anchor": "the-working-screen-is-lighter-and-more-alive",
+          "images": [
+            {
+              "src": "/progress/working-screen-before.webp",
+              "alt": "Before: your exact question on top and a big bold 'Running a command, 35s'"
+            },
+            {
+              "src": "/progress/working-screen-dark.webp",
+              "alt": "Dark: the gist on top, 'Tinkering away' lit by the blob, seconds in a glass pill"
+            },
+            {
+              "src": "/progress/working-screen-light.webp",
+              "alt": "Light: the same screen on a cream page"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 516,
+            "site": 1624,
+            "builds": 57,
+            "shipped": 692
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T16:17:25.000Z",
+          "title": "The any-model Thought gets the Grok, Le Chat and Gemini how-to",
+          "card": "SITE-221",
+          "anchor": "the-any-model-thought-gets-the-grok-le-chat-and-gemini-how-to",
+          "images": [
+            {
+              "src": "/progress/site221-note-dark.webp",
+              "alt": "Dark: the Thought with a new Update, Oct 6 section linking the Grok, Le Chat and Gemini guides"
+            },
+            {
+              "src": "/progress/site221-note-light.webp",
+              "alt": "Light: the same section on a cream page"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 516,
+            "site": 1619,
+            "builds": 57,
+            "shipped": 691
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T16:05:17.000Z",
+          "title": "Add Yui to Grok, Le Chat and Gemini by pasting one URL",
+          "card": "INT-24",
+          "anchor": "add-yui-to-grok-le-chat-and-gemini-by-pasting-one-url",
+          "images": [
+            {
+              "src": "/progress/int24-guides-dark.webp",
+              "alt": "Dark: the Grok app guide in the MCP spec, five steps and what to expect"
+            },
+            {
+              "src": "/progress/int24-guides-light.webp",
+              "alt": "Light: the same guide on a cream page"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 516,
+            "site": 1615,
+            "builds": 57,
+            "shipped": 690
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T15:49:53.000Z",
+          "title": "A Thought: Yui is the screen for any model",
+          "card": "SITE-220",
+          "anchor": "a-thought-yui-is-the-screen-for-any-model",
+          "images": [
+            {
+              "src": "/progress/site220-table-dark.webp",
+              "alt": "Dark: a table of seven model providers with a green, amber or grey dot for what works today"
+            },
+            {
+              "src": "/progress/site220-table-light.webp",
+              "alt": "Light: the same table on a cream page"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 516,
+            "site": 1611,
+            "builds": 57,
+            "shipped": 689
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T15:37:49.000Z",
+          "title": "Where Yui can plug in, every model provider",
+          "card": "INT-24",
+          "anchor": "where-yui-can-plug-in-every-model-provider",
+          "images": [
+            {
+              "src": "/progress/int24-ship-dark.webp",
+              "alt": "Dark: the Ship first on list on the Ecosystems spec page"
+            },
+            {
+              "src": "/progress/int24-ship-light.webp",
+              "alt": "Light: the same ranked list, five items with size and sign-off"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 516,
+            "site": 1609,
+            "builds": 57,
+            "shipped": 688
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T15:31:09.000Z",
+          "title": "The small-models Thought says what the llama fix did",
+          "card": "SITE-219",
+          "anchor": "the-small-models-thought-says-what-the-llama-fix-did",
+          "images": [
+            {
+              "src": "/progress/int29-llama-film-dark.webp",
+              "alt": "Dark: llama3.2:3b answers how a bill becomes law with one line and a film card"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 516,
+            "site": 1607,
+            "builds": 57,
+            "shipped": 687
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-10-06T15:01:10.000Z",
@@ -575,6 +2858,748 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "87f8ce81",
+          "at": "2026-10-07T03:55:54.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/87f8ce81"
+        },
+        {
+          "repo": "site",
+          "sha": "1e43d582",
+          "at": "2026-10-07T03:50:53.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1e43d582"
+        },
+        {
+          "repo": "site",
+          "sha": "b3c1902f",
+          "at": "2026-10-07T03:45:59.000Z",
+          "text": "SITE-232: Thought on checking the film judge first, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b3c1902f"
+        },
+        {
+          "repo": "site",
+          "sha": "e412d01b",
+          "at": "2026-10-07T03:45:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e412d01b"
+        },
+        {
+          "repo": "site",
+          "sha": "ddc7406e",
+          "at": "2026-10-07T03:38:00.000Z",
+          "text": "MOTION-9: no task id in the spec",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ddc7406e"
+        },
+        {
+          "repo": "site",
+          "sha": "ffc08b42",
+          "at": "2026-10-07T03:37:10.000Z",
+          "text": "MOTION-9: judge paragraph in the MOTION spec source",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ffc08b42"
+        },
+        {
+          "repo": "site",
+          "sha": "59095cfa",
+          "at": "2026-10-07T03:32:39.000Z",
+          "text": "MOTION-9: film judge asks the subject question first, agrees 93% with hand labels",
+          "url": "https://github.com/postscarcityai/yuigui/commit/59095cfa"
+        },
+        {
+          "repo": "site",
+          "sha": "4e9d7497",
+          "at": "2026-10-07T03:05:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4e9d7497"
+        },
+        {
+          "repo": "site",
+          "sha": "2b689863",
+          "at": "2026-10-07T02:45:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2b689863"
+        },
+        {
+          "repo": "site",
+          "sha": "fd9c0366",
+          "at": "2026-10-07T02:40:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fd9c0366"
+        },
+        {
+          "repo": "site",
+          "sha": "738bf830",
+          "at": "2026-10-07T02:36:09.000Z",
+          "text": "SITE-231: Thought on a film check that answers the same twice, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/738bf830"
+        },
+        {
+          "repo": "site",
+          "sha": "ed4d2f4c",
+          "at": "2026-10-07T02:35:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ed4d2f4c"
+        },
+        {
+          "repo": "site",
+          "sha": "26fd1f42",
+          "at": "2026-10-07T02:28:54.000Z",
+          "text": "MOTION-8: kit text guard falls back when the canvas has no getTransform (kit tests)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/26fd1f42"
+        },
+        {
+          "repo": "site",
+          "sha": "d0bee696",
+          "at": "2026-10-07T02:26:39.000Z",
+          "text": "MOTION-8: overlap check made steady (5 samples a scene, written threshold); kit places text in screen pixels on any camera",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d0bee696"
+        },
+        {
+          "repo": "site",
+          "sha": "4118d728",
+          "at": "2026-10-07T01:35:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4118d728"
+        },
+        {
+          "repo": "site",
+          "sha": "b6faa7ab",
+          "at": "2026-10-07T01:10:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b6faa7ab"
+        },
+        {
+          "repo": "site",
+          "sha": "e9f8e695",
+          "at": "2026-10-07T01:05:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e9f8e695"
+        },
+        {
+          "repo": "site",
+          "sha": "5282526c",
+          "at": "2026-10-07T01:04:39.000Z",
+          "text": "SITE-230: Thought on small asks and one short scene (tried, not shipped), progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5282526c"
+        },
+        {
+          "repo": "site",
+          "sha": "52378d44",
+          "at": "2026-10-07T00:56:32.000Z",
+          "text": "MOTION-7: small-ask tier tried, measured, not shipped; look_set runs 5 small asks",
+          "url": "https://github.com/postscarcityai/yuigui/commit/52378d44"
+        },
+        {
+          "repo": "site",
+          "sha": "d3264838",
+          "at": "2026-10-07T00:35:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d3264838"
+        },
+        {
+          "repo": "site",
+          "sha": "54ba48c6",
+          "at": "2026-10-07T00:25:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/54ba48c6"
+        },
+        {
+          "repo": "site",
+          "sha": "7507d773",
+          "at": "2026-10-07T00:20:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7507d773"
+        },
+        {
+          "repo": "site",
+          "sha": "95364780",
+          "at": "2026-10-07T00:17:20.000Z",
+          "text": "SITE-229: Thought on films drawing the real thing (tried, not shipped), progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/95364780"
+        },
+        {
+          "repo": "site",
+          "sha": "52f8ac98",
+          "at": "2026-10-07T00:05:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/52f8ac98"
+        },
+        {
+          "repo": "site",
+          "sha": "b4300e66",
+          "at": "2026-10-06T23:58:11.000Z",
+          "text": "MOTION-6: real-object kit tried, measured, not shipped; spec 4 and progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b4300e66"
+        },
+        {
+          "repo": "site",
+          "sha": "dd48926e",
+          "at": "2026-10-06T23:35:20.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dd48926e"
+        },
+        {
+          "repo": "site",
+          "sha": "140dcf55",
+          "at": "2026-10-06T23:30:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/140dcf55"
+        },
+        {
+          "repo": "site",
+          "sha": "01a4944d",
+          "at": "2026-10-06T23:20:21.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/01a4944d"
+        },
+        {
+          "repo": "site",
+          "sha": "b59226b6",
+          "at": "2026-10-06T23:16:51.000Z",
+          "text": "SITE-228: Thought on films saying what they are drawing, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b59226b6"
+        },
+        {
+          "repo": "site",
+          "sha": "13a9085f",
+          "at": "2026-10-06T23:15:29.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/13a9085f"
+        },
+        {
+          "repo": "app",
+          "sha": "0025915a",
+          "at": "2026-10-06T23:09:30.000Z",
+          "text": "MOTION-5: plugin writes Drawing scene N doing rows while a film is made",
+          "url": "https://github.com/postscarcityai/yui/commit/0025915a"
+        },
+        {
+          "repo": "site",
+          "sha": "8df8ea50",
+          "at": "2026-10-06T23:07:23.000Z",
+          "text": "MOTION-5: films on /web say what they are drawing while scenes arrive",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8df8ea50"
+        },
+        {
+          "repo": "site",
+          "sha": "c68c1bb1",
+          "at": "2026-10-06T23:05:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c68c1bb1"
+        },
+        {
+          "repo": "site",
+          "sha": "c083e071",
+          "at": "2026-10-06T22:45:21.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c083e071"
+        },
+        {
+          "repo": "site",
+          "sha": "3ff603d9",
+          "at": "2026-10-06T22:40:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3ff603d9"
+        },
+        {
+          "repo": "site",
+          "sha": "c1ebfda2",
+          "at": "2026-10-06T22:37:31.000Z",
+          "text": "SITE-227: Thought on the shorter first scene, progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c1ebfda2"
+        },
+        {
+          "repo": "site",
+          "sha": "af4fb161",
+          "at": "2026-10-06T22:35:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/af4fb161"
+        },
+        {
+          "repo": "site",
+          "sha": "5c31fc37",
+          "at": "2026-10-06T22:31:18.000Z",
+          "text": "Social drafts: 14 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5c31fc37"
+        },
+        {
+          "repo": "site",
+          "sha": "51166e4f",
+          "at": "2026-10-06T22:30:12.000Z",
+          "text": "MOTION-4: shorter first scene measured, not shipped; progress entry and spec",
+          "url": "https://github.com/postscarcityai/yuigui/commit/51166e4f"
+        },
+        {
+          "repo": "site",
+          "sha": "63a28442",
+          "at": "2026-10-06T22:06:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/63a28442"
+        },
+        {
+          "repo": "site",
+          "sha": "8121cede",
+          "at": "2026-10-06T21:56:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8121cede"
+        },
+        {
+          "repo": "site",
+          "sha": "b2bc2659",
+          "at": "2026-10-06T21:51:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b2bc2659"
+        },
+        {
+          "repo": "site",
+          "sha": "2d34dc0b",
+          "at": "2026-10-06T21:46:29.000Z",
+          "text": "SITE-226: a Thought, films did not start faster",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2d34dc0b"
+        },
+        {
+          "repo": "site",
+          "sha": "7897868b",
+          "at": "2026-10-06T21:46:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7897868b"
+        },
+        {
+          "repo": "site",
+          "sha": "29f89c38",
+          "at": "2026-10-06T21:39:23.000Z",
+          "text": "MOTION-3: scene 1 over the API measured, not shipped; spec 2.4 and progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/29f89c38"
+        },
+        {
+          "repo": "site",
+          "sha": "43800f11",
+          "at": "2026-10-06T21:06:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/43800f11"
+        },
+        {
+          "repo": "site",
+          "sha": "863703b5",
+          "at": "2026-10-06T20:55:57.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/863703b5"
+        },
+        {
+          "repo": "site",
+          "sha": "f8a0dc2b",
+          "at": "2026-10-06T20:46:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f8a0dc2b"
+        },
+        {
+          "repo": "site",
+          "sha": "39902c4d",
+          "at": "2026-10-06T20:41:06.000Z",
+          "text": "SITE-225: a Thought, films get a look pass",
+          "url": "https://github.com/postscarcityai/yuigui/commit/39902c4d"
+        },
+        {
+          "repo": "site",
+          "sha": "b359d1c2",
+          "at": "2026-10-06T20:40:55.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b359d1c2"
+        },
+        {
+          "repo": "site",
+          "sha": "05cb1f41",
+          "at": "2026-10-06T20:36:48.000Z",
+          "text": "MOTION-2: final before/after numbers in spec and progress",
+          "url": "https://github.com/postscarcityai/yuigui/commit/05cb1f41"
+        },
+        {
+          "repo": "site",
+          "sha": "46a5bc02",
+          "at": "2026-10-06T20:34:11.000Z",
+          "text": "Look pass: one frame per scene, scored and sheeted; labels keep off each other (MOTION-2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/46a5bc02"
+        },
+        {
+          "repo": "app",
+          "sha": "0cddfb00",
+          "at": "2026-10-06T20:34:08.000Z",
+          "text": "Motion prompt: LAYOUT and SUBJECT blocks from the look pass (MOTION-2)",
+          "url": "https://github.com/postscarcityai/yui/commit/0cddfb00"
+        },
+        {
+          "repo": "site",
+          "sha": "3d3f3c98",
+          "at": "2026-10-06T19:35:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3d3f3c98"
+        },
+        {
+          "repo": "site",
+          "sha": "419375ca",
+          "at": "2026-10-06T19:20:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/419375ca"
+        },
+        {
+          "repo": "site",
+          "sha": "c6aa8280",
+          "at": "2026-10-06T19:15:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c6aa8280"
+        },
+        {
+          "repo": "site",
+          "sha": "e8e8f97b",
+          "at": "2026-10-06T19:10:38.000Z",
+          "text": "Thought chat-is-home: Try it links and a clip of the demo (SITE-224)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e8e8f97b"
+        },
+        {
+          "repo": "site",
+          "sha": "cb127deb",
+          "at": "2026-10-06T19:05:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cb127deb"
+        },
+        {
+          "repo": "site",
+          "sha": "8787b51e",
+          "at": "2026-10-06T19:00:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8787b51e"
+        },
+        {
+          "repo": "site",
+          "sha": "f02a94a6",
+          "at": "2026-10-06T18:58:23.000Z",
+          "text": "Playground demo: chat is home, the real web thread on a script (YUI-315)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f02a94a6"
+        },
+        {
+          "repo": "site",
+          "sha": "b2cbdbc1",
+          "at": "2026-10-06T18:35:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b2cbdbc1"
+        },
+        {
+          "repo": "site",
+          "sha": "d669ac1d",
+          "at": "2026-10-06T18:30:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d669ac1d"
+        },
+        {
+          "repo": "site",
+          "sha": "3291e084",
+          "at": "2026-10-06T18:27:53.000Z",
+          "text": "Thought: Chat is home, the stage is for pictures (SITE-223)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3291e084"
+        },
+        {
+          "repo": "site",
+          "sha": "d6ab4be0",
+          "at": "2026-10-06T18:25:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d6ab4be0"
+        },
+        {
+          "repo": "site",
+          "sha": "d695c5bc",
+          "at": "2026-10-06T18:20:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d695c5bc"
+        },
+        {
+          "repo": "site",
+          "sha": "96a9fe0b",
+          "at": "2026-10-06T18:18:52.000Z",
+          "text": "Web: chat is home, proved in a browser; fold chip updates as replies arrive (YUI-314)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/96a9fe0b"
+        },
+        {
+          "repo": "site",
+          "sha": "841db173",
+          "at": "2026-10-06T18:05:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/841db173"
+        },
+        {
+          "repo": "site",
+          "sha": "9b6bbb99",
+          "at": "2026-10-06T17:50:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9b6bbb99"
+        },
+        {
+          "repo": "site",
+          "sha": "60796187",
+          "at": "2026-10-06T17:45:45.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/60796187"
+        },
+        {
+          "repo": "site",
+          "sha": "40d7bff5",
+          "at": "2026-10-06T17:43:13.000Z",
+          "text": "A drawn phone plays before into after on the web too (YUI-267 web)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/40d7bff5"
+        },
+        {
+          "repo": "site",
+          "sha": "b1751102",
+          "at": "2026-10-06T17:40:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b1751102"
+        },
+        {
+          "repo": "site",
+          "sha": "2fe536e6",
+          "at": "2026-10-06T17:36:32.000Z",
+          "text": "A Thought: Yui makes its own design picks (SITE-222)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2fe536e6"
+        },
+        {
+          "repo": "site",
+          "sha": "0952133c",
+          "at": "2026-10-06T17:35:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0952133c"
+        },
+        {
+          "repo": "site",
+          "sha": "aba15ebc",
+          "at": "2026-10-06T17:32:18.000Z",
+          "text": "progress: link the stage and working-screen notes (NOTE-8417, NOTE-50900)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/aba15ebc"
+        },
+        {
+          "repo": "site",
+          "sha": "35b0aa70",
+          "at": "2026-10-06T17:30:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/35b0aa70"
+        },
+        {
+          "repo": "site",
+          "sha": "1e47082a",
+          "at": "2026-10-06T17:27:17.000Z",
+          "text": "YL: a sketch's phone is an animated wireframe; progress entry (YUI-267)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1e47082a"
+        },
+        {
+          "repo": "app",
+          "sha": "f71b2c21",
+          "at": "2026-10-06T17:27:17.000Z",
+          "text": "A drawn phone is an animated wireframe: one glass device plays the before into the after (YUI-267, direction B)",
+          "url": "https://github.com/postscarcityai/yui/commit/f71b2c21"
+        },
+        {
+          "repo": "site",
+          "sha": "f5f45de6",
+          "at": "2026-10-06T17:24:53.000Z",
+          "text": "Web stage: older stage replies fold into one chip in the thread (twin of StageFold)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f5f45de6"
+        },
+        {
+          "repo": "app",
+          "sha": "9ae42176",
+          "at": "2026-10-06T17:24:53.000Z",
+          "text": "Stage: older stage replies fold into one chip in chat (pick A)",
+          "url": "https://github.com/postscarcityai/yui/commit/9ae42176"
+        },
+        {
+          "repo": "site",
+          "sha": "8914a0ea",
+          "at": "2026-10-06T17:15:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8914a0ea"
+        },
+        {
+          "repo": "site",
+          "sha": "e2475924",
+          "at": "2026-10-06T17:15:15.000Z",
+          "text": "Web stage: chat is home, the stage stays up only for a real visual (twin of StageTurn.visual)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e2475924"
+        },
+        {
+          "repo": "app",
+          "sha": "0e7e7f74",
+          "at": "2026-10-06T17:14:37.000Z",
+          "text": "Stage: chat is home, the stage stays up only for a real visual (pick A)",
+          "url": "https://github.com/postscarcityai/yui/commit/0e7e7f74"
+        },
+        {
+          "repo": "site",
+          "sha": "da5884ff",
+          "at": "2026-10-06T17:10:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/da5884ff"
+        },
+        {
+          "repo": "app",
+          "sha": "59c2ad9e",
+          "at": "2026-10-06T17:05:31.000Z",
+          "text": "Stage: hold only the newest answer (pick A)",
+          "url": "https://github.com/postscarcityai/yui/commit/59c2ad9e"
+        },
+        {
+          "repo": "site",
+          "sha": "25004d5f",
+          "at": "2026-10-06T17:05:29.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/25004d5f"
+        },
+        {
+          "repo": "site",
+          "sha": "8b5051cc",
+          "at": "2026-10-06T17:04:15.000Z",
+          "text": "Web stage: hold only the newest answer (twin of StageChunks.newest)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8b5051cc"
+        },
+        {
+          "repo": "site",
+          "sha": "f3acdf3a",
+          "at": "2026-10-06T17:02:44.000Z",
+          "text": "Progress: the working screen is lighter and more alive",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f3acdf3a"
+        },
+        {
+          "repo": "site",
+          "sha": "e7f65807",
+          "at": "2026-10-06T16:55:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e7f65807"
+        },
+        {
+          "repo": "site",
+          "sha": "87338d82",
+          "at": "2026-10-06T16:48:29.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/87338d82"
+        },
+        {
+          "repo": "site",
+          "sha": "edbb9f1f",
+          "at": "2026-10-06T16:25:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/edbb9f1f"
+        },
+        {
+          "repo": "site",
+          "sha": "fd58107d",
+          "at": "2026-10-06T16:20:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fd58107d"
+        },
+        {
+          "repo": "site",
+          "sha": "7afecb57",
+          "at": "2026-10-06T16:17:25.000Z",
+          "text": "The any-model Thought gets the Grok, Le Chat and Gemini how-to (SITE-221)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7afecb57"
+        },
+        {
+          "repo": "site",
+          "sha": "f3a2faa4",
+          "at": "2026-10-06T16:15:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f3a2faa4"
+        },
+        {
+          "repo": "site",
+          "sha": "315d4ee0",
+          "at": "2026-10-06T16:10:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/315d4ee0"
+        },
+        {
+          "repo": "site",
+          "sha": "69953fb6",
+          "at": "2026-10-06T16:05:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/69953fb6"
+        },
+        {
+          "repo": "site",
+          "sha": "530e0381",
+          "at": "2026-10-06T16:05:17.000Z",
+          "text": "INT-24 step 2: Grok, Le Chat and Gemini paste-a-URL guides in the MCP spec",
+          "url": "https://github.com/postscarcityai/yuigui/commit/530e0381"
+        },
+        {
+          "repo": "site",
+          "sha": "c4f41678",
+          "at": "2026-10-06T16:00:17.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c4f41678"
+        },
+        {
+          "repo": "site",
+          "sha": "d42bf26c",
+          "at": "2026-10-06T15:55:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d42bf26c"
+        },
+        {
+          "repo": "site",
+          "sha": "a02f1738",
+          "at": "2026-10-06T15:50:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a02f1738"
+        },
+        {
+          "repo": "site",
+          "sha": "7528caf8",
+          "at": "2026-10-06T15:49:53.000Z",
+          "text": "A Thought: Yui is the screen for any model (SITE-220)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7528caf8"
+        },
+        {
+          "repo": "site",
+          "sha": "8421b9ed",
+          "at": "2026-10-06T15:40:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8421b9ed"
+        },
+        {
+          "repo": "site",
+          "sha": "fae8144d",
+          "at": "2026-10-06T15:37:49.000Z",
+          "text": "INT-24: where Yui can plug in, every model provider (spec/ECOSYSTEMS.md)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fae8144d"
+        },
+        {
+          "repo": "site",
+          "sha": "a23a45e7",
+          "at": "2026-10-06T15:35:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a23a45e7"
+        },
+        {
+          "repo": "site",
+          "sha": "f86c813b",
+          "at": "2026-10-06T15:31:09.000Z",
+          "text": "Progress: the small-models Thought says what the llama fix did (SITE-219)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f86c813b"
+        },
+        {
+          "repo": "site",
+          "sha": "593fa177",
+          "at": "2026-10-06T15:20:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/593fa177"
+        },
+        {
+          "repo": "site",
+          "sha": "9a1f5b60",
+          "at": "2026-10-06T15:11:35.000Z",
+          "text": "Thought: what the llama fix did (SITE-219)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9a1f5b60"
+        },
         {
           "repo": "site",
           "sha": "52f9df19",
@@ -14595,7 +17620,7 @@
           "card": "SOC-1",
           "anchor": "a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
           "images": [],
-          "commits": 12,
+          "commits": 13,
           "totals": {
             "app": 367,
             "site": 827,
