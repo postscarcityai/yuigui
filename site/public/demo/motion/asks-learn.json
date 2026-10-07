@@ -1,0 +1,74 @@
+[
+ {
+  "id": "l-accordion",
+  "noun": "accordion",
+  "ask": "How an accordion squeezes air to play a chord.",
+  "ask2": "Why does an accordion make sound when you pull it open and push it shut?"
+ },
+ {
+  "id": "l-typewriter",
+  "noun": "typewriter",
+  "ask": "What happens inside a typewriter when you hit a key.",
+  "ask2": "Show me how a typewriter prints a letter on the page."
+ },
+ {
+  "id": "l-skateboard",
+  "noun": "skateboard",
+  "ask": "How a skateboard turns when the rider leans.",
+  "ask2": "Why does leaning make a skateboard curve?"
+ },
+ {
+  "id": "l-hourglass",
+  "noun": "hourglass",
+  "ask": "How sand moves through an hourglass at an even pace.",
+  "ask2": "Explain why an hourglass keeps time so steadily."
+ },
+ {
+  "id": "l-kayak",
+  "noun": "kayak",
+  "ask": "How a kayak paddle pushes the craft forward.",
+  "ask2": "What makes a kayak glide straight across a lake?"
+ },
+ {
+  "id": "l-stapler",
+  "noun": "stapler",
+  "ask": "How a stapler bends a staple through the paper.",
+  "ask2": "Walk me through what a stapler does when I press down."
+ },
+ {
+  "id": "l-violin",
+  "noun": "violin",
+  "ask": "How a violin bow makes a string sing.",
+  "ask2": "Why does a violin sound different when you press the string?"
+ },
+ {
+  "id": "l-wheelbarrow",
+  "noun": "wheelbarrow",
+  "ask": "How a wheelbarrow makes a heavy load easy to move.",
+  "ask2": "Show how a wheelbarrow lets one person lift a big pile of dirt."
+ },
+ {
+  "id": "l-bulldozer",
+  "noun": "bulldozer",
+  "ask": "How a bulldozer pushes a mountain of dirt across a site.",
+  "ask2": "What makes a bulldozer so strong at moving earth?"
+ },
+ {
+  "id": "l-trumpet",
+  "noun": "trumpet",
+  "ask": "How a trumpet turns breath and three valves into notes.",
+  "ask2": "Explain what the valves on a trumpet change."
+ },
+ {
+  "id": "l-harp",
+  "noun": "harp",
+  "ask": "How a harp turns plucked strings into a melody.",
+  "ask2": "Why are the strings on a harp all different lengths?"
+ },
+ {
+  "id": "l-drum",
+  "noun": "drum",
+  "ask": "How a drum skin vibrates when the stick hits it.",
+  "ask2": "What makes a drum louder when you hit it harder?"
+ }
+]
