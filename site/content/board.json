@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T17:40:57.062Z",
+  "updated": "2026-10-07T17:45:58.454Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-320",
           "title": "A film ends with Another take and Change it, not only Replay",
+          "summary": "Films end with Another take and Change it",
+          "progress": "/progress#films-end-with-another-take-and-change-it",
           "owner": "CJohnDesign"
         }
       ]
