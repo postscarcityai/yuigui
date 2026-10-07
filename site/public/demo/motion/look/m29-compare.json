@@ -1,0 +1,679 @@
+{
+ "nouns": 19,
+ "kinds_ask1": {
+  "drawn": 10,
+  "kit word": 5,
+  "none": 2
+ },
+ "drawn": [
+  "trombone",
+  "crossbow",
+  "abacus",
+  "ukulele",
+  "harmonica",
+  "tuba",
+  "kazoo",
+  "bugle",
+  "pitchfork",
+  "ocarina"
+ ],
+ "second_ask_hit": [
+  "crossbow",
+  "abacus",
+  "harmonica",
+  "kazoo",
+  "bugle",
+  "pitchfork",
+  "ocarina"
+ ],
+ "ask1_all": {
+  "nouns": 19,
+  "films": 19,
+  "first_scene_median_s": 3.13,
+  "first_scene_mean_s": 3.19,
+  "first_scene_max_s": 4.98,
+  "frames": 108,
+  "frames_pass": 34,
+  "frame_pass_pct": 31.5
+ },
+ "ask2_all": {
+  "nouns": 19,
+  "films": 19,
+  "first_scene_median_s": 3.62,
+  "first_scene_mean_s": 3.81,
+  "first_scene_max_s": 8.21,
+  "frames": 107,
+  "frames_pass": 49,
+  "frame_pass_pct": 45.8
+ },
+ "ask1_drawn": {
+  "nouns": 10,
+  "films": 10,
+  "first_scene_median_s": 3.5149999999999997,
+  "first_scene_mean_s": 3.62,
+  "first_scene_max_s": 4.98,
+  "frames": 54,
+  "frames_pass": 12,
+  "frame_pass_pct": 22.2
+ },
+ "ask2_drawn": {
+  "nouns": 10,
+  "films": 10,
+  "first_scene_median_s": 3.08,
+  "first_scene_mean_s": 3.58,
+  "first_scene_max_s": 8.21,
+  "frames": 60,
+  "frames_pass": 38,
+  "frame_pass_pct": 63.3
+ },
+ "ask1_hit": {
+  "nouns": 7,
+  "films": 7,
+  "first_scene_median_s": 3.53,
+  "first_scene_mean_s": 3.67,
+  "first_scene_max_s": 4.98,
+  "frames": 38,
+  "frames_pass": 10,
+  "frame_pass_pct": 26.3
+ },
+ "ask2_hit": {
+  "nouns": 7,
+  "films": 7,
+  "first_scene_median_s": 2.94,
+  "first_scene_mean_s": 2.91,
+  "first_scene_max_s": 3.62,
+  "frames": 42,
+  "frames_pass": 33,
+  "frame_pass_pct": 78.6
+ },
+ "per_noun": {
+  "trombone": {
+   "ask1": {
+    "first_scene_s": 3.13,
+    "frames": 6,
+    "frames_pass": 0,
+    "hero": "trombone",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "trombone: drawn"
+    ],
+    "film_ask": "How a trombone slide changes the note: a trombone is a long ",
+    "fails": [
+     "look:offsubject"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 8.21,
+    "frames": 7,
+    "frames_pass": 0,
+    "hero": "trombone",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [],
+    "film_ask": "Why a trombone slide changes pitch: you buzz your lips into ",
+    "fails": [
+     "clipped",
+     "look:offsubject"
+    ]
+   }
+  },
+  "crossbow": {
+   "ask1": {
+    "first_scene_s": 4.19,
+    "frames": 6,
+    "frames_pass": 2,
+    "hero": "crossbow",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "crossbow: drawn"
+    ],
+    "film_ask": "How a crossbow fires: pulling the string back bends the two ",
+    "fails": [
+     "clipped",
+     "look:offsubject"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 2.09,
+    "frames": 7,
+    "frames_pass": 7,
+    "hero": "crossbow",
+    "kind": "kept",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "Why a crossbow shoots so hard: pulling the string back bends",
+    "fails": []
+   }
+  },
+  "abacus": {
+   "ask1": {
+    "first_scene_s": 3.58,
+    "frames": 6,
+    "frames_pass": 2,
+    "hero": "abacus",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "abacus: drawn"
+    ],
+    "film_ask": "How an abacus adds: each column is a place value, ones on th",
+    "fails": [
+     "clipped",
+     "look:cramped"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 2.67,
+    "frames": 7,
+    "frames_pass": 5,
+    "hero": "abacus",
+    "kind": "kept",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How an abacus counts: a bead above the bar is worth 5, a bea",
+    "fails": [
+     "clipped"
+    ]
+   }
+  },
+  "sextant": {
+   "ask1": {
+    "first_scene_s": 1.07,
+    "frames": 7,
+    "frames_pass": 0,
+    "hero": "sun",
+    "kind": "other",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How a sextant measures the sun's angle: you look through a s",
+    "fails": [
+     "look:offsubject",
+     "still"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 3.74,
+    "frames": 6,
+    "frames_pass": 0,
+    "hero": "clock",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "A sailor holds a sextant and sights a star through it. The s",
+    "fails": [
+     "look:offsubject",
+     "look:plain"
+    ]
+   }
+  },
+  "ukulele": {
+   "ask1": {
+    "first_scene_s": 4.23,
+    "frames": 5,
+    "frames_pass": 2,
+    "hero": "ukulele",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "ukulele: drawn"
+    ],
+    "film_ask": "How a ukulele makes a chord: you press a string against a fr",
+    "fails": [
+     "look:cramped",
+     "look:offsubject"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 3.17,
+    "frames": 6,
+    "frames_pass": 1,
+    "hero": "bridge",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "Why a fret changes the note: a ukulele string vibrates from ",
+    "fails": [
+     "look:offsubject",
+     "still"
+    ]
+   }
+  },
+  "tambourine": {
+   "ask1": {
+    "first_scene_s": 3.08,
+    "frames": 6,
+    "frames_pass": 0,
+    "hero": null,
+    "kind": "none",
+    "drawing_calls": 1,
+    "learned": [],
+    "film_ask": "How a tambourine jingles: a tambourine is a round frame with",
+    "fails": [
+     "clipped",
+     "flat",
+     "look:offsubject",
+     "look:plain"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 3.42,
+    "frames": 6,
+    "frames_pass": 4,
+    "hero": "tambourine",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [],
+    "film_ask": "A tambourine has small metal discs called jingles, mounted i",
+    "fails": [
+     "look:offsubject"
+    ]
+   }
+  },
+  "harmonica": {
+   "ask1": {
+    "first_scene_s": 3.53,
+    "frames": 5,
+    "frames_pass": 2,
+    "hero": "harmonica",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "harmonica: drawn"
+    ],
+    "film_ask": "How a harmonica makes a note: each hole has a thin metal ree",
+    "fails": [
+     "look:offsubject"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 2.9,
+    "frames": 5,
+    "frames_pass": 4,
+    "hero": "harmonica",
+    "kind": "kept",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How a harmonica sings: inside are thin metal reeds, one over",
+    "fails": [
+     "look:offsubject"
+    ]
+   }
+  },
+  "bellows": {
+   "ask1": {
+    "first_scene_s": 2.71,
+    "frames": 7,
+    "frames_pass": 5,
+    "hero": "flame",
+    "kind": "other",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How bellows work: a fire burns fuel with oxygen from the air",
+    "fails": [
+     "look:offsubject",
+     "still"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 5.46,
+    "frames": 6,
+    "frames_pass": 2,
+    "hero": "bellows",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [],
+    "film_ask": "Why bellows make fire brighter: fire needs oxygen to burn. A",
+    "fails": [
+     "look:offsubject",
+     "still"
+    ]
+   }
+  },
+  "snowplow": {
+   "ask1": {
+    "first_scene_s": 2.71,
+    "frames": 5,
+    "frames_pass": 4,
+    "hero": "truck",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "A snowplow has a wide metal blade mounted on the front of a ",
+    "fails": [
+     "look:offsubject"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 4.12,
+    "frames": 6,
+    "frames_pass": 1,
+    "hero": "truck",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "A snowplow blade is angled, not flat across the truck. As th",
+    "fails": [
+     "look:clipped"
+    ]
+   }
+  },
+  "jackhammer": {
+   "ask1": {
+    "first_scene_s": 1.83,
+    "frames": 6,
+    "frames_pass": 5,
+    "hero": "engine",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How a jackhammer breaks concrete: Inside the jackhammer, com",
+    "fails": [
+     "clipped",
+     "overlap"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 5.24,
+    "frames": 5,
+    "frames_pass": 2,
+    "hero": "engine",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "A jackhammer has a piston inside that slams down hundreds of",
+    "fails": [
+     "clipped"
+    ]
+   }
+  },
+  "periscope": {
+   "ask1": {
+    "first_scene_s": 2.09,
+    "frames": 6,
+    "frames_pass": 5,
+    "hero": "eyeball",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How a periscope works: a tube sticks up above the water. Lig",
+    "fails": [
+     "look:offsubject"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 2.29,
+    "frames": 6,
+    "frames_pass": 0,
+    "hero": "eyeball",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How a periscope works: light from the scene hits a mirror at",
+    "fails": [
+     "look:offsubject",
+     "still"
+    ]
+   }
+  },
+  "xylophone": {
+   "ask1": {
+    "first_scene_s": 1.87,
+    "frames": 6,
+    "frames_pass": 1,
+    "hero": "hammer",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How a xylophone makes a note: a wooden bar sits over a reson",
+    "fails": [
+     "look:offsubject",
+     "throws"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 4.33,
+    "frames": 5,
+    "frames_pass": 1,
+    "hero": "xylophone",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [],
+    "film_ask": "A xylophone bar vibrates like a diving board: it bends back ",
+    "fails": [
+     "look:offsubject",
+     "still",
+     "throws"
+    ]
+   }
+  },
+  "tuba": {
+   "ask1": {
+    "first_scene_s": 3.14,
+    "frames": 5,
+    "frames_pass": 0,
+    "hero": "tuba",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "tuba: drawn"
+    ],
+    "film_ask": "How a tuba makes a low note: You buzz your lips into the mou",
+    "fails": [
+     "blank",
+     "flat",
+     "look:offsubject",
+     "look:plain",
+     "still",
+     "throws"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 4.09,
+    "frames": 5,
+    "frames_pass": 4,
+    "hero": "trumpet",
+    "kind": "other",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "Why a tuba is lower than a trumpet: sound comes from air vib",
+    "fails": [
+     "look:offsubject"
+    ]
+   }
+  },
+  "kazoo": {
+   "ask1": {
+    "first_scene_s": 2.97,
+    "frames": 6,
+    "frames_pass": 0,
+    "hero": "kazoo",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "kazoo: drawn"
+    ],
+    "film_ask": "How a kazoo works: you hum into the small hole, not blow. Yo",
+    "fails": [
+     "clipped",
+     "look:offsubject",
+     "look:plain",
+     "throws"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 3.62,
+    "frames": 5,
+    "frames_pass": 1,
+    "hero": "kazoo",
+    "kind": "kept",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How a kazoo buzzes: you hum into the hole, not blow. Your vo",
+    "fails": [
+     "look:offsubject",
+     "look:plain"
+    ]
+   }
+  },
+  "gramophone": {
+   "ask1": {
+    "first_scene_s": 4.09,
+    "frames": 6,
+    "frames_pass": 0,
+    "hero": null,
+    "kind": "none",
+    "drawing_calls": 1,
+    "learned": [],
+    "film_ask": "How a gramophone works: a record spins and its groove is a t",
+    "fails": [
+     "clipped",
+     "look:clipped",
+     "look:offsubject",
+     "look:plain"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 4.02,
+    "frames": 2,
+    "frames_pass": 1,
+    "hero": "record_player",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [],
+    "film_ask": "Why a needle on a spinning record makes sound: a record's gr",
+    "fails": [
+     "blank",
+     "flat",
+     "look:plain",
+     "still"
+    ]
+   }
+  },
+  "bugle": {
+   "ask1": {
+    "first_scene_s": 2.96,
+    "frames": 5,
+    "frames_pass": 2,
+    "hero": "bugle",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "bugle: drawn"
+    ],
+    "film_ask": "How a bugle works: A bugle is a fixed tube with no valves. Y",
+    "fails": [
+     "look:offsubject",
+     "still",
+     "throws"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 3.12,
+    "frames": 5,
+    "frames_pass": 4,
+    "hero": "bugle",
+    "kind": "kept",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "A bugle is a tube open at both ends. When you buzz your lips",
+    "fails": [
+     "look:cramped"
+    ]
+   }
+  },
+  "pitchfork": {
+   "ask1": {
+    "first_scene_s": 3.5,
+    "frames": 4,
+    "frames_pass": 2,
+    "hero": "pitchfork",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "pitchfork: drawn"
+    ],
+    "film_ask": "A pitchfork is a lever. The far end of the handle is the eff",
+    "fails": [
+     "still"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 2.94,
+    "frames": 6,
+    "frames_pass": 5,
+    "hero": "pitchfork",
+    "kind": "kept",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "Why a pitchfork beats a shovel for hay: hay is light and flu",
+    "fails": [
+     "look:offsubject"
+    ]
+   }
+  },
+  "hacksaw": {
+   "ask1": {
+    "first_scene_s": 4.95,
+    "frames": 5,
+    "frames_pass": 2,
+    "hero": "tooth",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "How a hacksaw cuts metal: each tooth is a sharp wedge. As yo",
+    "fails": [
+     "look:offsubject"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 3.9,
+    "frames": 5,
+    "frames_pass": 0,
+    "hero": "tooth",
+    "kind": "kit word",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "A hacksaw blade is held tight in a frame, with its teeth ang",
+    "fails": [
+     "blank",
+     "clipped",
+     "flat",
+     "look:offsubject",
+     "look:plain",
+     "still",
+     "throws"
+    ]
+   }
+  },
+  "ocarina": {
+   "ask1": {
+    "first_scene_s": 4.98,
+    "frames": 6,
+    "frames_pass": 0,
+    "hero": "ocarina",
+    "kind": "drawn",
+    "drawing_calls": 1,
+    "learned": [
+     "ocarina: drawn"
+    ],
+    "film_ask": "An ocarina is a hollow chamber with a mouthpiece that splits",
+    "fails": [
+     "look:offsubject"
+    ]
+   },
+   "ask2": {
+    "first_scene_s": 3.04,
+    "frames": 7,
+    "frames_pass": 7,
+    "hero": "ocarina",
+    "kind": "kept",
+    "drawing_calls": 0,
+    "learned": [],
+    "film_ask": "An ocarina is a sealed whistle. When you blow, air rushes ou",
+    "fails": []
+   }
+  }
+ }
+}
