@@ -151,15 +151,45 @@ def plain_checks(s, im1, im2, texts, errors, seen=None):
     return fails
 
 
+# The subject rule (MOTION-9). Written first, labelled against by hand on 60 frames, then the prompt was fitted to it.
+# One question the judge answers about the picture alone (captions and titles do not count): does the frame show the thing the ask
+# names, or the part of it this scene is about, so that a visitor with no caption would recognise it?
+#   drawn      yes. A clear icon or simple drawing counts (a heart for how a heart pumps, a house for buying a home, a cup for a coffee
+#              mood, a stick figure for a workout, a tank for a water tank). A chart, grid or timeline counts when the ask is about
+#              numbers, status or a plan and it holds those numbers or days. A set of the named parts joined by clean lines counts.
+#              An icon alone is enough for a scene that only names the thing (an opener, a verdict); it is not a drawing of a step.
+#   stand-in   a picture that tries to be a thing (animal, object, place) and is not recognisable: an oval or blob meant as a chicken or robot,
+#              a flat polygon for a continent, or a picture that belongs to another ask.
+#   none       no attempt at a picture: steps in boxes, a row of day boxes, a bare bar, a ring, a timer, a slider, bare circles or arcs
+#              with a date or place name, empty slots, a list. Right topic, nothing drawn of it. A chart counts as drawn only when the ask is itself about numbers, status or a plan.
+# Mapping: drawn -> pass on subject, stand-in -> look:offsubject, none -> look:plain. Other faults (small, cramped, clipped, empty, muddy)
+# still come from the 1 to 5 score, and only when the score is under 3.
+SUBJECT_FAIL = {"stand-in": "offsubject", "none": "plain"}
+
 VISION = """You are the art director for short phone explainer films. This is ONE frame from the middle of a scene.
 The film is for this ask: "{ask}". The scene is called "{name}".
-Judge it as a frame of a professionally designed explainer: does it draw the real subject, is it large and clear, is it
-composed with room to breathe, are the labels readable and not colliding, does it look designed and not like a slide
-or a pile of boxes? (The bottom 150 px is kept clear for a caption, so empty there is fine.)
+
+STEP 1, subject. Look at the picture only. Captions, titles and labels do not count as drawing. The ask can name several things
+(a window, rain, a cup); a clear drawing of any one of them, or of the part this scene is about, is enough. Would a visitor with no
+caption recognise the subject?
+- "drawn": yes. A clear icon or simple drawing counts (a heart for how a heart pumps, a house for buying, a cup, a window with rain, a
+  stick figure for a workout, a tank, a globe for the world, a lit sphere for sunlight on a planet, a phone, an engine cylinder). A bar chart, line chart,
+  grid or timeline counts ONLY when the ask itself is about numbers, status, money or a plan (tax, rent vs buy, people counts, launch
+  status), and then it counts even if it is plain. The named parts of a system joined by lines count. An icon alone is enough for a scene
+  that only names the thing (an opener, a verdict).
+- "stand-in": the frame tries to draw a thing (an animal, an object, a place, a continent) but a visitor would not recognise it: a plain
+  oval or blob meant as a chicken or a robot, a flat polygon meant as a continent, or a picture that belongs to another ask.
+- "none": no attempt at a picture of the subject. Steps or times in plain boxes, a row of day boxes, a single bare bar, a ring, a timer, a
+  slider, bare circles or arcs with a date or a place name, empty slots, a list. A timeline of cooking times is "none" for a roast, because a
+  roast is not about numbers.
+Decide this first and do not let layout, size or taste change it.
+
+STEP 2, craft, separately. Score the frame 1 to 5 as a designed explainer frame (5 = beautiful, 3 = fine, 1 = broken or empty) and name the
+worst craft fault: small = subject tiny or lost in empty space; cramped = crowded or labels collide; clipped = cut off by the screen edge;
+empty = almost nothing drawn; muddy = low contrast or ugly colour; ok = nothing wrong. (The bottom 150 px is kept clear for a caption.)
+
 Answer with ONE line of JSON, nothing else:
-{{"score": <1 to 5, 5 = beautiful, 3 = fine, 1 = broken or empty>, "issue": "<ok|plain|small|cramped|clipped|empty|offsubject|muddy>", "note": "<at most 12 words naming what is wrong or right>"}}
-issue: plain = boxes and text, no drawn subject; small = subject tiny or lost in empty space; cramped = crowded or labels collide;
-clipped = things cut off by the screen edge; empty = almost nothing drawn; offsubject = does not show the ask; muddy = low contrast or ugly colour; ok = nothing wrong."""
+{{"subject": "<drawn|stand-in|none>", "score": <1 to 5>, "issue": "<ok|small|cramped|clipped|empty|muddy>", "note": "<at most 12 words>"}}"""
 
 
 def vision(im, ask, name, model="claude-sonnet-5-5"):
@@ -178,7 +208,7 @@ def vision(im, ask, name, model="claude-sonnet-5-5"):
                 if ev.get("type") == "result":
                     txt = ev.get("result", "")
                     j = json.loads(txt[txt.index("{"):txt.rindex("}") + 1])
-                    return {"score": int(j["score"]), "issue": str(j.get("issue", "ok")), "note": str(j.get("note", ""))[:90]}
+                    return {"subject": str(j.get("subject", "drawn")), "score": int(j["score"]), "issue": str(j.get("issue", "ok")), "note": str(j.get("note", ""))[:90]}
         except Exception:
             continue
     return None
@@ -202,7 +232,9 @@ def look(film, use_vision=True, theme=None, ask=None, prior=None):
     for r in rows:
         v = r.get("vision")
         fail = list(r["plain"])
-        if v and v["score"] < 3:
+        if v and v.get("subject") in SUBJECT_FAIL:
+            fail.append("look:" + SUBJECT_FAIL[v["subject"]])
+        elif v and v["score"] < 3 and v["issue"] not in ("plain", "offsubject"):
             fail.append("look:" + v["issue"])
         r["fail"] = fail
         r["pass"] = not fail
