@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T22:35:40.680Z",
+  "updated": "2026-10-07T23:30:43.676Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-253",
-          "title": "Thought on MOTION-30, native first films catch up"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -293,6 +289,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "SITE-253",
+          "title": "Thought on MOTION-30, native first films catch up",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
