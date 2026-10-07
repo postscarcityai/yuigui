@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T19:36:24.862Z",
+  "updated": "2026-10-07T19:41:05.750Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-249",
           "title": "Publish the 0.6.5 Thought, films talk",
+          "summary": "A Thought: Yui 0.6.5, films talk",
+          "progress": "/progress#a-thought-yui-0-6-5-films-talk",
           "owner": "CJohnDesign"
         },
         {
