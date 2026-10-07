@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T07:35:23.155Z",
+  "updated": "2026-10-07T07:40:23.705Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-316",
           "title": "Films play on the phone, lift the motion gate to build 545",
+          "summary": "Films now play on your phone",
+          "progress": "/progress#films-now-play-on-your-phone",
           "owner": "CJohnDesign"
         }
       ]
