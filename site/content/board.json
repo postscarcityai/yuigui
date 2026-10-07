@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T23:35:49.773Z",
+  "updated": "2026-10-07T23:45:45.476Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,11 +290,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-322",
-          "title": "A dry house key never breaks a native agent, the person sees a kind screen",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
@@ -306,6 +301,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-322",
+          "title": "A dry house key never breaks a native agent, the person sees a kind screen",
+          "summary": "A dry house key never breaks an agent",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-dry-house-key-never-breaks-an-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b0917db4"
+        },
         {
           "key": "SITE-253",
           "title": "Thought on MOTION-30, native first films catch up",
