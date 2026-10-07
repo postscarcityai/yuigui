@@ -1,49 +1,48 @@
 ---
-date: 2026-10-06
+date: 2026-10-07
 tag: release
-title: "We tried to make films draw the real thing"
-dek: Ask for an engine and you often get a box that says engine. We gave the film maker real objects to draw. It helped some films and not enough. We did not ship it.
+title: "Films that draw the real thing: our first fix made it worse"
+dek: A chicken came out as an orange blob. We tried a parts helper and a stronger rule. Plain and off-subject frames went up, not down. We reverted it and kept what we learned.
 ---
 
-```compare
-before: /demo/motion/look/m6-before.jpg | Before: one frame per scene, with a verdict under each
-after: /demo/motion/look/m6-after.jpg | After the objects: fewer plain frames, more cramped ones
+```shot
+/demo/motion/look/m11-chicken.jpg | Same ask, a roast chicken, the same scene in both films. Left: before. Right: after the fix we tried. Both are a blob with legs. Both failed the check.
 ```
 
-Drag the line. Fewer boxes. Not fewer enough.
+Ask for a roast chicken and the film hands you an orange oval. That is what plain and off-subject mean on the judge: the picture is a box, a ring or a blob, not the thing you named.
 
 ## The problem
 
-Films on [the web page](/web) are drawn by a model that writes the scenes blind. Ask for an engine and it often draws a rectangle with the word engine on it. We saw this in the [look pass](/thoughts/films-get-a-look-pass). About 30 frames out of 228 were plain drawings, and 36 drew something other than the ask.
+After the judge and still-check fixes, these were the top two failures. 36 plain frames and 36 off-subject frames out of 277. The judge now agrees with a person 93% of the time on 60 hand-labelled frames, so we trust the count.
 
-## Three causes
+We read all 72 frames. Two root causes:
 
-A heart, a chicken, a cup come out as a coloured blob. The model cannot build a shape it recognises from path strings it cannot see.
-
-Asks about data or work (people, tax, a settings list) turn into a bar chart or boxes. There is no object under them.
-
-Later scenes drift. Only the first scene shows the thing you asked for.
+- A named animal or machine is drawn as one oval with legs or a face stuck on.
+- An activity or a place has nothing to draw, so the film falls back to a bare chart, a ring or a row of labels.
 
 ## What we tried
 
-A set of 17 drawn objects in the film kit, built part by part: heart, chicken, mug, car, battery, plant, robot, watering can, engine, dog, box, coins and a few more. A phone that writes out its real rows. And one check before every scene: does this scene still draw the noun of the ask, big?
+Two generic changes, nothing special for one ask. A helper that builds a thing from parts (bird, dog, fish, robot, car, temple, plant, skyline). And a stronger rule in the film prompt: draw the named thing from recognisable parts, use a chart only when the ask is about numbers.
+
+We reran the same 20 asks, twice each, 40 films.
 
 ## What happened
 
-Plain drawings fell from 30 to 19. Off-subject drawings only fell from 36 to 32. Together that is 66 to 51, down 23%. We needed down a third.
+It got worse. The film used the helper in only 6 of 40 films, and the chicken still came out a blob. The goal was a quarter fewer bad frames. It went the other way.
 
-Frame pass rate moved 43.4% to 44.4%. First scene stayed near 4.5 seconds. Cramped frames went from 15 to 37, because big objects crowd the labels.
+So we reverted both. Nothing shipped in the kit or the app plugin. The patch is kept.
 
-So we did not ship it. The patch is kept.
+## The numbers
+
+- Same 40 films, before then after.
+- Plain frames: 34, then 38.
+- Off-subject frames: 28, then 33.
+- Frame pass rate: 64.2%, then 62.2%.
+- Films with 80% or more passing: 45%, then 37.5%.
+- First scene, median: 4.9 s, then 5.2 s.
 
 ## What we learned
 
-Films about a screen, a status or numbers got better. Settings, status, workout and people went from 8 plain frames to 1 or 2.
+A rule in the prompt does not make a small model plan a drawing. Next try: the film writes a short parts list for its hero first, then draws from that list.
 
-Hearts, chickens and Rome did not move. The model often ignores the object we hand it and paints its own blob. And the look check wants chambers and a map, not an icon.
-
-## Next
-
-Let the plugin pick the hero object from the ask, in a small step before the film, and place it in scene 1 itself. Cap its size so labels keep clear. Run the set three times, because the judge swings by about 5 frames.
-
-See films on [the web page](/web) and [the motion page](/motion).
+See films on [the motion page](/motion), and the check before this one in [films that sit still](/thoughts/films-that-sit-still).
