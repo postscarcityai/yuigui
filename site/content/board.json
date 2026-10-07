@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T20:55:16.638Z",
+  "updated": "2026-10-07T21:05:23.590Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,9 +273,8 @@
           "waiting": true
         },
         {
-          "key": "YUI-321",
-          "title": "Films draw right on the stage, scrub and touch the parts, no separate player",
-          "waiting": true
+          "key": "SITE-252",
+          "title": "Thought on MOTION-29, native agents learn new drawings"
         },
         {
           "key": "NOTE-21045",
@@ -287,18 +286,19 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-1912",
-          "title": "Films still drawn as blobs",
-          "needsDemo": true
         }
       ]
     },
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "YUI-321",
+          "title": "Films draw right on the stage, scrub and touch the parts, no separate player",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
@@ -311,6 +311,12 @@
           "shipped": "2026-10-07",
           "progress": "/progress#a-thought-the-agents-yui-runs-for-you-now-make-films",
           "commit": "https://github.com/postscarcityai/yuigui/commit/70f103f2"
+        },
+        {
+          "key": "NOTE-1912",
+          "title": "Films still drawn as blobs",
+          "shipped": "2026-10-07",
+          "progress": "/progress#your-note-films-still-drawn-as-blobs-answered"
         },
         {
           "key": "SITE-250",
