@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T13:50:27.212Z",
+  "updated": "2026-10-07T13:55:27.798Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-242",
-          "title": "A Thought, scene 2 is ready before scene 1 ends",
-          "summary": "A Thought: Scene 2 was not ready in time",
-          "progress": "/progress#a-thought-scene-2-was-not-ready-in-time",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-242",
+          "title": "A Thought, scene 2 is ready before scene 1 ends",
+          "summary": "A Thought: Scene 2 was not ready in time",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-scene-2-was-not-ready-in-time",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0a38ca31"
+        },
         {
           "key": "SITE-241",
           "title": "A Thought, films start without the warm-up",
