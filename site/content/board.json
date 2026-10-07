@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T20:06:15.336Z",
+  "updated": "2026-10-07T20:10:10.297Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -297,6 +297,8 @@
         {
           "key": "SITE-250",
           "title": "Thought on MOTION-26, explainers get a film",
+          "summary": "A Thought: ask what string theory is, get a film",
+          "progress": "/progress#a-thought-ask-what-string-theory-is-get-a-film",
           "owner": "CJohnDesign"
         }
       ]
