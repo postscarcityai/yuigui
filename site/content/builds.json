@@ -2267,6 +2267,9 @@
   "next": [
     {
       "text": "YUI-316: lift MOTION_BUILD to 545, films play on the phone"
+    },
+    {
+      "text": "MOTION-14: plugin picks the film's hero from the ask and the kit draws it (motion_hero.py)"
     }
   ]
 }
