@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T00:35:26.071Z",
+  "updated": "2026-10-07T01:05:30.814Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-230",
-          "title": "A Thought, small asks get one short scene"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -292,7 +288,13 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "SITE-230",
+          "title": "A Thought, small asks get one short scene",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
