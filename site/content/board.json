@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T22:25:36.467Z",
+  "updated": "2026-10-07T22:35:40.680Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-253",
+          "title": "Thought on MOTION-30, native first films catch up"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -290,11 +294,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-252",
-          "title": "Thought on MOTION-29, native agents learn new drawings",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
@@ -306,6 +305,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-252",
+          "title": "Thought on MOTION-29, native agents learn new drawings",
+          "summary": "A Thought: native agents now draw a new thing and keep it",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-native-agents-now-draw-a-new-thing-and-keep-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b2301be5"
+        },
         {
           "key": "SITE-251",
           "title": "Thought on MOTION-27, your own agents make films",
@@ -5497,7 +5504,7 @@
           "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
           "shipped": "2026-09-24",
           "progress": "/progress#a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5c31fc37"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/26897ae1"
         },
         {
           "key": "YUI-27",
