@@ -2282,6 +2282,9 @@
     },
     {
       "text": "MOTION-18: warm claude for the parts call, film writers start on the noun"
+    },
+    {
+      "text": "MOTION-19: warm.shutdown cancels a process still starting; motion.prime fires (maker is split_film). Scene-2-early and warm scene 1 writer tried, missed, reverted"
     }
   ]
 }
