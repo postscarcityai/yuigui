@@ -48,10 +48,38 @@ WRAP = """() => {
 }"""
 
 
+# Overlap rule (MOTION-8). Boxes are the labels the scene drew, read from the player at each sampled time (never from pixels,
+# never from the vision model). Two different labels overlap when their boxes cross by more than OV_PX in both directions
+# and the crossing covers more than OV_SHARE of the smaller box. A scene fails "overlap" only when that holds at
+# OV_NEED or more of the OV_AT sample times, so a label passing through another mid-move does not count, a collision that stays does.
+OV_PX, OV_SHARE = 2, 0.25
+OV_AT, OV_NEED = (0.2, 0.35, 0.5, 0.65, 0.8), 2
+
+
+def overlaps(texts):
+    """Pairs of different labels that overlap, as 'a / b' strings. Pure function of the text records: same input, same answer."""
+    ov = []
+    for i, a in enumerate(texts):
+        for b in texts[i + 1:]:
+            if a["s"] == b["s"]:  # the same label drawn twice is a shadow or an outline, not a collision
+                continue
+            if a["s"] in b["s"] or b["s"] in a["s"]:
+                if abs(a["x0"] - b["x0"]) < 6 and abs(a["y0"] - b["y0"]) < 6:
+                    continue
+            ix = min(a["x1"], b["x1"]) - max(a["x0"], b["x0"]); iy = min(a["y1"], b["y1"]) - max(a["y0"], b["y0"])
+            if ix > OV_PX and iy > OV_PX:
+                small = min((a["x1"] - a["x0"]) * (a["y1"] - a["y0"]), (b["x1"] - b["x0"]) * (b["y1"] - b["y0"]))
+                if small > 0 and ix * iy / small > OV_SHARE:
+                    ov.append(f"{a['s'][:14]} / {b['s'][:14]}")
+    return ov
+
+
 def _shot(pg, T):
-    pg.evaluate("() => { window.__texts = []; }")
-    data = pg.evaluate("T => { window.__motion.renderAt(T); return document.getElementById('cv').toDataURL('image/png'); }", T)
-    return Image.open(io.BytesIO(base64.b64decode(data.split(",", 1)[1]))).convert("RGB"), pg.evaluate("() => window.__texts")
+    # Clear, draw, read in ONE call: the player's own animation loop can redraw between separate calls and
+    # add stale text to the list, which made the same frames score differently (MOTION-8).
+    data, texts = pg.evaluate("""T => { window.__texts = []; window.__motion.renderAt(T);
+        const d = document.getElementById('cv').toDataURL('image/png'); return [d, window.__texts.slice()]; }""", T)
+    return Image.open(io.BytesIO(base64.b64decode(data.split(",", 1)[1]))).convert("RGB"), texts
 
 
 def render_scenes(film, theme=None):
@@ -79,7 +107,8 @@ def render_scenes(film, theme=None):
             late = min(mid + 0.6, s["start"] + s["dur"] - 0.05)
             im1, texts = _shot(pg, mid)
             im2, _ = _shot(pg, late)
-            out.append((s, im1, im2, texts))
+            seen = [overlaps(_shot(pg, s["start"] + s["dur"] * f)[1]) for f in OV_AT]  # the overlap check samples five times
+            out.append((s, im1, im2, texts, seen))
         errors = pg.evaluate("window.__motion.errors()")
         ctx.close(); b.close()
     srv.shutdown()
@@ -101,7 +130,7 @@ def changed(a, b):
     return n / len(pa)
 
 
-def plain_checks(s, im1, im2, texts, errors):
+def plain_checks(s, im1, im2, texts, errors, seen=None):
     fails = {}
     if s["name"] in errors:
         fails["throws"] = "scene threw"
@@ -110,19 +139,9 @@ def plain_checks(s, im1, im2, texts, errors):
     cut = [t["s"] for t in texts if t["x0"] < -4 or t["x1"] > W + 4 or t["y0"] < -4 or t["y1"] > H + 4]
     if cut:
         fails["clipped"] = "; ".join(c[:24] for c in cut[:3])
-    ov = []
-    for i, a in enumerate(texts):
-        for b in texts[i + 1:]:
-            if a["s"] == b["s"]:  # the same label drawn twice is a shadow or an outline, not a collision
-                continue
-            if a["s"] in b["s"] or b["s"] in a["s"]:
-                if abs(a["x0"] - b["x0"]) < 6 and abs(a["y0"] - b["y0"]) < 6:
-                    continue
-            ix = min(a["x1"], b["x1"]) - max(a["x0"], b["x0"]); iy = min(a["y1"], b["y1"]) - max(a["y0"], b["y0"])
-            if ix > 2 and iy > 2:
-                small = min((a["x1"] - a["x0"]) * (a["y1"] - a["y0"]), (b["x1"] - b["x0"]) * (b["y1"] - b["y0"]))
-                if small > 0 and ix * iy / small > 0.25:
-                    ov.append(f"{a['s'][:14]} / {b['s'][:14]}")
+    seen = seen if seen is not None else [overlaps(texts)]
+    hits = [o for o in seen if o]
+    ov = max(hits, key=len) if len(hits) >= min(OV_NEED, len(seen)) else []
     if ov:
         fails["overlap"] = "; ".join(ov[:2])
     if colours(im1) < 3:
@@ -170,8 +189,8 @@ def look(film, use_vision=True, theme=None, ask=None, prior=None):
     ask = ask or film.get("ask", "")
     rendered, errors = render_scenes(film, theme or film.get("theme"))
     rows = []
-    for s, im1, im2, texts in rendered:
-        rows.append({"scene": s["name"], "frame": im1, "plain": plain_checks(s, im1, im2, texts, errors)})
+    for s, im1, im2, texts, seen in rendered:
+        rows.append({"scene": s["name"], "frame": im1, "plain": plain_checks(s, im1, im2, texts, errors, seen)})
     if prior:  # re-judge the plain checks only, keep the vision looks already paid for
         for r, v in zip(rows, prior):
             r["vision"] = v

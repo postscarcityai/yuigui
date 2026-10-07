@@ -343,20 +343,24 @@
       c.save(); c.font = fontOf(o); var size = o.size || 24, lh = size * (o.lh || 1.22), al = o.align || "center";
       var lines = wrap(str, o), w = 0; lines.forEach(function (l) { w = Math.max(w, c.measureText(l).width); });
       var pad0 = o.bg ? (o.pad == null ? size * 0.4 : o.pad) : 0;
-      if (still && !o.free) { if (al === "center") x = Math.min(W - 8 - pad0 - w / 2, Math.max(8 + pad0 + w / 2, x)); else if (al === "left") x = Math.max(8 + pad0, Math.min(x, W - 8 - pad0 - w)); else x = Math.min(W - 8 - pad0, Math.max(x, 8 + pad0 + w)); }
+      var tm = c.getTransform(),
+          flat = still;  // a still camera: the caption band and the screen edge apply
+      if (flat && !o.free) { if (al === "center") x = Math.min(W - 8 - pad0 - w / 2, Math.max(8 + pad0 + w / 2, x)); else if (al === "left") x = Math.max(8 + pad0, Math.min(x, W - 8 - pad0 - w)); else x = Math.min(W - 8 - pad0, Math.max(x, 8 + pad0 + w)); }
       var h = lh * lines.length, left = al === "left" ? x : al === "right" ? x - w : x - w / 2, top = o.base === "top" ? y : y - h / 2;
-      if (still && !o.free) {  // look pass (MOTION-2): a text never lands on another text, and never in the caption band
-        var pv = o.bg ? (o.pad == null ? size * 0.4 : o.pad) * 0.6 : 0, lim = H - 168, tries = 0, hit;
+      if (!o.free && !tm.b && !tm.c) {  // look pass (MOTION-2, MOTION-8): a text never lands on another text, judged in screen pixels whatever the camera does, and never in the caption band
+        var sx = tm.a / DPR, sy = tm.d / DPR, pv = (o.bg ? (o.pad == null ? size * 0.4 : o.pad) * 0.6 : 0) * sy, lim = H - 168, tries = 0, hit;
+        var X = function () { return (tm.a * left + tm.e) / DPR; }, Y = function () { return (tm.d * top + tm.f) / DPR; }, sw = w * sx, sh = h * sy;
         do {
+          var x0 = X(), y0 = Y(), y1;
+          if (flat && y0 + sh + pv > lim) { top += (lim - sh - pv - y0) / sy; y0 = Y(); }  // keep out of the caption band first, then settle any overlap by going the other way
           hit = null;
           for (var pi = 0; pi < placed.length; pi++) {
             var q = placed[pi];
-            if (q.s !== str && left < q.x + q.w + 2 && left + w > q.x - 2 && top - pv < q.y + q.h + 2 && top + h + pv > q.y - 2) { hit = q; break; }
+            if (q.s !== str && x0 < q.x + q.w + 2 && x0 + sw > q.x - 2 && y0 - pv < q.y + q.h + 2 && y0 + sh + pv > q.y - 2) { hit = q; break; }
           }
-          if (hit) { var below = hit.y + hit.h + 6 + pv; top = below + h + pv <= lim ? below : hit.y - 6 - pv - h; }
+          if (hit) { var below = hit.y + hit.h + 6 + pv; y1 = !flat || below + sh + pv <= lim ? below : hit.y - 6 - pv - sh; top += (y1 - y0) / sy; }
         } while (hit && ++tries < 4);
-        if (top + h + pv > lim) top = lim - h - pv;
-        placed.push({ x: left, y: top, w: w, h: h, s: str });
+        placed.push({ x: X(), y: Y(), w: sw, h: sh, s: str });
       }
       var box = { x: left, y: top, w: w, h: h, cx: left + w / 2, cy: top + h / 2 };
       var vis = o.type ? Math.floor(str.length * k) : str.length, A = (o.type ? 1 : eout(k)) * (o.a == null ? 1 : o.a);
@@ -426,7 +430,7 @@
       api.line(tx, ty, ex, ey, { c: col, w: o.w || 2, k: kl, rough: o.rough });
       return api.label(str, lx, ly, { size: o.size || 16, maxw: o.maxw || 150, k: kt, border: col, bg: o.bg || "panel", c: o.tc || "fg", r: 12, back: false });
     };
-    api.pin = function (n, x, y, o) { o = o || {}; var k = o.k == null ? 1 : o.k; if (k <= 0) return; var r = o.r || 13; c.save(); c.translate(x, y); var s = back(k); c.scale(s, s); api.dot(0, 0, r, { c: o.c || "accent" }); api.text(String(n), 0, 1, { size: r * 1.15, c: "ink", weight: 800 }); c.restore(); };
+    api.pin = function (n, x, y, o) { o = o || {}; var k = o.k == null ? 1 : o.k; if (k <= 0) return; var r = o.r || 13; c.save(); c.translate(x, y); var s = back(k); c.scale(s, s); api.dot(0, 0, r, { c: o.c || "accent" }); api.text(String(n), 0, 1, { size: r * 1.15, c: "ink", weight: 800, free: 1 }); c.restore(); };
     api.brace = function (x1, y1, x2, y2, o) {
       o = o || {}; var dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1, sg = o.side || 1, nx = -dy / L * sg, ny = dx / L * sg, d = o.depth || 14, P = [];
       var at = function (u, v) { return [x1 + dx * u + nx * v, y1 + dy * u + ny * v]; };
