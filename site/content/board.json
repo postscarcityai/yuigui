@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T15:05:44.231Z",
+  "updated": "2026-10-07T15:45:43.383Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-244",
-          "title": "A Thought, scene 1 draws its own shapes"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -292,7 +288,15 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "SITE-244",
+          "title": "A Thought, scene 1 draws its own shapes",
+          "summary": "A Thought: scene 1 no longer waits for the shapes",
+          "progress": "/progress#a-thought-scene-1-no-longer-waits-for-the-shapes",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
