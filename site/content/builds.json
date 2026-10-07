@@ -2301,6 +2301,13 @@
     },
     {
       "text": "MOTION-23: 21 checked drawings ship with the plugin (motion_things_seed.json); a seed word skips the parts call"
+    },
+    {
+      "text": "Films end with Replay, Another take and Change it",
+      "card": "YUI-320"
+    },
+    {
+      "text": "MOTION-24: seed grows from 21 to 93 checked drawings; a seed word still skips the parts call"
     }
   ]
 }
