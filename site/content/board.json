@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T20:35:19.126Z",
+  "updated": "2026-10-07T20:45:15.290Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-251",
-          "title": "Thought on MOTION-27, your own agents make films"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -286,6 +282,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-1912",
+          "title": "Films still drawn as blobs",
+          "needsDemo": true
         }
       ]
     },
@@ -294,8 +295,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-1912",
-          "title": "Films still drawn as blobs",
+          "key": "SITE-251",
+          "title": "Thought on MOTION-27, your own agents make films",
           "owner": "CJohnDesign"
         }
       ]
