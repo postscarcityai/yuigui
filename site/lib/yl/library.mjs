@@ -300,9 +300,9 @@ flowchart LR
   lane -->|green| phone((Phone))
 end`,
   },
-  // A film (MOTION-1). `draft` until the build that plays films goes VALID (compat.py MOTION_BUILD).
+  // A film (MOTION-1). Live: build 545 and up plays films (compat.py MOTION_BUILD).
   motion: {
-    shelf: "show", doc: "motion", draft: true,
+    shelf: "show", doc: "motion",
     purpose: "A drawing that moves and explains, full screen, made from one line: a concept or the work itself, scene 1 playing in seconds.",
     tags: ["motion", "film", "animation", "explainer", "video", "animate", "draw", "explain"],
     yl: `motion "Settings change: Log out moved to the bottom, Dark mode added above it, Help removed"`,
@@ -544,7 +544,8 @@ export const INTENTS = {
   shapes: ["draw a diagram of an idea", "explain how parts connect", "animate a concept"],
   shape: ["add a part to a diagram", "draw an arrow between two things"],
   game: ["play a game", "take a break with tic tac toe", "entertain a kid"],
-  flow: ["run a saved flow by name", "branching questions", "reuse a conversation"],
+  motion: ["explain something with a moving drawing", "show how a thing works", "show the work itself as a film"],
+  flow: ["run a saved flow by name","branching questions", "reuse a conversation"],
   "website-intake": ["client intake", "get a client's website brief", "plan a website with a client", "scope a site redesign or shop"],
   "self-scope": ["scope a project", "turn an idea into a plan", "size up work"],
   "workout-checkin": ["check in before a workout", "ask about sleep and soreness", "adjust a training plan"],
