@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T06:55:17.169Z",
+  "updated": "2026-10-07T07:05:18.939Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -271,6 +271,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-237",
+          "title": "A Thought, the kit draws the hero"
         },
         {
           "key": "NOTE-21045",
