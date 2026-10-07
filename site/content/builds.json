@@ -2270,6 +2270,9 @@
     },
     {
       "text": "MOTION-14: plugin picks the film's hero from the ask and the kit draws it (motion_hero.py)"
+    },
+    {
+      "text": "YUI-317: re-bundle the motion player with the film kit's api.thing, so phone films draw the kit objects"
     }
   ]
 }
