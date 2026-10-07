@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T13:55:27.798Z",
+  "updated": "2026-10-07T14:05:34.465Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -271,6 +271,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-243",
+          "title": "A Thought, a shorter parts reply"
         },
         {
           "key": "NOTE-21045",
