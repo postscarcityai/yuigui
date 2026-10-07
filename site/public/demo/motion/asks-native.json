@@ -1,0 +1,92 @@
+[
+ {
+  "noun": "accordion",
+  "ask": "Eli5: How an accordion squeezes air to play a chord.",
+  "ask2": "Eli5: Why does an accordion make sound when you pull it open and push it shut?"
+ },
+ {
+  "noun": "skateboard",
+  "ask": "Eli5: How a skateboard turns when the rider leans.",
+  "ask2": "Eli5: Why does leaning make a skateboard curve?"
+ },
+ {
+  "noun": "hourglass",
+  "ask": "Eli5: How sand moves through an hourglass at an even pace.",
+  "ask2": "Eli5: Explain why an hourglass keeps time so steadily."
+ },
+ {
+  "noun": "kayak",
+  "ask": "Eli5: How a kayak paddle pushes the craft forward.",
+  "ask2": "Eli5: What makes a kayak glide straight across a lake?"
+ },
+ {
+  "noun": "stapler",
+  "ask": "Eli5: How a stapler bends a staple through the paper.",
+  "ask2": "Eli5: Walk me through what a stapler does when I press down."
+ },
+ {
+  "noun": "violin",
+  "ask": "Eli5: How a violin bow makes a string sing.",
+  "ask2": "Eli5: Why does a violin sound different when you press the string?"
+ },
+ {
+  "noun": "wheelbarrow",
+  "ask": "Eli5: How a wheelbarrow makes a heavy load easy to move.",
+  "ask2": "Eli5: Show how a wheelbarrow lets one person lift a big pile of dirt."
+ },
+ {
+  "noun": "trumpet",
+  "ask": "Eli5: How a trumpet turns breath and three valves into notes.",
+  "ask2": "Eli5: Explain what the valves on a trumpet change."
+ },
+ {
+  "noun": "harp",
+  "ask": "Eli5: How a harp turns plucked strings into a melody.",
+  "ask2": "Eli5: Why are the strings on a harp all different lengths?"
+ },
+ {
+  "noun": "drum",
+  "ask": "Eli5: How a drum skin vibrates when the stick hits it.",
+  "ask2": "Eli5: What makes a drum louder when you hit it harder?"
+ },
+ {
+  "noun": "catapult",
+  "ask": "Eli5: How a catapult throws a rock far.",
+  "ask2": "Eli5: Why does a catapult launch things so far?"
+ },
+ {
+  "noun": "stethoscope",
+  "ask": "Eli5: How a stethoscope lets a doctor hear a heartbeat.",
+  "ask2": "Eli5: Why can a doctor hear your chest with a stethoscope?"
+ },
+ {
+  "noun": "saxophone",
+  "ask": "Eli5: How a saxophone makes a note when you blow and press keys.",
+  "ask2": "Eli5: What happens inside a saxophone when the player presses a key?"
+ },
+ {
+  "noun": "anvil",
+  "ask": "Eli5: How a blacksmith's anvil helps shape hot iron.",
+  "ask2": "Eli5: Why does a blacksmith hammer iron on an anvil?"
+ },
+ {
+  "noun": "bagpipes",
+  "ask": "Eli5: How bagpipes keep playing while the piper breathes in.",
+  "ask2": "Eli5: Why do bagpipes never stop sounding?"
+ },
+ {
+  "noun": "unicycle",
+  "ask": "Eli5: How a unicycle rider stays balanced on one wheel.",
+  "ask2": "Eli5: Why doesn't a unicycle tip over when someone pedals?"
+ },
+ {
+  "noun": "cello",
+  "ask": "Eli5: How a cello bow and four strings make a deep note.",
+  "ask2": "Eli5: Why does a cello sound lower than a violin?"
+ },
+ {
+  "noun": "windsock",
+  "ask": "Eli5: How a windsock shows which way the wind blows.",
+  "ask2": "Eli5: Why does a windsock point away from the wind?"
+ }
+]
