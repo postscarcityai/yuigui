@@ -3,7 +3,7 @@ platform: linkedin
 account: chris
 source: thoughts/why-iphone-first.md 2026-09-26 "Why iPhone first"
 media: [/app/chat-light.webp]
-slot: 2026-10-06T09:00:00-04:00
+slot: 2026-10-07T09:00:00-04:00
 status: draft
 ---
 We are building Yui for iPhone only, on purpose.

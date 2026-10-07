@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: progress.json 2026-09-24 OSS-5 "Draw your best screen in three lines: a community page and the first open challenge"
 media: [/progress/oss5-gallery.webp]
-slot: 2026-10-10T09:00:00-04:00
+slot: 2026-10-11T09:00:00-04:00
 status: draft
 ---
 Challenge: draw your best screen in three lines of Yui Lines or fewer.
