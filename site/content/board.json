@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T11:00:59.747Z",
+  "updated": "2026-10-07T11:06:00.544Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -271,6 +271,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-240",
+          "title": "A Thought, new drawings come back faster"
         },
         {
           "key": "NOTE-21045",
