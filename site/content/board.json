@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T19:26:03.510Z",
+  "updated": "2026-10-07T19:31:05.776Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-248",
-          "title": "A Thought, new things learned after one ask",
-          "summary": "A Thought: films learn after one ask",
-          "progress": "/progress#a-thought-films-learn-after-one-ask",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-248",
+          "title": "A Thought, new things learned after one ask",
+          "summary": "A Thought: films learn after one ask",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-films-learn-after-one-ask",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/952dc9bc"
+        },
         {
           "key": "SITE-247",
           "title": "A Thought, 80+ things drawn ahead",
