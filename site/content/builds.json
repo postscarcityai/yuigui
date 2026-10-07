@@ -2291,6 +2291,13 @@
     },
     {
       "text": "MOTION-21: scene 1 writer starts with the parts call and goes out on the first shapes (no wait on the full parts reply)"
+    },
+    {
+      "text": "MOTION-22: scene 2+ writer starts with scene 1's, not after it (gap 2.4/1.8/2.6 s to 0 s, ready 0% to 65-70%)"
+    },
+    {
+      "text": "Films talk: say cues are spoken on device with a mute button in the film chrome",
+      "card": "YUI-319"
     }
   ]
 }
