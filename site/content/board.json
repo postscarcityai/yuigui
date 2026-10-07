@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T12:45:15.203Z",
+  "updated": "2026-10-07T12:50:18.232Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-241",
-          "title": "A Thought, films start without the warm-up",
-          "summary": "A Thought: Films start without the warm-up",
-          "progress": "/progress#a-thought-films-start-without-the-warm-up",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-241",
+          "title": "A Thought, films start without the warm-up",
+          "summary": "A Thought: Films start without the warm-up",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-films-start-without-the-warm-up",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6070a928"
+        },
         {
           "key": "SITE-240",
           "title": "A Thought, new drawings come back faster",
