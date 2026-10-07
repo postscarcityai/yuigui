@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T19:31:05.776Z",
+  "updated": "2026-10-07T19:36:24.862Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,7 +288,18 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "SITE-249",
+          "title": "Publish the 0.6.5 Thought, films talk",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-1912",
+          "title": "Films still drawn as blobs",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
