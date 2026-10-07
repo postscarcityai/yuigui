@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T14:45:34.362Z",
+  "updated": "2026-10-07T14:50:35.216Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-243",
           "title": "A Thought, a shorter parts reply",
+          "summary": "A Thought: a shorter shapes reply did not help",
+          "progress": "/progress#a-thought-a-shorter-shapes-reply-did-not-help",
           "owner": "CJohnDesign"
         }
       ]
