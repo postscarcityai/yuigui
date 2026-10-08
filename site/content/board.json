@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T15:36:04.437Z",
+  "updated": "2026-10-08T16:11:01.360Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-338",
           "title": "The canvas draws pictures, gallery and before/after, every picture a touchable mark",
+          "summary": "Pictures you can touch",
+          "progress": "/progress#pictures-you-can-touch",
           "owner": "CJohnDesign"
         },
         {
