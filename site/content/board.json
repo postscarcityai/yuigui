@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T18:05:25.107Z",
+  "updated": "2026-10-08T18:10:18.644Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -302,7 +302,9 @@
         {
           "key": "YUI-339",
           "title": "The canvas draws music, every beat cell, key and chord a touchable mark",
+          "summary": "Music you can touch",
           "blocked": "other",
+          "progress": "/progress#music-you-can-touch",
           "owner": "CJohnDesign"
         }
       ]
