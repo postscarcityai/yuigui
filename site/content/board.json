@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T01:41:01.015Z",
+  "updated": "2026-10-08T01:51:02.990Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "YUI-326",
           "title": "The living canvas draws charts and stats, every bar, point and number a touchable mark",
+          "summary": "Charts and numbers on the canvas, touchable",
+          "progress": "/progress#charts-and-numbers-on-the-canvas-touchable",
           "owner": "CJohnDesign"
         },
         {
