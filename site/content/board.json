@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T06:35:48.945Z",
+  "updated": "2026-10-08T06:40:44.376Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-263",
-          "title": "Thought on YUI-331, drag a part and the agent answers where you put it"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -294,10 +290,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-331",
-          "title": "Drag a mark on the living canvas and the agent answers where you put it",
-          "summary": "Drag a part, it answers",
-          "progress": "/progress#drag-a-part-it-answers",
+          "key": "SITE-263",
+          "title": "Thought on YUI-331, drag a part and the agent answers where you put it",
           "owner": "CJohnDesign"
         },
         {
@@ -312,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-331",
+          "title": "Drag a mark on the living canvas and the agent answers where you put it",
+          "summary": "Drag a part, it answers",
+          "shipped": "2026-10-08",
+          "progress": "/progress#drag-a-part-it-answers",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5b017eda"
+        },
         {
           "key": "SITE-262",
           "title": "Thought on YUI-330, point at a part and it redraws",
