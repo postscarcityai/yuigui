@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T14:10:45.901Z",
+  "updated": "2026-10-08T14:20:48.334Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -294,13 +294,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-269",
-          "title": "Thought on YUI-337, math you can touch",
-          "summary": "A Thought: math you can touch",
-          "progress": "/progress#a-thought-math-you-can-touch",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-338",
           "title": "The canvas draws pictures, gallery and before/after, every picture a touchable mark",
           "owner": "CJohnDesign"
@@ -317,6 +310,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-269",
+          "title": "Thought on YUI-337, math you can touch",
+          "summary": "A Thought: math you can touch",
+          "shipped": "2026-10-08",
+          "progress": "/progress#a-thought-math-you-can-touch",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6843a5b2"
+        },
         {
           "key": "YUI-337",
           "title": "The canvas draws math and calc, every term and slider a touchable mark",
