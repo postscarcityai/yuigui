@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T18:20:19.814Z",
+  "updated": "2026-10-08T18:30:21.655Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-271",
           "title": "Thought on YUI-339, music you can touch",
+          "summary": "A Thought: music you can touch",
+          "progress": "/progress#a-thought-music-you-can-touch",
           "owner": "CJohnDesign"
         },
         {
