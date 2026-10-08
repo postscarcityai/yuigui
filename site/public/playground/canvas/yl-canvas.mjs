@@ -9,6 +9,7 @@ import { listFilm } from "./yl-lists.mjs";
 import { inputsFilm } from "./yl-inputs.mjs";
 import { mixFilm } from "./yl-mix.mjs";
 import { mapFilm } from "./yl-map.mjs";
+import { sciFilm, loadTex, setMeta, isSci } from "./yl-math.mjs";
 import { scene, frame, blobPoints, ringPoints, control, bracketPoints, smooth, STEP } from "./yl/shapes.mjs";
 
 const TONE = { accent: "accent", mint: "good", lavender: "a3", butter: "warn", ink: "fg", mute: "dim" };
@@ -23,7 +24,7 @@ const HOLD = 1.4; // seconds the finished picture holds before the film ends
 // The first drawing in an answer (shapes or sketch, or the chart and stat lines of YUI-326), the `say` lines before it, and the choose under it.
 export function read(text) {
   const r = parse(text), ops = Array.isArray(r) ? r : r.ops || [];
-  const out = { says: [], draw: null, figs: [], blocks: [], inputs: [], choose: null, errors: ops.filter((o) => o.op === "error").map((o) => o.message) };
+  const out = { says: [], draw: null, figs: [], blocks: [], sci: [], inputs: [], choose: null, errors: ops.filter((o) => o.op === "error").map((o) => o.message) };
   for (const o of ops) {
     if (o.op !== "add") continue;
     if (o.preset === "say" && !out.draw && !out.figs.length && !out.blocks.length) out.says.push(String(o.props.text || o.props.body || ""));
@@ -31,10 +32,11 @@ export function read(text) {
     else if (["list", "table", "timeline", "done", "now", "next", "card"].includes(o.preset) && !out.draw && !out.figs.length) out.blocks.push(o);
     else if ((o.preset === "shapes" || o.preset === "sketch" || o.preset === "map") && !out.draw) out.draw = { kind: o.preset, id: o.id, head: o.props, items: [] };
     else if (MAPPART.includes(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length) out.draw = { kind: "map", id: "map", head: {}, items: [o] };   // a bare area / pin / route is a map of just that part
-    else if (["choose", "pick", "ask", "slide", "form"].includes(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length) out.inputs.push(o);
+    else if (isSci(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length) out.sci.push(o);   // YUI-337: math, step and calc lines
+    else if (["choose", "pick", "ask", "slide", "form"].includes(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length && !out.sci.length) out.inputs.push(o);
     else if (out.draw && o.in === out.draw.id && (o.preset === "shape" || o.preset === "row" || o.preset === "after" || MAPPART.includes(o.preset))) out.draw.items.push(o);
     else if (out.draw && out.draw.id === "map" && !o.in && MAPPART.includes(o.preset)) out.draw.items.push(o);
-    else if (o.preset === "choose" && (out.draw || out.figs.length || out.blocks.length) && !out.choose) out.choose = { id: AUTO_ID.test(o.id) ? "choose" : o.id, q: String(o.props.q || ""), options: (o.props.options || []).map(String) };
+    else if (o.preset === "choose" && (out.draw || out.figs.length || out.blocks.length || out.sci.length) && !out.choose) out.choose = { id: AUTO_ID.test(o.id) ? "choose" : o.id, q: String(o.props.q || ""), options: (o.props.options || []).map(String) };
   }
   return out;
 }
@@ -58,6 +60,7 @@ export function readParts(text) {
     else if (o.preset === "timeline") parts.push((tl = { kind: "blocks", ops: [o] }));
     else if (["list", "table", "card"].includes(o.preset)) parts.push({ kind: "blocks", ops: [o] });
     else if (o.preset === "shapes" || o.preset === "sketch" || o.preset === "map") { dr = { kind: "draw", d: { kind: o.preset, id: o.id, head: o.props, items: [] } }; dr.id = o.id; dr.items = dr.d.items; parts.push(dr); }
+    else if (isSci(o.preset)) { const last = parts[parts.length - 1]; if (last && last.kind === "sci") last.ops.push(o); else parts.push({ kind: "sci", ops: [o] }); }   // YUI-337: a run of math / step / calc lines is one part
     else if (INPUTS.includes(o.preset)) parts.push({ kind: "input", ops: [o] });
   }
   return { parts: parts.filter((p) => p.kind !== "text" || p.text), errors };
@@ -84,6 +87,7 @@ function buildMix(text) {
     if (p.kind === "text") return p;
     if (p.kind === "fig") { const film = chartFilm(p.ops, r0, { chooseBlock, HOLD }); return film && { kind: "fig", film }; }
     if (p.kind === "blocks") { const film = listFilm(p.ops, r0, { chooseBlock, HOLD }); return film && { kind: "blocks", film }; }
+    if (p.kind === "sci") { const film = sciFilm(p.ops, r0, { chooseBlock, HOLD }); return film && { kind: "sci", film }; }
     if (p.kind === "draw") { const film = drawFilm(p.d, r0); return film && { kind: "draw", film, frame: p.d.head.frame }; }
     // two inputs with auto ids would both be "n1": give each its own id
     const o = p.ops[0], id = AUTO_ID.test(o.id) ? o.preset + (seen[o.preset] = (seen[o.preset] || 0) + 1) : o.id;
@@ -368,6 +372,13 @@ export function build(text) {
     if (cf.choose) cf.choose.options.forEach((o) => cf.marks.push({ id: "mark:text:" + slug(o), label: o, words: "Tap to choose " + o + ".", choice: o, appear: cf.total - 3 }));
     return { film: cf, scenes: [{ name: "yl", dur: cf.total, code: "return window.__yl && window.__yl.draw(t, api);" }] };
   }
+  if (!r.draw && r.sci.length) {
+    const sf = sciFilm(r.sci, r, { chooseBlock, HOLD });
+    if (!sf) return { error: "nothing to draw" };
+    sf.read = r;
+    if (sf.choose) sf.choose.options.forEach((o) => sf.marks.push({ id: "mark:text:" + slug(o), label: o, words: "Tap to choose " + o + ".", choice: o, appear: sf.total - 3 }));
+    return { film: sf, scenes: [{ name: "yl", dur: sf.total, code: "return window.__yl && window.__yl.draw(t, api);" }] };
+  }
   if (!r.draw && r.blocks.length) {
     const lf = listFilm(r.blocks, r, { chooseBlock, HOLD });
     if (!lf) return { error: "nothing to draw" };
@@ -392,6 +403,8 @@ export function build(text) {
 
 // What a touched mark says (the canned lines of this prototype; in the app the agent writes them).
 export function wordsFor(film, label) {
+  const live = film.wordsFor ? film.wordsFor(label) : null;   // YUI-337: a slider or the result says what it is now
+  if (live) return live;
   const m = film.marks.find((x) => x.label === label || x.id === label);
   return m ? m.words : label;
 }
@@ -404,3 +417,11 @@ export function drag(film, d) { return film.drag ? film.drag(d) : null; }
 export function nudge(film, d) { return film.nudge ? film.nudge(d) : null; }
 export function setText(film, key, text) { return film.setText ? film.setText(key, text) : null; }
 export function isChoice(film, label) { return !!(film.choose && film.choose.options.includes(label)); }
+
+// YUI-337: math and calc need the TeX parser (KaTeX, a vendored file loaded the first time a formula plays). The page awaits this before it builds.
+export const prepare = (text) => (/^\s*(math|step|calc)\b/m.test(String(text)) ? loadTex() : Promise.resolve(null));
+// The page sets the word in the event lines and the canned meaning of each term once per sample: { ask, terms }.
+export { setMeta };
+// A slider is dragged or nudged: the film changes in place; the text with the sliders where they are now, for the history.
+export function retext(film, text) { return film.retext ? film.retext(text) : text; }
+export function busy(film) { return !!(film && film.busy && film.busy()); }

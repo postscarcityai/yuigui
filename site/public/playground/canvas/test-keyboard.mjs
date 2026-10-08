@@ -131,6 +131,53 @@ for (const yid of ["map", "route"]) {
   out.push(`${fails.length ? "BAD" : "ok "} yl=${yid} map marks=${marks.length} walked=${seen.length} tap+hold=same ${fails.join(" | ")}`);
   await p.close();
 }
+// YUI-337: the math and calc samples of the yl canvas. Every term, the result, the plot and every slider is one named, focusable button, Tab walks them
+// in reading order, Enter and Shift-Enter do what a tap and a hold do, and the arrow keys on a slider step it and send the same `canvas drag` line a drag sends.
+for (const yid of ["math", "calc"]) {
+  const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+  const errs = [], fails = []; p.on("pageerror", e => errs.push(String(e)));
+  await p.addInitScript(() => { window.__log = []; window.addEventListener("message", e => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
+  await p.goto("http://localhost:" + (process.env.PORT || 8923) + "/playground/canvas.html?yl=" + yid + "&theme=dark&replies=off");
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 }).catch(() => fails.push("not loaded"));
+  const fr = p.frames().find(f => f.url().includes("player.html"));
+  await p.waitForTimeout(300);
+  const total = await p.evaluate(() => window.__canvas.total);
+  const r = await fr.evaluate(t => { window.__motion.renderAt(t); const h = window.__motion.hits(); const bs = [...document.querySelectorAll("#parts button")]; return { ids: h.map(x => x.id), btn: bs.map(x => x.dataset.id), names: bs.map(x => x.getAttribute("aria-label")), ok: bs.map(x => x.tabIndex >= 0 && !x.disabled) }; }, total);
+  checks += r.ids.length; parts += r.ids.length; filmsWithParts++;
+  const want = yid === "math" ? ["term.E", "term.m", "term.c_2", "step.1", "step.2"] : ["term.A", "term.P", "calc.result", "calc.plot", "calc.P", "calc.r", "calc.t"];
+  for (const w of want) if (!r.ids.includes(w)) fails.push("no mark " + w);
+  if (JSON.stringify(r.ids) !== JSON.stringify(r.btn)) fails.push("list!=hits");
+  if (r.names.some(n => !n || !n.trim())) fails.push("unnamed " + JSON.stringify(r.names));
+  if (r.ok.some(x => !x)) fails.push("unfocusable");
+  await fr.evaluate(() => document.getElementById("cv").focus());
+  const seen = [];
+  for (let i = 0; i < r.ids.length; i++) { await p.keyboard.press("Tab"); seen.push(await fr.evaluate(() => document.activeElement.dataset.id)); }
+  if (JSON.stringify(seen) !== JSON.stringify(r.ids)) fails.push("tab order " + seen + " != " + r.ids);
+  const termId = r.ids.find(i => /^term\./.test(i)), hit = (await fr.evaluate(() => window.__motion.hits())).find(h => h.id === termId);
+  const sent = () => p.evaluate(() => window.__log.filter(m => m.motion === "tap" || m.motion === "hold").map(m => ({ motion: m.motion, id: m.id, label: m.label })));
+  const touch = async (ms) => { await p.evaluate(() => (window.__log = [])); await fr.evaluate(async ([x, y, ms]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: 7, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise(r => setTimeout(r, ms)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [hit.x, hit.y, ms]); await p.waitForTimeout(120); return sent(); };
+  const focusIt = async (id) => { await fr.evaluate(id => document.querySelector('#parts button[data-id="' + id + '"]').focus(), id); };
+  const key = async (fn) => { await p.evaluate(() => (window.__log = [])); await fn(); await p.waitForTimeout(700); return sent(); };
+  const tT = await touch(60); await focusIt(termId); const kT = await key(() => p.keyboard.press("Enter"));
+  const tH = await touch(650); await focusIt(termId); const kH = await key(() => p.keyboard.press("Shift+Enter"));
+  if (tT.length !== 1 || tT[0].id !== termId || JSON.stringify(tT) !== JSON.stringify(kT)) fails.push("tap " + JSON.stringify(tT) + " vs Enter " + JSON.stringify(kT));
+  if (tH.length !== 1 || JSON.stringify(tH) !== JSON.stringify(kH)) fails.push("hold " + JSON.stringify(tH) + " vs Shift-Enter " + JSON.stringify(kH));
+  if (yid === "calc") {
+    await fr.evaluate(t => window.__motion.renderAt(t), total);
+    await focusIt("calc.r"); await p.keyboard.press("ArrowRight"); await p.waitForTimeout(500);
+    let ln = await p.evaluate(() => document.getElementById("line").innerText);
+    if (!ln.includes("[yui] calc canvas drag mark=calc.r value=0.06")) fails.push("ArrowRight line " + JSON.stringify(ln));
+    await focusIt("calc.r"); await p.keyboard.press("ArrowLeft"); await p.waitForTimeout(500);
+    ln = await p.evaluate(() => document.getElementById("line").innerText);
+    if (!ln.includes("[yui] calc canvas drag mark=calc.r value=0.05")) fails.push("ArrowLeft line " + JSON.stringify(ln));
+    const nm = await fr.evaluate(() => document.querySelector('#parts button[data-id="calc.r"]').getAttribute("aria-label"));
+    if (!/^r: 0\.05/.test(nm || "")) fails.push("slider name lacks its value: " + nm);
+  }
+  if (errs.length) fails.push(errs.join(";"));
+  if (fails.length) bad++;
+  out.push(`${fails.length ? "BAD" : "ok "} yl=${yid} marks=${r.ids.length} walked=${seen.length} tap+hold=same ${fails.join(" | ")}`);
+  await p.close();
+}
 console.log(out.join("\n"));
 console.log(`bad ${bad} of ${ids.length} films; films_with_parts ${filmsWithParts}; max-parts parts checked ${parts}; per-frame part checks ${checks}`);
 await b.close(); process.exit(bad ? 1 : 0);

@@ -228,5 +228,29 @@
       "say": "Paris moved. The trip bends with it.",
       "patch": "~pin@par tone=butter"
     }
+  },
+  "math": {
+    "step.1": {
+      "name": "Divide by c squared",
+      "say": "Same move, shorter: divide by c squared.",
+      "replace": [
+        {
+          "find": "step \"Divide both sides by c squared\"",
+          "with": "step \"Divide by c squared\""
+        }
+      ]
+    }
+  },
+  "calc": {
+    "calc.t": {
+      "name": "t: 10",
+      "say": "Twenty years and the pile is more than double.",
+      "replace": [
+        {
+          "find": "t=0-20@10",
+          "with": "t=0-20@20"
+        }
+      ]
+    }
   }
 }

@@ -31,7 +31,7 @@ function shifted(api, dy, H) {
 }
 
 const isInput = (p) => p.kind === "input";
-const isPicture = (p) => p.kind === "fig" || p.kind === "blocks" || p.kind === "draw";
+const isPicture = (p) => p.kind === "fig" || p.kind === "blocks" || p.kind === "draw" || p.kind === "sci";
 
 // parts: [{ kind: "text", text } | { kind: "fig" | "blocks" | "draw" | "input", film }] in line order. host: { HOLD }.
 export function mixFilm(parts, host) {
@@ -75,6 +75,10 @@ export function mixFilm(parts, host) {
       const availS = Math.max(160, Math.round(card ? nat : nat * k)), ff = nat > availS ? clamp(availS / nat, 0.62, 1) : 1, used = card ? nat : nat * ff, S = availS + 4;
       return { h: used, give: !card, draw: (y, tt) => { p.dy = y - 112 - (availS - used) / 2; f.draw(tt, shifted(api, p.dy, S + 308)); } };
     }
+    if (p.kind === "sci") {   // YUI-337: formulas and calcs take the height they need, squeezed to fit like a chart
+      const used = Math.round(f.height(api) * (k < 1 ? clamp(k, 0.7, 1) : 1)), S = used + 4;
+      return { h: used, give: true, draw: (y, tt) => { p.dy = y - 112; f.draw(tt, shifted(api, p.dy, S + 308)); } };
+    }
     if (p.kind === "draw" && (f.kind === "shapes" || f.kind === "map")) {   // YUI-336: a map fits its slot the way a shapes drawing does
       const sc = f.sc, full = sc.h * Math.min((W - 28) / sc.w, 84), aH = Math.max(120, Math.min(full, 250 * k)), S = (sc.title ? 24 : 0) + aH + 6, ft = f.fit(W, S), head = sc.title ? 22 : 0;
       return { h: head + (sc.title ? 24 : 0) + ft.drawH + 6, give: true, draw: (y, tt) => { p.dy = y - 112 + head - ft.shift; f.draw(tt, shifted(api, p.dy, S + 308)); } };
@@ -103,6 +107,10 @@ export function mixFilm(parts, host) {
     },
     drag: (d) => ask("drag", d),
     nudge: (d) => ask("nudge", d),
+    // YUI-337: a slider in one part: the words it says now, the text with the sliders where they are, and whether a tween is running
+    wordsFor: (label) => { for (const p of parts) { const w = p.film && p.film.wordsFor ? p.film.wordsFor(label) : null; if (w) return w; } return null; },
+    retext: (text) => parts.reduce((tx, p) => (p.film && p.film.retext ? p.film.retext(tx) : tx), text),
+    busy: () => parts.some((p) => p.film && p.film.busy && p.film.busy()),
     setText: (key, text) => ask("setText", key, text),
     draw(t, api) {
       const bottom = api.h - BOTTOM_PAD;

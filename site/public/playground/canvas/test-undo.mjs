@@ -61,6 +61,26 @@ is("the redo line", U.redoLine("bars", f.n, f.step.marks), "[yui] bars canvas re
 U.push(h, { kind: "hold", id: holdId, marks: [holdId], film: b0.film, text: T0 });
 is("a new change drops redo", [h.steps.length, U.canForward(h)], [2, false]);
 
+// 6b. YUI-337: a calc slider move is one step. The film changes in place, so the page forks a fresh copy first; the history keeps the picture before it.
+{
+  const cs = samples.find((x) => x.id === "calc"), CT = cs.yl;
+  await C.prepare(CT); C.setMeta({ ask: "calc", terms: cs.terms });
+  const c0 = C.build(CT), hc = U.create(c0.film, CT);
+  const fork = C.build(hc.states[hc.at].text).film;                        // what the page does on the first move of a gesture
+  fork.setValue("calc.r", 0.1);
+  const done = fork.commit("calc.r"), T1c = C.retext(fork, CT);
+  is("a slider move sends the drag line", done && done.line, "[yui] calc canvas drag mark=calc.r value=0.1");
+  is("the text keeps the slider where it landed", /r=0-0\.2@0\.1\b/.test(T1c) && /P=100-1000@100/.test(T1c), true);
+  U.push(hc, { kind: "slide", id: "calc.r", marks: ["calc.r"], film: fork, text: T1c });
+  is("the film in the history was not touched by the move", [c0.film.values().r, fork.values().r], [0.05, 0.1]);
+  const rb = U.back(hc);
+  is("Back returns the first text and film", [hc.states[hc.at].text === CT, hc.states[hc.at].film === c0.film], [true, true]);
+  is("the undo line names the slider", U.undoLine("calc", rb.n, rb.step.marks), "[yui] calc canvas undo step=1 marks=calc.r");
+  is("Back says it in plain words", U.words(rb.step, "back"), "Back to before the slider moved.");
+  is("a move that ends where it began is not a step", (() => { const f2 = C.build(CT).film; f2.setValue("calc.r", 0.1); f2.setValue("calc.r", 0.05); return f2.commit("calc.r"); })(), null);
+  for (const [n, re] of [["a fork before a slider gesture", /function ylFork\(\)/], ["a slider step recorded", /kind: "slide"/], ["frames while the result eases", /function ylLive\(\)/]]) re.test(page) ? ok(`canvas.html has ${n}`) : no(`canvas.html lost ${n}`);
+}
+
 // 7. the page wires it: keys, the Back mark, the two-finger tap and the line
 for (const [n, re] of [["a named Back mark", /id="back" hidden aria-label="Back"/], ["Cmd/Ctrl+Z", /e\.metaKey \|\| e\.ctrlKey/], ["Shift for redo", /e\.shiftKey \? "forward" : "back"/], ["two-finger tap", /e\.touches\.length === 2/], ["a live region for the plain words", /id="sr" class="sr" role="status"/]])
   re.test(page) ? ok(`canvas.html has ${n}`) : no(`canvas.html lost ${n}`);
@@ -106,6 +126,27 @@ if (process.env.BROWSER) {
   await p.keyboard.press("Control+Shift+z"); await p.waitForFunction(() => window.__canvas.hist.at === 1, null, { timeout: 8000 });
   await idle();
   is("Redo returns the picture after the hold", await ids(), afterHold);
+  // YUI-337: a real drag on the calc knob is one step, and Back puts the slider, the result and the plot back
+  await p.goto("http://localhost:" + (process.env.PORT || 8923) + "/playground/canvas.html?yl=calc&theme=dark&replies=off");
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.hist, null, { timeout: 15000 });
+  const fr2 = p.frames().find((x) => x.url().includes("player.html"));
+  await p.waitForTimeout(6500);
+  const box = await p.evaluate(() => { const r = document.querySelector("iframe").getBoundingClientRect(); return { x: r.left, y: r.top }; });
+  const knob = (await fr2.evaluate(() => window.__motion.hits())).find((x) => x.id === "calc.r");
+  const sig = () => fr2.evaluate(() => { const c = document.getElementById("cv"); return c.toDataURL().length + ":" + c.toDataURL().slice(-200); });
+  const names = async () => (await fr2.evaluate(() => window.__motion.hits().map((x) => x.id + "|" + x.label))).join(" ; ");   // strokes carry sub-pixel wobble, so Back is judged by what the marks say
+  const before = await sig(), named0 = await names(), res0 = await p.evaluate(() => window.__canvas.yl.values().r);
+  await p.mouse.move(box.x + knob.x, box.y + knob.y); await p.mouse.down();
+  for (let i = 1; i <= 20; i++) { await p.mouse.move(box.x + knob.x + 6 * i, box.y + knob.y); await p.waitForTimeout(16); }
+  await p.mouse.up(); await p.waitForTimeout(600);
+  const moved = await p.evaluate(() => ({ r: window.__canvas.yl.values().r, hist: window.__canvas.hist, line: document.getElementById("line").innerText }));
+  is("a drag on the knob is one step", [moved.hist.at, moved.r > res0], [1, true]);
+  is("the drag line is sent", /^\[yui\] calc canvas drag mark=calc\.r value=0\.\d+/.test(moved.line) || moved.line.includes("[yui] calc canvas drag mark=calc.r value="), true);
+  is("the picture changed with the slider", [(await sig()) !== before, (await names()) !== named0], [true, true]);
+  await p.keyboard.press("Control+z"); await p.waitForFunction(() => window.__canvas.hist.at === 0, null, { timeout: 8000 });
+  await p.waitForFunction(() => !ylBusy, null, { timeout: 10000 }); await p.waitForTimeout(300);
+  is("Back puts the slider back", await p.evaluate(() => window.__canvas.yl.values().r), res0);
+  is("Back puts the result and the slider names back", await names(), named0);
   is("no page errors", errs, []);
   await b.close();
 }

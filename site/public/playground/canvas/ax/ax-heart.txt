@@ -45,6 +45,7 @@
   - tab "People 1"
   - tab "People 2"
   - tab "Three 1"
+- status
 - button "Another take"
 - button "Change it"
 - button "Pause":

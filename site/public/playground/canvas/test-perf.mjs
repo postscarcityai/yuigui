@@ -1,6 +1,6 @@
 // YUI-335: the canvas stays smooth on a phone. A frame budget and a test that holds it.
 // Headless Chrome at 390x844, played start to end: the heart film, ?yl=bars, ?yl=steps and a mixed answer, then the YUI-334
-// hold, drag, Back sequence. YUI-336: the map samples (?yl=map, ?yl=route and a map in a mixed answer, ?yl=mix-map) are played too, and the sequence runs on the map. Frame times are requestAnimationFrame deltas on the page.
+// hold, drag, Back sequence. YUI-337: the math and calc samples (?yl=math, ?yl=calc) are played too, and a slider drag on ?yl=calc is measured (drag the knob, then Back). YUI-336: the map samples (?yl=map, ?yl=route and a map in a mixed answer, ?yl=mix-map) are played too, and the sequence runs on the map. Frame times are requestAnimationFrame deltas on the page.
 // Budget at 1x CPU: p95 under 20 ms, no frame over 50 ms. At 4x CPU throttle (CDP Emulation.setCPUThrottlingRate): p95 under 33 ms (the worst frame is printed, not gated: a throttled laptop drops a stray frame to a GC).
 // Needs Chrome and playwright. Without them it says so and exits 0 (a skip, never a pass): PERF_STRICT=1 makes that a failure.
 // node test-perf.mjs                 both budgets, a table per sample
@@ -25,7 +25,7 @@ if (!chromium) skip("playwright not installed; set PW_FROM=<a package.json besid
 const BUDGET = { 1: { p95: 20, max: 50 }, 4: { p95: 33, max: null } };
 const RATES = (process.env.RATES || "1,4").split(",").map(Number);
 const MIXED = process.env.MIXED || "mix-first";
-const SAMPLES = process.env.ONLY_SEQ ? [] : [["heart", "canvas.html"], ["bars", "canvas.html?yl=bars"], ["steps", "canvas.html?yl=steps"], ["mixed", `canvas.html?yl=${MIXED}`], ["map", "canvas.html?yl=map"], ["route", "canvas.html?yl=route"], ["mixed map", "canvas.html?yl=mix-map"]];   // YUI-336: the map samples are played too
+const SAMPLES = process.env.ONLY_SEQ ? [] : [["heart", "canvas.html"], ["bars", "canvas.html?yl=bars"], ["steps", "canvas.html?yl=steps"], ["mixed", `canvas.html?yl=${MIXED}`], ["map", "canvas.html?yl=map"], ["route", "canvas.html?yl=route"], ["mixed map", "canvas.html?yl=mix-map"], ["math", "canvas.html?yl=math"], ["calc", "canvas.html?yl=calc"]];   // YUI-336: the map samples are played too; YUI-337: so are math and calc
 const SEQ = [["bars", "bars", "chart:n1:s0:1", "chart:n1:s0:3", "chart:n1:s0:0"], ["steps", "steps", "list:n1:2", "list:n1:3", "list:n1:1", false], ["map", "map", "map:n1:pin:karakorum", "map:n1:pin:karakorum", "map:n1:area:raided"]]; // hold, drag, Back runs on these: [label, yl id, hold part, drag part, drop on part, the hold has a canned redraw]
 
 const mime = { ".html": "text/html", ".mjs": "text/javascript", ".js": "text/javascript", ".json": "application/json", ".css": "text/css", ".svg": "image/svg+xml" };
@@ -113,9 +113,35 @@ async function sequence(rate, [name, yl, holdIdx, moveIdx, toIdx, holdRedraws = 
   return { name: `${name} hold+drag+Back`, rate, f, errs, longs, note: steps === (holdRedraws ? 4 : 2) ? "" : note || "sequence incomplete" };
 }
 
+// YUI-337: drag the calc knob across the track with real pointer input (the result and the plot redraw on every move), then Back. The run fails
+// when the drag is not one step in the history or Back does not return to step 0.
+async function slider(rate) {
+  const { ctx, p, errs } = await open(rate, "canvas.html?yl=calc");
+  const fr = p.frames().find((x) => x.url().includes("player.html"));
+  await p.waitForFunction(() => window.__canvas.hist, null, { timeout: 15000 });
+  await p.waitForTimeout(6500 * Math.min(rate, 2));   // let the answer finish writing in
+  const to = 20000 * rate, idle = async () => { await p.waitForFunction(() => !ylBusy, null, { timeout: to }); await p.waitForTimeout(150); };
+  const at = (n) => p.waitForFunction((k) => window.__canvas.hist.at === k, n, { timeout: to });
+  const box = await p.evaluate(() => { const r = document.querySelector("iframe").getBoundingClientRect(); return { x: r.left, y: r.top }; });
+  const knob = (await fr.evaluate(() => window.__motion.hits())).find((h) => h.id === "calc.r");
+  const m = p.mouse; let steps = 0, note = "";
+  await start(p); await phase(p, "slide");
+  await m.move(box.x + knob.x, box.y + knob.y); await m.down();
+  for (let i = 1; i <= 60; i++) { await m.move(box.x + knob.x + (i <= 30 ? 6 * i : 6 * (60 - i)), box.y + knob.y); await p.waitForTimeout(16); }
+  await m.move(box.x + knob.x + 180, box.y + knob.y); await p.waitForTimeout(300);   // the result and the plot ease for a moment after the last move
+  await m.up(); await phase(p, "settle");
+  await at(1).then(() => steps++).catch(() => { note = "the drag made no step"; }); await idle().catch(() => {});
+  await phase(p, "back");
+  await p.keyboard.press("Control+z"); await at(0).then(() => steps++).catch(() => { note = note || "Back did not step back"; }); await idle().catch(() => {});
+  await p.waitForTimeout(600);
+  const f = await stop(p), longs = await slow(p); await ctx.close();
+  return { name: "calc slider drag+Back", rate, f, errs, longs, note: steps === 2 ? "" : note || "sequence incomplete" };
+}
+
 for (const rate of RATES) {
   for (const s of SAMPLES) results.push(await play(rate, s));
   for (const s of SEQ) results.push(await sequence(rate, s));
+  results.push(await slider(rate));
 }
 await browser.close(); srv.close();
 

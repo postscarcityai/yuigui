@@ -12,7 +12,7 @@ let bad = 0; const out = [];
 // 0. the browser copies of lib/yl match the originals
 try { execFileSync("node", [new URL("../../../scripts/sync-canvas-yl.mjs", import.meta.url).pathname, "--check"], { stdio: "pipe" }); out.push("ok  canvas yl copies in sync"); } catch (e) { bad++; out.push("BAD canvas yl copies drifted: run node site/scripts/sync-canvas-yl.mjs"); }
 // 1. the sample set
-const kinds = list.map((s) => (/^\s*(say.*\n)?(chart|stat)/.test(s.yl) ? "chart" : /^\s*(say.*\n)?shapes/.test(s.yl) ? "shapes" : /^\s*(say.*\n)?(list|table|timeline|card)/.test(s.yl) ? "lists" : /^\s*(say.*\n)?(choose|pick|ask|slide|form)/.test(s.yl) ? "inputs" : /^\s*(say.*\n)?map\b/.test(s.yl) ? "map" : "sketch"));
+const kinds = list.map((s) => (/^\s*(say.*\n)?(chart|stat)/.test(s.yl) ? "chart" : /^\s*(say.*\n)?shapes/.test(s.yl) ? "shapes" : /^\s*(say.*\n)?(list|table|timeline|card)/.test(s.yl) ? "lists" : /^\s*(say.*\n)?(choose|pick|ask|slide|form)/.test(s.yl) ? "inputs" : /^\s*(say.*\n)?map\b/.test(s.yl) ? "map" : /^\s*(say.*\n)?(math|step|calc)\b/.test(s.yl) ? "sci" : "sketch"));
 const chartTypes = new Set(list.flatMap((s) => [...s.yl.matchAll(/^chart (line|bar|area|scatter|pie|donut)/gm)].map((m) => m[1])));
 const need = { n: list.length >= 16, shapes: kinds.filter((k) => k === "shapes").length >= 4, sketch: kinds.filter((k) => k === "sketch").length >= 3, charts: kinds.filter((k) => k === "chart").length >= 6, types: ["line", "bar", "area", "pie", "donut"].every((t) => chartTypes.has(t)), stat: list.some((s) => /^stat .*delta=.*spark=/m.test(s.yl)), pair: list.some((s) => /^stat /m.test(s.yl) && /^chart /m.test(s.yl) && /^choose/m.test(s.yl)), choose: list.filter((s) => /^choose/m.test(s.yl)).length >= 1,
   // YUI-327: a list, a +check list, a table, a timeline with done/now/next, a card with a body, and a timeline + choose pair
@@ -148,10 +148,10 @@ for (const s of list) {
   await p.close();
 }
 // 7b. YUI-328: the inputs answer. A fresh page per case, real pointer events on the canvas, the event line read back from the page.
-const open = async (id) => {
+const open = async (id, extra = "&replies=off") => {
   const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
   p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
-  await p.goto(base + "?yl=" + id + "&theme=dark&replies=off");
+  await p.goto(base + "?yl=" + id + "&theme=dark" + extra);
   await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 });
   p.fr = p.frames().find((f) => f.url().includes("player.html"));
   p.total = await p.evaluate(() => window.__canvas.total);
@@ -167,7 +167,7 @@ const open = async (id) => {
   p.frameSig = () => p.fr.evaluate(() => { const c = document.getElementById("cv"); return c.toDataURL().length + ":" + c.toDataURL().slice(-200); });
   return p;
 };
-const check = async (name, fn) => { const fails = []; let p; try { p = await open(name.id); await fn(p, fails); if (p.errs.length) fails.push(p.errs.join(";")); } catch (e) { fails.push("threw " + String(e).slice(0, 160)); } if (fails.length) bad++; out.push(`${fails.length ? "BAD" : "ok "} inputs ${name.id} ${name.what} ${fails.join(" | ")}`); if (p) await p.close(); };
+const check = async (name, fn) => { const fails = []; let p; try { p = await open(name.id, name.extra); await fn(p, fails); if (p.errs.length) fails.push(p.errs.join(";")); } catch (e) { fails.push("threw " + String(e).slice(0, 160)); } if (fails.length) bad++; out.push(`${fails.length ? "BAD" : "ok "} inputs ${name.id} ${name.what} ${fails.join(" | ")}`); if (p) await p.close(); };
 const has = (l, want) => l.includes(want);
 if (list.some((s) => s.id === "choose-other")) {
   await check({ id: "choose-other", what: "choose locks, other types" }, async (p, f) => {
@@ -228,9 +228,76 @@ if (list.some((s) => s.id === "form-checkin")) await check({ id: "form-checkin",
   const kb = p.fr.locator('#parts button[data-id="in:checkin:sleep"]'); await kb.focus(); await p.keyboard.press("ArrowLeft"); await p.waitForTimeout(200);
   if ((await p.st()).value["checkin:sleep"] !== 9) f.push("form moved after Send");
 });
+// 7d. YUI-337: math and calc. Every term is a named mark in reading order and the formula writes in term by term; a tap names a term and says what it
+// means (the sample's canned words); a hold redraws it; a calc slider drags (one `canvas drag` line, result and plot redrawn, no scrub), and Back puts it back.
+const sciNeed = { math: ["term.E", "term.m", "term.c_2", "step.1", "step.2", "term.E_c_2"], calc: ["term.A", "term.P", "calc.result", "calc.plot", "calc.P", "calc.r", "calc.t"] };
+for (const sid of ["math", "calc"]) if (!list.some((s) => s.id === sid)) { bad++; out.push("BAD no ?yl=" + sid + " sample"); }
+if (list.some((s) => s.id === "math")) {
+  await check({ id: "math", what: "terms in reading order, written in one by one, a tap says what a term means" }, async (p, f) => {
+    const hs = await p.hits(), ids = hs.map((h) => h.id), x = (id) => (hs.find((h) => h.id === id) || {}).x;
+    for (const w of sciNeed.math) if (!ids.includes(w)) f.push("no mark " + w);
+    if (!(x("term.E") < x("term.m") && x("term.m") < x("term.c_2"))) f.push("E, m, c^2 are not left to right");
+    const names = hs.filter((h) => /^term\./.test(h.id)).map((h) => h.label);
+    if (!names.includes("E") || !names.includes("c^2") || !names.includes("E/c^2")) f.push("term names " + names);
+    const nAt = (t) => p.fr.evaluate((t) => { window.__motion.renderAt(t); return window.__motion.hits().filter((h) => h.id.startsWith("term.")).length; }, t);
+    const early = await nAt(0.3), later = await nAt(1.2), all = await nAt(p.total);
+    if (!(early < later && later <= all && all >= 7)) f.push("terms do not write in one by one (" + [early, later, all] + ")");
+    await p.tap(hs.find((h) => h.id === "term.c_2"));
+    const l = await p.line();
+    if (!l.includes("c^2") || !l.includes("speed of light")) f.push("tap on c^2 " + JSON.stringify(l));
+    if (!(await p.fr.evaluate(() => window.__motion.paused()))) f.push("tap did not pause");
+    if ((await p.evaluate(() => window.__canvas.yl.marks.filter((m) => m.term).length)) < 7) f.push("too few term marks");
+  });
+  await check({ id: "math", what: "a hold on a step title redraws it (canned reply) and Back undoes it", extra: "" }, async (p, f) => {
+    const hs = await p.hits(), c = hs.find((h) => h.id === "step.1");
+    await p.fr.evaluate(async ([x, y]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: 60, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, 700)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [c.x, c.y]);
+    await p.waitForFunction(() => window.__canvas.hist.at === 1, null, { timeout: 9000 }).catch(() => f.push("hold made no step"));
+    await p.waitForFunction(() => !ylBusy, null, { timeout: 9000 }); await p.waitForTimeout(500);
+    const lab = await p.evaluate(() => window.__canvas.yl.marks.find((m) => m.id === "step.1").label);
+    if (lab !== "Divide by c squared") f.push("the step title was not redrawn: " + lab);
+    await p.click("#back"); await p.waitForFunction(() => window.__canvas.hist.at === 0, null, { timeout: 8000 }); await p.waitForFunction(() => !ylBusy, null, { timeout: 9000 });
+    if ((await p.evaluate(() => window.__canvas.yl.marks.find((m) => m.id === "step.1").label)) !== "Divide both sides by c squared") f.push("Back did not return the step title");
+  });
+}
+if (list.some((s) => s.id === "calc")) {
+  await check({ id: "calc", what: "a slider drags, the result and plot redraw, no scrub, Back puts it back" }, async (p, f) => {
+    const hs = await p.hits(), ids = hs.map((h) => h.id);
+    for (const w of sciNeed.calc) if (!ids.includes(w)) f.push("no mark " + w);
+    const c0 = await p.clock(), sig0 = await p.frameSig(), r = hs.find((h) => h.id === "calc.r"), res0 = hs.find((h) => h.id === "calc.result").label;
+    if (!r.drag) f.push("the slider knob is not a drag mark");
+    await p.dragTo(r, r.x + 100); await p.waitForTimeout(500);
+    const l = await p.line(), hs2 = await p.hits(), res1 = hs2.find((h) => h.id === "calc.result").label, v = await p.evaluate(() => window.__canvas.yl.values().r);
+    if (!/\[yui\] calc canvas drag mark=calc\.r value=0\.\d+/.test(l) || !(v > 0.05)) f.push("drag line " + JSON.stringify(l) + " r=" + v);
+    if (res1 === res0) f.push("the result did not change: " + res1);
+    if ((await p.frameSig()) === sig0) f.push("the picture did not redraw");
+    if ((await p.clock()) !== c0) f.push("a drag on the knob scrubbed");
+    if (!hs2.find((h) => h.id === "calc.r").label.startsWith("r: " + v)) f.push("the slider name lacks its value");
+    if ((await p.evaluate(() => window.__canvas.hist.at)) !== 1) f.push("a slider move is not one step");
+    await p.tap(hs2.find((h) => h.id === "calc.plot"), 61); const pl = await p.line();
+    if (!pl.includes("A against t") || !pl.includes(res1.replace(/^A: /, ""))) f.push("the plot says " + JSON.stringify(pl));
+    await p.click("#back"); await p.waitForFunction(() => window.__canvas.hist.at === 0, null, { timeout: 8000 }); await p.waitForFunction(() => !ylBusy, null, { timeout: 9000 }); await p.waitForTimeout(400);
+    const hs3 = await p.hits();
+    if (hs3.find((h) => h.id === "calc.result").label !== res0 || (await p.evaluate(() => window.__canvas.yl.values().r)) !== 0.05) f.push("Back did not put the slider and result back");
+  });
+  await check({ id: "calc", what: "the result and plot ease to the new value on the clock (no jump cut)" }, async (p, f) => {
+    const hs = await p.hits(), r = hs.find((h) => h.id === "calc.r");
+    await p.fr.evaluate(async ([x, y]) => { const cv = document.getElementById("cv"), o = (x, y) => ({ clientX: x, clientY: y, pointerId: 62, bubbles: true, pointerType: "touch" }); cv.dispatchEvent(new PointerEvent("pointerdown", o(x, y))); for (let i = 1; i <= 4; i++) { await new Promise((q) => setTimeout(q, 25)); cv.dispatchEvent(new PointerEvent("pointermove", o(x + 30 * i, y))); } }, [r.x, r.y]);
+    // the shown value walks from 0.05 to the knob's value over the tween instead of jumping; frames keep coming while it does
+    const seen = []; let always = false;
+    for (let i = 0; i < 14; i++) {
+      const s = await p.evaluate(() => { const b = window.__canvas.yl.blocks.find((q) => q.kind === "calc"); return { shown: b.tw.r ? b.disp.r : b.vars.find((v) => v.name === "r").value, target: b.vars.find((v) => v.name === "r").value, busy: window.__canvas.yl.busy(), always: !!document.querySelector("iframe").contentWindow.__always }; });
+      seen.push(s); if (s.busy && s.always) always = true;
+      await p.waitForTimeout(15);
+    }
+    await p.fr.evaluate(() => { const cv = document.getElementById("cv"); cv.dispatchEvent(new PointerEvent("pointerup", { clientX: 1, clientY: 1, pointerId: 62, bubbles: true, pointerType: "touch" })); });
+    const target = seen[seen.length - 1].target, between = seen.filter((s) => s.shown > 0.05 + 1e-9 && s.shown < target - 1e-9);
+    if (!(target > 0.05) || !between.length) f.push("the shown value jumped: " + JSON.stringify(seen.map((s) => +s.shown.toFixed(3))));
+    if (!always) f.push("frames do not keep coming while the value eases");
+  });
+}
 // 7c. YUI-329: a mixed answer is one drawing on one clock. Parts draw in line order, each after the one above has finished writing in
 // (a question written above its picture draws after it), every part keeps its own taps, and the keyboard order is the drawing order.
-const MIX = { "mix-protein": ["text", "fig", "fig", "input"], "mix-settings": ["text", "draw", "blocks"], "mix-ship": ["blocks", "blocks", "input"], "mix-hour": ["text", "draw", "input"], "mix-first": ["input", "fig"], "mix-dinner": ["text", "blocks", "input"] };
+const MIX = { "mix-protein": ["text", "fig", "fig", "input"], "mix-settings": ["text", "draw", "blocks"], "mix-ship": ["blocks", "blocks", "input"], "mix-hour": ["text", "draw", "input"], "mix-first": ["input", "fig"], "mix-dinner": ["text", "blocks", "input"], "mix-map": ["text", "draw", "fig"] };   // YUI-337: mix-map (YUI-336) was never listed, so this section was red on main
 const mixIds = list.filter((s) => s.id.startsWith("mix-")).map((s) => s.id);
 if (mixIds.length < 4 || Object.keys(MIX).some((id) => !mixIds.includes(id))) { bad++; out.push("BAD fewer than four mixed samples, or a known one is missing: " + mixIds); }
 const mixKinds = new Set(Object.values(MIX).flat());

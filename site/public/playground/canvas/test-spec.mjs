@@ -11,6 +11,7 @@ import * as UN from "./yl-undo.mjs";
 
 const here = (p) => new URL(p, import.meta.url);
 const list = JSON.parse(fs.readFileSync(here("./yl-samples.json")));
+await C.prepare("math\ncalc");   // YUI-337: the TeX parser the math and calc samples need
 const spec = fs.readFileSync(here("../../../../spec/MOTION.md"), "utf8");
 const page = fs.readFileSync(here("../canvas.html"), "utf8");
 const out = []; let bad = 0;
@@ -26,8 +27,8 @@ const rows = block[1].split("\n").filter((l) => l.trim()).map((l) => {
 
 // ---- what the canvas builds for the same event (the same calls canvas.html makes)
 const q = (s) => s.replace(/^"|"$/g, "");
-function film(sample) { const s = list.find((x) => x.id === sample); if (!s) throw new Error("no sample " + sample); const b = C.build(s.yl); if (b.error) throw new Error(sample + ": " + b.error); return { f: b.film, text: s.yl }; }
-const labelOf = (f, id) => { const m = f.marks.find((x) => x.id === id); if (!m) throw new Error("no mark " + id); return m.label; };
+function film(sample) { const s = list.find((x) => x.id === sample); if (!s) throw new Error("no sample " + sample); C.setMeta({ ask: sample, terms: s.terms || {} }); const b = C.build(s.yl); if (b.error) throw new Error(sample + ": " + b.error); return { f: b.film, text: s.yl }; }
+const labelOf = (f, id) => { const m = f.marks.find((x) => x.id === id); if (!m) throw new Error("no mark " + id); return m.hitLabel ? m.hitLabel() : m.label; };   // a slider's name carries its value (YUI-337)
 const key = (arg) => { const m = /^(dx|dy)=(-?\d+)$/.exec(arg); if (!m) throw new Error("bad arg " + arg); return { [m[1]]: +m[2] }; };
 const build = {
   tap: ({ f }, r) => (C.touch(f, r.id) || C.tick(f, r.id) || (f.choose && C.isChoice(f, labelOf(f, r.id))) ? "(something)" : "(nothing)"),
@@ -40,6 +41,7 @@ const build = {
   check: ({ f }, r) => { const t = f.tick(r.id); return t ? `[yui] ${r.sample} yl check ${t.row}` : "(no check)"; },
   "choose-in-picture": ({ f }, r) => (f.choose && C.isChoice(f, r.arg) ? `[yui] ${f.choose.id} choose choice=${r.arg}` : "(not a choice)"),
   answer: ({ f }, r) => { const t = C.touch(f, r.id); return t && t.line ? t.line : "(no line)"; },
+  drag: ({ f }, r) => { f.setValue(r.id, +r.arg.replace(/^value=/, "")); const t = f.commit(r.id); return t && t.line ? t.line : "(no line)"; },   // YUI-337: a calc slider let go
   nudge: ({ f }, r) => { const t = C.nudge(f, { id: r.id, dir: +r.arg }); return t && t.line ? t.line : "(no line)"; },
   undo: (_, r) => UN.undoLine(r.sample, +r.arg, r.id.split(",")),
   redo: (_, r) => UN.redoLine(r.sample, +r.arg, r.id.split(",")),
@@ -58,10 +60,12 @@ for (const r of rows) {
 }
 
 // ---- every kind of event the page can send is in the spec (a new one must be written down)
-const need = ["tap", "hold", "hold-moment", "move", "say", "say-moment", "check", "choose-in-picture", "answer", "nudge", "form", "undo", "redo"];
+const need = ["tap", "hold", "hold-moment", "move", "say", "say-moment", "check", "choose-in-picture", "answer", "nudge", "form", "undo", "redo", "drag"];
 for (const k of need) seen.has(k) ? ok(`spec lists a "${k}" example`) : no(`spec has no "${k}" example`);
 const sends = [["ask line", /ASKV = YL \? " yl ask "/], ["move line", /" yl move "/], ["check line", /" yl check "/], ["picture choose", /" choose choice="/], ["say line", /YLS\.sayLine/], ["undo line", /YLU\.undoLine/], ["redo line", /YLU\.redoLine/]];
 for (const [n, re] of sends) re.test(page) ? ok(`canvas.html still builds the ${n}`) : no(`canvas.html no longer has the ${n}: update the test and the spec`);
+const math = fs.readFileSync(here("./yl-math.mjs"), "utf8");
+/canvas drag mark=\$\{id\} value=/.test(math) ? ok("yl-math.mjs still builds the slider drag line") : no("yl-math.mjs no longer builds `canvas drag mark=<id> value=<n>`: update the test and the spec");
 const lits = [...page.matchAll(/"\[yui\] "/g)].length;
 lits === 7 ? ok("canvas.html has the 7 known [yui] line builders (move, choose, check, moment, 3 ask)") : no(`canvas.html has ${lits} "[yui] " builders, the spec knows 7: a new event line must be written into MOTION.md 0b and this test`);
 

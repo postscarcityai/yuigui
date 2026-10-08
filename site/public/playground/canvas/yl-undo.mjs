@@ -2,7 +2,7 @@
 // history; Back (two-finger tap, the Back mark, Cmd/Ctrl+Z) returns to the picture before the last step, Redo (Shift+Cmd/Ctrl+Z) goes forward.
 // The page redraws only the marks the step changed, on the same clock. The history holds states (film + its Yui Lines text) and the steps between.
 //   create(film, text)            the history, standing at the first picture
-//   push(h, step)                 a new step ({kind: hold|move|say, id, name, marks, film, text}); redo steps are dropped
+//   push(h, step)                 a new step ({kind: hold|move|say|slide, id, name, marks, film, text}); redo steps are dropped
 //   back(h) / forward(h)          the state to show and the step that was undone / redone, or null at the end of the history
 //   undoLine(ask, n, marks)       the line the agent gets when the person steps back: `[yui] bars canvas undo step=2 marks=chart:n1:s0:3`
 //   redoLine(ask, n, marks)       the same for a step forward
@@ -49,10 +49,13 @@ export function noun(id) {
   if (/^(list|tl):/.test(s)) return "row";
   if (/^yl:/.test(s)) return "shape";
   if (/^stat:/.test(s)) return "number";
+  if (/^calc\.(result|plot)$/.test(s)) return "result";
+  if (/^calc\./.test(s)) return "slider";
+  if (/^(term|step)\./.test(s)) return "formula";
   return "part";
 }
 export function words(step, dir) {
   const w = noun(step.id || (step.marks && step.marks[0]));
-  const did = step.kind === "move" ? "the " + w + " moved" : step.kind === "say" ? "you spoke about the " + w : "the " + w + " was redrawn";
+  const did = step.kind === "slide" ? "the " + w + " moved" : step.kind === "move" ? "the " + w + " moved" : step.kind === "say" ? "you spoke about the " + w : "the " + w + " was redrawn";
   return dir === "forward" ? "Forward to after " + did + "." : "Back to before " + did + ".";
 }

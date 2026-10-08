@@ -163,7 +163,11 @@ var HEART = FILM === "heart";
 var GALLERY = "../demo/motion/gallery/";
 function loadYL(cb) {
   Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }), import("./canvas/yl-patch.mjs"), fetch("canvas/yl-replies.json").then(function (r) { return r.json(); }).catch(function () { return {}; }), import("./canvas/yl-move.mjs"), import("./canvas/yl-say.mjs"), import("./canvas/yl-undo.mjs")]).then(function (r) {
+    var s0 = r[1].filter(function (x) { return x.id === YLID; })[0];
+    return Promise.resolve(s0 ? r[0].prepare(s0.yl) : null).then(function () { return r; });   // YUI-337: math and calc load the TeX parser first
+  }).then(function (r) {
     var smp = r[1].filter(function (x) { return x.id === YLID; })[0]; if (!smp) throw new Error("no sample " + YLID);
+    r[0].setMeta({ ask: FILM_ASK, terms: smp.terms || {} });   // YUI-337: the word in the drag line, the canned meaning of each term
     var b = r[0].build(smp.yl); if (b.error) throw new Error(b.error);
     YLP = r[2]; YLMV = r[4]; YLS = r[5]; YLU = r[6]; $("mic").hidden = false; frame.contentWindow.__sayable = true; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film; HIST = YLU.create(b.film, smp.yl); $("back").hidden = false; backSync();
     $("hint").innerHTML = "drag to scrub &middot; tap a part &middot; hold to ask &middot; drag a part to move it"; YLM = r[0]; YLF = b.film; frame.contentWindow.__yl = YLF; frame.contentWindow.__movable = function (id) {
@@ -269,6 +273,23 @@ function ylDiff(old, nf, t, done) {
     F.__yl = ylScaled(old); Y().mark(m0); M.renderAt(t); return { img: img, slots: sl };
   };
   requestAnimationFrame(function () { A = grab(old); requestAnimationFrame(function () { B = grab(nf); requestAnimationFrame(function () { done(YLP.diffBox(A.img, B.img, dpr), YLP.bandOf(A.slots, B.slots, W)); }); }); });
+}
+// YUI-337: the history holds films, and a slider changes one in place. The first move of a gesture swaps in a fresh copy built from the
+// text now drawn, so the film in the history stays as it was; the end of the gesture records the copy and the text with the sliders where they are.
+function ylFork() {
+  var b = YLM.build(YLCUR); if (!b || b.error) return;
+  var nf = b.film, old = YLF;
+  if (nf.chosen === null && old.chosen) nf.chosen = old.chosen;
+  YLF = nf; window.__canvas.yl = nf; ylShow(ylScaled(nf), false);
+}
+function ylSlid(r) {
+  YLCUR = YLM.retext(YLF, YLCUR); YLN++; $("resetyl").hidden = false;
+  record("push", { kind: "slide", id: r.id, marks: [r.id], film: YLF, text: YLCUR });
+}
+var liveT = 0;
+function ylLive() {   // keep drawing frames while the result and the plot ease to the slider
+  var F = ylWin(); F.__always = true; clearTimeout(liveT);
+  (function poll() { if (YLM.busy(YLF)) liveT = setTimeout(poll, 50); else if (!ylBusy) { F.__always = false; Y().seek(clock); } })();
 }
 function ylHold(id, ask, given, merge, kind) {
   var F = ylWin(), M = F.__motion, h = M.hits().filter(function (x) { return x.id === id; })[0];
@@ -514,8 +535,12 @@ window.addEventListener("message", function (e) {
   if (m === "drag" || m === "nudge") {
     // YUI-328: a knob moves (drag) or steps (arrow keys); the line is sent when the drag ends or on every step. The picture does not scrub.
     if (!YL) return;
+    // YUI-337: a calc slider changes the film in place, so the history keeps the picture before it: a gesture's first move works on a fresh copy
+    if (HIST && HIST.states[HIST.at].film === YLF && !ylBusy && /^calc\./.test(e.data.id || "") && (m === "nudge" || e.data.phase === "begin")) ylFork();
     var r = m === "drag" ? YLM.drag(YLF, e.data) : YLM.nudge(YLF, e.data);
     Y().seek(clock); if (r && (r.line || e.data.phase === "end")) say(r.say, r.line, false);
+    if (r && r.step) ylSlid(r);
+    if (YLM.busy(YLF)) ylLive();
     return;
   }
   if (m === "hold") {

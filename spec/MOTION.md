@@ -93,15 +93,16 @@ Live prototype: `/playground/canvas.html` (same harness as the phone, `canvas/pl
 
 A Yui Lines answer (`spec/YL.md`) does not open a screen. It draws on the canvas, and every part of it is a mark. This is what the canvas sends back, copied from `site/public/playground/canvas/`. `site/public/playground/canvas/test-spec.mjs` builds each line below from the code and fails when one differs.
 
-Which presets draw as marks: `shapes` and `sketch` drawings, `map` (YUI-336), `chart` and `stat`, `list`, `table`, `timeline` and `card`, and the answers `choose`, `pick`, `ask`, `slide` and `form`. A `choose` under a picture is drawn into it. Several in one answer share one canvas.
+Which presets draw as marks: `shapes` and `sketch` drawings, `map` (YUI-336), `math`, `step` and `calc` (YUI-337), `chart` and `stat`, `list`, `table`, `timeline` and `card`, and the answers `choose`, `pick`, `ask`, `slide` and `form`. A `choose` under a picture is drawn into it. Several in one answer share one canvas.
 
-A mark's id is the preset's own id plus its place. The id is `<preset>:<block id>:<place>`: a chart bar is `chart:n1:s0:3` (series 0, point 3), a list row `list:n2:3`, a timeline row `tl:n2:3`, a stat `stat:n1`, a spark point `spark:n2:0`, an input `in:<block id>:o0` (option 0), `:knob`, `:send`, or the field key. A shape is `yl:<name>`, the name from `shape@name`. A map part is `map:<block id>:<area|pin|route>:<slug of its label>`: `map:n1:pin:karakorum`, `map:n1:route:east`; a part with no label is named by what it holds (an area by its countries, a route by its stops). A tap names it (`Karakorum. The one to look at. 47.2°N, 102.8°E.`), a hold asks about it, and a pin drags. A heading or caption is `mark:text:<slug>`. The block id is the `@id` you wrote, or `n<position>` in the answer (the second block is `n2`). The mark's name is the words on it (`Protein Thu: 126 g`, `Calf raises 4x15`); the event line carries the name, not the id.
+A mark's id is the preset's own id plus its place. The id is `<preset>:<block id>:<place>`: a chart bar is `chart:n1:s0:3` (series 0, point 3), a list row `list:n2:3`, a timeline row `tl:n2:3`, a stat `stat:n1`, a spark point `spark:n2:0`, an input `in:<block id>:o0` (option 0), `:knob`, `:send`, or the field key. A shape is `yl:<name>`, the name from `shape@name`. A map part is `map:<block id>:<area|pin|route>:<slug of its label>`: `map:n1:pin:karakorum`, `map:n1:route:east`; a part with no label is named by what it holds (an area by its countries, a route by its stops). A tap names it (`Karakorum. The one to look at. 47.2°N, 102.8°E.`), a hold asks about it, and a pin drags. A formula term is `term.<symbol>` (YUI-337): `term.E`, `term.m`, `term.c_2` for c^2, `term.E_c_2` for E/c^2; the same symbol again in the answer gets `.2`. A `step` title is `step.<n>`. A calc's result is `calc.result`, its plot `calc.plot`, and each variable (a slider or a constant) `calc.<variable>`. A tap on a term names it and says what it means, a hold asks about it, and a slider drags. A heading or caption is `mark:text:<slug>`. The block id is the `@id` you wrote, or `n<position>` in the answer (the second block is `n2`). The mark's name is the words on it (`Protein Thu: 126 g`, `Calf raises 4x15`); the event line carries the name, not the id.
 
 Events. `<ask>` is the answer's id: the sample name here, the block's own id in the app.
 
 - **Tap** on a mark pauses, lights it and names it. Nothing is sent. A tap on an answer is the answer and is sent: a `choose`/`ask` pill, a `pick` option then its Send, a slider end, a form's Send, a choice drawn into the picture, a `+check` row.
 - **Hold** on a mark asks about that one part: `[yui] <ask> yl ask <name>`. A hold on nothing asks about the moment: `yl ask moment @<seconds>s`.
 - **Drag** a mark and let go. The line says where it landed: `yl move <name> to=<place>`. Place is the 1-based slot for a list row, a queue row or a bar, `x,y` in the drawing's grid for a shape, and `lat,lon` (one decimal, north and east positive) for a pin on a map: the pin's row in the answer takes the new place, a route that stops at it follows, and the canvas says where it landed (`Karakorum, now in Mongolia (44.4°N, 102.8°E)`). A drag on nothing scrubs and sends nothing. Arrow keys move a focused mark one step and send the same line.
+- **Slide** (YUI-337) a calc slider and let go. The line says which one and where it landed: `canvas drag mark=calc.<variable> value=<number>`. The result and the plot ease to the new value on the same clock, with no jump cut; the arrow keys step a focused slider and send the same line each step. A slider move is one step for Back.
 - **Say** while touching a mark: `yl say "<words>" touched=<name>`. Nothing touched: `touched=@<seconds>s`, the moment on the clock.
 - **Back** (YUI-334) steps the picture back. Every hold redraw, drag answer and say+touch patch is one step; Back (two-finger tap, the Back mark in the corner, Cmd/Ctrl+Z) returns to the picture before the last step and redraws only the marks that step changed, on the same clock. Redo (the forward mark, Shift+Cmd/Ctrl+Z) goes forward the same way. The agent gets one line so it knows the picture changed under it: `[yui] <ask> canvas undo step=<n> marks=<ids>`, `n` the 1-based step undone and `ids` the marks that step changed, comma separated (`redo` the same going forward). The Back mark is named, and each step is announced in plain words: "Back to before the bar moved."
 
@@ -112,6 +113,9 @@ tap | map | map:n1:pin:karakorum | => (nothing sent)
 hold | map | map:n1:area:raided | => [yui] map yl ask Raided
 hold | route | map:n1:route:the_trip | => [yui] route yl ask The trip
 hold-moment | bars | | 4.2 => [yui] bars yl ask moment @4.2s
+tap | math | term.c_2 | => (nothing sent)
+hold | math | term.c_2 | => [yui] math yl ask c^2
+hold | calc | calc.r | => [yui] calc yl ask r: 0.05
 move | queue | tl:n2:3 | dy=-1 => [yui] queue yl move Charts on the canvas to=3
 move | parts | yl:build | dx=1 => [yui] parts yl move Build to=5.5,4.4
 move | map | map:n1:pin:karakorum | dy=1 => [yui] map yl move Karakorum to=44.4,102.8
@@ -124,8 +128,11 @@ choose-in-picture | sketch-choose | | Later => [yui] move choose choice=Later
 answer | choose-other | in:next:o0 | => [yui] next choose choice=Legs
 answer | ask-ship | in:ship:o1 | => [yui] ship ask answer="Not yet"
 nudge | slide-sore | in:sore:knob | 1 => [yui] sore slide value=4
+drag | calc | calc.r | value=0.1 => [yui] calc canvas drag mark=calc.r value=0.1
+nudge | calc | calc.r | 1 => [yui] calc canvas drag mark=calc.r value=0.06
 form | form-checkin | in:checkin:send | goal="get strong" => [yui] checkin form form.sleep=6 form.goal="get strong"
 undo | bars | chart:n1:s0:3 | 2 => [yui] bars canvas undo step=2 marks=chart:n1:s0:3
+undo | calc | calc.r | 1 => [yui] calc canvas undo step=1 marks=calc.r
 redo | bars | chart:n1:s0:1,chart:n1:s0:3 | 1 => [yui] bars canvas redo step=1 marks=chart:n1:s0:1,chart:n1:s0:3
 ```
 

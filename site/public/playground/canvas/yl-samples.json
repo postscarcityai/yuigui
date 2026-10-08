@@ -203,5 +203,28 @@
   "id": "mix-map",
   "name": "Mixed: a line, a map, a chart",
   "yl": "say Karakorum sat in the middle.\nmap caption=\"It rode out every way.\"\narea Empire MN|CN|KR tone=butter\npin@ka Karakorum 47.2,102.8 +pulse\nchart bar \"Land empires, million km²\" x=Mongol|Russian|Qing|Roman y=24|22.8|14.7|5"
+ },
+ {
+  "id": "math",
+  "name": "Math: E = mc^2 and a two-step derivation",
+  "yl": "math caption=\"Energy equals mass times the speed of light, squared.\" E = mc^2\nstep \"Divide both sides by c squared\" $ \\frac{E}{c^2} = m\nstep \"Swap the sides\" $ m = \\frac{E}{c^2}",
+  "terms": {
+   "E": "Energy, in joules. What mass turns into.",
+   "m": "Mass, in kilograms. The stuff itself.",
+   "c": "The speed of light, about 300,000 km a second. It is squared, so a little mass is a lot of energy.",
+   "E/c^2": "Energy shared out over c squared. That is how much mass it weighs."
+  }
+ },
+ {
+  "id": "calc",
+  "name": "Calc: compound interest, slide the numbers",
+  "yl": "calc \"Grow your money\" f=\"A = P*(1+r)^t\" P=100-1000@100 r=0-0.2@0.05 t=0-20@10 plot=t unit=$",
+  "terms": {
+   "A": "What you end up with.",
+   "P": "The money you start with. Slide it to change the start.",
+   "r": "The yearly rate. 0.05 is 5% a year.",
+   "t": "How many years it grows. Time does the most work.",
+   "(1+r)^t": "Each year the pile grows by 1 + r. Do that t times."
+  }
  }
 ]
