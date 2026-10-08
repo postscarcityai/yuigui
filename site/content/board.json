@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T01:31:01.278Z",
+  "updated": "2026-10-08T01:36:09.355Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -289,6 +289,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-326",
+          "title": "The living canvas draws charts and stats, every bar, point and number a touchable mark",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-257",
+          "title": "Thought on YUI-325, the canvas draws Yui Lines too",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
