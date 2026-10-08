@@ -43,5 +43,45 @@
   "id": "form",
   "name": "Sketch: a field that was missing",
   "yl": "sketch \"The ZIP field\" frame=phone\nrow \"It has a working ZIP field and a two-question form\" +x note=\"described\"\nafter\nrow \"Your ZIP  33410\" +hi note=\"the new field\"\nrow \"See My Coverage Options\" +button"
+ },
+ {
+  "id": "weight",
+  "name": "Chart: a line, every point a value",
+  "yl": "say \"Down a little each day.\"\nchart line \"Weight (lb)\" x=Mon|Tue|Wed|Thu|Fri y=180|179|178.5|178.9|178.2"
+ },
+ {
+  "id": "bars",
+  "name": "Chart: bars with a goal",
+  "yl": "chart bar \"Protein vs goal\" x=Mon|Tue|Wed|Thu y=118|132|141|126 y2=130|130|130|130 names=Protein|Goal unit=g"
+ },
+ {
+  "id": "area",
+  "name": "Chart: an area, sleep over a week",
+  "yl": "chart area \"Sleep\" x=Mon|Tue|Wed|Thu|Fri|Sat|Sun y=6.5|7.2|5.8|7.6|8.1|9|7.4 unit=h"
+ },
+ {
+  "id": "donut",
+  "name": "Chart: a donut, where the week went",
+  "yl": "chart donut \"Where the week went\" x=\"Deep work\"|Meetings|Email|Admin y=14|9|6|3 unit=h"
+ },
+ {
+  "id": "pie",
+  "name": "Chart: a pie, lanes this week",
+  "yl": "chart pie \"Cards shipped by lane\" x=YUI|SITE|BIZ|OSS y=12|7|3|2"
+ },
+ {
+  "id": "scatter",
+  "name": "Chart: dots with error bars",
+  "yl": "chart scatter \"Rate vs substrate\" x=0.5|1|2|4|8 y=0.9|1.6|2.6|3.7|4.5 err=0.2 xlabel=\"Substrate (mM)\""
+ },
+ {
+  "id": "stat",
+  "name": "Stat: a number that counts up, with a spark",
+  "yl": "stat 178.9lb Weight delta=-2.3 spark=181.2|180.6|179.8|178.9 good=down sub=\"this week\""
+ },
+ {
+  "id": "pair",
+  "name": "Stat and chart together, a choose drawn under them",
+  "yl": "stat $1840 \"Grant left\" delta=-420 sub=\"this month\"\nchart line \"Spend by week\" x=W1|W2|W3|W4 y=310|480|220|420 unit=$\nchoose@plan \"What now?\" \"Slow down\"|\"Keep going\""
  }
 ]
