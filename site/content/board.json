@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T03:35:23.135Z",
+  "updated": "2026-10-08T03:55:21.177Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-329",
           "title": "The living canvas draws a whole mixed answer, text, chart, list and a question on one clock",
+          "summary": "One answer, one drawing",
+          "progress": "/progress#one-answer-one-drawing",
           "owner": "CJohnDesign"
         },
         {
