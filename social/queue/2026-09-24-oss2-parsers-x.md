@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: progress.json 2026-09-24 OSS-2 "Yui Lines in Python and Kotlin"
 media: [/progress/oss2-parsers.webp]
-slot: 2026-10-10T09:00:00-04:00
+slot: 2026-10-11T09:00:00-04:00
 status: draft
 ---
 Yui Lines had two parsers: JavaScript for the site, Swift for the app. Now it has four.

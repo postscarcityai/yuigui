@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: progress.json 2026-09-24 YUI-30 "The timer keeps counting on the lock screen"
 media: [/progress/yui30-lock.webp]
-slot: 2026-10-20T09:00:00-04:00
+slot: 2026-10-21T09:00:00-04:00
 status: draft
 ---
 Ask your agent for a Tabata. It sends a timer, not a paragraph.
