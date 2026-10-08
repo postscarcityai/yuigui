@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T14:00:44.645Z",
+  "updated": "2026-10-08T14:05:52.426Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-270",
+          "title": "Thought on YUI-338, pictures you can touch"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -290,15 +294,19 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-321",
-          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
-          "blocked": "chris",
+          "key": "SITE-269",
+          "title": "Thought on YUI-337, math you can touch",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-269",
-          "title": "Thought on YUI-337, math you can touch",
-          "blocked": "other",
+          "key": "YUI-338",
+          "title": "The canvas draws pictures, gallery and before/after, every picture a touchable mark",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-321",
+          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
