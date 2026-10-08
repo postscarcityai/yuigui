@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T13:30:41.195Z",
+  "updated": "2026-10-08T13:35:48.345Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-269",
-          "title": "Thought on YUI-337, math you can touch"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -294,17 +290,14 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-321",
-          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
-          "blocked": "chris",
+          "key": "SITE-269",
+          "title": "Thought on YUI-337, math you can touch",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-337",
-          "title": "The canvas draws math and calc, every term and slider a touchable mark",
-          "summary": "Math you can touch",
-          "blocked": "other",
-          "progress": "/progress#math-you-can-touch",
+          "key": "YUI-321",
+          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
@@ -313,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-337",
+          "title": "The canvas draws math and calc, every term and slider a touchable mark",
+          "summary": "Math you can touch",
+          "shipped": "2026-10-08",
+          "progress": "/progress#math-you-can-touch",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/de662a1b"
+        },
         {
           "key": "SITE-268",
           "title": "Thought on YUI-336, maps you can touch",
