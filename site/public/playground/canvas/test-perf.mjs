@@ -1,6 +1,6 @@
 // YUI-335: the canvas stays smooth on a phone. A frame budget and a test that holds it.
 // Headless Chrome at 390x844, played start to end: the heart film, ?yl=bars, ?yl=steps and a mixed answer, then the YUI-334
-// hold, drag, Back sequence. YUI-337: the math and calc samples (?yl=math, ?yl=calc) are played too, and a slider drag on ?yl=calc is measured (drag the knob, then Back). YUI-336: the map samples (?yl=map, ?yl=route and a map in a mixed answer, ?yl=mix-map) are played too, and the sequence runs on the map. Frame times are requestAnimationFrame deltas on the page.
+// hold, drag, Back sequence. YUI-338: the image, gallery and compare samples are played too, and a divider drag on ?yl=compare is measured (drag, then Back). YUI-337: the math and calc samples (?yl=math, ?yl=calc) are played too, and a slider drag on ?yl=calc is measured (drag the knob, then Back). YUI-336: the map samples (?yl=map, ?yl=route and a map in a mixed answer, ?yl=mix-map) are played too, and the sequence runs on the map. Frame times are requestAnimationFrame deltas on the page.
 // Budget at 1x CPU: p95 under 20 ms, no frame over 50 ms. At 4x CPU throttle (CDP Emulation.setCPUThrottlingRate): p95 under 33 ms (the worst frame is printed, not gated: a throttled laptop drops a stray frame to a GC).
 // Needs Chrome and playwright. Without them it says so and exits 0 (a skip, never a pass): PERF_STRICT=1 makes that a failure.
 // node test-perf.mjs                 both budgets, a table per sample
@@ -25,10 +25,10 @@ if (!chromium) skip("playwright not installed; set PW_FROM=<a package.json besid
 const BUDGET = { 1: { p95: 20, max: 50 }, 4: { p95: 33, max: null } };
 const RATES = (process.env.RATES || "1,4").split(",").map(Number);
 const MIXED = process.env.MIXED || "mix-first";
-const SAMPLES = process.env.ONLY_SEQ ? [] : [["heart", "canvas.html"], ["bars", "canvas.html?yl=bars"], ["steps", "canvas.html?yl=steps"], ["mixed", `canvas.html?yl=${MIXED}`], ["map", "canvas.html?yl=map"], ["route", "canvas.html?yl=route"], ["mixed map", "canvas.html?yl=mix-map"], ["math", "canvas.html?yl=math"], ["calc", "canvas.html?yl=calc"]];   // YUI-336: the map samples are played too; YUI-337: so are math and calc
+const SAMPLES = process.env.ONLY_SEQ ? [] : [["heart", "canvas.html"], ["bars", "canvas.html?yl=bars"], ["steps", "canvas.html?yl=steps"], ["mixed", `canvas.html?yl=${MIXED}`], ["map", "canvas.html?yl=map"], ["route", "canvas.html?yl=route"], ["mixed map", "canvas.html?yl=mix-map"], ["math", "canvas.html?yl=math"], ["calc", "canvas.html?yl=calc"], ["image", "canvas.html?yl=image"], ["gallery", "canvas.html?yl=gallery"], ["compare", "canvas.html?yl=compare"]];   // YUI-336: the map samples are played too; YUI-337: so are math and calc
 const SEQ = [["bars", "bars", "chart:n1:s0:1", "chart:n1:s0:3", "chart:n1:s0:0"], ["steps", "steps", "list:n1:2", "list:n1:3", "list:n1:1", false], ["map", "map", "map:n1:pin:karakorum", "map:n1:pin:karakorum", "map:n1:area:raided"]]; // hold, drag, Back runs on these: [label, yl id, hold part, drag part, drop on part, the hold has a canned redraw]
 
-const mime = { ".html": "text/html", ".mjs": "text/javascript", ".js": "text/javascript", ".json": "application/json", ".css": "text/css", ".svg": "image/svg+xml" };
+const mime = { ".html": "text/html", ".mjs": "text/javascript", ".js": "text/javascript", ".json": "application/json", ".css": "text/css", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".webp": "image/webp" };
 const srv = http.createServer((q, r) => {
   const f = path.join(root, decodeURIComponent(q.url.split("?")[0]));
   if (!f.startsWith(root) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); }
@@ -138,10 +138,36 @@ async function slider(rate) {
   return { name: "calc slider drag+Back", rate, f, errs, longs, note: steps === 2 ? "" : note || "sequence incomplete" };
 }
 
+// YUI-338: drag the compare divider across the picture with real pointer input (the picture redraws on every move, eased on the clock), then Back.
+// The run fails when the drag is not one step in the history or Back does not return to step 0.
+async function divider(rate) {
+  const { ctx, p, errs } = await open(rate, "canvas.html?yl=compare");
+  const fr = p.frames().find((x) => x.url().includes("player.html"));
+  await p.waitForFunction(() => window.__canvas.hist, null, { timeout: 15000 });
+  await p.waitForTimeout(6500 * Math.min(rate, 2));   // let the pictures and the rings finish drawing in
+  const to = 20000 * rate, idle = async () => { await p.waitForFunction(() => !ylBusy, null, { timeout: to }); await p.waitForTimeout(150); };
+  const at = (n) => p.waitForFunction((k) => window.__canvas.hist.at === k, n, { timeout: to });
+  const box = await p.evaluate(() => { const r = document.querySelector("iframe").getBoundingClientRect(); return { x: r.left, y: r.top }; });
+  const dv = (await fr.evaluate(() => window.__motion.hits())).find((h) => h.id === "compare.divider");
+  const m = p.mouse; let steps = 0, note = "";
+  await start(p); await phase(p, "divider");
+  await m.move(box.x + dv.x, box.y + dv.y); await m.down();
+  for (let i = 1; i <= 60; i++) { await m.move(box.x + dv.x + (i <= 30 ? 5 * i : 5 * (60 - i)), box.y + dv.y); await p.waitForTimeout(16); }
+  await m.move(box.x + dv.x + 100, box.y + dv.y); await p.waitForTimeout(400);   // the divider eases for a moment after the last move
+  await m.up(); await phase(p, "settle");
+  await at(1).then(() => steps++).catch(() => { note = "the drag made no step"; }); await idle().catch(() => {});
+  await phase(p, "back");
+  await p.keyboard.press("Control+z"); await at(0).then(() => steps++).catch(() => { note = note || "Back did not step back"; }); await idle().catch(() => {});
+  await p.waitForTimeout(600);
+  const f = await stop(p), longs = await slow(p); await ctx.close();
+  return { name: "compare divider+Back", rate, f, errs, longs, note: steps === 2 ? "" : note || "sequence incomplete" };
+}
+
 for (const rate of RATES) {
   for (const s of SAMPLES) results.push(await play(rate, s));
   for (const s of SEQ) results.push(await sequence(rate, s));
   results.push(await slider(rate));
+  results.push(await divider(rate));
 }
 await browser.close(); srv.close();
 

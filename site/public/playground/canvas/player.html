@@ -705,6 +705,16 @@
     // ---- compare, lens, clip ---------------------------------------------------------------------------
     api.clipRect = function (x, y, w, h, fn) { c.save(); c.beginPath(); c.rect(x, y, Math.max(0, w), Math.max(0, h)); c.clip(); fn(); c.restore(); };
     api.clipCircle = function (x, y, r, fn) { c.save(); c.beginPath(); c.arc(x, y, Math.max(0, r), 0, TAU); c.clip(); fn(); c.restore(); };
+    // YUI-338: a picture from a loaded <img>, whole in the box x,y,w,h (or `cover`: filled and cropped), corners r, alpha a. A picture that is not loaded draws nothing.
+    api.image = function (img, x, y, w, h, o) {
+      o = o || {}; if (!img || !img.naturalWidth || w <= 0 || h <= 0) return false;
+      var iw = img.naturalWidth, ih = img.naturalHeight, sx = 0, sy = 0, sw = iw, sh = ih, dx = x, dy = y, dw = w, dh = h;
+      if (o.cover) { var q = w / h, r0 = iw / ih; if (r0 > q) { sw = ih * q; sx = (iw - sw) / 2; } else { sh = iw / q; sy = (ih - sh) / 2; } }
+      else { var s = Math.min(w / iw, h / ih); dw = iw * s; dh = ih * s; dx = x + (w - dw) / 2; dy = y + (h - dh) / 2; }
+      c.save(); c.globalAlpha *= o.a == null ? 1 : o.a; c.beginPath();
+      if (o.r && c.roundRect) c.roundRect(x, y, w, h, o.r); else c.rect(x, y, w, h);
+      c.clip(); c.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh); c.restore(); return true;
+    };
     api.compare = function (k, before, after, o) {
       o = o || {}; var vert = !!o.vert, pos = lerp(0.04, 0.96, ease(k)), edge = (vert ? H : W) * pos;
       before(); c.save(); c.beginPath(); if (vert) c.rect(0, 0, W, edge); else c.rect(0, 0, edge, H); c.clip(); c.fillStyle = C("ink"); if (o.opaque !== false) c.fillRect(0, 0, W, H); after(); c.restore();

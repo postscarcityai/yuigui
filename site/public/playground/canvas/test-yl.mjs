@@ -20,6 +20,8 @@ const need = { n: list.length >= 16, shapes: kinds.filter((k) => k === "shapes")
   timeline: list.some((s) => /^timeline/m.test(s.yl) && /^done /m.test(s.yl) && /^now /m.test(s.yl) && /^next /m.test(s.yl)), card: list.some((s) => /^card .*body=|^card "[^"]*" "/m.test(s.yl)), tlChoose: list.some((s) => /^timeline/m.test(s.yl) && /^choose/m.test(s.yl)),
   // YUI-328: a choose with +other, a pick of several, a slide with end labels, an ask with two buttons, a form with a 1-10 field and a text field, a sketch + choose pair
   inputs: kinds.filter((k) => k === "inputs").length >= 5, chooseOther: list.some((s) => /^choose.*\+other/m.test(s.yl)), pickMany: list.some((s) => /^pick\b.*\|.*\|/m.test(s.yl)), slideEnds: list.some((s) => /^slide\b.*\d-\d+ \w+\|\w+/m.test(s.yl)), askTwo: list.some((s) => /^ask\b.*\w+\|"?[\w ]+"?\s*$/m.test(s.yl)), formFields: list.some((s) => /^form\b/m.test(s.yl) && /:1-10/.test(s.yl) && /:text/.test(s.yl)), sketchChoose: list.some((s) => /^sketch/m.test(s.yl) && /^choose/m.test(s.yl)),
+  // YUI-338: an image with +edit rings, a gallery with +pick, a compare with a change box, all on pictures already in site/public/demo
+  media: ["image", "gallery", "compare"].every((id) => { const x = list.find((q) => q.id === id); return x && /\/demo\//.test(x.yl) && (id !== "image" || /\+edit/.test(x.yl)) && (id !== "gallery" || /\+pick/.test(x.yl)) && (id !== "compare" || /hl=/.test(x.yl)); }),
   // YUI-336: a map with an area, a pin and a route (the Mongol Empire), and a three-stop trip
   maps: kinds.filter((k) => k === "map").length >= 2 && list.some((s) => s.id === "map" && /^area /m.test(s.yl) && /^pin/m.test(s.yl) && /^route /m.test(s.yl)) && list.some((s) => s.id === "route" && (s.yl.match(/^pin/gm) || []).length >= 3 && /^route /m.test(s.yl)) };
 if (!Object.values(need).every(Boolean)) { bad++; out.push("BAD sample set " + JSON.stringify(need)); } else out.push("ok  " + list.length + " samples (" + kinds.filter((k) => k === "shapes").length + " shapes, " + kinds.filter((k) => k === "sketch").length + " sketch, " + kinds.filter((k) => k === "chart").length + " chart/stat, " + kinds.filter((k) => k === "lists").length + " list/table/timeline/card)");
@@ -1012,6 +1014,149 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
     const ln = await line(p), after = await hitsAt(p, p.total), r1 = after.find((h) => h.id === "map:n1:route:the_trip");
     if (!ln.includes("Paris moved")) f.push("canned reply " + JSON.stringify(ln));
     if (!r1 || (Math.abs(r1.x - r0.x) < 1 && Math.abs(r1.y - r0.y) < 1)) f.push("the route did not follow the pin");
+  });
+}
+// 13. YUI-338: pictures. ?yl=image, ?yl=gallery and ?yl=compare draw the frame, then the picture fades up inside it, the caption writes on, and `+edit` rings draw on
+// top as marks of their own. Every picture, ring and the divider is a named mark (alt text from the caption), a hold asks about it, `+pick` makes a gallery
+// picture tappable with a mark event, and the compare divider drags (an eased redraw, a mark event, one undo step).
+{
+  const open = async (id, extra = "&replies=off") => {
+    const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+    p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
+    await p.addInitScript(() => { window.__log = []; window.addEventListener("message", (e) => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
+    await p.goto(base + "?yl=" + id + "&theme=dark" + extra);
+    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 });
+    p.fr = p.frames().find((f) => f.url().includes("player.html")); p.total = await p.evaluate(() => window.__canvas.total);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); await p.waitForTimeout(500); return p;
+  };
+  const hitsAt = (p, t) => p.fr.evaluate((t) => { window.__motion.renderAt(t); return window.__motion.hits().map((h) => ({ id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h, drag: h.drag })); }, t);
+  const line = (p) => p.evaluate(() => document.getElementById("line").innerText);
+  const press = (p, h, ms, pid = 62) => p.fr.evaluate(async ([x, y, ms, pid]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, ms)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [h.x, h.y, ms, pid]);
+  const sig = (p, t) => p.fr.evaluate((t) => { window.__motion.renderAt(t); const c = document.getElementById("cv"); return c.toDataURL().length + ":" + c.toDataURL().slice(-300); }, t);
+  const check13 = async (name, id, extra, fn) => {
+    const f = []; let p;
+    try { p = await open(id, extra); await fn(p, f); if (p.errs.length) f.push("page errors " + p.errs.join(";")); } catch (e) { f.push("threw " + String(e).slice(0, 200)); }
+    if (f.length) bad++; out.push((f.length ? "BAD" : "ok ") + " media " + id + " " + name + (f.length ? " " + f.join(" | ") : "")); if (p) await p.close();
+  };
+  const IMG = "image.living_room_finished";
+  await check13("the frame strokes in, the picture fades up, the caption writes on, then the rings; every part is a named mark in order", "image", "&replies=off", async (p, f) => {
+    const hs = await hitsAt(p, p.total), got = hs.map((h) => [h.id, h.label]);
+    const want = [[IMG, "Living room, finished"], [IMG + ".ring.1", "Change 1"], [IMG + ".ring.2", "Change 2"]];
+    if (JSON.stringify(got) !== JSON.stringify(want)) f.push("marks " + JSON.stringify(got));
+    // the picture is a real picture: the canvas at the end has the photo's many colours, and the clock draws it in order
+    const t0 = await sig(p, 0.2), t1 = await sig(p, 0.7), t2 = await sig(p, 1.2), t3 = await sig(p, 2.0), t4 = await sig(p, 3.0), end = await sig(p, p.total);
+    if (new Set([t0, t1, t2, t3, t4, end]).size < 6) f.push("the picture does not draw in stages");
+    const e0 = (await hitsAt(p, 0.3)).length; if (e0) f.push("a mark is touchable before the frame is down");
+    const lateRings = (await hitsAt(p, 2.8)).filter((h) => /\.ring\./.test(h.id)).length; if (lateRings > 1) f.push("rings are not drawn one after another");
+    const px = await p.fr.evaluate(() => { const c = document.getElementById("cv"), d = c.getContext("2d").getImageData(c.width * 0.35, c.height * 0.5, 40, 40).data; const s = new Set(); for (let i = 0; i < d.length; i += 4) s.add((d[i] >> 5) + "," + (d[i + 1] >> 5) + "," + (d[i + 2] >> 5)); return s.size; });
+    if (px < 4) f.push("the picture area is flat (" + px + " colours): the photo did not draw");
+    const names = await p.fr.evaluate(() => [...document.querySelectorAll("#parts button")].map((x) => x.getAttribute("aria-label")));
+    if (!names.includes("Living room, finished")) f.push("no button named by the caption (alt text): " + names);
+  });
+  await check13("tap names the picture and sends nothing; hold sends the ask line; a ring is its own mark", "image", "&replies=off", async (p, f) => {
+    const hs = await hitsAt(p, p.total), pic = hs.find((h) => h.id === IMG), ring = hs.find((h) => h.id === IMG + ".ring.1");
+    await press(p, { x: pic.x - pic.w / 2 + 14, y: pic.y + pic.h / 2 - 14 }, 60); await p.waitForTimeout(250);
+    if (!(await line(p)).includes("Living room, finished")) f.push("tap line " + JSON.stringify(await line(p)));
+    const tapped = await p.evaluate(() => window.__log.filter((m) => m.motion === "tap").map((m) => m.id));
+    if (tapped[tapped.length - 1] !== IMG) f.push("tap event " + JSON.stringify(tapped));
+    await press(p, ring, 60); await p.waitForTimeout(250);
+    const t2 = await p.evaluate(() => window.__log.filter((m) => m.motion === "tap").map((m) => m.id));
+    if (t2[t2.length - 1] !== IMG + ".ring.1") f.push("the ring is not its own mark " + JSON.stringify(t2));
+    await press(p, pic, 650, 63); await p.waitForTimeout(900);
+    if (!(await line(p)).includes("[yui] image yl ask Living room, finished")) f.push("hold line " + JSON.stringify(await line(p)));
+  });
+  await check13("a held ring redraws from its canned reply (the ring tightens round the wall), and Back brings it back", "image", "", async (p, f) => {
+    const r0 = (await hitsAt(p, p.total)).find((h) => h.id === IMG + ".ring.1");
+    await press(p, r0, 650); await p.waitForTimeout(3400);
+    const r1 = (await hitsAt(p, p.total)).find((h) => h.id === IMG + ".ring.1");
+    if (!r1 || (Math.abs(r1.x - r0.x) < 2 && Math.abs(r1.y - r0.y) < 2)) f.push("the ring did not change: " + (await line(p)));
+    if (!(await line(p)).includes("Just the wall behind the sofa")) f.push("reply " + JSON.stringify(await line(p)));
+    await p.fr.evaluate(() => window.__motion.liftOff()); await p.click("#back"); await p.waitForFunction(() => window.__canvas.hist.at === 0, null, { timeout: 8000 }); await p.waitForTimeout(2600);
+    const r2 = (await hitsAt(p, p.total)).find((h) => h.id === IMG + ".ring.1");
+    if (!r2 || Math.abs(r2.x - r0.x) > 2) f.push("Back did not bring the ring back");
+  });
+  await check13("a gallery is a strip of marks, in order, each one a picture named by its caption", "gallery", "&replies=off", async (p, f) => {
+    const hs = (await hitsAt(p, p.total)).filter((h) => /^gallery\./.test(h.id)), got = hs.map((h) => [h.id, h.label]);
+    if (JSON.stringify(got) !== JSON.stringify([["gallery.1", "On the wheel"], ["gallery.2", "Window light"], ["gallery.3", "Glaze"]])) f.push("marks " + JSON.stringify(got));
+    if (hs.length === 3 && !(hs[0].x < hs[1].x && hs[1].x < hs[2].x && Math.abs(hs[0].y - hs[2].y) < 2)) f.push("not laid out as a strip " + JSON.stringify(hs.map((h) => [h.x, h.y])));
+    if (hs.length === 3 && hs.some((h) => h.w < 80 || h.h < 80)) f.push("a picture is too small to touch " + JSON.stringify(hs.map((h) => [h.w, h.h])));
+    const early = (await hitsAt(p, 0.5)).filter((h) => /^gallery\./.test(h.id)).length, later = (await hitsAt(p, 1.3)).filter((h) => /^gallery\./.test(h.id)).length;
+    if (!(early < 3 && later >= early)) f.push("the pictures do not come one after another: " + early + " then " + later);
+  });
+  await check13("+pick: a tap picks (a mark event), a second tap unpicks, max stops a third; hold still asks", "gallery", "&replies=off", async (p, f) => {
+    let hs = await hitsAt(p, p.total); const g = (n) => hs.find((h) => h.id === "gallery." + n);
+    await press(p, g(2), 60); await p.waitForTimeout(300);
+    if (!(await line(p)).includes("[yui] gallery canvas pick mark=gallery.2")) f.push("pick line " + JSON.stringify(await line(p)));
+    if (!(await line(p)).includes("Window light: picked")) f.push("pick words " + JSON.stringify(await line(p)));
+    await press(p, g(1), 60, 64); await p.waitForTimeout(300);
+    await press(p, g(3), 60, 65); await p.waitForTimeout(300);
+    if (!(await line(p)).includes("Pick up to 2")) f.push("max not held " + JSON.stringify(await line(p)));
+    const picked = await p.evaluate(() => [...window.__canvas.yl.checked].sort());
+    if (JSON.stringify(picked) !== JSON.stringify(["gallery.1", "gallery.2"])) f.push("picked " + JSON.stringify(picked));
+    await press(p, g(1), 60, 66); await p.waitForTimeout(300);
+    if (!(await line(p)).includes("[yui] gallery canvas unpick mark=gallery.1")) f.push("unpick line " + JSON.stringify(await line(p)));
+    const tapped = await p.evaluate(() => window.__log.filter((m) => m.motion === "tap").map((m) => m.id));
+    if (tapped.slice(0, 2).join() !== "gallery.2,gallery.1") f.push("tap events " + tapped);
+    hs = await hitsAt(p, p.total); await press(p, g(2), 650, 67); await p.waitForTimeout(900);
+    if (!(await line(p)).includes("[yui] gallery yl ask Window light")) f.push("hold line " + JSON.stringify(await line(p)));
+  });
+  await check13("a picked picture is drawn picked (the canvas changes) and survives a hold redraw", "gallery", "", async (p, f) => {
+    const before = await sig(p, p.total); let g2 = (await hitsAt(p, p.total)).find((h) => h.id === "gallery.2");
+    await press(p, g2, 60); await p.waitForTimeout(300);
+    if ((await sig(p, p.total)) === before) f.push("a pick does not show on the canvas");
+    g2 = (await hitsAt(p, p.total)).find((h) => h.id === "gallery.2"); await press(p, g2, 650, 68); await p.waitForTimeout(3400);
+    const picked = await p.evaluate(() => [...window.__canvas.yl.checked]); if (!picked.includes("gallery.2")) f.push("the pick was lost by the redraw " + JSON.stringify(picked));
+    if (!(await hitsAt(p, p.total)).some((h) => h.label === "Window light, softer")) f.push("the caption did not redraw");
+  });
+  await check13("compare: before and after in one frame, a divider that drags (a mark), sides and change boxes are marks", "compare", "&replies=off", async (p, f) => {
+    const hs = await hitsAt(p, p.total), ids = hs.map((h) => h.id).filter((i) => /^compare\./.test(i));
+    const want = ["compare.before", "compare.after", "compare.divider", "compare.change.1", "compare.change.2", "compare.change.3"];
+    if (JSON.stringify(ids) !== JSON.stringify(want)) f.push("marks " + JSON.stringify(ids));
+    const dv = hs.find((h) => h.id === "compare.divider"); if (!dv || !dv.drag) f.push("the divider is not a drag mark");
+    const none = (await hitsAt(p, 0.5)).filter((h) => /^compare\./.test(h.id)).length; if (none) f.push("a mark is touchable before the pictures are down");
+    const labels = hs.filter((h) => /^compare\./.test(h.id)).map((h) => h.label);
+    if (!labels.includes("Sage wall") || !labels.includes("Before") || !labels.some((l) => /^Divider/.test(l))) f.push("labels " + labels);
+  });
+  await check13("dragging the divider eases on the canvas clock, sends where it landed, is one undo step, Back brings it back", "compare", "&replies=off", async (p, f) => {
+    let dv = (await hitsAt(p, p.total)).find((h) => h.id === "compare.divider"), box = await p.evaluate(() => { const r = document.querySelector("iframe").getBoundingClientRect(); return { x: r.left, y: r.top }; });
+    const before = await sig(p, p.total), x0 = dv.x;
+    await p.mouse.move(box.x + dv.x, box.y + dv.y); await p.mouse.down();
+    // frames while it moves: the divider is never a jump cut (it eases), and the canvas keeps drawing
+    const xs = [];
+    for (let i = 1; i <= 14; i++) { await p.mouse.move(box.x + dv.x + 9 * i, box.y + dv.y); await p.waitForTimeout(16); xs.push((await p.fr.evaluate(() => { const h = window.__motion.hits().find((x) => x.id === "compare.divider"); return h && h.x; }))); }
+    await p.mouse.up(); await p.waitForTimeout(700);
+    const mono = xs.every((x, i) => i === 0 || x >= xs[i - 1] - 0.5), jump = Math.max(...xs.map((x, i) => (i ? Math.abs(x - xs[i - 1]) : 0)));
+    if (!mono) f.push("the divider went backwards " + xs.map(Math.round)); if (jump > 60) f.push("a jump cut of " + Math.round(jump) + " px");
+    const ln = await line(p), m = /\[yui\] compare canvas drag mark=compare\.divider value=(\d+)/.exec(ln);
+    if (!m || +m[1] <= 50) f.push("drag line " + JSON.stringify(ln));
+    const now = (await hitsAt(p, p.total)).find((h) => h.id === "compare.divider");
+    if (now.x <= x0 + 60) f.push("the divider did not move enough: " + x0 + " -> " + now.x);
+    if ((await sig(p, p.total)) === before) f.push("the picture did not change with the divider");
+    const hist = await p.evaluate(() => window.__canvas.hist); if (hist.at !== 1) f.push("not one undo step " + JSON.stringify(hist));
+    const txt = await p.evaluate(() => window.__canvas.yl.retext("compare a b\n")); void txt;
+    await p.keyboard.press("Control+z"); await p.waitForFunction(() => window.__canvas.hist.at === 0, null, { timeout: 8000 });
+    await p.waitForFunction(() => !ylBusy, null, { timeout: 10000 }); await p.waitForTimeout(400);
+    const back = (await hitsAt(p, p.total)).find((h) => h.id === "compare.divider");
+    if (Math.abs(back.x - x0) > 2) f.push("Back did not return the divider: " + x0 + " vs " + back.x);
+    const l2 = await line(p); if (!l2.includes("[yui] compare canvas undo step=1 marks=compare.divider")) f.push("undo line " + JSON.stringify(l2));
+    const words = await p.evaluate(() => window.__canvas.lastStep && window.__canvas.lastStep.words); if (words !== "Back to before the divider moved.") f.push("words " + words);
+  });
+  await check13("the divider steps with the arrow keys (ten percent) and sends the same line", "compare", "&replies=off", async (p, f) => {
+    await p.fr.evaluate(() => document.getElementById("cv").focus());
+    let at = null; for (let i = 0; i < 6 && at !== "compare.divider"; i++) { await p.keyboard.press("Tab"); at = await p.fr.evaluate(() => document.activeElement.dataset.id); }
+    if (at !== "compare.divider") { f.push("Tab never reached the divider: " + at); return; }
+    await p.keyboard.press("ArrowRight"); await p.waitForTimeout(500);
+    if (!(await line(p)).includes("[yui] compare canvas drag mark=compare.divider value=60")) f.push("ArrowRight line " + JSON.stringify(await line(p)));
+    await p.fr.evaluate(() => document.querySelector('#parts button[data-id="compare.divider"]').focus()); await p.keyboard.press("ArrowLeft"); await p.waitForTimeout(500);
+    if (!(await line(p)).includes("value=50")) f.push("ArrowLeft line " + JSON.stringify(await line(p)));
+    const nm = await p.fr.evaluate(() => document.querySelector('#parts button[data-id="compare.divider"]').getAttribute("aria-label"));
+    if (!/^Divider, 50%/.test(nm || "")) f.push("the divider's name lacks its place: " + nm);
+  });
+  await check13("a held change badge asks, and its canned reply tightens its ring", "compare", "", async (p, f) => {
+    const c0 = (await hitsAt(p, p.total)).find((h) => h.id === "compare.change.1");
+    await press(p, c0, 650); await p.waitForTimeout(3400);
+    const c1 = (await hitsAt(p, p.total)).find((h) => h.id === "compare.change.1");
+    if (!c1 || (Math.abs(c1.x - c0.x) < 2 && Math.abs(c1.y - c0.y) < 2)) f.push("the ring did not change: " + (await line(p)));
   });
 }
 console.log(out.join("\n")); console.log("bad", bad, "of", out.length);

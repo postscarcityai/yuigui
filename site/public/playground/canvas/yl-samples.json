@@ -226,5 +226,20 @@
    "t": "How many years it grows. Time does the most work.",
    "(1+r)^t": "Each year the pile grows by 1 + r. Do that t times."
   }
+ },
+ {
+  "id": "image",
+  "name": "Image: a picture with two rings",
+  "yl": "image /demo/after_room.jpg \"Living room, finished\" +edit hl=45,4,53,45|19,25,20,54"
+ },
+ {
+  "id": "gallery",
+  "name": "Gallery: pick two shots",
+  "yl": "gallery \"Studio shoot\" /demo/g1.jpg|\"On the wheel\" /demo/g2.jpg|\"Window light\" /demo/g3.jpg|\"Glaze\" +pick max=2"
+ },
+ {
+  "id": "compare",
+  "name": "Compare: before and after, drag the divider",
+  "yl": "compare /demo/before_room.jpg /demo/after_room.jpg \"Living room\" notes=\"Sage wall|Bigger plant|Jute rug\" hl=45,4,53,45|19,25,20,54|16,78,83,21"
  }
 ]

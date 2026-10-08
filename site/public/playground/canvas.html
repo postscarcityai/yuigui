@@ -536,7 +536,7 @@ window.addEventListener("message", function (e) {
     // YUI-328: a knob moves (drag) or steps (arrow keys); the line is sent when the drag ends or on every step. The picture does not scrub.
     if (!YL) return;
     // YUI-337: a calc slider changes the film in place, so the history keeps the picture before it: a gesture's first move works on a fresh copy
-    if (HIST && HIST.states[HIST.at].film === YLF && !ylBusy && /^calc\./.test(e.data.id || "") && (m === "nudge" || e.data.phase === "begin")) ylFork();
+    if (HIST && HIST.states[HIST.at].film === YLF && !ylBusy && /^(calc\.|compare\.divider$)/.test(e.data.id || "") && (m === "nudge" || e.data.phase === "begin")) ylFork();
     var r = m === "drag" ? YLM.drag(YLF, e.data) : YLM.nudge(YLF, e.data);
     Y().seek(clock); if (r && (r.line || e.data.phase === "end")) say(r.say, r.line, false);
     if (r && r.step) ylSlid(r);

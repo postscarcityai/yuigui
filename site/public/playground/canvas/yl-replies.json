@@ -252,5 +252,41 @@
         }
       ]
     }
+  },
+  "image": {
+    "image.living_room_finished.ring.1": {
+      "name": "Change 1",
+      "say": "Just the wall behind the sofa. Not the whole side.",
+      "replace": [
+        {
+          "find": "hl=45,4,53,45|",
+          "with": "hl=52,10,36,30|"
+        }
+      ]
+    }
+  },
+  "gallery": {
+    "gallery.2": {
+      "name": "Window light",
+      "say": "Softer light. The best of the three.",
+      "replace": [
+        {
+          "find": "/demo/g2.jpg|\"Window light\"",
+          "with": "/demo/g2.jpg|\"Window light, softer\""
+        }
+      ]
+    }
+  },
+  "compare": {
+    "compare.change.1": {
+      "name": "Sage wall",
+      "say": "Just the wall behind the sofa.",
+      "replace": [
+        {
+          "find": "hl=45,4,53,45|",
+          "with": "hl=52,10,36,30|"
+        }
+      ]
+    }
   }
 }

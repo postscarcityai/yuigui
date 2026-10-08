@@ -52,7 +52,7 @@
   - img
 - button "Mute":
   - img
-- text: 0:05 / 0:28
+- text: 0:00 / 0:28
 # canvas frame (film heart at 5.0s)
 - img "The living canvas, an animated picture. Tab walks its parts. Enter taps a part, Shift Enter or a long Enter asks about it. Space plays or pauses. Left and Right arrows scrub."
 - list "Parts of the picture":

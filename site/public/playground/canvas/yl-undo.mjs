@@ -49,6 +49,8 @@ export function noun(id) {
   if (/^(list|tl):/.test(s)) return "row";
   if (/^yl:/.test(s)) return "shape";
   if (/^stat:/.test(s)) return "number";
+  if (s === "compare.divider") return "divider";
+  if (/^(image|gallery|compare)\./.test(s)) return "picture";
   if (/^calc\.(result|plot)$/.test(s)) return "result";
   if (/^calc\./.test(s)) return "slider";
   if (/^(term|step)\./.test(s)) return "formula";

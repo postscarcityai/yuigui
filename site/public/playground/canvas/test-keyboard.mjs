@@ -178,6 +178,58 @@ for (const yid of ["math", "calc"]) {
   out.push(`${fails.length ? "BAD" : "ok "} yl=${yid} marks=${r.ids.length} walked=${seen.length} tap+hold=same ${fails.join(" | ")}`);
   await p.close();
 }
+// YUI-338: the image, gallery and compare samples of the yl canvas. Every picture, ring and the divider is one named (by its caption) focusable button,
+// Tab walks them in reading order, Enter and Shift-Enter do what a tap and a hold do, Enter on a +pick picture picks it, and the arrow keys on the divider step it.
+for (const yid of ["image", "gallery", "compare"]) {
+  const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+  const errs = [], fails = []; p.on("pageerror", e => errs.push(String(e)));
+  await p.addInitScript(() => { window.__log = []; window.addEventListener("message", e => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
+  await p.goto("http://localhost:" + (process.env.PORT || 8923) + "/playground/canvas.html?yl=" + yid + "&theme=dark&replies=off");
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 }).catch(() => fails.push("not loaded"));
+  const fr = p.frames().find(f => f.url().includes("player.html"));
+  await p.waitForTimeout(500);
+  const total = await p.evaluate(() => window.__canvas.total);
+  const r = await fr.evaluate(t => { window.__motion.renderAt(t); const h = window.__motion.hits(); const bs = [...document.querySelectorAll("#parts button")]; return { ids: h.map(x => x.id), btn: bs.map(x => x.dataset.id), names: bs.map(x => x.getAttribute("aria-label")), ok: bs.map(x => x.tabIndex >= 0 && !x.disabled) }; }, total);
+  const marks = r.ids.filter(i => /^(image|gallery|compare)\./.test(i));
+  checks += r.ids.length; parts += marks.length; filmsWithParts++;
+  const want = { image: ["image.living_room_finished", "image.living_room_finished.ring.1", "image.living_room_finished.ring.2"], gallery: ["gallery.1", "gallery.2", "gallery.3"], compare: ["compare.before", "compare.after", "compare.divider", "compare.change.1"] }[yid];
+  for (const w of want) if (!r.ids.includes(w)) fails.push("no mark " + w);
+  if (JSON.stringify(r.ids) !== JSON.stringify(r.btn)) fails.push("list!=hits");
+  if (r.names.some(n => !n || !n.trim())) fails.push("unnamed " + JSON.stringify(r.names));
+  if (r.ok.some(x => !x)) fails.push("unfocusable");
+  await fr.evaluate(() => document.getElementById("cv").focus());
+  const seen = [];
+  for (let i = 0; i < r.ids.length; i++) { await p.keyboard.press("Tab"); seen.push(await fr.evaluate(() => document.activeElement.dataset.id)); }
+  if (JSON.stringify(seen) !== JSON.stringify(r.ids)) fails.push("tab order " + seen + " != " + r.ids);
+  const sent = () => p.evaluate(() => window.__log.filter(m => m.motion === "tap" || m.motion === "hold").map(m => ({ motion: m.motion, id: m.id, label: m.label })));
+  const focusIt = async (id) => { await fr.evaluate(t => window.__motion.renderAt(t), total); await fr.evaluate(id => document.querySelector('#parts button[data-id="' + id + '"]').focus(), id); };
+  const key = async (fn) => { await p.evaluate(() => (window.__log = [])); await fn(); await p.waitForTimeout(700); return sent(); };
+  const id0 = yid === "compare" ? "compare.after" : want[0];
+  await focusIt(id0); const kT = await key(() => p.keyboard.press("Enter"));
+  if (kT.length !== 1 || kT[0].id !== id0 || kT[0].motion !== "tap") fails.push("Enter " + JSON.stringify(kT));
+  await focusIt(id0); const kH = await key(() => p.keyboard.press("Shift+Enter"));
+  if (kH.length !== 1 || kH[0].motion !== "hold" || kH[0].id !== id0) fails.push("Shift-Enter " + JSON.stringify(kH));
+  if (yid === "gallery") {
+    await fr.evaluate(t => window.__motion.renderAt(t), total); await focusIt("gallery.2"); await p.keyboard.press("Enter"); await p.waitForTimeout(500);
+    const ln = await p.evaluate(() => document.getElementById("line").innerText);
+    if (!ln.includes("[yui] gallery canvas pick mark=gallery.2")) fails.push("Enter pick line " + JSON.stringify(ln));
+  }
+  if (yid === "compare") {
+    await fr.evaluate(t => window.__motion.renderAt(t), total);
+    await focusIt("compare.divider"); await p.keyboard.press("ArrowRight"); await p.waitForTimeout(500);
+    let ln = await p.evaluate(() => document.getElementById("line").innerText);
+    if (!ln.includes("[yui] compare canvas drag mark=compare.divider value=60")) fails.push("ArrowRight line " + JSON.stringify(ln));
+    await focusIt("compare.divider"); await p.keyboard.press("ArrowLeft"); await p.waitForTimeout(500);
+    ln = await p.evaluate(() => document.getElementById("line").innerText);
+    if (!ln.includes("value=50")) fails.push("ArrowLeft line " + JSON.stringify(ln));
+    const nm = await fr.evaluate(() => document.querySelector('#parts button[data-id="compare.divider"]').getAttribute("aria-label"));
+    if (!/^Divider, \d+%/.test(nm || "")) fails.push("divider name lacks its place: " + nm);
+  }
+  if (errs.length) fails.push(errs.join(";"));
+  if (fails.length) bad++;
+  out.push(`${fails.length ? "BAD" : "ok "} yl=${yid} marks=${r.ids.length} walked=${seen.length} tap+hold by key ${fails.join(" | ")}`);
+  await p.close();
+}
 console.log(out.join("\n"));
 console.log(`bad ${bad} of ${ids.length} films; films_with_parts ${filmsWithParts}; max-parts parts checked ${parts}; per-frame part checks ${checks}`);
 await b.close(); process.exit(bad ? 1 : 0);

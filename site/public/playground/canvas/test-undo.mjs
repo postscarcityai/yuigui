@@ -81,6 +81,33 @@ is("a new change drops redo", [h.steps.length, U.canForward(h)], [2, false]);
   for (const [n, re] of [["a fork before a slider gesture", /function ylFork\(\)/], ["a slider step recorded", /kind: "slide"/], ["frames while the result eases", /function ylLive\(\)/]]) re.test(page) ? ok(`canvas.html has ${n}`) : no(`canvas.html lost ${n}`);
 }
 
+// 6c. YUI-338: the compare divider is one step too. Same fork as a calc slider; the text keeps the divider where it landed (at=<percent>).
+{
+  const ms = samples.find((x) => x.id === "compare"), MT = ms.yl;
+  C.setMeta({ ask: "compare" });
+  const m0 = C.build(MT), hm = U.create(m0.film, MT);
+  const fork = C.build(hm.states[hm.at].text).film;
+  fork.setValue("compare.divider", 70);
+  const done = fork.commit("compare.divider"), T1m = C.retext(fork, MT);
+  is("a divider move sends the drag line", done && done.line, "[yui] compare canvas drag mark=compare.divider value=70");
+  is("the text keeps the divider where it landed", /^compare .* at=70$/m.test(T1m) || /\bat=70\b/.test(T1m), true);
+  is("the same text builds the divider where it landed", C.build(T1m).film.value(), 70);
+  U.push(hm, { kind: "slide", id: "compare.divider", marks: ["compare.divider"], film: fork, text: T1m });
+  is("the film in the history was not touched by the move", [m0.film.value(), fork.value()], [50, 70]);
+  const rbm = U.back(hm);
+  is("Back returns the first text and film", [hm.states[hm.at].text === MT, hm.states[hm.at].film === m0.film], [true, true]);
+  is("the undo line names the divider", U.undoLine("compare", rbm.n, rbm.step.marks), "[yui] compare canvas undo step=1 marks=compare.divider");
+  is("Back says it in plain words", U.words(rbm.step, "back"), "Back to before the divider moved.");
+  is("a gallery pick is a picture, not a divider", U.noun("gallery.2"), "picture");
+  is("a move that ends where it began is not a step", (() => { const f2 = C.build(MT).film; f2.setValue("compare.divider", 70); f2.setValue("compare.divider", 50); return f2.commit("compare.divider"); })(), null);
+  is("a text with no at= gets one", C.retext(C.build("compare /demo/a.jpg /demo/b.jpg").film, "compare /demo/a.jpg /demo/b.jpg"), "compare /demo/a.jpg /demo/b.jpg at=50");
+  const ws = C.build(MT).film; let shownEarly = null;
+  ws.setValue("compare.divider", 90);
+  is("the divider eases (busy right after the drop), it does not jump", ws.busy(), true);
+  void shownEarly;
+  is("the page forks before a divider gesture", /compare\\\.divider\$\/\)\.test\(e\.data\.id/.test(page) || /compare\\.divider/.test(page), true);
+}
+
 // 7. the page wires it: keys, the Back mark, the two-finger tap and the line
 for (const [n, re] of [["a named Back mark", /id="back" hidden aria-label="Back"/], ["Cmd/Ctrl+Z", /e\.metaKey \|\| e\.ctrlKey/], ["Shift for redo", /e\.shiftKey \? "forward" : "back"/], ["two-finger tap", /e\.touches\.length === 2/], ["a live region for the plain words", /id="sr" class="sr" role="status"/]])
   re.test(page) ? ok(`canvas.html has ${n}`) : no(`canvas.html lost ${n}`);
