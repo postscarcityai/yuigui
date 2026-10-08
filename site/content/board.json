@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T00:05:54.335Z",
+  "updated": "2026-10-08T00:10:49.543Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "YUI-323",
           "title": "The living canvas plays any film, every part touchable",
+          "summary": "Touch any film on the canvas",
+          "progress": "/progress#touch-any-film-on-the-canvas",
           "owner": "CJohnDesign"
         },
         {
