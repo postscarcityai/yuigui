@@ -257,6 +257,8 @@ export function listFilm(ops, read0, host) {
       if (checked.has(id)) checked.delete(id); else checked.add(id);
       return { row: m.label, on: checked.has(id) };
     },
+    // YUI-329: the height the blocks want at full pitch, so a mixed answer can give them a slot
+    height(api) { return blocks.map((b) => blockHeight(api, b, api.w - 40)).reduce((a, c) => a + c, 0) + GAP * (blocks.length - 1); },
     draw(t, api) {
       const W = api.w, H = api.h, top = 112, areaB = H - 196, fx = 20, fw = W - 40;
       const cH = film.choose ? host.chooseBlock(api, film, t, 0, 0, 0, W - 40, true) : 0;

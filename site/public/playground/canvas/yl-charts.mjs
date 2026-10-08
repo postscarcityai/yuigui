@@ -305,6 +305,11 @@ export function chartFilm(ops, read0, host) {
   });
   const film = {
     kind: "chart", total, marks, choose: read0.choose, chosen: null, onShapes: false, says: read0.says, title: figs.find((f) => f.title)?.title || "", figs,
+    // YUI-329: the height the figures want, so a mixed answer can give them a slot (a chart takes what it is given, 180 to 380)
+    height(avail) {
+      const fixed = figs.reduce((a, f) => a + (f.kind === "stat" ? (f.spark.length > 1 || f.delta !== null ? 132 : 104) : 0), 0) + 10 * (figs.length - 1), n = figs.filter((f) => f.kind === "chart").length;
+      return fixed + (n ? Math.min(380, Math.max(180, (avail - fixed) / n)) * n : 0);
+    },
     draw(t, api) {
       const W = api.w, H = api.h, top = 112, areaB = H - 196, fx = 14, fw = W - 28;
       const cH = film.choose ? host.chooseBlock(api, film, t, 0, 0, 0, W - 40, true) : 0;

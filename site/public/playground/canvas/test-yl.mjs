@@ -226,7 +226,120 @@ if (list.some((s) => s.id === "form-checkin")) await check({ id: "form-checkin",
   const kb = p.fr.locator('#parts button[data-id="in:checkin:sleep"]'); await kb.focus(); await p.keyboard.press("ArrowLeft"); await p.waitForTimeout(200);
   if ((await p.st()).value["checkin:sleep"] !== 9) f.push("form moved after Send");
 });
+// 7c. YUI-329: a mixed answer is one drawing on one clock. Parts draw in line order, each after the one above has finished writing in
+// (a question written above its picture draws after it), every part keeps its own taps, and the keyboard order is the drawing order.
+const MIX = { "mix-protein": ["text", "fig", "fig", "input"], "mix-settings": ["text", "draw", "blocks"], "mix-ship": ["blocks", "blocks", "input"], "mix-hour": ["text", "draw", "input"], "mix-first": ["input", "fig"], "mix-dinner": ["text", "blocks", "input"] };
+const mixIds = list.filter((s) => s.id.startsWith("mix-")).map((s) => s.id);
+if (mixIds.length < 4 || Object.keys(MIX).some((id) => !mixIds.includes(id))) { bad++; out.push("BAD fewer than four mixed samples, or a known one is missing: " + mixIds); }
+const mixKinds = new Set(Object.values(MIX).flat());
+if (!["text", "fig", "blocks", "draw", "input"].every((k) => mixKinds.has(k))) { bad++; out.push("BAD the mixed samples do not cover text, chart, list, drawing and input"); }
+const mixCheck = async (id, what, fn) => {
+  const fails = []; let p;
+  try { p = await open(id); await fn(p, fails); if (p.errs.length) fails.push(p.errs.join(";")); } catch (e) { fails.push("threw " + String(e).slice(0, 200)); }
+  if (fails.length) bad++; out.push(`${fails.length ? "BAD" : "ok "} mix ${id} ${what} ${[...new Set(fails)].slice(0, 5).join(" | ")}`);
+  if (p) await p.close();
+};
+for (const id of mixIds) {
+  await mixCheck(id, "one clock, line order, keyboard = draw order", async (p, f) => {
+    const info = await p.evaluate(() => { const m = window.__canvas.yl; return { kinds: m.parts.map((x) => x.kind), starts: m.starts, ends: m.ends, order: m.order, total: m.total, marks: m.marks.map((x) => [x.id, x.part]) }; });
+    if (JSON.stringify(info.kinds) !== JSON.stringify(MIX[id])) f.push("parts " + info.kinds);
+    // the clock: parts run one after another, nothing starts before the one before it has finished writing in
+    info.order.forEach((pi, k) => { if (k && info.starts[pi] < info.ends[info.order[k - 1]] - 1e-6) f.push("part " + pi + " starts at " + info.starts[pi] + " before " + info.order[k - 1] + " ends at " + info.ends[info.order[k - 1]]); });
+    const lineOrder = info.kinds.map((_, i) => i).sort((a, b) => info.starts[a] - info.starts[b]);
+    const exception = info.kinds.some((k, i) => k === "input" && i + 1 < info.kinds.length && ["fig", "blocks", "draw"].includes(info.kinds[i + 1]));
+    if (!exception && JSON.stringify(lineOrder) !== JSON.stringify(info.kinds.map((_, i) => i))) f.push("draw order is not line order: " + lineOrder);
+    if (exception && !(info.starts[1] < info.starts[0])) f.push("the picture a question is about should draw before the question");
+    // scan the clock: when does each part's first mark become touchable, and in what order do the hits come
+    const partOf = new Map(info.marks.map(([mid, pi]) => [mid, pi])), first = {};
+    let fullest = [], bestN = 0;
+    for (let t = 0; t <= info.total + 0.01; t += 0.1) {
+      const hs = await p.fr.evaluate((t) => { window.__motion.renderAt(t); return window.__motion.hits().map((h) => ({ id: h.id, y: h.y })); }, t);
+      const pis = hs.map((h) => partOf.get(h.id.replace(/~\d+$/, "")));
+      if (pis.some((x) => x === undefined)) f.push("hit with no mark " + hs.filter((h, i) => pis[i] === undefined).map((h) => h.id).slice(0, 2));
+      pis.forEach((pi) => { if (pi !== undefined && first[pi] === undefined) first[pi] = t; });
+      const ranks = pis.map((pi) => info.order.indexOf(pi));
+      if (ranks.some((r, i) => i && r < ranks[i - 1])) { f.push("hits not in drawing order @" + t.toFixed(1)); break; }
+      if (hs.length > bestN) { bestN = hs.length; fullest = hs.map((h, i) => ({ ...h, pi: pis[i] })); }
+    }
+    info.kinds.forEach((_, pi) => { if (first[pi] === undefined) f.push("part " + pi + " never drawn a touchable mark"); else if (first[pi] < info.starts[pi] - 0.11) f.push("part " + pi + " touchable at " + first[pi] + " before its start " + info.starts[pi]); });
+    info.order.forEach((pi, k) => { if (k && first[pi] !== undefined && first[pi] < info.ends[info.order[k - 1]] - 0.11) f.push("part " + pi + " drew a mark at " + first[pi] + " before the part above it finished (" + info.ends[info.order[k - 1]] + ")"); });
+    // the flow runs top to bottom in line order
+    const meanY = (pi) => { const ys = fullest.filter((h) => h.pi === pi).map((h) => h.y); return ys.length ? ys.reduce((a, c) => a + c, 0) / ys.length : null; };
+    const ymeans = info.kinds.map((_, pi) => meanY(pi)).filter((v) => v !== null);
+    if (ymeans.some((v, i) => i && v <= ymeans[i - 1])) f.push("parts are not laid out top to bottom in line order: " + ymeans.map((v) => Math.round(v)));
+    if (fullest.some((h) => h.y < 90 || h.y > 844 - 150)) f.push("a mark sits outside the canvas area: " + fullest.filter((h) => h.y < 90 || h.y > 694).map((h) => h.id + "@" + Math.round(h.y)).slice(0, 3));
+    // scrub: end, t=0 and the middle are stable and a round trip returns the same frames
+    const sig = (t) => p.fr.evaluate((t) => { window.__motion.renderAt(t); const c = document.getElementById("cv"); return c.toDataURL().length + ":" + c.toDataURL().slice(-200); }, t);
+    const e1 = await sig(info.total), z1 = await sig(0), m1 = await sig(info.total * 0.5), e2 = await sig(info.total), z2 = await sig(0), m2 = await sig(info.total * 0.5);
+    if (e1 !== e2 || z1 !== z2 || m1 !== m2) f.push("scrubbing back and forward is not stable"); if (e1 === z1 || m1 === e1) f.push("the answer does not draw over time");
+    const late = await sig(info.total + 5); if (late !== e1) f.push("past the end differs from the end");
+    // the keyboard walks the hits in that same order
+    await p.fr.evaluate((t) => { window.__motion.renderAt(t); document.getElementById("cv").focus(); }, info.total);
+    const want = await p.fr.evaluate(() => window.__motion.hits().map((h) => h.id)), walked = [];
+    for (let i = 0; i < want.length; i++) { await p.keyboard.press("Tab"); walked.push(await p.fr.evaluate(() => document.activeElement.dataset.id)); }
+    if (JSON.stringify(walked) !== JSON.stringify(want)) f.push("tab order differs from the hits");
+    const wr = want.map((h) => info.order.indexOf(partOf.get(h.replace(/~\d+$/, ""))));
+    if (wr.some((r, i) => i && r < wr[i - 1])) f.push("tab order is not the drawing order");
+  });
+}
+// each part keeps the behaviour its own card gave it, inside a mix
+const tapLine = async (p, label, pid) => { const h = await p.hitOf(label); if (!h) throw new Error("no mark " + label); await p.tap(h, pid); await p.waitForTimeout(200); return p.line(); };
+const holdOn = async (p, label, pid) => { const h = await p.hitOf(label); if (!h) throw new Error("no mark " + label); await p.fr.evaluate(async ([x, y, pid]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, 650)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [h.x, h.y, pid]); await p.waitForTimeout(900); return p.line(); };
+const paused = (p) => p.fr.evaluate(() => window.__motion.paused());
+const sub = (p, key) => p.evaluate((key) => { const f = window.__canvas.yl.films.find((x) => x[key]); return f ? JSON.parse(JSON.stringify(f[key] instanceof Set ? [...f[key]] : f[key])) : null; }, key);
+await mixCheck("mix-protein", "a bar names itself, hold asks, the ask answers and locks", async (p, f) => {
+  const bar = await tapLine(p, "Fri", 60); if (!bar.includes("Fri: 96") || !(await paused(p))) f.push("bar tap " + JSON.stringify(bar) + " paused=" + (await paused(p)));
+  await p.fr.evaluate((T) => window.__motion.renderAt(T), p.total);
+  const hl = await holdOn(p, "Fri", 61); if (!hl.includes("[yui] mix-protein yl ask Fri: 96")) f.push("hold line " + JSON.stringify(hl));
+  const st = await tapLine(p, "Protein: 141", 62); if (!st.includes("Protein: 141")) f.push("stat tap " + JSON.stringify(st));
+  const a1 = await tapLine(p, "Leave it", 63); if (!a1.includes('[yui] fri ask answer="Leave it"')) f.push("ask line " + JSON.stringify(a1));
+  const a2 = await tapLine(p, "Add a shake", 64); if (a2.includes("Add a shake") && a2.includes("answer=")) f.push("ask did not lock: " + JSON.stringify(a2));
+  const end = await p.fr.evaluate((t) => { window.__motion.renderAt(t); const c = document.getElementById("cv"); return c.toDataURL().length + ":" + c.toDataURL().slice(-200); }, await p.evaluate(() => window.__canvas.total));
+  const end2 = await p.fr.evaluate((t) => { window.__motion.renderAt(0); window.__motion.renderAt(t); const c = document.getElementById("cv"); return c.toDataURL().length + ":" + c.toDataURL().slice(-200); }, await p.evaluate(() => window.__canvas.total));
+  if (end !== end2) f.push("end not stable after an answer");
+});
+await mixCheck("mix-settings", "a list row ticks, the sketch rows name themselves", async (p, f) => {
+  const l1 = await tapLine(p, "Test on a phone", 65); if (!l1.includes("[yui] mix-settings yl check Test on a phone") || !l1.includes("done")) f.push("check line " + JSON.stringify(l1));
+  if ((await sub(p, "checked")).length !== 1) f.push("row not ticked");
+  const l2 = await tapLine(p, "Test on a phone", 66); if (!l2.includes("not done") || (await sub(p, "checked")).length !== 0) f.push("untick " + JSON.stringify(l2));
+  const s1 = await tapLine(p, "Log out", 67); if (!s1.includes("Log out") || !(await paused(p))) f.push("sketch row tap " + JSON.stringify(s1));
+  const hl = await holdOn(p, "Log out", 68); if (!hl.includes("[yui] mix-settings yl ask Log out")) f.push("hold line " + JSON.stringify(hl));
+});
+await mixCheck("mix-ship", "timeline step and card name themselves, the ask answers", async (p, f) => {
+  const t1 = await tapLine(p, "Build uploading", 69); if (!t1.includes("Build uploading") || !(await paused(p))) f.push("step tap " + JSON.stringify(t1));
+  const c1 = await tapLine(p, "Open notes", 70); if (!c1.includes("Open notes")) f.push("card tap " + JSON.stringify(c1));
+  await p.fr.evaluate((T) => window.__motion.renderAt(T), p.total);
+  const a = await tapLine(p, "Send", 71); if (!a.includes('[yui] notes ask answer=Send')) f.push("ask line " + JSON.stringify(a));
+});
+await mixCheck("mix-hour", "a shape names itself, the pick toggles and sends its set", async (p, f) => {
+  const s1 = await tapLine(p, "Train", 72); const st = await sub(p, "picked");
+  // two marks are called Train (the circle and the pill): the pill is the one in the pick
+  if (!s1.includes("Train")) f.push("tap line " + JSON.stringify(s1));
+  const hs = (await p.hits()).filter((h) => h.label === "Train"); const pill = hs.find((h) => /^in:/.test(h.id)); if (!pill) { f.push("no Train pill"); return; }
+  await p.fr.evaluate((T) => window.__motion.renderAt(T), p.total); await p.tap(pill, 73); await p.waitForTimeout(200);
+  const cook = (await p.hits()).find((h) => h.id === "in:hour:o2"); await p.tap(cook, 74); await p.waitForTimeout(200);
+  await p.tap((await p.hits()).find((h) => h.id === "in:hour:send"), 75); await p.waitForTimeout(200);
+  const l = await p.line(); if (!l.includes("[yui] hour pick picked=Train|Cook")) f.push("pick line " + JSON.stringify(l) + " picked=" + JSON.stringify(st));
+});
+await mixCheck("mix-first", "the question written first is answered, the chart keeps its points", async (p, f) => {
+  const a = "(no earlier tap)";
+  const q = (await p.hits()).find((h) => h.id === "in:best:o1"); if (!q) { f.push("no Wed pill"); return; }
+  await p.tap(q, 77); await p.waitForTimeout(200);
+  const l2 = await p.line(); if (!l2.includes("[yui] best choose choice=Wed")) f.push("choose line " + JSON.stringify(l2) + " after tap line " + JSON.stringify(a));
+  const pt = (await p.hits()).find((h) => /^chart:/.test(h.id) && /Wed/.test(h.label)); if (!pt) { f.push("no Wed point on the chart"); return; }
+  await p.tap(pt, 78); await p.waitForTimeout(200); if (!(await p.line()).includes("Wed: 9")) f.push("point tap " + JSON.stringify(await p.line()));
+});
+await mixCheck("mix-dinner", "a table cell names itself, the knob drags without scrubbing", async (p, f) => {
+  const c = await tapLine(p, "Tuna", 79); if (!c.includes("Tuna")) f.push("cell tap " + JSON.stringify(c));
+  await p.fr.evaluate((T) => window.__motion.renderAt(T), p.total);
+  const c0 = await p.clock(), knob = (await p.hits()).find((h) => h.id === "in:hungry:knob");
+  if (!knob) { f.push("no knob"); return; }
+  const x = await p.evaluate(() => { const fl = window.__canvas.yl.films.find((q) => q.geo), g = fl.geo["in:hungry:knob"], b = fl.blocks[0]; return g.x0 + (g.x1 - g.x0) * (5 - b.min) / (b.max - b.min); });
+  await p.dragTo(knob, x, knob.y, 80); await p.waitForTimeout(200);
+  const l = await p.line(); if (!l.includes("[yui] hungry slide value=5")) f.push("slide line " + JSON.stringify(l));
+  if ((await p.clock()) !== c0) f.push("a drag on the knob scrubbed");
+});
 // 8. an unknown id falls back to the films tab instead of a blank canvas
 { const p = await b.newPage({ viewport: { width: 390, height: 844 } }); await p.goto(base + "?yl=nope"); await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 }).catch(() => {}); const ok = !(await p.url()).includes("yl="); if (!ok) { bad++; out.push("BAD unknown id kept ?yl="); } else out.push("ok  unknown id falls back"); await p.close(); }
-console.log(out.join("\n")); console.log("bad", bad, "of", list.length + 3);
+console.log(out.join("\n")); console.log("bad", bad, "of", out.length);
 await b.close(); process.exit(bad ? 1 : 0);

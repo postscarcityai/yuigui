@@ -88,6 +88,16 @@ export function inputsFilm(ops, read0, host) {
   const formLine = (b) => `[yui] ${b.id} form ` + b.fields.map((f) => `form.${f.key}=${f.type === "range" ? num(S.value[b.id + ":" + f.key]) : val(S.text[b.id + ":" + f.key] || "")}`).join(" ");
   const commitSlide = (b) => { S.line[b.id] = slideLine(b); return { say: knobName(b), line: S.line[b.id] }; };
 
+  const layOut = (api, fw) => blocks.map((b) => {
+    const qm = b.q || b.title ? api.measure(b.q || b.title, { size: 24, weight: 800, maxw: fw - 8 }) : { w: 0, h: 0 }, qh = qm.h ? qm.h + 14 : 0;
+    let h;
+    if (b.kind === "choose" || b.kind === "ask" || b.kind === "pick") {
+      const side = b.kind === "ask" && b.options.length === 2;
+      h = qh + (side ? PILL_H : b.options.length * (PILL_H + GAP) - GAP) + (b.kind === "pick" ? PILL_H + GAP + 6 : 0);
+    } else if (b.kind === "slide") h = qh + 150;
+    else h = qh + b.fields.reduce((a, f) => a + (f.type === "range" ? 96 : 76), 0) + PILL_H + 12;
+    return { qh, h: h + (S.line[b.id] ? 26 : 0) };
+  });
   const film = {
     kind: "inputs", total, marks, choose: null, chosen: null, onShapes: false, says: read0.says, title: blocks[0].q || blocks[0].title || "", blocks, state: S, geo,
     // a tap on a mark: the answer, or null when the mark only names itself (the host then pauses and says its words)
@@ -167,20 +177,13 @@ export function inputsFilm(ops, read0, host) {
       setValue(s.vk, clamp(S.value[s.vk] + (d.dir < 0 ? -1 : 1) * s.step, s.min, s.max));
       return b.kind === "slide" ? commitSlide(b) : { say: knobName(b, key), line: null };
     },
+    // YUI-329: the height the stack wants right now (an answered block grows by the line it sends), so a mixed answer can give it a slot
+    height(api) { return layOut(api, api.w - 40).reduce((a, l) => a + l.h, 0) + 28 * (blocks.length - 1); },
     draw(t, api) {
       const W = api.w, H = api.h, top = 112, areaB = H - 196, fx = 20, fw = W - 40;
       const hit = (id, x, y, w, h, label) => api.hitBox(id, x + w / 2, y + h / 2, w, h, label);
       // layout: measure each block, then centre the stack
-      const lay = blocks.map((b) => {
-        const qm = b.q || b.title ? api.measure(b.q || b.title, { size: 24, weight: 800, maxw: fw - 8 }) : { w: 0, h: 0 }, qh = qm.h ? qm.h + 14 : 0;
-        let h;
-        if (b.kind === "choose" || b.kind === "ask" || b.kind === "pick") {
-          const side = b.kind === "ask" && b.options.length === 2;
-          h = qh + (side ? PILL_H : b.options.length * (PILL_H + GAP) - GAP) + (b.kind === "pick" ? PILL_H + GAP + 6 : 0);
-        } else if (b.kind === "slide") h = qh + 150;
-        else h = qh + b.fields.reduce((a, f) => a + (f.type === "range" ? 96 : 76), 0) + PILL_H + 12;
-        return { qh, h: h + (S.line[b.id] ? 26 : 0) };
-      });
+      const lay = layOut(api, fw);
       const sum = lay.reduce((a, l) => a + l.h, 0) + 28 * (blocks.length - 1), avail = areaB - top;
       let y = top + Math.max(0, (avail - sum) / 2);
       blocks.forEach((b, bi) => {

@@ -7,6 +7,7 @@ import { parse, AUTO_ID } from "./yl/yl.mjs";
 import { chartFilm } from "./yl-charts.mjs";
 import { listFilm } from "./yl-lists.mjs";
 import { inputsFilm } from "./yl-inputs.mjs";
+import { mixFilm } from "./yl-mix.mjs";
 import { scene, frame, blobPoints, ringPoints, control, bracketPoints, smooth, STEP } from "./yl/shapes.mjs";
 
 const TONE = { accent: "accent", mint: "good", lavender: "a3", butter: "warn", ink: "fg", mute: "dim" };
@@ -32,6 +33,63 @@ export function read(text) {
     else if (o.preset === "choose" && (out.draw || out.figs.length || out.blocks.length) && !out.choose) out.choose = { id: AUTO_ID.test(o.id) ? "choose" : o.id, q: String(o.props.q || ""), options: (o.props.options || []).map(String) };
   }
   return out;
+}
+
+// ---- a mixed answer (YUI-329) ---------------------------------------------------------------------------------------------
+
+const INPUTS = ["choose", "pick", "ask", "slide", "form"];
+// Every top-level op of the reply as one part, in line order: say -> text; chart / stat -> fig; list, table, timeline (with its steps)
+// and card -> blocks; shapes or sketch (with their rows) -> draw; choose, pick, ask, slide, form -> input.
+export function readParts(text) {
+  const r = parse(text), ops = Array.isArray(r) ? r : r.ops || [];
+  const parts = [], errors = ops.filter((o) => o.op === "error").map((o) => o.message);
+  let tl = null, dr = null;
+  for (const o of ops) {
+    if (o.op !== "add") continue;
+    if (dr && o.in === dr.id && (o.preset === "shape" || o.preset === "row" || o.preset === "after")) { dr.items.push(o); continue; }
+    if (o.in && !(tl && o.in === tl.ops[0].id)) continue;
+    if (o.preset === "done" || o.preset === "now" || o.preset === "next") { if (tl) tl.ops.push(o); continue; }
+    if (o.preset === "say") parts.push({ kind: "text", text: String(o.props.text || o.props.body || "") });
+    else if (o.preset === "chart" || o.preset === "stat") parts.push({ kind: "fig", ops: [o] });
+    else if (o.preset === "timeline") parts.push((tl = { kind: "blocks", ops: [o] }));
+    else if (["list", "table", "card"].includes(o.preset)) parts.push({ kind: "blocks", ops: [o] });
+    else if (o.preset === "shapes" || o.preset === "sketch") { dr = { kind: "draw", d: { kind: o.preset, id: o.id, head: o.props, items: [] } }; dr.id = o.id; dr.items = dr.d.items; parts.push(dr); }
+    else if (INPUTS.includes(o.preset)) parts.push({ kind: "input", ops: [o] });
+  }
+  return { parts: parts.filter((p) => p.kind !== "text" || p.text), errors };
+}
+
+// Does the answer mix kinds (so it plays as one flow) or is it one kind of picture the older films already draw? A single kind of picture,
+// with a leading line and a plain `choose` under it, stays what it was. A line after the first picture, a second kind, or any input but a
+// plain choose under a picture, is a mix.
+export function isMix(parts) {
+  const rest = parts.slice();
+  while (rest.length && rest[0].kind === "text") rest.shift();
+  if (!rest.length) return false;
+  if (rest.some((p, i) => i > 0 && p.kind === "text")) return true;
+  const last = rest[rest.length - 1];
+  if (rest.length > 1 && last.kind === "input" && last.ops[0].preset === "choose" && rest.slice(0, -1).every((p) => p.kind !== "input")) rest.pop();
+  return new Set(rest.map((p) => p.kind)).size > 1;
+}
+
+function buildMix(text) {
+  const { parts, errors } = readParts(text), r0 = { choose: null, says: [], errors };
+  if (!isMix(parts)) return null;
+  const seen = {};
+  const made = parts.map((p) => {
+    if (p.kind === "text") return p;
+    if (p.kind === "fig") { const film = chartFilm(p.ops, r0, { chooseBlock, HOLD }); return film && { kind: "fig", film }; }
+    if (p.kind === "blocks") { const film = listFilm(p.ops, r0, { chooseBlock, HOLD }); return film && { kind: "blocks", film }; }
+    if (p.kind === "draw") { const film = p.d.kind === "shapes" ? shapesFilm(p.d, r0) : sketchFilm(p.d, r0); return { kind: "draw", film, frame: p.d.head.frame }; }
+    // two inputs with auto ids would both be "n1": give each its own id
+    const o = p.ops[0], id = AUTO_ID.test(o.id) ? o.preset + (seen[o.preset] = (seen[o.preset] || 0) + 1) : o.id;
+    const film = inputsFilm([{ ...o, id }], r0, { AUTO_ID, HOLD });
+    return film && { kind: "input", film };
+  }).filter(Boolean);
+  const film = mixFilm(made, { HOLD });
+  if (!film) return null;
+  film.read = { says: [], errors };
+  return { film, scenes: [{ name: "yl", dur: film.total, code: "return window.__yl && window.__yl.draw(t, api);" }] };
 }
 
 // ---- shared drawing helpers ----------------------------------------------------------------------------------------------
@@ -105,6 +163,11 @@ function shapesFilm(d, read0) {
   const film = {
     kind: "shapes", total, marks, sc, choose: read0.choose, chosen: null, onShapes,
     says: read0.says, title: sc.title, caption: sc.caption,
+    // YUI-329: the picture's size in a slot S tall (what draw() will use), so a mixed answer can lay it out and pin it to the slot top
+    fit(W, S) {
+      const aH = Math.max(120, S - (sc.title ? 24 : 0) - 6), s = Math.min((W - 28) / sc.w, aH / sc.h, 84);
+      return { drawH: sc.h * s, shift: (aH - sc.h * s) / 2, head: (sc.title ? 24 : 0) + 6 };
+    },
     draw(t, api) {
       const W = api.w, H = api.h, top = 120, areaB = H - 196;
       const cH = film.choose ? (onShapes ? 30 : chooseBlock(api, film, t, 0, 0, 0, W - 40, true)) : 0;
@@ -219,6 +282,13 @@ function sketchFilm(d, read0) {
   if (head.title) marks.unshift({ id: "mark:text:" + slug(head.title), label: String(head.title), words: "What this picture is about.", side: -1, appear: 0 });
   const film = {
     kind: "sketch", total, marks, sides, choose: read0.choose, chosen: null, says: read0.says, title: String(head.title || ""), caption: "",
+    // YUI-329: how tall the frame wants to be (no cap), so a mixed answer can give it a slot
+    natural(api) {
+      const W = api.w, pad = 18, inner = W - 40 - pad * 2, size = 17;
+      const rowsH = Math.max(...sides.map((s) => s.rows.reduce((a, r) => a + api.measure(String(r.text || ""), { size, weight: 600, maxw: inner - (r.button ? 28 : 0) }).h + (r.button ? 20 : 0) + (r.note ? 18 : 0) + 12, 0)));
+      const frameKind = String(head.frame || "window");
+      return (frameKind === "phone" || frameKind === "window" ? 34 : 14) + (hasAfter ? 30 : 0) + rowsH + pad * 1.5;
+    },
     draw(t, api) {
       const W = api.w, H = api.h, fx = 20, fw = W - 40, pad = 18, inner = fw - pad * 2, size = 17;
       // lay both sides out once so the frame holds the taller one
@@ -281,6 +351,8 @@ function sketchFilm(d, read0) {
 
 // text: Yui Lines. Returns { film, scenes } for the player, or { error } when there is nothing to draw.
 export function build(text) {
+  const mixed = buildMix(text);
+  if (mixed) return mixed;
   const r = read(text);
   if (!r.draw && r.figs.length) {
     const cf = chartFilm(r.figs, r, { chooseBlock, HOLD });

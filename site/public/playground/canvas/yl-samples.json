@@ -148,5 +148,35 @@
   "id": "sketch-choose",
   "name": "Sketch and a choose, a tap on the answer",
   "yl": "sketch \"Settings\" frame=phone before=Now\nrow \"Log out\" +hi note=\"buried at the top\"\nrow \"Help\" +x note=\"nobody used it\"\nafter Proposed\nrow \"Log out\" +hi note=\"moved to the bottom\"\nchoose@move \"Move it?\" Yes|Later"
+ },
+ {
+  "id": "mix-protein",
+  "name": "Mixed: a line, a stat, a chart and a question",
+  "yl": "say Protein is up. Friday is the gap.\nstat 141g Protein delta=9 good=up sub=\"vs last week\" spark=118|132|141|126|141\nchart bar \"Protein by day\" x=Mon|Tue|Wed|Thu|Fri y=118|132|141|126|96 unit=g\nask@fri \"Fix Friday?\" \"Add a shake\"|\"Leave it\""
+ },
+ {
+  "id": "mix-settings",
+  "name": "Mixed: a sketch, then a list you can tick",
+  "yl": "say Move Log out to the bottom. Then tick off what is left.\nsketch \"Settings\" frame=phone before=Now\nrow \"Log out\" +hi note=\"buried at the top\"\nrow \"Dark mode\" +dim\nafter Proposed\nrow \"Dark mode\" +dim\nrow \"Log out\" +hi note=\"moved to the bottom\"\nlist Ship \"Update the screens\" \"Test on a phone\" \"Write the note\" +check"
+ },
+ {
+  "id": "mix-ship",
+  "name": "Mixed: a timeline, a card and a question",
+  "yl": "timeline \"Release 0.9\"\ndone \"Code frozen\" at=\"Mon\"\ndone \"Tests pass\" at=\"Tue\"\nnow \"Build uploading\" sub=\"about 20 minutes\"\nnext \"Beta review\"\ncard \"Release notes\" \"Lists, charts and forms now draw on the canvas.\" cta=\"Open notes\"\nask@notes \"Send the notes?\" Send|\"Not yet\""
+ },
+ {
+  "id": "mix-hour",
+  "name": "Mixed: a line, a drawing and a pick",
+  "yl": "say Where should the extra hour go?\nshapes w=10 h=3.4 \"One hour to spend\"\nshape@a circle Sleep at=2,2 size=2 tone=lavender +fill +grow\nshape@b circle Train at=5,2 size=2 tone=accent +fill +grow\nshape@c circle Cook at=8,2 size=2 tone=mint +fill +grow\npick@hour \"Pick one or two\" Sleep|Train|Cook"
+ },
+ {
+  "id": "mix-first",
+  "name": "Mixed: the question is written first, the picture draws first",
+  "yl": "choose@best \"Which day felt best?\" Mon|Wed|Fri\nchart line \"Energy\" x=Mon|Tue|Wed|Thu|Fri y=6|7|9|5|8"
+ },
+ {
+  "id": "mix-dinner",
+  "name": "Mixed: a line, a table and a slider",
+  "yl": "say Fish is the cheap protein. How hungry are you?\ntable Dinner Food|Cal|Protein \"Salmon|360|34\" \"Tuna|180|40\" \"Chicken|220|40\" units=|kcal|g\nslide@hungry \"How hungry?\" 1-5 Peckish|Starving value=3"
  }
 ]
