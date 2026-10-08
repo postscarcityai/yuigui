@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-07T23:45:45.476Z",
+  "updated": "2026-10-08T00:05:54.335Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -289,6 +289,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-323",
+          "title": "The living canvas plays any film, every part touchable",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-254",
+          "title": "Thought on YUI-322, a dry key never breaks an agent",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
