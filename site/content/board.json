@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T00:55:55.416Z",
+  "updated": "2026-10-08T01:06:02.939Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -289,6 +289,18 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-325",
+          "title": "The living canvas draws Yui Lines too, a sketch or shapes answer draws stroke by stroke and every row is a touchable mark",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-256",
+          "title": "Thought on YUI-324, the canvas works by keyboard and screen reader",
+          "summary": "A Thought: the canvas works without touch",
+          "progress": "/progress#a-thought-the-canvas-works-without-touch",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
