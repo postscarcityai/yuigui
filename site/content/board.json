@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T02:21:07.713Z",
+  "updated": "2026-10-08T02:36:18.577Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -289,6 +289,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-328",
+          "title": "The living canvas draws choose, pick, slide, ask and form, every option a touchable mark",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-259",
+          "title": "Thought on YUI-327, the canvas draws lists you tick",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
