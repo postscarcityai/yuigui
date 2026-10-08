@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T05:05:36.607Z",
+  "updated": "2026-10-08T06:35:48.945Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-331",
           "title": "Drag a mark on the living canvas and the agent answers where you put it",
+          "summary": "Drag a part, it answers",
+          "progress": "/progress#drag-a-part-it-answers",
           "owner": "CJohnDesign"
         },
         {
