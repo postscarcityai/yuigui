@@ -28,18 +28,25 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
 .row button:active{background:var(--line)}
 .row svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .row .t{margin-left:auto;font:600 12px ui-monospace,Menlo,monospace;color:var(--dim)}
-#films{position:absolute;top:calc(34px + env(safe-area-inset-top));left:0;right:0;display:flex;gap:6px;overflow-x:auto;padding:2px 14px;scrollbar-width:none;z-index:2}
-#films::-webkit-scrollbar{display:none}
-#films a{flex:none;color:var(--fg);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);backdrop-filter:blur(8px)}
-#films a.on{border-color:var(--accent);color:var(--accent)}
-#chips button:focus-visible,.row button:focus-visible,#films a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#strip{position:absolute;top:calc(34px + env(safe-area-inset-top));left:0;right:0;display:flex;gap:6px;align-items:center;padding:2px 14px;z-index:2}
+#films,#yls{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+#films::-webkit-scrollbar,#yls::-webkit-scrollbar{display:none}
+[hidden]{display:none!important}
+#mode{border-style:dashed!important}
+#strip a{flex:none;color:var(--fg);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);backdrop-filter:blur(8px)}
+#strip a.on{border-color:var(--accent);color:var(--accent)}
+#chips button:focus-visible,.row button:focus-visible,#strip a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 #hint{position:absolute;top:calc(12px + env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:12px;color:var(--dim);pointer-events:none;transition:opacity .6s}
 </style>
 </head>
 <body>
 <div id="app">
   <iframe id="cv" src="canvas/player.html" title="The canvas: tab to walk its parts, Enter to tap, Shift Enter to ask, Space to pause, arrows to scrub"></iframe>
-  <nav id="films" role="tablist" aria-label="Films" aria-controls="cv"></nav>
+  <div id="strip">
+    <a id="mode"></a>
+    <nav id="films" role="tablist" aria-label="Films" aria-controls="cv"></nav>
+    <nav id="yls" role="tablist" aria-label="Yui Lines" aria-controls="cv" hidden></nav>
+  </div>
   <div id="hint" aria-hidden="true">drag to scrub &middot; tap a part &middot; hold to ask</div>
   <div id="line" aria-live="polite"></div>
   <div id="chips"><button id="another">Another take</button><button id="change">Change it</button></div>
@@ -87,8 +94,10 @@ var PRE = [
   '}'
 ].join("\n");
 
-var FILM = (Q.get("film") || "heart").toLowerCase().replace(/[^a-z0-9-]/g, "");
-var FILM_ASK = FILM.replace(/-r\d+$/, "");  // the word in the ask line: "heart", "engine"
+var YLID = (Q.get("yl") || "").toLowerCase().replace(/[^a-z0-9-]/g, ""), YL = !!YLID, YLF = null, YLM = null;  // YUI-325: ?yl=<id> draws a Yui Lines sample
+var FILM = YL ? "yl-" + YLID : (Q.get("film") || "heart").toLowerCase().replace(/[^a-z0-9-]/g, "");
+var FILM_ASK = YL ? YLID : FILM.replace(/-r\d+$/, "");  // the word in the ask line: "heart", "engine"
+var ASKV = YL ? " yl ask " : " motion ask ";
 var SCENES = [
   { name: "draw", dur: 6, code: PRE + [
     'var k = api.seg(t, 0.2, 3.2);',
@@ -132,7 +141,15 @@ var TOTAL = SCENES.reduce(function (a, s) { return a + s.dur; }, 0);
 var CHOOSE_AT = SCENES[0].dur + SCENES[1].dur;
 var HEART = FILM === "heart";
 var GALLERY = "../demo/motion/gallery/";
+function loadYL(cb) {
+  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); })]).then(function (r) {
+    var smp = r[1].filter(function (x) { return x.id === YLID; })[0]; if (!smp) throw new Error("no sample " + YLID);
+    var b = r[0].build(smp.yl); if (b.error) throw new Error(b.error);
+    YLM = r[0]; YLF = b.film; frame.contentWindow.__yl = YLF; SCENES = b.scenes; TOTAL = YLF.total; CHOOSE_AT = 1e9; FILM_TITLE = smp.name; window.__canvas.yl = YLF; cb();
+  }).catch(function () { location.replace("canvas.html" + (Q.get("theme") ? "?theme=" + Q.get("theme") : "")); });
+}
 function loadFilm(cb) {
+  if (YL) { loadYL(cb); return; }
   if (HEART) { cb(); return; }
   var id = /-r\d+$/.test(FILM) ? FILM : FILM + "-r1";
   fetch(GALLERY + id + ".json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
@@ -215,6 +232,12 @@ window.addEventListener("message", function (e) {
     var id = e.data.id;
     if (!id) { mark(null); line.classList.remove("on"); caps(true); setPaused(!paused); return; }
     var nm = label(id, e.data.label); mark(id);
+    if (YL) {
+      // YUI-325: a tap on a choice drawn into the picture is the answer (the picture keeps playing); any other mark pauses, rings and names itself
+      if (YLM.isChoice(YLF, nm)) { YLF.chosen = nm; Y().mark(id); say(nm, "[yui] " + YLF.choose.id + " choose choice=" + nm, false); return; }
+      setPaused(true); var wy = YLM.wordsFor(YLF, nm);
+      say(nm, wy !== nm ? wy : null, false); speak(wy); return;
+    }
     if (HEART && clock >= CHOOSE_AT) {
       // inside the question the touch is the answer: the canvas follows the part and keeps playing
       if (clock > CHOOSE_AT + 9) Y().seek(CHOOSE_AT + 3);
@@ -230,12 +253,12 @@ window.addEventListener("message", function (e) {
     if (id2 === "moment") {
       mark(null);
       var half = clock < 3.4 ? "Half drawn. I sketch the outline first, then each chamber fills." : clock < 6 ? "Drawn. Now two pumps, side by side." : "Here the heart is mid-beat: the chambers squeeze, the blood moves on.";
-      if (!HEART) half = "Held on the picture at " + clock.toFixed(1) + " seconds. In the app the agent answers about this moment, right here.";
-      say(half, "[yui] " + FILM_ASK + " motion ask moment @" + clock.toFixed(1) + "s", true); speak(half);
+      if (!HEART) half = YL ? "Held at " + clock.toFixed(1) + " seconds, mid-stroke. In the app the agent answers about what is drawn so far, right here." : "Held on the picture at " + clock.toFixed(1) + " seconds. In the app the agent answers about this moment, right here.";
+      say(half, "[yui] " + FILM_ASK + ASKV + "moment @" + clock.toFixed(1) + "s", true); speak(half);
     } else {
       mark(id2);
-      say("…", "[yui] " + FILM_ASK + " motion ask " + nm2, true);
-      setTimeout(function () { var a = HEART ? (ASK[nm2] || SAY[nm2] || nm2) : "Asked about this. In the app the agent answers right here."; say(a, "[yui] " + FILM_ASK + " motion ask " + nm2, true); speak(HEART ? ASK[nm2] || "" : ""); }, 650);
+      say("…", "[yui] " + FILM_ASK + ASKV + nm2, true);
+      setTimeout(function () { var a = HEART ? (ASK[nm2] || SAY[nm2] || nm2) : "Asked about this. In the app the agent answers right here."; say(a, "[yui] " + FILM_ASK + ASKV + nm2, true); speak(HEART ? ASK[nm2] || "" : ""); }, 650);
     }
     if (navigator.vibrate) navigator.vibrate(12);
     return;
@@ -274,6 +297,21 @@ window.__canvas = { total: TOTAL, chooseAt: CHOOSE_AT, yui: Y, film: FILM, loade
     e.preventDefault(); all.forEach(function (a) { a.tabIndex = a === all[j] ? 0 : -1; }); all[j].focus(); all[j].scrollIntoView && all[j].scrollIntoView({ inline: "center", block: "nearest" });
   });
   chip("heart", "Heart", "The hand-built heart"); tabs();
+  // YUI-325: the second tab. Films keep #films; the Yui Lines samples are their own tablist, and one dashed link flips between them.
+  var yls = $("yls"), mode = $("mode"), theme0 = Q.get("theme") ? "&theme=" + Q.get("theme") : "";
+  $("films").hidden = YL; yls.hidden = !YL;
+  mode.textContent = YL ? "\u2039 Films" : "Lines \u203a"; mode.title = YL ? "Back to the films" : "Yui Lines drawn on the canvas";
+  mode.href = YL ? "canvas.html" + (theme0 ? "?" + theme0.slice(1) : "") : "canvas.html?yl=venn" + theme0;
+  fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }).then(function (list) {
+    list.forEach(function (x) { var a = document.createElement("a"); a.href = "canvas.html?yl=" + x.id + theme0; a.textContent = x.id.charAt(0).toUpperCase() + x.id.slice(1); a.title = x.name; a.setAttribute("role", "tab"); a.setAttribute("aria-selected", x.id === YLID ? "true" : "false"); a.tabIndex = x.id === YLID ? 0 : -1; if (x.id === YLID) a.className = "on"; yls.append(a); });
+    if (YL && !yls.querySelector(".on") && yls.firstChild) yls.firstChild.tabIndex = 0;
+    var on = yls.querySelector(".on"); if (YL && on && on.scrollIntoView) on.scrollIntoView({ inline: "center", block: "nearest" });
+  }).catch(function () {});
+  yls.addEventListener("keydown", function (e) {
+    var all = [].slice.call(yls.children), i = all.indexOf(document.activeElement), j = -1; if (i < 0) return;
+    if (e.key === "ArrowRight") j = (i + 1) % all.length; else if (e.key === "ArrowLeft") j = (i + all.length - 1) % all.length; else if (e.key === "Home") j = 0; else if (e.key === "End") j = all.length - 1; else return;
+    e.preventDefault(); all.forEach(function (a) { a.tabIndex = a === all[j] ? 0 : -1; }); all[j].focus(); all[j].scrollIntoView && all[j].scrollIntoView({ inline: "center", block: "nearest" });
+  });
   fetch("canvas/films.json").then(function (r) { return r.json(); }).then(function (list) {
     list.forEach(function (f) { f.runs.forEach(function (r) { var id = f.id + "-r" + r; var a = chip(id, f.id.charAt(0).toUpperCase() + f.id.slice(1) + " " + r, f.ask); if (r === 1 && FILM === f.id) a.className = "on"; }); });
     tabs();
