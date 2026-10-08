@@ -1,0 +1,65 @@
+# host page
+- iframe
+- tablist "Films":
+  - tab "Heart"
+  - tab "Heart 1"
+  - tab "Heart 2"
+  - tab "Engine 1" [selected]
+  - tab "Engine 2"
+  - tab "Rome 1"
+  - tab "Rome 2"
+  - tab "Chicken 1"
+  - tab "Chicken 2"
+  - tab "Workout 1"
+  - tab "Workout 2"
+  - tab "Dogbox 1"
+  - tab "Dogbox 2"
+  - tab "Anxiety 1"
+  - tab "Anxiety 2"
+  - tab "Jumpstart 1"
+  - tab "Jumpstart 2"
+  - tab "Rentbuy 1"
+  - tab "Rentbuy 2"
+  - tab "Tax 1"
+  - tab "Tax 2"
+  - tab "Settings 1"
+  - tab "Settings 2"
+  - tab "Plan 1"
+  - tab "Plan 2"
+  - tab "Pieces 1"
+  - tab "Pieces 2"
+  - tab "Bug 1"
+  - tab "Bug 2"
+  - tab "Status 1"
+  - tab "Status 2"
+  - tab "Robot 1"
+  - tab "Robot 2"
+  - tab "Checkout 1"
+  - tab "Checkout 2"
+  - tab "Today 1"
+  - tab "Today 2"
+  - tab "Sunday 1"
+  - tab "Sunday 2"
+  - tab "People 1"
+  - tab "People 2"
+  - tab "Three 1"
+- button "Another take"
+- button "Change it"
+- button "Pause":
+  - img
+- button "Mute":
+  - img
+- text: 0:00 / 0:33
+# canvas frame (film engine-r1 at 31.6s)
+- img "The living canvas, an animated picture. Tab walks its parts. Enter taps a part, Shift Enter or a long Enter asks about it. Space plays or pauses. Left and Right arrows scrub."
+- list "Parts of the picture":
+  - listitem:
+    - button "Intake"
+  - listitem:
+    - button "Compress"
+  - listitem:
+    - button "Power"
+  - listitem:
+    - button "Exhaust"
+  - listitem:
+    - button "Repeat"

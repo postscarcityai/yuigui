@@ -32,14 +32,15 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
 #films::-webkit-scrollbar{display:none}
 #films a{flex:none;color:var(--fg);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);backdrop-filter:blur(8px)}
 #films a.on{border-color:var(--accent);color:var(--accent)}
+#chips button:focus-visible,.row button:focus-visible,#films a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 #hint{position:absolute;top:calc(12px + env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:12px;color:var(--dim);pointer-events:none;transition:opacity .6s}
 </style>
 </head>
 <body>
 <div id="app">
-  <iframe id="cv" src="canvas/player.html" title="The canvas"></iframe>
-  <nav id="films" aria-label="Films"></nav>
-  <div id="hint">drag to scrub &middot; tap a part &middot; hold to ask</div>
+  <iframe id="cv" src="canvas/player.html" title="The canvas: tab to walk its parts, Enter to tap, Shift Enter to ask, Space to pause, arrows to scrub"></iframe>
+  <nav id="films" role="tablist" aria-label="Films" aria-controls="cv"></nav>
+  <div id="hint" aria-hidden="true">drag to scrub &middot; tap a part &middot; hold to ask</div>
   <div id="line" aria-live="polite"></div>
   <div id="chips"><button id="another">Another take</button><button id="change">Change it</button></div>
   <div id="bar">
@@ -255,14 +256,27 @@ $("change").onclick = function () {
   say(LIGHT ? "Light." : "Dark.", null, false);
 };
 setTimeout(function () { $("hint").style.opacity = 0; }, 9000);
+// YUI-324: with nothing focused, Space and the arrows still drive the canvas (inside the canvas frame it handles its own keys)
+document.addEventListener("keydown", function (e) {
+  if (e.target !== document.body || e.metaKey || e.ctrlKey || e.altKey || !ready) return;
+  if (e.key === " ") { e.preventDefault(); if (!e.repeat) { mark(null); line.classList.remove("on"); caps(true); setPaused(!paused); } }
+  else if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); setPaused(true); Y().seek(clock + (e.key === "ArrowLeft" ? -1 : 1) * (e.shiftKey ? 10 : 2)); }
+});
 window.__canvas = { total: TOTAL, chooseAt: CHOOSE_AT, yui: Y, film: FILM, loaded: false };
 // the picker: heart first (the default), then every ready-made film the site ships, as plain links (?film=<ask>, or <ask>-r2 for run 2)
 (function () {
   var nav = $("films"), keep = Q.get("theme") ? "&theme=" + Q.get("theme") : "";
-  function chip(id, text, title) { var a = document.createElement("a"); a.href = id === "heart" ? "canvas.html" + (keep ? "?" + keep.slice(1) : "") : "canvas.html?film=" + id + keep; a.textContent = text; a.title = title || text; if (id === FILM || (FILM.replace(/-r\d+$/, "") === id && id !== "heart" && !/-r\d+$/.test(FILM))) a.className = "on"; if (id === "heart" && HEART) a.className = "on"; nav.append(a); return a; }
-  chip("heart", "Heart", "The hand-built heart");
+  function chip(id, text, title) { var a = document.createElement("a"); a.href = id === "heart" ? "canvas.html" + (keep ? "?" + keep.slice(1) : "") : "canvas.html?film=" + id + keep; a.textContent = text; a.title = title || text; a.setAttribute("role", "tab"); a.setAttribute("aria-selected", "false"); a.tabIndex = -1; if (id === FILM || (FILM.replace(/-r\d+$/, "") === id && id !== "heart" && !/-r\d+$/.test(FILM))) a.className = "on"; if (id === "heart" && HEART) a.className = "on"; nav.append(a); return a; }
+  function tabs() { var all = [].slice.call(nav.children), on = nav.querySelector(".on") || all[0]; all.forEach(function (a) { a.setAttribute("aria-selected", a === on ? "true" : "false"); a.tabIndex = a === on ? 0 : -1; }); }
+  nav.addEventListener("keydown", function (e) {
+    var all = [].slice.call(nav.children), i = all.indexOf(document.activeElement), j = -1; if (i < 0) return;
+    if (e.key === "ArrowRight") j = (i + 1) % all.length; else if (e.key === "ArrowLeft") j = (i + all.length - 1) % all.length; else if (e.key === "Home") j = 0; else if (e.key === "End") j = all.length - 1; else return;
+    e.preventDefault(); all.forEach(function (a) { a.tabIndex = a === all[j] ? 0 : -1; }); all[j].focus(); all[j].scrollIntoView && all[j].scrollIntoView({ inline: "center", block: "nearest" });
+  });
+  chip("heart", "Heart", "The hand-built heart"); tabs();
   fetch("canvas/films.json").then(function (r) { return r.json(); }).then(function (list) {
     list.forEach(function (f) { f.runs.forEach(function (r) { var id = f.id + "-r" + r; var a = chip(id, f.id.charAt(0).toUpperCase() + f.id.slice(1) + " " + r, f.ask); if (r === 1 && FILM === f.id) a.className = "on"; }); });
+    tabs();
     var on = nav.querySelector(".on"); if (on && on.scrollIntoView) on.scrollIntoView({ inline: "center", block: "nearest" });
   }).catch(function () {});
 })();

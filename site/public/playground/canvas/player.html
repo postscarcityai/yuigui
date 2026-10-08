@@ -3,8 +3,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'; style-src 'unsafe-inline'; img-src data:">
 <title>Yui motion player</title>
-<style>html,body{margin:0;height:100%;background:#0b0813;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}canvas{display:block;width:100%;height:100%;touch-action:none}</style>
-<canvas id="cv"></canvas>
+<style>html,body{margin:0;height:100%;background:#0b0813;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}canvas{display:block;width:100%;height:100%;touch-action:none}#parts{position:absolute;left:0;top:0;width:1px;height:1px;margin:0;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;list-style:none}#parts button{font:inherit}#cv:focus-visible{outline:none}</style>
+<canvas id="cv" tabindex="0" role="img" aria-label="The living canvas, an animated picture. Tab walks its parts. Enter taps a part, Shift Enter or a long Enter asks about it. Space plays or pauses. Left and Right arrows scrub."></canvas>
+<ul id="parts" aria-label="Parts of the picture"></ul>
 <script>
 /* Yui motion kit v1 (MOTION-1). Loaded by the player; a scene is `function (t, c, api)` and draws only
    with these helpers (plus plain canvas calls on c). Everything is stateless: a frame is a pure function
@@ -945,7 +946,7 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
       drawScene(i - 1, scenes[i - 1].dur, sc, snapApi, false);
       c.save(); c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1 - k; c.drawImage(snap, 0, 0); c.restore();
     }
-    drawMark();
+    drawMark(); syncParts(); drawFocus();
     return true;
   }
   function wait(now) {
@@ -1061,12 +1062,70 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
   }
   cv.addEventListener("pointerup", function (e) { lift(e, false); });
   cv.addEventListener("pointercancel", function (e) { lift(e, true); });
+
+  // YUI-324: the canvas works without a finger. A hidden list of real buttons mirrors the touchable parts, in film order, each named
+  // (its label). Tab walks them, Enter = tap, Shift-Enter or a long Enter = hold, Space = play/pause, Left/Right = scrub, and a focus
+  // ring is drawn on the canvas. Every key sends the same event the touch sends, so the host and the app need no new handler.
+  // aria labels here become accessibilityLabel in the native port.
+  var partsEl = document.getElementById("parts"), partSig = "", focusId = null, enter = null, keyDone = 0, kScrub = null;
+  function partName(h) { return h.label || String(h.id).replace(/^(part|mark):/, "").replace(/^(shape|heart4):/, "").replace(/[:~_-]+/g, " ").trim() || "part"; }
+  function hitById(id) { for (var i = 0; i < hits.length; i++) if (hits[i].id === id) return hits[i]; return null; }
+  function syncParts() {
+    var sig = hits.map(function (h) { return h.id + "|" + partName(h); }).join("\n");
+    if (sig === partSig) return; partSig = sig;
+    var keep = focusId && document.activeElement && document.activeElement.parentNode && document.activeElement.parentNode.parentNode === partsEl;
+    partsEl.textContent = "";
+    hits.forEach(function (h, i) {
+      var li = document.createElement("li"), b = document.createElement("button");
+      b.type = "button"; b.setAttribute("aria-label", partName(h)); b.dataset.id = h.id; b.dataset.i = i;
+      b.addEventListener("focus", function () { focusId = h.id; dirty = true; });
+      b.addEventListener("blur", function () { setTimeout(function () { var a = document.activeElement; if (!a || !a.dataset || a.dataset.id !== focusId) { focusId = null; dirty = true; } }, 0); });
+      b.addEventListener("click", function () { if (!keyDone || Date.now() - keyDone > 400) { var q = hitById(h.id) || h; send("tap", { id: q.id, label: q.label }); } });
+      li.append(b); partsEl.append(li);
+    });
+    if (keep) { var again = partsEl.querySelector('button[data-id="' + String(focusId).replace(/"/g, '\\"') + '"]'); if (again) again.focus(); else { focusId = null; cv.focus(); } }
+  }
+  function drawFocus() {
+    if (!focusId) return; var h = hitById(focusId); if (!h) return;
+    c.save(); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.setLineDash([]); c.lineJoin = "round";
+    var w = h.auto ? h.w + 16 : h.r * 2 + 12, ht = h.auto ? h.h + 16 : h.r * 2 + 12, x = h.x - w / 2, y = h.y - ht / 2, ink = (theme && theme.ink) || INK, ring = (theme && theme.a2) || "#5fd3e0";
+    [[7, ink], [3, ring]].forEach(function (s2) { c.lineWidth = s2[0]; c.strokeStyle = s2[1]; c.beginPath(); if (c.roundRect) c.roundRect(x, y, w, ht, Math.min(18, w / 2, ht / 2)); else c.rect(x, y, w, ht); c.stroke(); });
+    c.restore();
+  }
+  function keyScrub(dt) {
+    if (!kScrub) send("scrub", { phase: "begin", t: +clock.toFixed(2) });
+    clearTimeout(kScrub);
+    clock = Math.max(0, Math.min(total, clock + dt)); doneSent = false; stalled = false; dirty = true; lastTime = -1;
+    send("scrub", { phase: "move", t: +clock.toFixed(2) });
+    kScrub = setTimeout(function () { kScrub = null; send("scrub", { phase: "end", t: +clock.toFixed(2) }); }, 350);
+  }
+  function enterDown(e, h) {
+    if (e.repeat) return;
+    var id = h ? h.id : "moment", label = h ? h.label : null, x = h ? Math.round(h.x) : 0, y = h ? Math.round(h.y) : 0;
+    var hold = function () { enter.held = true; send("hold", { id: id, label: label, x: x, y: y }); };
+    enter = { held: false, id: id, label: label, timer: null };
+    if (e.shiftKey) hold(); else enter.timer = setTimeout(hold, 520);
+  }
+  function enterUp() {
+    if (!enter) return; var en = enter; enter = null; clearTimeout(en.timer); keyDone = Date.now();
+    if (!en.held) send("tap", en.id === "moment" ? {} : { id: en.id, label: en.label });
+  }
+  function onKey(e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target, onPart = t && t.dataset && t.dataset.id !== undefined && t.parentNode.parentNode === partsEl, k = e.key;
+    if (k === "Enter" && (onPart || t === cv)) { e.preventDefault(); enterDown(e, onPart ? hitById(t.dataset.id) || { id: t.dataset.id, label: t.getAttribute("aria-label"), x: 0, y: 0 } : null); }
+    else if (k === " " || k === "Spacebar") { e.preventDefault(); if (!e.repeat) send("tap", {}); }
+    else if (k === "ArrowLeft" || k === "ArrowRight") { e.preventDefault(); keyScrub((k === "ArrowLeft" ? -1 : 1) * (e.shiftKey ? 10 : 2)); }
+  }
+  document.addEventListener("keydown", onKey);
+  document.addEventListener("keyup", function (e) { if (e.key === "Enter") { if (enter) e.preventDefault(); enterUp(); } else if (e.key === " " || e.key === "Spacebar") e.preventDefault(); });
+  cv.addEventListener("focus", function () { dirty = true; });
   // headless hook: scrub and sample without a clock
   window.__motion = {
     add: add, loadThree: loadThree, threeLoaded: function () { return !!threeLib; }, end: function () { ended = true; }, theme: Y.theme,
     renderAt: function (t) { clock = t; paused = true; return renderAt(t); }, total: function () { return total; },
     scenes: function () { return scenes.map(function (s) { return { name: s.name, dur: s.dur, start: s.start }; }); },
-    cues: function () { return api.cues; }, hits: function () { return hits.map(function (h) { return { id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h }; }); }, hitAt: hitAt, errors: function () { return Object.keys(errored); }
+    cues: function () { return api.cues; }, hits: function () { return hits.map(function (h) { return { id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h }; }); }, hitAt: hitAt, clock: function () { return clock; }, paused: function () { return paused; }, focusId: function () { return focusId; }, errors: function () { return Object.keys(errored); }
   };
   requestAnimationFrame(loop);
   send("ready");
