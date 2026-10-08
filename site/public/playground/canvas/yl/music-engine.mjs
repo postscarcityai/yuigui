@@ -1,10 +1,11 @@
+// Copy of site/lib/yl/ (YUI-325). Edit the original, then run node site/scripts/sync-canvas-yl.mjs.
 // The sound engine for the music presets (spec/MUSIC.md). Every sound is a
 // small Web Audio graph made on the spot: oscillators, one shared noise
 // buffer, filters and gain envelopes. No sample files. The recipes are ports
 // of brag-output/work/synth.py. Theory (notes, scales, chords) lives in
 // lib/music/theory.mjs.
-import { midiToHz, soundFor } from "../../../lib/music/theory.mjs";
-import { MAX_TAKE_SECONDS, takeFormat, takeNotes } from "../../../lib/music/take.mjs";
+import { midiToHz, soundFor } from "./theory.mjs";
+import { MAX_TAKE_SECONDS, takeFormat, takeNotes } from "./take.mjs";
 
 let ctx = null;
 const per = new WeakMap(); // per context: out, noise buffer, shaper curves

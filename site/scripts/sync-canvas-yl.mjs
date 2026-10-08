@@ -7,6 +7,10 @@ const FILES = ["yl.mjs", "look.mjs", "tables.mjs", "shapes.mjs", "map.mjs", "wor
 const from = new URL("../lib/yl/", import.meta.url), to = new URL("../public/playground/canvas/yl/", import.meta.url);
 const HEAD = "// Copy of site/lib/yl/ (YUI-325). Edit the original, then run node site/scripts/sync-canvas-yl.mjs.\n";
 const check = process.argv.includes("--check");
+// YUI-339: the canvas plays music with the playground's own sound engine and theory (no new sample files). The engine is a Next module
+// (app/playground/music/engine.js), so its two imports are pointed at the copies beside it.
+const MUSIC = [["../lib/music/theory.mjs", "theory.mjs", (t) => t], ["../lib/music/take.mjs", "take.mjs", (t) => t],
+  ["../app/playground/music/engine.js", "music-engine.mjs", (t) => t.replaceAll("../../../lib/music/", "./")]];
 fs.mkdirSync(to, { recursive: true });
 let drift = 0;
 for (const f of FILES) {
@@ -16,6 +20,13 @@ for (const f of FILES) {
   drift++;
   if (check) console.error("drift: " + f);
   else fs.writeFileSync(new URL(f, to), want);
+}
+for (const [src, name, fix] of MUSIC) {
+  const want = HEAD + fix(fs.readFileSync(new URL(src, import.meta.url), "utf8"));
+  const have = fs.existsSync(new URL(name, to)) ? fs.readFileSync(new URL(name, to), "utf8") : null;
+  if (have === want) continue;
+  drift++;
+  if (check) console.error("drift: " + name); else fs.writeFileSync(new URL(name, to), want);
 }
 if (check && drift) process.exit(1);
 // YUI-337: the TeX parser the canvas loads for math and calc is the KaTeX build the site already depends on, copied as is (a vendored file, no header)

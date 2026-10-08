@@ -1,6 +1,8 @@
 // YUI-335: the canvas stays smooth on a phone. A frame budget and a test that holds it.
 // Headless Chrome at 390x844, played start to end: the heart film, ?yl=bars, ?yl=steps and a mixed answer, then the YUI-334
 // hold, drag, Back sequence. YUI-338: the image, gallery and compare samples are played too, and a divider drag on ?yl=compare is measured (drag, then Back). YUI-337: the math and calc samples (?yl=math, ?yl=calc) are played too, and a slider drag on ?yl=calc is measured (drag the knob, then Back). YUI-336: the map samples (?yl=map, ?yl=route and a map in a mixed answer, ?yl=mix-map) are played too, and the sequence runs on the map. Frame times are requestAnimationFrame deltas on the page.
+// YUI-339: the loop, keys and chords samples are played too; then the loop plays (the playhead sweeps on the canvas clock) while real taps flip eight cells
+// (each a rebuilt film and one history step), then Back twice; and the chords are strummed (the strings shake on the clock).
 // Budget at 1x CPU: p95 under 20 ms, no frame over 50 ms. At 4x CPU throttle (CDP Emulation.setCPUThrottlingRate): p95 under 33 ms (the worst frame is printed, not gated: a throttled laptop drops a stray frame to a GC).
 // Needs Chrome and playwright. Without them it says so and exits 0 (a skip, never a pass): PERF_STRICT=1 makes that a failure.
 // node test-perf.mjs                 both budgets, a table per sample
@@ -25,7 +27,7 @@ if (!chromium) skip("playwright not installed; set PW_FROM=<a package.json besid
 const BUDGET = { 1: { p95: 20, max: 50 }, 4: { p95: 33, max: null } };
 const RATES = (process.env.RATES || "1,4").split(",").map(Number);
 const MIXED = process.env.MIXED || "mix-first";
-const SAMPLES = process.env.ONLY_SEQ ? [] : [["heart", "canvas.html"], ["bars", "canvas.html?yl=bars"], ["steps", "canvas.html?yl=steps"], ["mixed", `canvas.html?yl=${MIXED}`], ["map", "canvas.html?yl=map"], ["route", "canvas.html?yl=route"], ["mixed map", "canvas.html?yl=mix-map"], ["math", "canvas.html?yl=math"], ["calc", "canvas.html?yl=calc"], ["image", "canvas.html?yl=image"], ["gallery", "canvas.html?yl=gallery"], ["compare", "canvas.html?yl=compare"]];   // YUI-336: the map samples are played too; YUI-337: so are math and calc
+const SAMPLES = process.env.ONLY_SEQ ? [] : [["heart", "canvas.html"], ["bars", "canvas.html?yl=bars"], ["steps", "canvas.html?yl=steps"], ["mixed", `canvas.html?yl=${MIXED}`], ["map", "canvas.html?yl=map"], ["route", "canvas.html?yl=route"], ["mixed map", "canvas.html?yl=mix-map"], ["math", "canvas.html?yl=math"], ["calc", "canvas.html?yl=calc"], ["image", "canvas.html?yl=image"], ["gallery", "canvas.html?yl=gallery"], ["compare", "canvas.html?yl=compare"], ["loop", "canvas.html?yl=loop"], ["keys", "canvas.html?yl=keys"], ["chords", "canvas.html?yl=chords"]];   // YUI-339: the music samples; YUI-336: the map samples are played too; YUI-337: so are math and calc
 const SEQ = [["bars", "bars", "chart:n1:s0:1", "chart:n1:s0:3", "chart:n1:s0:0"], ["steps", "steps", "list:n1:2", "list:n1:3", "list:n1:1", false], ["map", "map", "map:n1:pin:karakorum", "map:n1:pin:karakorum", "map:n1:area:raided"]]; // hold, drag, Back runs on these: [label, yl id, hold part, drag part, drop on part, the hold has a canned redraw]
 
 const mime = { ".html": "text/html", ".mjs": "text/javascript", ".js": "text/javascript", ".json": "application/json", ".css": "text/css", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".png": "image/png", ".webp": "image/webp" };
@@ -163,11 +165,57 @@ async function divider(rate) {
   return { name: "compare divider+Back", rate, f, errs, longs, note: steps === 2 ? "" : note || "sequence incomplete" };
 }
 
+// YUI-339: a loop plays and its cells are flipped with real taps. Play starts the playhead (a frame per 16 ms on the canvas clock, the column lights and
+// the hit under it swells), eight taps flip eight cells (each rebuilds the film from the new text and is one step), then Back twice. The run fails when the
+// playhead never moves, a tap is not one step, or Back does not step back.
+async function beat(rate) {
+  const { ctx, p, errs } = await open(rate, "canvas.html?yl=loop");
+  const fr = p.frames().find((x) => x.url().includes("player.html"));
+  await p.waitForFunction(() => window.__canvas.hist, null, { timeout: 15000 });
+  await p.waitForTimeout(6500 * Math.min(rate, 2));   // let the grid draw in and the hits pop
+  const to = 20000 * rate, idle = async () => { await p.waitForFunction(() => !ylBusy, null, { timeout: to }); await p.waitForTimeout(150); };
+  const box = await p.evaluate(() => { const r = document.querySelector("iframe").getBoundingClientRect(); return { x: r.left, y: r.top }; });
+  const hit = async (id) => (await fr.evaluate(() => window.__motion.hits())).find((h) => h.id === id);
+  const m = p.mouse; let note = "";
+  const click = async (id) => { const h = await hit(id); await m.click(box.x + h.x, box.y + h.y); };
+  await start(p); await phase(p, "play");
+  await click("loop.play");
+  const heads = new Set();
+  for (let i = 0; i < 25; i++) { heads.add(await p.evaluate(() => window.__canvas.yl.state().head)); await p.waitForTimeout(100); }   // the playhead sweeps for 2.5 s
+  if (heads.size < 3) note = "the playhead did not move " + [...heads];
+  await phase(p, "toggle");
+  const cells = ["loop.1.2", "loop.2.2", "loop.3.1", "loop.4.1", "loop.2.6", "loop.3.5", "loop.1.8", "loop.2.8"];
+  for (let i = 0; i < cells.length; i++) { await click(cells[i]); await p.waitForFunction((k) => window.__canvas.hist.at === k, i + 1, { timeout: to }).catch(() => { note = note || "a tap made no step"; }); await p.waitForTimeout(250); }
+  await phase(p, "back");
+  for (let k = 2; k > 0; k--) { await p.keyboard.press("Control+z"); await p.waitForFunction((n) => window.__canvas.hist.at === n, cells.length - 3 + k, { timeout: to }).catch(() => { note = note || "Back did not step back"; }); await idle().catch(() => {}); }
+  const st = await p.evaluate(() => window.__canvas.yl.state());
+  if (!st.playing) note = note || "the beat stopped while the cells were flipped";
+  await p.waitForTimeout(600);
+  const f = await stop(p), longs = await slow(p); await ctx.close();
+  return { name: "loop play+8 taps+Back", rate, f, errs, longs, note };
+}
+// YUI-339: the chords are strummed one after another with real taps; the strings shake on the clock for a second after each.
+async function strums(rate) {
+  const { ctx, p, errs } = await open(rate, "canvas.html?yl=chords");
+  const fr = p.frames().find((x) => x.url().includes("player.html"));
+  await p.waitForFunction(() => window.__canvas.yl, null, { timeout: 15000 });
+  await p.waitForTimeout(5000 * Math.min(rate, 2));
+  const box = await p.evaluate(() => { const r = document.querySelector("iframe").getBoundingClientRect(); return { x: r.left, y: r.top }; });
+  const m = p.mouse; let note = "";
+  await start(p); await phase(p, "strum");
+  for (let r2 = 0; r2 < 2; r2++) for (let i = 1; i <= 4; i++) { const h = (await fr.evaluate(() => window.__motion.hits())).find((q) => q.id === "chords." + i); await m.click(box.x + h.x, box.y + h.y); await p.waitForTimeout(350); }
+  await p.waitForTimeout(900);
+  const f = await stop(p), longs = await slow(p); await ctx.close();
+  return { name: "chords 8 strums", rate, f, errs, longs, note };
+}
+
 for (const rate of RATES) {
   for (const s of SAMPLES) results.push(await play(rate, s));
   for (const s of SEQ) results.push(await sequence(rate, s));
   results.push(await slider(rate));
   results.push(await divider(rate));
+  results.push(await beat(rate));
+  results.push(await strums(rate));
 }
 await browser.close(); srv.close();
 

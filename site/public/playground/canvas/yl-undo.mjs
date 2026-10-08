@@ -51,6 +51,7 @@ export function noun(id) {
   if (/^stat:/.test(s)) return "number";
   if (s === "compare.divider") return "divider";
   if (/^(image|gallery|compare)\./.test(s)) return "picture";
+  if (/^loop\./.test(s)) return "beat";
   if (/^calc\.(result|plot)$/.test(s)) return "result";
   if (/^calc\./.test(s)) return "slider";
   if (/^(term|step)\./.test(s)) return "formula";
@@ -58,6 +59,6 @@ export function noun(id) {
 }
 export function words(step, dir) {
   const w = noun(step.id || (step.marks && step.marks[0]));
-  const did = step.kind === "slide" ? "the " + w + " moved" : step.kind === "move" ? "the " + w + " moved" : step.kind === "say" ? "you spoke about the " + w : "the " + w + " was redrawn";
+  const did = step.kind === "slide" ? "the " + w + " moved" : step.kind === "move" ? "the " + w + " moved" : step.kind === "beat" ? "the beat changed" : step.kind === "say" ? "you spoke about the " + w : "the " + w + " was redrawn";
   return dir === "forward" ? "Forward to after " + did + "." : "Back to before " + did + ".";
 }

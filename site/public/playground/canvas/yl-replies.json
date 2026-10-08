@@ -288,5 +288,31 @@
         }
       ]
     }
+  },
+  "loop": {
+    "loop.row.1": {
+      "name": "kick",
+      "say": "Four on the floor. Kick on every beat.",
+      "patch": "~loop p=x.x.x.x.|....x...|..x...x.|xxxxxxxx"
+    },
+    "loop.row.4": {
+      "name": "hat",
+      "say": "Hat every other step. Room for the rest.",
+      "patch": "~loop p=x...x.x.|....x...|..x...x.|x.x.x.x."
+    }
+  },
+  "keys": {
+    "keys.B4": {
+      "name": "B4, locked",
+      "say": "B is in A minor. Opened it.",
+      "patch": "~keys scale=minor"
+    }
+  },
+  "chords": {
+    "chords.1": {
+      "name": "G",
+      "say": "Moved to D. Same four chords.",
+      "patch": "~chords key=D"
+    }
   }
 }

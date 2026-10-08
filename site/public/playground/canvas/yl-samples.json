@@ -10,8 +10,8 @@
   "yl": "shapes \"How an ask reaches your phone\" caption=\"You ask, it lands on the board, a lane builds it, and it ships.\"\nshape@you circle You +grow\nshape arrow\nshape box Board +fill\nshape arrow\nshape pill Lane +pulse\nshape arrow label=ships\nshape circle Phone tone=mint +grow"
  },
  {
-  "id": "loop",
-  "name": "Loop: ask, build, ship",
+  "id": "cycle",
+  "name": "Cycle: ask, build, ship",
   "yl": "shapes w=10 h=6 \"Round and round\" caption=\"Ask, build, ship. Then you ask again.\"\nshape@ask circle Ask at=5,1.3 size=1.8 +fill +grow\nshape@build circle Build at=8,4.6 size=1.8 +fill tone=mint +grow\nshape@ship circle Ship at=2,4.6 size=1.8 +fill tone=lavender +grow\nshape arc from=ask to=build\nshape arc from=build to=ship\nshape arc from=ship to=ask"
  },
  {
@@ -241,5 +241,20 @@
   "id": "compare",
   "name": "Compare: before and after, drag the divider",
   "yl": "compare /demo/before_room.jpg /demo/after_room.jpg \"Living room\" notes=\"Sage wall|Bigger plant|Jute rug\" hl=45,4,53,45|19,25,20,54|16,78,83,21"
+ },
+ {
+  "id": "loop",
+  "name": "Loop: a beat you can touch",
+  "yl": "loop 96 \"Boom bap\" rows=kick|snare|clap|hat p=x...x.x.|....x...|..x...x.|xxxxxxxx +play"
+ },
+ {
+  "id": "keys",
+  "name": "Keys: locked to a scale",
+  "yl": "keys Am pentatonic \"Warm up\""
+ },
+ {
+  "id": "chords",
+  "name": "Chords: four to strum",
+  "yl": "chords G I-V-vi-IV \"Four chords\""
  }
 ]

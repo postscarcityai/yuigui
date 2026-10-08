@@ -1159,5 +1159,106 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
     if (!c1 || (Math.abs(c1.x - c0.x) < 2 && Math.abs(c1.y - c0.y) < 2)) f.push("the ring did not change: " + (await line(p)));
   });
 }
+// 7e. YUI-339: music on the canvas. A loop, a keyboard and chord buttons draw on the canvas clock and every cell, key and chord is a mark. Sound starts
+// after a tap. A tap on a cell flips the hit and the beat redraws in place (one undo step); the playhead sweeps on the canvas clock; keys outside the
+// scale are drawn locked and send nothing; a tap on a chord or a key is a mark event; a hold redraws a part (`~loop p=`, `~chords key=D`).
+{
+  const open = async (id, extra = "&replies=off") => {
+    const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+    p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
+    await p.goto(base + "?yl=" + id + "&theme=dark" + extra);
+    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 });
+    p.fr = p.frames().find((f) => f.url().includes("player.html")); p.total = await p.evaluate(() => window.__canvas.total);
+    await p.waitForTimeout(p.total * 1000 + 500); return p;   // the real clock: a tap seeks to the page's clock, so let it reach the end
+  };
+  const hits = (p) => p.fr.evaluate(() => window.__motion.hits().map((h) => ({ id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h })));
+  const line = (p) => p.evaluate(() => document.getElementById("line").innerText);
+  const press = (p, h, ms, pid = 70) => p.fr.evaluate(async ([x, y, ms, pid]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, ms)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [h.x, h.y, ms, pid]);
+  const tapId = async (p, id, pid) => { const h = (await hits(p)).find((x) => x.id === id); if (!h) throw new Error("no mark " + id); await press(p, h, 60, pid); await p.waitForTimeout(250); };
+  const st = (p) => p.evaluate(() => window.__canvas.yl.state());
+  const check14 = async (name, id, extra, fn) => {
+    const f = []; let p;
+    try { p = await open(id, extra); await fn(p, f); if (p.errs.length) f.push("page errors " + p.errs.join(";")); } catch (e) { f.push("threw " + String(e).slice(0, 200)); }
+    if (f.length) bad++; out.push((f.length ? "BAD" : "ok ") + " music " + id + " " + name + (f.length ? " " + f.join(" | ") : "")); if (p) await p.close();
+  };
+  await check14("the grid strokes in (rows, then cells, then hits), every cell, row name and Play is a named mark in reading order", "loop", "&replies=off", async (p, f) => {
+    const hs = await hits(p), ids = hs.map((h) => h.id);
+    if (ids[0] !== "loop.play" || ids[1] !== "loop.row.1" || ids[2] !== "loop.1.1" || ids.length !== 1 + 4 + 32) f.push("marks " + ids.length + " " + ids.slice(0, 4));
+    if (hs.some((h) => !h.label || !h.label.trim())) f.push("a mark has no name");
+    if (!hs.find((h) => h.id === "loop.1.1").label.endsWith(", on") || !hs.find((h) => h.id === "loop.1.2").label.endsWith(", off")) f.push("a cell's name lacks its state");
+    const early = await p.fr.evaluate(() => { window.__motion.renderAt(0.3); return window.__motion.hits().length; }), mid = await p.fr.evaluate(() => { window.__motion.renderAt(1.2); return window.__motion.hits().length; });
+    if (early > 1 || mid < 4 || mid >= 37) f.push("marks do not come in with the drawing: hits@0.3=" + early + " hits@1.2=" + mid);
+  });
+  await check14("Play starts the playhead on the canvas clock, a tap on a cell flips the hit in place and is one Back step, the loop keeps playing", "loop", "&replies=off", async (p, f) => {
+    if ((await st(p)).playing) f.push("it played before any tap");
+    await tapId(p, "loop.play", 71); const heads = new Set();
+    for (let i = 0; i < 12; i++) { const s = await st(p); if (!s.playing) f.push("not playing after Play"); heads.add(s.head); await p.waitForTimeout(120); }
+    if (heads.size < 3 || [...heads].some((h) => h < -1 || h > 7)) f.push("the playhead does not sweep: " + [...heads]);
+    const g0 = (await st(p)).grid[0].join(""), s0 = await p.fr.evaluate(() => { const c = document.getElementById("cv"); return c.toDataURL().slice(-300); });
+    await tapId(p, "loop.1.2", 72);
+    const s1 = await st(p), l = await line(p), hist = await p.evaluate(() => window.__canvas.hist);
+    if (s1.grid[0].join("") === g0 || s1.grid[0][1] !== 1) f.push("the hit did not flip: " + g0 + " -> " + s1.grid[0].join(""));
+    if (!s1.playing) f.push("the beat stopped when a cell flipped");
+    if (!l.includes("[yui] loop canvas loop mark=loop.1.2 p=xx..x.x.|....x...|..x...x.|xxxxxxxx")) f.push("line " + JSON.stringify(l));
+    if (hist.at !== 1) f.push("not one step " + JSON.stringify(hist));
+    if (await p.fr.evaluate(() => window.__motion.paused())) f.push("a tap on a cell paused the canvas");
+    const hs = await hits(p); if (!hs.find((h) => h.id === "loop.1.2").label.endsWith(", on")) f.push("the cell's name still says off");
+    await tapId(p, "loop.1.2", 73);
+    if ((await st(p)).grid[0].join("") !== g0 || (await p.evaluate(() => window.__canvas.hist.at)) !== 2) f.push("a second tap did not flip it back");
+    await p.keyboard.press("Control+z"); await p.waitForFunction(() => window.__canvas.hist.at === 1, null, { timeout: 8000 }); await p.waitForFunction(() => !ylBusy, null, { timeout: 10000 });
+    if ((await st(p)).grid[0][1] !== 1) f.push("Back did not step the second tap back");
+    void s0;
+  });
+  await check14("a loop with +play waits for a tap: the first touch on any mark starts it, and a tap on a row name plays that sound and sends nothing", "loop", "&replies=off", async (p, f) => {
+    if ((await st(p)).playing) f.push("it played before any tap");
+    await tapId(p, "loop.row.2", 74);
+    if (!(await st(p)).playing) f.push("the first touch did not start the +play loop");
+    if ((await line(p)).includes("[yui]")) f.push("a row name sent a line: " + (await line(p)));
+    await tapId(p, "loop.play", 75);
+    if ((await st(p)).playing) f.push("Play did not stop the loop");
+    await tapId(p, "loop.play", 76);
+    if (!(await st(p)).playing) f.push("Play did not start it again");
+  });
+  await check14("a hold on a row redraws it (canned reply) and keeps the beat playing; the cells keep their names", "loop", "", async (p, f) => {
+    await tapId(p, "loop.play", 77);
+    const row = (await hits(p)).find((h) => h.id === "loop.row.1"); await press(p, row, 650, 78); await p.waitForTimeout(3400);
+    const s = await st(p), hist = await p.evaluate(() => window.__canvas.hist);
+    if (s.grid[0].join("") !== "10101010" || hist.at !== 1) f.push("hold reply did not land: " + s.grid[0].join("") + " " + JSON.stringify(hist));
+    if (!s.playing) f.push("the redraw stopped the beat");
+  });
+  await check14("keys: a keyboard in its key, out-of-scale keys drawn locked (named, send nothing), a tap plays and is a mark event, no pause", "keys", "&replies=off", async (p, f) => {
+    const hs = await hits(p), locked = hs.filter((h) => /, locked$/.test(h.label));
+    if (hs.length !== 17 || locked.length !== 9) f.push("keys " + hs.length + " locked " + locked.length);
+    await tapId(p, "keys.C4", 80);
+    if (!(await line(p)).includes("[yui] keys canvas play mark=keys.C4")) f.push("play line " + JSON.stringify(await line(p)));
+    if (await p.fr.evaluate(() => window.__motion.paused())) f.push("a key paused the canvas");
+    await tapId(p, "keys.C#4", 81);
+    const l = await line(p); if (l.includes("[yui]") || !/locked/.test(l)) f.push("a locked key sent a line or did not say so: " + JSON.stringify(l));
+    const before = await p.fr.evaluate(() => document.getElementById("cv").toDataURL().length);
+    if (!before) f.push("blank canvas");
+    // Tab reaches every key, in pitch order
+    await p.fr.evaluate(() => document.getElementById("cv").focus());
+    const want = hs.map((h) => h.id), walked = [];
+    for (let i = 0; i < want.length; i++) { await p.keyboard.press("Tab"); walked.push(await p.fr.evaluate(() => document.activeElement.dataset.id)); }
+    if (JSON.stringify(walked) !== JSON.stringify(want)) f.push("tab order " + walked);
+    // Enter on a focused key plays it
+    await p.fr.evaluate(() => document.querySelector('#parts button[data-id="keys.E4"]').focus()); await p.keyboard.press("Enter"); await p.waitForTimeout(300);
+    if (!(await line(p)).includes("mark=keys.E4")) f.push("Enter on a key " + JSON.stringify(await line(p)));
+  });
+  await check14("chords: big buttons, a tap strums and is a mark event, a hold redraws the chords in the new key (~chords key=D) and Back undoes it", "chords", "", async (p, f) => {
+    const hs = await hits(p); if (hs.length !== 4 || hs.map((h) => h.label).join() !== "G,D,Em,C") f.push("chords " + JSON.stringify(hs.map((h) => h.label)));
+    await tapId(p, "chords.2", 82);
+    if (!(await line(p)).includes("[yui] chords canvas play mark=chords.2")) f.push("play line " + JSON.stringify(await line(p)));
+    const c1 = (await hits(p)).find((h) => h.id === "chords.1"); await press(p, c1, 650, 83); await p.waitForTimeout(3400);
+    const names = (await hits(p)).map((h) => h.label).join(), hist = await p.evaluate(() => window.__canvas.hist);
+    if (names !== "D,A,Bm,G" || hist.at !== 1) f.push("the key change did not land: " + names + " " + JSON.stringify(hist));
+    await p.keyboard.press("Control+z"); await p.waitForFunction(() => window.__canvas.hist.at === 0, null, { timeout: 8000 }); await p.waitForFunction(() => !ylBusy, null, { timeout: 10000 }); await p.waitForTimeout(300);
+    if ((await hits(p)).map((h) => h.label).join() !== "G,D,Em,C") f.push("Back did not return the chords in G");
+  });
+  await check14("sound starts only after a gesture: nothing is scheduled or running on load, in all three samples", "keys", "&replies=off", async (p, f) => {
+    const run = await p.evaluate(() => window.yuiMusic ? { ctx: window.yuiMusic.running(), active: window.yuiMusic.active().length } : null);
+    if (run && (run.ctx || run.active)) f.push("audio running before a tap: " + JSON.stringify(run));
+  });
+}
 console.log(out.join("\n")); console.log("bad", bad, "of", out.length);
 await b.close(); process.exit(bad ? 1 : 0);

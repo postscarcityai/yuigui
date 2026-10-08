@@ -230,6 +230,57 @@ for (const yid of ["image", "gallery", "compare"]) {
   out.push(`${fails.length ? "BAD" : "ok "} yl=${yid} marks=${r.ids.length} walked=${seen.length} tap+hold by key ${fails.join(" | ")}`);
   await p.close();
 }
+// YUI-339: the loop, keys and chords samples of the yl canvas. Every cell, row name, key and chord is one named, focusable button (a cell's name carries its
+// state, a locked key says so), Tab walks them in reading order, Enter does what a tap does (flips a cell and sends the loop line, plays a key or a chord and
+// sends the play line, a locked key sends nothing), Shift-Enter does what a hold does, and focus stays on the cell after it flips.
+for (const yid of ["loop", "keys", "chords"]) {
+  const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+  const errs = [], fails = []; p.on("pageerror", e => errs.push(String(e)));
+  await p.addInitScript(() => { window.__log = []; window.addEventListener("message", e => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
+  await p.goto("http://localhost:" + (process.env.PORT || 8923) + "/playground/canvas.html?yl=" + yid + "&theme=dark&replies=off");
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 }).catch(() => fails.push("not loaded"));
+  const fr = p.frames().find(f => f.url().includes("player.html"));
+  const total = await p.evaluate(() => window.__canvas.total);
+  await p.waitForTimeout(total * 1000 + 500);
+  const r = await fr.evaluate(() => { const h = window.__motion.hits(), bs = [...document.querySelectorAll("#parts button")]; return { ids: h.map(x => x.id), btn: bs.map(x => x.dataset.id), names: bs.map(x => x.getAttribute("aria-label")), ok: bs.map(x => x.tabIndex >= -1 && !x.disabled) }; });
+  const want = { loop: 37, keys: 17, chords: 4 }[yid];
+  checks += r.ids.length; parts += r.ids.length; filmsWithParts++;
+  if (r.ids.length !== want) fails.push("marks " + r.ids.length + " != " + want);
+  if (JSON.stringify(r.ids) !== JSON.stringify(r.btn)) fails.push("list!=hits");
+  if (r.names.some(n => !n || !n.trim())) fails.push("unnamed " + JSON.stringify(r.names));
+  if (r.ok.some(x => !x)) fails.push("unfocusable");
+  if (yid === "loop" && (!r.names.includes("kick, step 1, on") || !r.names.includes("kick, step 2, off"))) fails.push("a cell's name lacks its state");
+  if (yid === "keys" && !r.names.includes("C#4, locked")) fails.push("a locked key is not named locked");
+  await fr.evaluate(() => document.getElementById("cv").focus());
+  const seen = [];
+  for (let i = 0; i < r.ids.length; i++) { await p.keyboard.press("Tab"); seen.push(await fr.evaluate(() => document.activeElement.dataset.id)); }
+  if (JSON.stringify(seen) !== JSON.stringify(r.ids)) fails.push("tab order " + seen.slice(0, 6) + " != " + r.ids.slice(0, 6));
+  const sent = () => p.evaluate(() => window.__log.filter(m => m.motion === "tap" || m.motion === "hold").map(m => ({ motion: m.motion, id: m.id, label: m.label })));
+  const focusIt = async (id) => { await fr.evaluate(id => document.querySelector('#parts button[data-id="' + id + '"]').focus(), id); };
+  const key = async (fn) => { await p.evaluate(() => (window.__log = [])); await fn(); await p.waitForTimeout(700); return sent(); };
+  const lineNow = () => p.evaluate(() => document.getElementById("line").innerText);
+  const id0 = { loop: "loop.1.2", keys: "keys.C4", chords: "chords.1" }[yid];
+  await focusIt(id0); const kT = await key(() => p.keyboard.press("Enter"));
+  if (kT.length !== 1 || kT[0].id !== id0 || kT[0].motion !== "tap") fails.push("Enter " + JSON.stringify(kT));
+  const ln = await lineNow();
+  const wantLine = { loop: "[yui] loop canvas loop mark=loop.1.2 p=xx..x.x.|", keys: "[yui] keys canvas play mark=keys.C4", chords: "[yui] chords canvas play mark=chords.1" }[yid];
+  if (!ln.includes(wantLine)) fails.push("Enter line " + JSON.stringify(ln));
+  if (yid === "loop") {
+    const at = await fr.evaluate(() => document.activeElement && document.activeElement.dataset.id), name = await fr.evaluate(() => document.querySelector('#parts button[data-id="loop.1.2"]').getAttribute("aria-label"));
+    if (at !== "loop.1.2") fails.push("focus left the cell after it flipped: " + at);
+    if (name !== "kick, step 2, on") fails.push("the cell's name did not follow the flip: " + name);
+  }
+  if (yid === "keys") {
+    await focusIt("keys.C#4"); await p.keyboard.press("Enter"); await p.waitForTimeout(500);
+    const l2 = await lineNow(); if (l2.includes("[yui]") || !/locked/.test(l2)) fails.push("a locked key by Enter " + JSON.stringify(l2));
+  }
+  await focusIt(id0); const kH = await key(() => p.keyboard.press("Shift+Enter"));
+  if (kH.length !== 1 || kH[0].motion !== "hold" || kH[0].id !== id0) fails.push("Shift-Enter " + JSON.stringify(kH));
+  if (errs.length) fails.push(errs.join(";"));
+  if (fails.length) bad++;
+  out.push(`${fails.length ? "BAD" : "ok "} yl=${yid} marks=${r.ids.length} walked=${seen.length} tap+hold by key ${fails.join(" | ")}`);
+  await p.close();
+}
 console.log(out.join("\n"));
 console.log(`bad ${bad} of ${ids.length} films; films_with_parts ${filmsWithParts}; max-parts parts checked ${parts}; per-frame part checks ${checks}`);
 await b.close(); process.exit(bad ? 1 : 0);

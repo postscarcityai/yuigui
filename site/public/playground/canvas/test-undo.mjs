@@ -112,6 +112,22 @@ is("a new change drops redo", [h.steps.length, U.canForward(h)], [2, false]);
 for (const [n, re] of [["a named Back mark", /id="back" hidden aria-label="Back"/], ["Cmd/Ctrl+Z", /e\.metaKey \|\| e\.ctrlKey/], ["Shift for redo", /e\.shiftKey \? "forward" : "back"/], ["two-finger tap", /e\.touches\.length === 2/], ["a live region for the plain words", /id="sr" class="sr" role="status"/]])
   re.test(page) ? ok(`canvas.html has ${n}`) : no(`canvas.html lost ${n}`);
 
+// 8. YUI-339: a loop cell is a step. The tap builds the line and the new text; the film built from that text has the hit flipped; Back is the film before.
+{
+  const LT = samples.find((x) => x.id === "loop").yl;
+  C.setMeta({ ask: "loop", terms: {} });
+  const f0 = C.build(LT).film, tap = C.touch(f0, "loop.1.2"), f1 = C.build(tap.text).film;
+  const h = U.create(f0, LT); U.push(h, { kind: "beat", id: "loop.1.2", marks: ["loop.1.2"], film: f1, text: tap.text });
+  is("a loop cell is a beat, one step", [U.noun("loop.1.2"), h.steps.length, tap.kind], ["beat", 1, "beat"]);
+  is("the film built from the tap has the hit on", [f0.cfg.grid[0][1], f1.cfg.grid[0][1], f1.cfg.grid[0].slice(0, 8).map(Number).join("")], [false, true, "11001010"]);
+  const bk = U.back(h);
+  is("Back returns the film before the tap", [bk.state.film === f0, bk.state.text, U.words(bk.step, "back"), U.undoLine("loop", bk.n, bk.step.marks)], [true, LT, "Back to before the beat changed.", "[yui] loop canvas undo step=1 marks=loop.1.2"]);
+  is("Redo returns the beat after the tap", [U.forward(h).state.film === f1, U.words(h.steps[0], "forward")], [true, "Forward to after the beat changed."]);
+  is("the old film is not changed by the tap", f0.cfg.grid[0][1], false);
+  is("a tap on a row name changes nothing", [C.touch(f0, "loop.row.1").text, C.touch(f0, "loop.row.1").line], [undefined, null]);
+  is("a tap on a key sends the play line and changes no text", [C.touch(C.build(samples.find((x) => x.id === "keys").yl).film, "keys.C4").text], [undefined]);
+}
+
 if (process.env.BROWSER) {
   const { createRequire } = await import("module");
   const require = createRequire(process.env.PW_FROM || "/Users/urzas/dev/ablejobs/package.json");
@@ -174,6 +190,26 @@ if (process.env.BROWSER) {
   await p.waitForFunction(() => !ylBusy, null, { timeout: 10000 }); await p.waitForTimeout(300);
   is("Back puts the slider back", await p.evaluate(() => window.__canvas.yl.values().r), res0);
   is("Back puts the result and the slider names back", await names(), named0);
+  // YUI-339: a tap on a loop cell is one step, the beat redraws in place, Back and Redo step it
+  await p.goto("http://localhost:" + (process.env.PORT || 8923) + "/playground/canvas.html?yl=loop&theme=dark&replies=off");
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.hist, null, { timeout: 15000 });
+  const fr3 = p.frames().find((x) => x.url().includes("player.html"));
+  await p.waitForTimeout(6200);
+  const grid = () => p.evaluate(() => window.__canvas.yl.state().grid.map((g) => g.join("")).join("|"));
+  const g0 = await grid();
+  const cell = (await fr3.evaluate(() => window.__motion.hits())).find((x) => x.id === "loop.1.2");
+  await fr3.evaluate(async ([x, y]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: 31, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, 60)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [cell.x, cell.y]);
+  await p.waitForTimeout(300);
+  const g1 = await grid(), l1 = await txt();
+  is("a tap on a cell flips the hit in place (one step, the canvas keeps playing)", [g1 !== g0, g1.startsWith("11001010"), (await state()).at, await fr3.evaluate(() => window.__motion.paused())], [true, true, 1, false]);
+  is("the tap sends the loop line", l1.includes("[yui] loop canvas loop mark=loop.1.2 p=xx..x.x.|"), true);
+  await p.keyboard.press("Control+z"); await p.waitForFunction(() => window.__canvas.hist.at === 0, null, { timeout: 8000 });
+  await idle();
+  is("Back puts the beat back", await grid(), g0);
+  is("the agent line for the beat", (await state()).last.line, "[yui] loop canvas undo step=1 marks=loop.1.2");
+  await p.keyboard.press("Control+Shift+z"); await p.waitForFunction(() => window.__canvas.hist.at === 1, null, { timeout: 8000 });
+  await idle();
+  is("Redo puts the tap back", await grid(), g1);
   is("no page errors", errs, []);
   await b.close();
 }

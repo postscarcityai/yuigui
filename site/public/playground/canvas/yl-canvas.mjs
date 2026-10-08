@@ -10,6 +10,7 @@ import { inputsFilm } from "./yl-inputs.mjs";
 import { mixFilm } from "./yl-mix.mjs";
 import { mapFilm } from "./yl-map.mjs";
 import { mediaFilm, prepare as prepareMedia, setMeta as setMediaMeta } from "./yl-media.mjs";
+import { musicFilm, isMusic, setMeta as musicSetMeta, adopt as musicAdopt, bump as musicBump, freeze as musicFreeze, pause as musicPause, playing as musicPlaying } from "./yl-music.mjs";
 import { sciFilm, loadTex, setMeta as mathSetMeta, isSci } from "./yl-math.mjs";
 import { scene, frame, blobPoints, ringPoints, control, bracketPoints, smooth, STEP } from "./yl/shapes.mjs";
 
@@ -26,7 +27,7 @@ const HOLD = 1.4; // seconds the finished picture holds before the film ends
 // The first drawing in an answer (shapes or sketch, or the chart and stat lines of YUI-326), the `say` lines before it, and the choose under it.
 export function read(text) {
   const r = parse(text), ops = Array.isArray(r) ? r : r.ops || [];
-  const out = { says: [], draw: null, figs: [], blocks: [], sci: [], media: null, inputs: [], choose: null, errors: ops.filter((o) => o.op === "error").map((o) => o.message) };
+  const out = { says: [], draw: null, figs: [], blocks: [], sci: [], media: null, music: null, inputs: [], choose: null, errors: ops.filter((o) => o.op === "error").map((o) => o.message) };
   for (const o of ops) {
     if (o.op !== "add") continue;
     if (o.preset === "say" && !out.draw && !out.figs.length && !out.blocks.length && !out.media) out.says.push(String(o.props.text || o.props.body || ""));
@@ -35,11 +36,12 @@ export function read(text) {
     else if ((o.preset === "shapes" || o.preset === "sketch" || o.preset === "map") && !out.draw) out.draw = { kind: o.preset, id: o.id, head: o.props, items: [] };
     else if (MAPPART.includes(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length) out.draw = { kind: "map", id: "map", head: {}, items: [o] };   // a bare area / pin / route is a map of just that part
     else if (MEDIAPRE.includes(o.preset) && !o.in && !out.media && !out.draw && !out.figs.length && !out.blocks.length && !out.sci.length) out.media = o;   // YUI-338: an image, a gallery or a compare
+    else if (isMusic(o.preset) && !o.in && !out.music && !out.draw && !out.figs.length && !out.blocks.length && !out.sci.length && !out.media) out.music = o;   // YUI-339: a loop, keys or chords
     else if (isSci(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length) out.sci.push(o);   // YUI-337: math, step and calc lines
     else if (["choose", "pick", "ask", "slide", "form"].includes(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length && !out.sci.length && !out.media) out.inputs.push(o);
     else if (out.draw && o.in === out.draw.id && (o.preset === "shape" || o.preset === "row" || o.preset === "after" || MAPPART.includes(o.preset))) out.draw.items.push(o);
     else if (out.draw && out.draw.id === "map" && !o.in && MAPPART.includes(o.preset)) out.draw.items.push(o);
-    else if (o.preset === "choose" && (out.draw || out.figs.length || out.blocks.length || out.sci.length || out.media) && !out.choose) out.choose = { id: AUTO_ID.test(o.id) ? "choose" : o.id, q: String(o.props.q || ""), options: (o.props.options || []).map(String) };
+    else if (o.preset === "choose" && (out.draw || out.figs.length || out.blocks.length || out.sci.length || out.media || out.music) && !out.choose) out.choose = { id: AUTO_ID.test(o.id) ? "choose" : o.id, q: String(o.props.q || ""), options: (o.props.options || []).map(String) };
   }
   return out;
 }
@@ -389,6 +391,13 @@ export function build(text) {
     if (mf.choose) mf.choose.options.forEach((o) => mf.marks.push({ id: "mark:text:" + slug(o), label: o, words: "Tap to choose " + o + ".", choice: o, appear: mf.total - 3 }));
     return { film: mf, scenes: [{ name: "yl", dur: mf.total, code: "return window.__yl && window.__yl.draw(t, api);" }] };
   }
+  if (!r.draw && r.music) {
+    const mu = musicFilm(r.music, r, { chooseBlock, HOLD, text });
+    if (!mu) return { error: "nothing to draw" };
+    mu.read = r;
+    if (mu.choose) mu.choose.options.forEach((o) => mu.marks.push({ id: "mark:text:" + slug(o), label: o, words: "Tap to choose " + o + ".", choice: o, appear: mu.total - 3 }));
+    return { film: mu, scenes: [{ name: "yl", dur: mu.total, code: "return window.__yl && window.__yl.draw(t, api);" }] };
+  }
   if (!r.draw && r.blocks.length) {
     const lf = listFilm(r.blocks, r, { chooseBlock, HOLD });
     if (!lf) return { error: "nothing to draw" };
@@ -431,7 +440,14 @@ export function isChoice(film, label) { return !!(film.choose && film.choose.opt
 // YUI-337: math and calc need the TeX parser (KaTeX, a vendored file loaded the first time a formula plays). The page awaits this before it builds.
 export const prepare = (text) => Promise.all([/^\s*(math|step|calc)\b/m.test(String(text)) ? loadTex() : null, prepareMedia(text)]);   // YUI-337: TeX; YUI-338: the pictures
 // The page sets the word in the event lines and the canned meaning of each term once per sample: { ask, terms }.
-export const setMeta = (m) => { mathSetMeta(m); setMediaMeta(m); };
+export const setMeta = (m) => { mathSetMeta(m); setMediaMeta(m); musicSetMeta(m); };
+// YUI-339: music. The page hands over the film now on screen (the loop plays what is drawn), pops the cell just flipped, holds the playhead still
+// while two films are diffed, and stops or restarts the loop with the canvas pause.
+export const adopt = (film) => musicAdopt(film);
+export const bump = (film, id) => musicBump(film, id);
+export const freeze = (on) => musicFreeze(on);
+export const pauseMusic = (film, on) => musicPause(film, on);
+export const playing = () => musicPlaying();
 // A slider is dragged or nudged: the film changes in place; the text with the sliders where they are now, for the history.
 export function retext(film, text) { return film.retext ? film.retext(text) : text; }
 export function busy(film) { return !!(film && film.busy && film.busy()); }

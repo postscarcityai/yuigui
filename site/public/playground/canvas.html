@@ -170,7 +170,7 @@ function loadYL(cb) {
     r[0].setMeta({ ask: FILM_ASK, terms: smp.terms || {} });   // YUI-337: the word in the drag line, the canned meaning of each term
     var b = r[0].build(smp.yl); if (b.error) throw new Error(b.error);
     YLP = r[2]; YLMV = r[4]; YLS = r[5]; YLU = r[6]; $("mic").hidden = false; frame.contentWindow.__sayable = true; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film; HIST = YLU.create(b.film, smp.yl); $("back").hidden = false; backSync();
-    $("hint").innerHTML = "drag to scrub &middot; tap a part &middot; hold to ask &middot; drag a part to move it"; YLM = r[0]; YLF = b.film; frame.contentWindow.__yl = YLF; frame.contentWindow.__movable = function (id) {
+    $("hint").innerHTML = "drag to scrub &middot; tap a part &middot; hold to ask &middot; drag a part to move it"; YLM = r[0]; YLF = b.film; YLM.adopt(YLF); frame.contentWindow.__yl = YLF; frame.contentWindow.__movable = function (id) {
       if (ylBusy || !YLMV.describe(YLF, YLCUR, id)) return false;
       var hit = frame.contentWindow.__motion.hits().filter(function (x) { return x.id === id; })[0];
       return YLMV.liftBox(YLF, YLCUR, id, hit) || true;
@@ -227,6 +227,16 @@ function setPaused(b) {
   $("pp").setAttribute("aria-label", b ? "Play" : "Pause");
   $("pp").innerHTML = b ? '<svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>';
 }
+// YUI-339: the person's own pause (a tap on nothing, the pause button, Space) stops a loop with the canvas and starts it again where they let go. A hold, a
+// scrub or Back also pauses the canvas but never the beat: a loop keeps playing while one part is redrawn. While a loop plays the page keeps drawing frames,
+// so the playhead sweeps even when the canvas clock is paused.
+function userPause(b) { setPaused(b); if (YL && YLM && YLF && YLM.pauseMusic) YLM.pauseMusic(YLF, b); }
+var musicAlways = false;
+setInterval(function () {
+  if (!YL || !YLM) return;
+  var w = ylWin(), on = !!(YLM.playing && YLM.playing()) && !ylBusy;
+  if (on && w) { w.__always = true; musicAlways = true; } else if (!on && musicAlways && !ylBusy) { musicAlways = false; if (w) w.__always = false; }
+}, 100);
 function fmt(t) { var s = Math.floor(t); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
 function label(id, given) { return given || (id.indexOf("part:heart4:") === 0 ? id.slice(12).replace(/_/g, " ") : ""); }
 function cueAt(t) { var best = null; cues.forEach(function (c) { if (t >= c.from - 0.05 && t <= c.to) best = c; }); return best; }
@@ -272,7 +282,8 @@ function ylDiff(old, nf, t, done) {
     var img = ctx.getImageData(0, 0, cv.width, cv.height), sl = f.slots && f.slots.map(function (s) { return { y: s.y, h: s.h }; });
     F.__yl = ylScaled(old); Y().mark(m0); M.renderAt(t); return { img: img, slots: sl };
   };
-  requestAnimationFrame(function () { A = grab(old); requestAnimationFrame(function () { B = grab(nf); requestAnimationFrame(function () { done(YLP.diffBox(A.img, B.img, dpr), YLP.bandOf(A.slots, B.slots, W)); }); }); });
+  YLM.freeze(true);   // YUI-339: a loop's playhead holds still while the two films are drawn, so it is never part of the difference
+  requestAnimationFrame(function () { A = grab(old); requestAnimationFrame(function () { B = grab(nf); requestAnimationFrame(function () { YLM.freeze(false); done(YLP.diffBox(A.img, B.img, dpr), YLP.bandOf(A.slots, B.slots, W)); }); }); });
 }
 // YUI-337: the history holds films, and a slider changes one in place. The first move of a gesture swaps in a fresh copy built from the
 // text now drawn, so the film in the history stays as it was; the end of the gesture records the copy and the text with the sliders where they are.
@@ -280,7 +291,18 @@ function ylFork() {
   var b = YLM.build(YLCUR); if (!b || b.error) return;
   var nf = b.film, old = YLF;
   if (nf.chosen === null && old.chosen) nf.chosen = old.chosen;
-  YLF = nf; window.__canvas.yl = nf; ylShow(ylScaled(nf), false);
+  YLF = nf; window.__canvas.yl = nf; YLM.adopt(nf); ylShow(ylScaled(nf), false);
+}
+// YUI-339: a tap on a loop cell flips the hit. The beat redraws in place: the film is rebuilt from the new text on the same clock, the loop keeps
+// playing (the clock plays what is drawn), the cell pops, and the change is one step for Back.
+function ylBeat(ip) {
+  var b = ylBusy ? null : YLM.build(ip.text);
+  if (!b || b.error) { Y().seek(clock); say(ip.say, ip.line, false); return; }
+  var nf = b.film;
+  YLF = nf; YLCUR = ip.text; YLN++; window.__canvas.yl = nf; $("resetyl").hidden = false;
+  YLM.adopt(nf); YLM.bump(nf, ip.id);
+  record("push", { kind: "beat", id: ip.id, marks: [ip.id], film: nf, text: ip.text });
+  ylShow(ylScaled(nf), false); say(ip.say, ip.line, false);
 }
 function ylSlid(r) {
   YLCUR = YLM.retext(YLF, YLCUR); YLN++; $("resetyl").hidden = false;
@@ -300,7 +322,7 @@ function ylHold(id, ask, given, merge, kind) {
   if (nf.chosen === null && old.chosen) nf.chosen = old.chosen;
   if (old.checked && nf.checked) old.checked.forEach(function (c) { nf.checked.add(c); });
   var land = function () {
-    YLF = nf; YLCUR = nt; YLN++; window.__canvas.yl = nf; $("resetyl").hidden = false;
+    YLF = nf; YLCUR = nt; YLN++; window.__canvas.yl = nf; YLM.adopt(nf); $("resetyl").hidden = false;
     record(merge ? "merge" : "push", { kind: kind || "hold", id: id, marks: [id], film: nf, text: nt });
     ylShow(ylScaled(nf), false); ylBusy = false;
     if (rep.mark !== undefined) mark(rep.mark || null);
@@ -440,7 +462,7 @@ function ylStep(dir) {
   var old = YLF, nf = r.state.film, t = clock, words = YLU.words(r.step, dir), l1 = (dir === "forward" ? YLU.redoLine : YLU.undoLine)(FILM_ASK, r.n, r.step.marks);
   ylBusy = true; setPaused(true); speechSynthesis && speechSynthesis.cancel(); resetSpoken(); backSync();
   var land = function () {
-    YLF = nf; YLCUR = r.state.text; YLN = HIST.at; window.__canvas.yl = nf; $("resetyl").hidden = !HIST.at; ylBusy = false;
+    YLF = nf; YLCUR = r.state.text; YLN = HIST.at; window.__canvas.yl = nf; YLM.adopt(nf); $("resetyl").hidden = !HIST.at; ylBusy = false;
     M.place({}); mark(null); ylShow(ylScaled(nf), false); backSync();
     say(words, l1, true); window.__canvas.lastStep = { dir: dir, line: l1, words: words };
     var live = $("sr"); live.textContent = ""; setTimeout(function () { live.textContent = words; }, 30);
@@ -478,7 +500,7 @@ function undoKey(e) {
 function ylReset() {
   if (ylBusy || !YLN) return;
   closeSay(false);
-  YLF = YLF0; YLCUR = YLSRC; YLN = 0; window.__canvas.yl = YLF0; $("resetyl").hidden = true; HIST = YLU.create(YLF0, YLSRC); backSync();
+  YLF = YLF0; YLCUR = YLSRC; YLN = 0; window.__canvas.yl = YLF0; YLM.adopt(YLF0); $("resetyl").hidden = true; HIST = YLU.create(YLF0, YLSRC); backSync();
   ylWin().__motion.place({}); mark(null); ylShow(YLF0, false); say("Back to the first drawing.", null, false);
 }
 
@@ -507,12 +529,12 @@ window.addEventListener("message", function (e) {
   if (m === "tap") {
     $("hint").style.opacity = 0;
     var id = e.data.id;
-    if (!id) { mark(null); line.classList.remove("on"); caps(true); setPaused(!paused); return; }
+    if (!id) { mark(null); line.classList.remove("on"); caps(true); userPause(!paused); return; }
     var nm = label(id, e.data.label); mark(id);
     if (YL) {
       // YUI-328: a tap on a pill, a pick, Send, a form field or an end label is the answer, drawn and sent in place; the canvas keeps playing
       var ip = YLM.touch(YLF, id);
-      if (ip) { mark(null); if (ip.edit) { openEdit(ip.edit); return; } Y().seek(clock); say(ip.say, ip.line, false); return; }
+      if (ip) { mark(null); if (ip.edit) { openEdit(ip.edit); return; } if (ip.text) { ylBeat(ip); return; } Y().seek(clock); say(ip.say, ip.line, false); return; }
       // YUI-325: a tap on a choice drawn into the picture is the answer (the picture keeps playing); any other mark pauses, rings and names itself
       if (YLM.isChoice(YLF, nm)) { YLF.chosen = nm; Y().mark(id); say(nm, "[yui] " + YLF.choose.id + " choose choice=" + nm, false); return; }
       // YUI-327: a +check row ticks in place and sends the check line; the picture stays paused with the row ringed
@@ -563,8 +585,9 @@ window.addEventListener("message", function (e) {
 });
 
 $("pp").onclick = function () {
-  if (clock >= TOTAL - 0.05 && paused === false) { Y().replay(); resetSpoken(); return; }
-  setPaused(!paused);
+  var beat = YL && YLF && YLF.music && (YLM.playing() || paused);   // YUI-339: with a loop going, the button pauses the beat instead of replaying the drawing
+  if (!beat && clock >= TOTAL - 0.05 && paused === false) { Y().replay(); resetSpoken(); return; }
+  userPause(!paused);
 };
 $("mute").onclick = function () {
   muted = !muted; if (muted && window.speechSynthesis) speechSynthesis.cancel();
@@ -580,7 +603,7 @@ setTimeout(function () { $("hint").style.opacity = 0; }, 9000);
 // YUI-324: with nothing focused, Space and the arrows still drive the canvas (inside the canvas frame it handles its own keys)
 document.addEventListener("keydown", function (e) {
   if (e.target !== document.body || e.metaKey || e.ctrlKey || e.altKey || !ready) return;
-  if (e.key === " ") { e.preventDefault(); if (!e.repeat) { mark(null); line.classList.remove("on"); caps(true); setPaused(!paused); } }
+  if (e.key === " ") { e.preventDefault(); if (!e.repeat) { mark(null); line.classList.remove("on"); caps(true); userPause(!paused); } }
   else if (e.key === "ArrowLeft" || e.key === "ArrowRight") { e.preventDefault(); setPaused(true); Y().seek(clock + (e.key === "ArrowLeft" ? -1 : 1) * (e.shiftKey ? 10 : 2)); }
 });
 window.__canvas = { total: TOTAL, chooseAt: CHOOSE_AT, yui: Y, film: FILM, loaded: false };

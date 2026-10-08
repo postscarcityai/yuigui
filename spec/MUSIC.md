@@ -143,6 +143,10 @@ Stop, after at least 10 seconds of playing, sends the practice: `{"id":"n1","pre
 
 Any prop, on any of the six, while it plays: `~loop bpm=110`, `~loop p=...`, `~drums pads=kick|snare|pop|sweep`, `~keys scale=blues`, `~chords key=G`, `~tuner tuning=dropd`, `~metronome bpm=80`. A patch never stops the music: the engine keeps its clock and the change lands on the next step. As with every preset, a patch from a later reply aims at the preset name (`~loop`), or at an `@id` on a page (spec/YL.md, section 5).
 
+### On the living canvas (YUI-339, web prototype)
+
+The canvas (`/playground/canvas.html`, spec/MOTION.md section 0b) draws `loop`, `keys` and `chords` as an instrument on its own clock, and every part is a mark. `?yl=loop`, `?yl=keys` and `?yl=chords` play it. The loop strokes in its kit-word names and rows, the hits pop in, and a playhead sweeps the columns while it plays. A tap on a cell flips the hit and the beat redraws in place without stopping (one step for Back). `keys` draws the keyboard with the keys outside the scale locked. `chords` draws one big button per chord; a tap strums it, and `~chords key=D` redraws every button in the new key. It plays through the same Web Audio engine as the playground (no sample files), and nothing sounds before the first tap. The events it sends are listed in MOTION.md.
+
 ### How the work comes back
 
 What the person made comes back as an event in the same words the agent writes. To keep it, the agent patches it in and saves the screen:
