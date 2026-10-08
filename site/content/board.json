@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T10:55:18.819Z",
+  "updated": "2026-10-08T11:00:21.568Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-267",
-          "title": "Thought on YUI-335, the canvas stays smooth"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -293,6 +289,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "SITE-267",
+          "title": "Thought on YUI-335, the canvas stays smooth",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
