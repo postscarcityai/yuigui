@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T08:06:01.991Z",
+  "updated": "2026-10-08T08:36:07.437Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-265",
+          "title": "Thought on YUI-333, the canvas rules written down"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -290,15 +294,14 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-321",
-          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
-          "blocked": "chris",
+          "key": "YUI-333",
+          "title": "Write the living canvas events into the spec, with a test so spec and code match",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-333",
-          "title": "Write the living canvas events into the spec, with a test so spec and code match",
-          "blocked": "other",
+          "key": "YUI-321",
+          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
