@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T00:20:49.533Z",
+  "updated": "2026-10-08T00:35:59.613Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -289,6 +289,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-324",
+          "title": "The living canvas works by keyboard and screen reader, every part named",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-255",
+          "title": "Thought on YUI-323, every film is touchable",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
