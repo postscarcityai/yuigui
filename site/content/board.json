@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T16:36:11.942Z",
+  "updated": "2026-10-08T18:05:25.107Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -294,14 +294,15 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-339",
-          "title": "The canvas draws music, every beat cell, key and chord a touchable mark",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-339",
+          "title": "The canvas draws music, every beat cell, key and chord a touchable mark",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
