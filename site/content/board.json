@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T06:45:44.865Z",
+  "updated": "2026-10-08T06:55:46.954Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,13 +290,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-263",
-          "title": "Thought on YUI-331, drag a part and the agent answers where you put it",
-          "summary": "A Thought: drag a part and the agent answers",
-          "progress": "/progress#a-thought-drag-a-part-and-the-agent-answers",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
@@ -308,6 +301,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-263",
+          "title": "Thought on YUI-331, drag a part and the agent answers where you put it",
+          "summary": "A Thought: drag a part and the agent answers",
+          "shipped": "2026-10-08",
+          "progress": "/progress#a-thought-drag-a-part-and-the-agent-answers",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/29939c50"
+        },
         {
           "key": "YUI-331",
           "title": "Drag a mark on the living canvas and the agent answers where you put it",
