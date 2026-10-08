@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T00:35:59.613Z",
+  "updated": "2026-10-08T00:45:53.741Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -295,11 +295,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-255",
-          "title": "Thought on YUI-323, every film is touchable",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
@@ -311,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-255",
+          "title": "Thought on YUI-323, every film is touchable",
+          "summary": "A Thought: every film is touchable",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-every-film-is-touchable",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/348a79e8"
+        },
         {
           "key": "SITE-254",
           "title": "Thought on YUI-322, a dry key never breaks an agent",
