@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T12:00:29.276Z",
+  "updated": "2026-10-08T12:05:35.585Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-269",
+          "title": "Thought on YUI-337, math you can touch"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -290,10 +294,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-268",
-          "title": "Thought on YUI-336, maps you can touch",
-          "summary": "A Thought: maps you can touch",
-          "progress": "/progress#a-thought-maps-you-can-touch",
+          "key": "YUI-337",
+          "title": "The canvas draws math and calc, every term and slider a touchable mark",
           "owner": "CJohnDesign"
         },
         {
@@ -308,6 +310,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-268",
+          "title": "Thought on YUI-336, maps you can touch",
+          "summary": "A Thought: maps you can touch",
+          "shipped": "2026-10-08",
+          "progress": "/progress#a-thought-maps-you-can-touch",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/43979851"
+        },
         {
           "key": "YUI-336",
           "title": "The canvas draws maps, every area, pin and route a touchable mark",
