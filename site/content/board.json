@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T00:45:53.741Z",
+  "updated": "2026-10-08T00:50:54.713Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "YUI-324",
           "title": "The living canvas works by keyboard and screen reader, every part named",
+          "summary": "The canvas works by keyboard and screen reader",
+          "progress": "/progress#the-canvas-works-by-keyboard-and-screen-reader",
           "owner": "CJohnDesign"
         },
         {
