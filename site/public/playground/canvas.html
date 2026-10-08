@@ -235,6 +235,9 @@ window.addEventListener("message", function (e) {
     if (YL) {
       // YUI-325: a tap on a choice drawn into the picture is the answer (the picture keeps playing); any other mark pauses, rings and names itself
       if (YLM.isChoice(YLF, nm)) { YLF.chosen = nm; Y().mark(id); say(nm, "[yui] " + YLF.choose.id + " choose choice=" + nm, false); return; }
+      // YUI-327: a +check row ticks in place and sends the check line; the picture stays paused with the row ringed
+      var tk = YLM.tick(YLF, id);
+      if (tk) { setPaused(true); Y().seek(clock); say(nm + (tk.on ? ": done" : ": not done"), "[yui] " + YLID + " yl check " + tk.row, false); speak(nm + (tk.on ? ", done" : ", not done")); return; }
       setPaused(true); var wy = YLM.wordsFor(YLF, nm);
       say(nm, wy !== nm ? wy : null, false); speak(wy); return;
     }

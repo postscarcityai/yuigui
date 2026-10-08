@@ -83,5 +83,40 @@
   "id": "pair",
   "name": "Stat and chart together, a choose drawn under them",
   "yl": "stat $1840 \"Grant left\" delta=-420 sub=\"this month\"\nchart line \"Spend by week\" x=W1|W2|W3|W4 y=310|480|220|420 unit=$\nchoose@plan \"What now?\" \"Slow down\"|\"Keep going\""
+ },
+ {
+  "id": "today",
+  "name": "Checklist: today's lifts",
+  "yl": "say Today is leg day.\nlist Today \"Squat 5x5\" \"Romanian deadlift 3x8\" \"Walking lunges 3x12\" \"Calf raises 4x15\" +check"
+ },
+ {
+  "id": "steps",
+  "name": "Numbered list: warm-up",
+  "yl": "list Warm-up \"Jumping jacks\"|\"Hip openers\"|\"Bodyweight squats\"|\"Easy jog\" +num"
+ },
+ {
+  "id": "macros",
+  "name": "Table: macros",
+  "yl": "table Macros Food|Cal|Protein \"Eggs|140|12\" \"Oats|300|10\" \"Greek yogurt|120|17\" \"Chicken|220|40\" units=|kcal|g"
+ },
+ {
+  "id": "week",
+  "name": "Timeline: Yui this week",
+  "yl": "timeline \"Yui this week\"\ndone \"Saved screens\" at=\"Mon\" tag=YUI-32\ndone \"Links open Safari\" at=\"Tue\" tag=YUI-67\nnow \"Lists on the canvas\" tag=YUI-327 sub=\"rows write in, checks tick\"\nnext \"Forms on the canvas\" tag=YUI-328\nnext \"Ship the build\""
+ },
+ {
+  "id": "card",
+  "name": "Card: leg day",
+  "yl": "card \"Leg day\" \"Squat, deadlift and lunges. About 50 minutes. Start light.\" sub=\"Thursday, 6:30 pm\" cta=\"Start workout\""
+ },
+ {
+  "id": "release",
+  "name": "Timeline + choose: what next",
+  "yl": "say Build is green.\ntimeline \"Release 0.9\"\ndone \"Code frozen\" at=\"Mon\"\ndone \"Tests pass\" at=\"Tue\"\nnow \"Build uploading\" sub=\"about 20 minutes\"\nnext \"Beta review\"\nchoose \"What now?\" \"Wait here\"|\"Ping me when done\""
+ },
+ {
+  "id": "dinner",
+  "name": "List + table + check: dinner",
+  "yl": "list Shop \"Eggs\" \"Spinach\" \"Greek yogurt\" +check\ntable Totals Item|Cal \"Eggs|140\" \"Spinach|20\" \"Yogurt|120\""
  }
 ]

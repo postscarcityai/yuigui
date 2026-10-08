@@ -151,6 +151,8 @@
     api.takeCaps = function () { var x = caps; caps = []; return x; };
     api.takeHits = function () { var x = hits; hits = []; return x; };
     api.hit = function (id, x, y, r, label) { hits.push({ id: String(id), x: x, y: y, r: r || 30, label: label ? String(label) : undefined }); };
+    // YUI-327: a row, a cell or a step is a wide box, not a circle: centre x,y and size w,h in screen pixels (the hit is tested and ringed as a box)
+    api.hitBox = function (id, x, y, w, h, label) { hits.push({ id: String(id), x: x, y: y, r: Math.max(w, h) / 2, w: w, h: h, label: label ? String(label) : undefined, auto: true }); };
     // YUI-323: a film that names no parts is still touchable. Each text and each shape the scene draws becomes a hit target
     // (id `mark:...`, label = its words or shape name), in screen pixels whatever the camera does. A film's own api.hit/api.thing win.
     api.autoHit = true;

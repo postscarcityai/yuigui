@@ -5,6 +5,7 @@
 // A film here is one scene of the player: the scene code is a one-liner that calls film.draw(t, api) in this module.
 import { parse, AUTO_ID } from "./yl/yl.mjs";
 import { chartFilm } from "./yl-charts.mjs";
+import { listFilm } from "./yl-lists.mjs";
 import { scene, frame, blobPoints, ringPoints, control, bracketPoints, smooth, STEP } from "./yl/shapes.mjs";
 
 const TONE = { accent: "accent", mint: "good", lavender: "a3", butter: "warn", ink: "fg", mute: "dim" };
@@ -18,14 +19,15 @@ const HOLD = 1.4; // seconds the finished picture holds before the film ends
 // The first drawing in an answer (shapes or sketch, or the chart and stat lines of YUI-326), the `say` lines before it, and the choose under it.
 export function read(text) {
   const r = parse(text), ops = Array.isArray(r) ? r : r.ops || [];
-  const out = { says: [], draw: null, figs: [], choose: null, errors: ops.filter((o) => o.op === "error").map((o) => o.message) };
+  const out = { says: [], draw: null, figs: [], blocks: [], choose: null, errors: ops.filter((o) => o.op === "error").map((o) => o.message) };
   for (const o of ops) {
     if (o.op !== "add") continue;
-    if (o.preset === "say" && !out.draw && !out.figs.length) out.says.push(String(o.props.text || o.props.body || ""));
+    if (o.preset === "say" && !out.draw && !out.figs.length && !out.blocks.length) out.says.push(String(o.props.text || o.props.body || ""));
     else if ((o.preset === "chart" || o.preset === "stat") && !out.draw) out.figs.push(o);
+    else if (["list", "table", "timeline", "done", "now", "next", "card"].includes(o.preset) && !out.draw && !out.figs.length) out.blocks.push(o);
     else if ((o.preset === "shapes" || o.preset === "sketch") && !out.draw) out.draw = { kind: o.preset, id: o.id, head: o.props, items: [] };
     else if (out.draw && o.in === out.draw.id && (o.preset === "shape" || o.preset === "row" || o.preset === "after")) out.draw.items.push(o);
-    else if (o.preset === "choose" && (out.draw || out.figs.length) && !out.choose) out.choose = { id: AUTO_ID.test(o.id) ? "choose" : o.id, q: String(o.props.q || ""), options: (o.props.options || []).map(String) };
+    else if (o.preset === "choose" && (out.draw || out.figs.length || out.blocks.length) && !out.choose) out.choose = { id: AUTO_ID.test(o.id) ? "choose" : o.id, q: String(o.props.q || ""), options: (o.props.options || []).map(String) };
   }
   return out;
 }
@@ -285,6 +287,13 @@ export function build(text) {
     if (cf.choose) cf.choose.options.forEach((o) => cf.marks.push({ id: "mark:text:" + slug(o), label: o, words: "Tap to choose " + o + ".", choice: o, appear: cf.total - 3 }));
     return { film: cf, scenes: [{ name: "yl", dur: cf.total, code: "return window.__yl && window.__yl.draw(t, api);" }] };
   }
+  if (!r.draw && r.blocks.length) {
+    const lf = listFilm(r.blocks, r, { chooseBlock, HOLD });
+    if (!lf) return { error: "nothing to draw" };
+    lf.read = r;
+    if (lf.choose) lf.choose.options.forEach((o) => lf.marks.push({ id: "mark:text:" + slug(o), label: o, words: "Tap to choose " + o + ".", choice: o, appear: lf.total - 3 }));
+    return { film: lf, scenes: [{ name: "yl", dur: lf.total, code: "return window.__yl && window.__yl.draw(t, api);" }] };
+  }
   if (!r.draw) return { error: r.errors[0] || "nothing to draw" };
   const film = r.draw.kind === "shapes" ? shapesFilm(r.draw, r) : sketchFilm(r.draw, r);
   film.read = r;
@@ -298,4 +307,6 @@ export function wordsFor(film, label) {
   const m = film.marks.find((x) => x.label === label || x.id === label);
   return m ? m.words : label;
 }
+// A tap on a +check row: ticks it, returns { row, on } (or null when the mark is not a checkbox). The page sends `[yui] <id> yl check <row>`.
+export function tick(film, id) { return film.tick ? film.tick(id) : null; }
 export function isChoice(film, label) { return !!(film.choose && film.choose.options.includes(label)); }
