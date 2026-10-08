@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T11:55:27.258Z",
+  "updated": "2026-10-08T12:00:29.276Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-268",
           "title": "Thought on YUI-336, maps you can touch",
+          "summary": "A Thought: maps you can touch",
+          "progress": "/progress#a-thought-maps-you-can-touch",
           "owner": "CJohnDesign"
         },
         {
