@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T00:10:49.543Z",
+  "updated": "2026-10-08T00:15:49.184Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,13 +290,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-323",
-          "title": "The living canvas plays any film, every part touchable",
-          "summary": "Touch any film on the canvas",
-          "progress": "/progress#touch-any-film-on-the-canvas",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-254",
           "title": "Thought on YUI-322, a dry key never breaks an agent",
           "owner": "CJohnDesign"
@@ -313,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-323",
+          "title": "The living canvas plays any film, every part touchable",
+          "summary": "Touch any film on the canvas",
+          "shipped": "2026-10-07",
+          "progress": "/progress#touch-any-film-on-the-canvas",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4e501416"
+        },
         {
           "key": "YUI-322",
           "title": "A dry house key never breaks a native agent, the person sees a kind screen",
