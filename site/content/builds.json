@@ -2354,6 +2354,10 @@
     {
       "text": "Native: a dry house key shows a kind resting screen, films fail quiet, one house-key-dry log an hour",
       "card": "YUI-322"
+    },
+    {
+      "text": "health_probe: position() instead of LIKE for the logs query, LIKE '%yui-native%' now returns Backend error",
+      "card": "YUI-211"
     }
   ]
 }
