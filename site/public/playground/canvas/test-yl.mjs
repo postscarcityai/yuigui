@@ -366,7 +366,7 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
   // the latest moment the mark is on the canvas (a sketch row leaves when the Proposed side comes in)
   const lastSeen = async (p, id) => { for (let t = p.total; t >= 0; t -= 0.1) { if ((await hitsAt(p, t)).some((x) => x.id === id)) return t; } return null; };
   const same = (a, b2) => Math.abs(a.x - b2.x) < 0.6 && Math.abs(a.y - b2.y) < 0.6 && Math.abs((a.w || 0) - (b2.w || 0)) < 0.6 && Math.abs((a.h || 0) - (b2.h || 0)) < 0.6;
-  for (const sid of sampleIds) for (const [mid, rep] of Object.entries(replies[sid])) {
+  for (const sid of sampleIds) for (const [mid, rep] of Object.entries(replies[sid]).filter(([k]) => !k.startsWith("move:"))) {   // YUI-331: move: replies are tested in section 10
     const f = [], p = await open(sid), tot = p.total;
     const marks0 = await p.evaluate(() => window.__canvas.yl.marks.map((m) => m.id + "|" + m.label).join("\n"));
     const ts = (await lastSeen(p, mid)) ?? tot, before = await hitsAt(p, ts), shot0 = await px(p, ts), zero0 = await px(p, 0), h = before.find((x) => x.id === mid);
@@ -458,5 +458,201 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
 }
 // 8. an unknown id falls back to the films tab instead of a blank canvas
 { const p = await b.newPage({ viewport: { width: 390, height: 844 } }); await p.goto(base + "?yl=nope"); await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 }).catch(() => {}); const ok = !(await p.url()).includes("yl="); if (!ok) { bad++; out.push("BAD unknown id kept ?yl="); } else out.push("ok  unknown id falls back"); await p.close(); }
+// 10. YUI-331: drag a mark and it moves, and the agent sees where you put it. A drag that starts ON a movable mark (list row, queue row, bar, placed
+// shape) moves it; a drag on empty canvas, or on a mark that cannot move, still scrubs. A drop sends `[yui] <id> yl move <mark> to=<place>`, a canned reply
+// (yl-replies.json "move:<mark>") redraws only what it names, scrub after a move is stable, Reset restores, Alt+Arrow moves a focused mark.
+{
+  const replies = JSON.parse(fs.readFileSync(new URL("./yl-replies.json", import.meta.url)));
+  const open = async (id, extra = "&replies=off") => {
+    const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+    p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
+    await p.addInitScript(() => { window.__log = []; window.addEventListener("message", (e) => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
+    await p.goto(base + "?yl=" + id + "&theme=dark" + extra);
+    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 });
+    p.fr = p.frames().find((f) => f.url().includes("player.html")); p.total = await p.evaluate(() => window.__canvas.total);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); await p.waitForTimeout(500); return p;
+  };
+  const hits = (p) => p.fr.evaluate(() => window.__motion.hits().map((h) => ({ id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h })));
+  const hitsAt = (p, t) => p.fr.evaluate((t) => { window.__motion.renderAt(t); return window.__motion.hits().map((h) => ({ id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h })); }, t);
+  const px = (p, t) => p.fr.evaluate((t) => { window.yui.mark(null); window.__noCaps = false; window.__motion.renderAt(t); return document.getElementById("cv").toDataURL(); }, t);
+  const near = (p, a, b2) => p.evaluate(async ([a, b2]) => {
+    const load = (u) => new Promise((r) => { const i = new Image(); i.onload = () => r(i); i.src = u; });
+    const [x, y] = await Promise.all([load(a), load(b2)]), cv = new OffscreenCanvas(x.width, x.height), c = cv.getContext("2d", { willReadFrequently: true });
+    c.drawImage(x, 0, 0); const A = c.getImageData(0, 0, x.width, x.height).data; c.clearRect(0, 0, x.width, x.height); c.drawImage(y, 0, 0); const B = c.getImageData(0, 0, x.width, x.height).data;
+    let n = 0; for (let i = 0; i < A.length; i += 4) if (Math.abs(A[i] - B[i]) > 100 || Math.abs(A[i + 1] - B[i + 1]) > 100 || Math.abs(A[i + 2] - B[i + 2]) > 100) n++;
+    return n === 0;
+  }, [a, b2]);
+  const line = (p) => p.evaluate(() => document.getElementById("line").innerText);
+  const clock = (p) => p.fr.evaluate(() => window.__motion.clock());
+  const labels = (p) => p.fr.evaluate(() => window.__motion.hits().map((h) => h.label));
+  // press on `from`, optionally hold still `pre` ms, move to `to` in steps, let go, wait `wait` ms
+  const drag = async (p, from, to, o = {}) => {
+    const { pid = 60, pre = 0, steps = 10, wait = 700 } = o;
+    await p.fr.evaluate(async ([x0, y0, x1, y1, pid, pre, steps]) => {
+      const cv = document.getElementById("cv"), ev = (x, y) => ({ clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" });
+      cv.dispatchEvent(new PointerEvent("pointerdown", ev(x0, y0))); if (pre) await new Promise((r) => setTimeout(r, pre));
+      for (let i = 1; i <= steps; i++) { await new Promise((r) => setTimeout(r, 25)); cv.dispatchEvent(new PointerEvent("pointermove", ev(x0 + (x1 - x0) * i / steps, y0 + (y1 - y0) * i / steps))); }
+      cv.dispatchEvent(new PointerEvent("pointerup", ev(x1, y1)));
+    }, [from.x, from.y, to.x, to.y, pid, pre, steps]);
+    await p.waitForTimeout(wait);
+  };
+  const byLabel = (hs, l) => hs.find((h) => h.label === l) || hs.find((h) => h.label.startsWith(l));
+  const check10 = async (name, id, extra, fn) => {
+    const f = []; let p;
+    try { p = await open(id, extra); await fn(p, f); if (p.errs.length) f.push("page errors " + p.errs.join(";")); } catch (e) { f.push("threw " + String(e).slice(0, 200)); }
+    if (f.length) bad++; out.push((f.length ? "BAD" : "ok ") + " move " + id + " " + name + (f.length ? " " + f.join(" | ") : "")); if (p) await p.close();
+  };
+  const dropSamples = Object.entries(replies).filter(([, r]) => Object.keys(r).some((k) => k.startsWith("move:"))).map(([k]) => k);
+  if (dropSamples.length < 3) { bad++; out.push("BAD drop replies: only " + dropSamples.length + " samples have move: replies"); } else out.push("ok  drop replies in " + dropSamples.join(","));
+
+  await check10("a drag on a list row moves it, sends the move line, does not scrub", "today", "&replies=off", async (p, f) => {
+    const hs = await hits(p), calf = byLabel(hs, "Calf raises"), squat = byLabel(hs, "Squat"), c0 = await clock(p), shot0 = await px(p, p.total);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total);
+    await drag(p, calf, { x: calf.x, y: squat.y - 12 });
+    const l = await labels(p), ln = await line(p);
+    if (JSON.stringify(l.filter((x) => x !== "Today")) !== JSON.stringify(["Calf raises 4x15", "Squat 5x5", "Romanian deadlift 3x8", "Walking lunges 3x12"])) f.push("order " + l);
+    if (!ln.includes("[yui] today yl move Calf raises 4x15 to=1")) f.push("move line " + JSON.stringify(ln));
+    if (!ln.includes("moved to 1 of 4")) f.push("place missing " + JSON.stringify(ln));
+    if ((await clock(p)) !== c0) f.push("the drag scrubbed " + c0 + " -> " + (await clock(p)));
+    if (await p.evaluate(() => document.getElementById("resetyl").hidden)) f.push("no Reset after a move");
+    if (/no answer in the demo/.test((await p.evaluate(() => window.__canvas.note)) || "")) f.push("a note showed for a drop with no reply");
+    await p.fr.evaluate(() => window.__motion.liftOff());
+    const sent = await p.evaluate(() => window.__log.filter((m) => m.motion === "move").map((m) => m.phase));
+    if (!(sent[0] === "begin" && sent.includes("move") && sent[sent.length - 1] === "end")) f.push("move events " + sent);
+    // scrub after the move: stable at t=0, mid and the end; the end is the moved drawing
+    const e1 = await px(p, p.total), e2 = await px(p, p.total), z1 = await px(p, 0), z2 = await px(p, 0), m1 = await px(p, p.total * 0.5), m2 = await px(p, p.total * 0.5);
+    if (e1 !== e2 || z1 !== z2 || m1 !== m2) f.push("scrub not stable after the move");
+    if (e1 === shot0) f.push("end frame did not change");
+    const tops = (await hitsAt(p, p.total)).filter((h) => /^list:/.test(h.id)).map((h) => h.label);
+    if (tops[0] !== "Calf raises 4x15") f.push("end hits order " + tops);
+    // Reset returns the original
+    await p.evaluate(() => document.getElementById("resetyl").click()); await p.waitForTimeout(300);
+    const r1 = await px(p, p.total), l2 = await labels(p);
+    if (!(await near(p, r1, shot0)) || l2.indexOf("Squat 5x5") > l2.indexOf("Calf raises 4x15")) f.push("Reset did not restore the original");
+    if (!(await p.evaluate(() => document.getElementById("resetyl").hidden))) f.push("Reset still showing");
+  });
+  await check10("a drag on empty canvas still scrubs, and no move line is sent", "today", "&replies=off", async (p, f) => {
+    await p.fr.evaluate(() => window.__motion.renderAt(0.2));
+    const c0 = await clock(p); await drag(p, { x: 60, y: 760 }, { x: 330, y: 760 }, { pid: 61, wait: 300 });
+    const c1 = await clock(p), ln = await line(p), moves = await p.evaluate(() => window.__log.filter((m) => m.motion === "move").length);
+    if (c1 <= c0 + 0.3) f.push("empty drag did not scrub " + c0 + " -> " + c1);
+    if (moves || /yl move/.test(ln)) f.push("a move was sent from empty canvas");
+  });
+  await check10("a wobble under 8px on a row is a tap (it ticks), not a move; a drag on a mark that cannot move scrubs", "today", "&replies=off", async (p, f) => {
+    const hs = await hits(p), sq = byLabel(hs, "Squat"), title = byLabel(hs, "Today");
+    await drag(p, sq, { x: sq.x + 3, y: sq.y + 4 }, { pid: 62, steps: 3, wait: 400 });
+    const ln = await line(p), l = await labels(p);
+    if (!ln.includes("[yui] today yl check Squat 5x5") || l.indexOf("Squat 5x5") !== 1) f.push("wobble was not a tap: " + JSON.stringify(ln));
+    const c0 = await clock(p); await drag(p, title, { x: title.x - 200, y: title.y }, { pid: 63, wait: 300 });
+    if ((await clock(p)) === c0 || /yl move/.test(await line(p))) f.push("the title moved instead of scrubbing");
+  });
+  await check10("a queue row moves among the queue rows only, the others stay, the move line says its place", "queue", "&replies=off", async (p, f) => {
+    const hs = await hits(p), ship = byLabel(hs, "Ship the build"), forms = byLabel(hs, "Forms on the canvas"), done = byLabel(hs, "Saved screens"), now = byLabel(hs, "Lists on the canvas");
+    await drag(p, ship, { x: ship.x, y: now.y - 20 }, { pid: 64 });   // dropped above the queue: it lands on the first queue place
+    const l = await labels(p), ln = await line(p);
+    if (JSON.stringify(l.filter((x) => x !== "This week")) !== JSON.stringify(["Saved screens", "Lists on the canvas", "Ship the build", "Forms on the canvas", "Charts on the canvas", "Write the note"])) f.push("order " + l);
+    if (!ln.includes("[yui] queue yl move Ship the build to=3")) f.push("move line " + JSON.stringify(ln));
+    const hs2 = await hits(p), d2 = byLabel(hs2, "Saved screens"), n2 = byLabel(hs2, "Lists on the canvas");
+    if (Math.abs(d2.y - done.y) > 0.6 || Math.abs(n2.y - now.y) > 0.6) f.push("the done or now row moved");
+    await drag(p, byLabel(hs2, "Saved screens"), { x: done.x, y: forms.y + 40 }, { pid: 65, wait: 300 });   // a done row is not movable: it scrubs
+    if (JSON.stringify((await labels(p)).slice(0, 3)) !== JSON.stringify(["This week", "Saved screens", "Lists on the canvas"])) f.push("a done row moved");
+  });
+  await check10("a bar moves with its goal bar, the labels follow", "bars", "&replies=off", async (p, f) => {
+    const hs = await hits(p), thu = byLabel(hs, "Protein Thu"), mon = byLabel(hs, "Protein Mon");
+    await drag(p, thu, { x: mon.x - 10, y: thu.y }, { pid: 66 });
+    const l = (await labels(p)).filter((x) => /Protein|Goal/.test(x) && !/vs goal/.test(x)), ln = await line(p);
+    if (JSON.stringify(l) !== JSON.stringify(["Protein Thu: 126 g", "Goal Thu: 130 g", "Protein Mon: 118 g", "Goal Mon: 130 g", "Protein Tue: 132 g", "Goal Tue: 130 g", "Protein Wed: 141 g", "Goal Wed: 130 g"])) f.push("order " + l);
+    if (!ln.includes("[yui] bars yl move Protein Thu: 126 g to=1")) f.push("move line " + JSON.stringify(ln));
+  });
+  await check10("a shape moves where it is dropped (a new at=), and only that shape moves", "parts", "&replies=off", async (p, f) => {
+    const hs = await hits(p), build = byLabel(hs, "Build"), plan = byLabel(hs, "Plan"), test = byLabel(hs, "Test");
+    await drag(p, build, { x: build.x + 40, y: build.y - 40 }, { pid: 67 });
+    const hs2 = await hits(p), b2 = byLabel(hs2, "Build"), ln = await line(p);
+    if (Math.abs(b2.x - (build.x + 40)) > 8 || Math.abs(b2.y - (build.y - 40)) > 8) f.push("Build landed at " + b2.x + "," + b2.y);
+    if (!/\[yui\] parts yl move Build to=\d+(\.\d)?,\d+(\.\d)?/.test(ln)) f.push("move line " + JSON.stringify(ln));
+    const p2 = byLabel(hs2, "Plan"), t2 = byLabel(hs2, "Test");
+    if (Math.abs(p2.x - plan.x) > 0.6 || Math.abs(p2.y - plan.y) > 0.6 || Math.abs(t2.x - test.x) > 0.6 || Math.abs(t2.y - test.y) > 0.6) f.push("another shape moved");
+    if (hs2.length !== hs.length) f.push("mark count " + hs.length + " -> " + hs2.length + " (no reply, so nothing should be added)");
+  });
+  // canned replies: each applies to the marks it names and no others
+  await check10("drag a list row to the top: the agent marks it Now", "steps", "", async (p, f) => {
+    const hs = await hits(p), jog = byLabel(hs, "Easy jog"), first = byLabel(hs, "Jumping jacks");
+    await drag(p, jog, { x: jog.x, y: first.y - 14 }, { pid: 68, wait: 4200 });
+    const l = (await labels(p)).filter((x) => x !== "Warm-up"), ln = await line(p);
+    if (JSON.stringify(l) !== JSON.stringify(["Now: Easy jog", "Jumping jacks", "Hip openers", "Bodyweight squats"])) f.push("rows " + l);
+    if (!ln.includes("Easy jog goes first. It is Now.") || !ln.includes("[yui] steps yl move Easy jog to=1")) f.push("line " + JSON.stringify(ln));
+  });
+  await check10("reorder a timeline queue: the agent re-dates the rows", "queue", "", async (p, f) => {
+    const hs = await hits(p), ship = byLabel(hs, "Ship the build"), now = byLabel(hs, "Lists on the canvas");
+    await drag(p, ship, { x: ship.x, y: now.y + 30 }, { pid: 69, wait: 4300 });
+    const src = await p.evaluate(() => window.__canvas.yl.blocks.find((b) => b.kind === "timeline").steps.map((s) => s.state + ":" + s.text + ":" + s.at).join("|"));
+    if (src !== "done:Saved screens:Mon|now:Lists on the canvas:|next:Ship the build:Thu|next:Forms on the canvas:Fri|next:Charts on the canvas:Mon|next:Write the note:Tue") f.push("rows " + src);
+    if (!(await line(p)).includes("Ship the build goes first. I moved the dates.")) f.push("line " + JSON.stringify(await line(p)));
+  });
+  await check10("a drop that is not the one the reply names keeps its spot with no answer", "queue", "", async (p, f) => {
+    const hs = await hits(p), ship = byLabel(hs, "Ship the build"), charts = byLabel(hs, "Charts on the canvas");
+    await drag(p, ship, { x: ship.x, y: charts.y - 16 }, { pid: 70, wait: 1200 });
+    const src = await p.evaluate(() => window.__canvas.yl.blocks.find((b) => b.kind === "timeline").steps.map((s) => s.text + ":" + s.at).join("|")), ln = await line(p);
+    if (src !== "Saved screens:Mon|Lists on the canvas:|Forms on the canvas:|Ship the build:|Charts on the canvas:|Write the note:") f.push("rows " + src);
+    if (/moved the dates/.test(ln) || /no answer/.test((await p.evaluate(() => window.__canvas.note)) || "")) f.push("a reply or a note showed " + JSON.stringify(ln));
+  });
+  await check10("move a shapes part next to another: the agent draws an arrow between them", "parts", "", async (p, f) => {
+    const hs = await hits(p), build = byLabel(hs, "Build"), test = byLabel(hs, "Test"), plan = byLabel(hs, "Plan");
+    await drag(p, build, { x: test.x - 40, y: test.y + 66 }, { pid: 71, wait: 4400 });
+    const hs2 = await hits(p), names = hs2.map((h) => h.label), ln = await line(p);
+    if (!names.includes("Build to Test")) f.push("no arrow mark: " + names);
+    if (names.includes("Plan to Build")) f.push("the other arrow was drawn");
+    if (!ln.includes("Test follows Build. Arrow drawn.")) f.push("line " + JSON.stringify(ln));
+    const p2 = byLabel(hs2, "Plan"), t2 = byLabel(hs2, "Test");
+    if (Math.abs(p2.x - plan.x) > 0.6 || Math.abs(t2.x - test.x) > 0.6) f.push("Plan or Test moved");
+    // Reset removes the arrow and puts Build back
+    await p.evaluate(() => document.getElementById("resetyl").click()); await p.waitForTimeout(300);
+    const hs3 = await hits(p), b3 = byLabel(hs3, "Build");
+    if (hs3.length !== hs.length || Math.abs(b3.x - build.x) > 0.6 || Math.abs(b3.y - build.y) > 0.6) f.push("Reset did not restore the shapes");
+  });
+  await check10("a heavy drop: a row dragged far past the end lands last; a held row is still a hold", "today", "&replies=off", async (p, f) => {
+    const hs = await hits(p), sq = byLabel(hs, "Squat");
+    await drag(p, sq, { x: sq.x, y: 700 }, { pid: 72 });
+    const l = (await labels(p)).filter((x) => x !== "Today");
+    if (l[3] !== "Squat 5x5" || !(await line(p)).includes("to=4")) f.push("order " + l + " " + JSON.stringify(await line(p)));
+    const h2 = byLabel(await hits(p), "Romanian");   // a press held still for 650ms asks (no move): the hold the card before this one built
+    await drag(p, h2, { x: h2.x + 1, y: h2.y }, { pid: 73, pre: 650, steps: 1, wait: 500 });
+    if (!(await line(p)).includes("yl ask Romanian deadlift 3x8")) f.push("hold line " + JSON.stringify(await line(p)));
+  });
+  // the keyboard: Alt+Arrow moves a focused mark, its name says where it landed, focus follows it
+  await check10("Alt+Arrow moves a focused list row; its name says its new place; focus follows", "today", "&replies=off", async (p, f) => {
+    const kb = p.fr.locator('#parts button[data-id="list:n2:3"]'); await kb.focus();
+    await p.keyboard.press("Alt+ArrowUp"); await p.waitForTimeout(700);
+    const l = await labels(p), ln = await line(p);
+    if (l.filter((x) => x !== "Today").indexOf("Calf raises 4x15") !== 2) f.push("order " + l);
+    if (!ln.includes("[yui] today yl move Calf raises 4x15 to=3")) f.push("move line " + JSON.stringify(ln));
+    const name = await p.fr.evaluate(() => { const a = document.activeElement; return a && a.dataset ? a.dataset.id + "|" + a.getAttribute("aria-label") : null; });
+    if (name !== "list:n2:2|Calf raises 4x15, moved to 3 of 4") f.push("focused name " + name);
+    await p.keyboard.press("Alt+ArrowDown"); await p.waitForTimeout(700);
+    const l2 = (await labels(p)).filter((x) => x !== "Today");
+    if (l2.indexOf("Calf raises 4x15") !== 3) f.push("Alt+Down did not move it back " + l2);
+    await p.keyboard.press("Alt+ArrowDown"); await p.waitForTimeout(500);   // already last: stays
+    if ((await labels(p)).filter((x) => x !== "Today").indexOf("Calf raises 4x15") !== 3) f.push("moved past the end");
+    // a plain arrow on a focused mark is still not a move (it scrubs, as before)
+    const c0 = await clock(p); await p.keyboard.press("ArrowLeft"); await p.waitForTimeout(200);
+    if ((await clock(p)) === c0) f.push("plain ArrowLeft stopped scrubbing");
+  });
+  await check10("Alt+Arrow moves a bar and a shape too", "bars", "&replies=off", async (p, f) => {
+    const kb = p.fr.locator('#parts button[data-id="chart:n1:s0:3"]'); await kb.focus();
+    await p.keyboard.press("Alt+ArrowLeft"); await p.waitForTimeout(700);
+    const l = (await labels(p)).filter((x) => /^Protein/.test(x) && !/vs goal/.test(x));
+    if (JSON.stringify(l) !== JSON.stringify(["Protein Mon: 118 g", "Protein Tue: 132 g", "Protein Thu: 126 g", "Protein Wed: 141 g"])) f.push("order " + l);
+    if (!(await line(p)).includes("to=3")) f.push("line " + JSON.stringify(await line(p)));
+  });
+  await check10("Alt+Arrow moves a shape by half a unit", "parts", "&replies=off", async (p, f) => {
+    const before = byLabel(await hits(p), "Build"), kb = p.fr.locator('#parts button[data-id="yl:build"]'); await kb.focus();
+    await p.keyboard.press("Alt+ArrowRight"); await p.waitForTimeout(700);
+    const after = byLabel(await hits(p), "Build"), ln = await line(p);
+    if (!(after.x > before.x + 8) || Math.abs(after.y - before.y) > 1) f.push("Build did not step right: " + before.x + " -> " + after.x);
+    if (!/\[yui\] parts yl move Build to=5\.5,4\.4/.test(ln)) f.push("line " + JSON.stringify(ln));
+    const name = await p.fr.evaluate(() => document.activeElement && document.activeElement.getAttribute("aria-label"));
+    if (!/Build, moved to 5\.5, 4\.4/.test(name || "")) f.push("name " + name);
+  });
+}
 console.log(out.join("\n")); console.log("bad", bad, "of", out.length);
 await b.close(); process.exit(bad ? 1 : 0);

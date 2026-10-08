@@ -14,6 +14,7 @@ const GAP = 12, TOP = 100, BOTTOM_PAD = 190, LEAD = 0.1;
 function shifted(api, dy, H) {
   const s = Object.create(api);
   Object.defineProperty(s, "h", { value: H });
+  s.dy = (api.dy || 0) + dy;   // YUI-331: charts and shapes note where they really sit
   s.say = () => {};
   s.text = (str, x, y, o) => api.text(str, x, y + dy, o);
   s.label = (str, x, y, o) => api.label(str, x, y + dy, o);

@@ -50,6 +50,7 @@ export function applyPatch(text, reply) {
     if (!out.includes(r.find)) return null;
     out = out.replace(r.find, () => r.with);
   }
+  for (const l of reply.add || []) out = out.replace(/\s*$/, "") + "\n" + l;   // YUI-331: a reply may add whole lines (an arrow between two shapes)
   for (const line of String(reply.patch || "").split("\n").filter((l) => l.trim())) {
     out = mergeLine(out, line);
     if (out === null) return null;

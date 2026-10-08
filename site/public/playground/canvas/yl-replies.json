@@ -4,6 +4,11 @@
       "name": "Protein Thu: 138 g",
       "say": "Thursday was short. A shake gets it to 138.",
       "patch": "~chart y=118|132|141|138"
+    },
+    "move:chart:n1:s0:3": {
+      "to": 1,
+      "say": "Thursday leads now. Goal bar went with it.",
+      "patch": "~chart bar \"Best day first\""
     }
   },
   "today": {
@@ -11,6 +16,16 @@
       "name": "Calf raises 4x12",
       "say": "Dropped to 4x12. Legs get a break.",
       "patch": "~list Today \"Squat 5x5\" \"Romanian deadlift 3x8\" \"Walking lunges 3x12\" \"Calf raises 4x12\" +check"
+    },
+    "move:list:n2:3": {
+      "to": 1,
+      "say": "Calves first. Light and slow, then the heavy lifts.",
+      "replace": [
+        {
+          "find": "\"Calf raises 4x15\"",
+          "with": "\"Calf raises 4x15 (warm up)\""
+        }
+      ]
     }
   },
   "stat": {
@@ -68,5 +83,60 @@
         }
       ]
     }
+  },
+  "steps": {
+    "move:list:n1:3": {
+      "to": 1,
+      "name": "Easy jog",
+      "say": "Easy jog goes first. It is Now.",
+      "replace": [
+        {
+          "find": "\"Easy jog\"",
+          "with": "\"Now: Easy jog\""
+        }
+      ]
+    }
+  },
+  "queue": {
+    "move:tl:n2:4": {
+      "to": 3,
+      "say": "Ship the build goes first. I moved the dates.",
+      "replace": [
+        {
+          "find": "next \"Ship the build\"",
+          "with": "next \"Ship the build\" at=\"Thu\""
+        },
+        {
+          "find": "next \"Forms on the canvas\"",
+          "with": "next \"Forms on the canvas\" at=\"Fri\""
+        },
+        {
+          "find": "next \"Charts on the canvas\"",
+          "with": "next \"Charts on the canvas\" at=\"Mon\""
+        },
+        {
+          "find": "next \"Write the note\"",
+          "with": "next \"Write the note\" at=\"Tue\""
+        }
+      ]
+    }
+  },
+  "parts": {
+    "move:yl:build": [
+      {
+        "near": "yl:plan",
+        "say": "Plan comes first. Arrow drawn.",
+        "add": [
+          "shape arrow from=plan to=build"
+        ]
+      },
+      {
+        "near": "yl:test",
+        "say": "Test follows Build. Arrow drawn.",
+        "add": [
+          "shape arrow from=build to=test"
+        ]
+      }
+    ]
   }
 }

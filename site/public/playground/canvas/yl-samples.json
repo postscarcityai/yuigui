@@ -178,5 +178,15 @@
   "id": "mix-dinner",
   "name": "Mixed: a line, a table and a slider",
   "yl": "say Fish is the cheap protein. How hungry are you?\ntable Dinner Food|Cal|Protein \"Salmon|360|34\" \"Tuna|180|40\" \"Chicken|220|40\" units=|kcal|g\nslide@hungry \"How hungry?\" 1-5 Peckish|Starving value=3"
+ },
+ {
+  "id": "queue",
+  "name": "Queue: drag a step, the agent re-dates the rest",
+  "yl": "say Drag a step in the queue.\ntimeline \"This week\"\ndone \"Saved screens\" at=\"Mon\"\nnow \"Lists on the canvas\" tag=YUI-327 sub=\"rows write in, checks tick\"\nnext \"Forms on the canvas\" tag=YUI-328\nnext \"Charts on the canvas\" tag=YUI-326\nnext \"Ship the build\" tag=YUI-331\nnext \"Write the note\""
+ },
+ {
+  "id": "parts",
+  "name": "Parts: drag one next to another",
+  "yl": "shapes w=10 h=6 \"Plan the build\" caption=\"Drag a part next to another.\"\nshape@plan box Plan at=2,1.6 size=2.6,1.1 +fill\nshape@build box Build at=5,4.4 size=2.6,1.1 tone=mint +fill\nshape@test pill Test at=8,1.6 size=2.6,1.1 tone=butter +fill"
  }
 ]

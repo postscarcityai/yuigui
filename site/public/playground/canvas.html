@@ -42,7 +42,7 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
 </head>
 <body>
 <div id="app">
-  <iframe id="cv" src="canvas/player.html" title="The canvas: tab to walk its parts, Enter to tap, Shift Enter to ask, Space to pause, arrows to scrub"></iframe>
+  <iframe id="cv" src="canvas/player.html" title="The canvas: tab to walk its parts, Enter to tap, Shift Enter to ask, Alt and an arrow to move a part, Space to pause, arrows to scrub"></iframe>
   <div id="strip">
     <a id="mode"></a>
     <nav id="films" role="tablist" aria-label="Films" aria-controls="cv"></nav>
@@ -96,7 +96,7 @@ var PRE = [
   '}'
 ].join("\n");
 
-var YLP = null, YLR = {}, YLSRC = "", YLCUR = "", YLF0 = null, YLN = 0, ylBusy = false;  // YUI-330: the patch module, the canned replies, the text now drawn, the first film, how many holds redrew it
+var YLMV = null, YLP = null, YLR = {}, YLSRC = "", YLCUR = "", YLF0 = null, YLN = 0, ylBusy = false;  // YUI-330: the patch module, the canned replies, the text now drawn, the first film, how many holds redrew it
 var YLID = (Q.get("yl") || "").toLowerCase().replace(/[^a-z0-9-]/g, ""), YL = !!YLID, YLF = null, YLM = null;  // YUI-325: ?yl=<id> draws a Yui Lines sample
 var FILM = YL ? "yl-" + YLID : (Q.get("film") || "heart").toLowerCase().replace(/[^a-z0-9-]/g, "");
 var FILM_ASK = YL ? YLID : FILM.replace(/-r\d+$/, "");  // the word in the ask line: "heart", "engine"
@@ -145,11 +145,15 @@ var CHOOSE_AT = SCENES[0].dur + SCENES[1].dur;
 var HEART = FILM === "heart";
 var GALLERY = "../demo/motion/gallery/";
 function loadYL(cb) {
-  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }), import("./canvas/yl-patch.mjs"), fetch("canvas/yl-replies.json").then(function (r) { return r.json(); }).catch(function () { return {}; })]).then(function (r) {
+  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }), import("./canvas/yl-patch.mjs"), fetch("canvas/yl-replies.json").then(function (r) { return r.json(); }).catch(function () { return {}; }), import("./canvas/yl-move.mjs")]).then(function (r) {
     var smp = r[1].filter(function (x) { return x.id === YLID; })[0]; if (!smp) throw new Error("no sample " + YLID);
     var b = r[0].build(smp.yl); if (b.error) throw new Error(b.error);
-    YLP = r[2]; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film;
-    YLM = r[0]; YLF = b.film; frame.contentWindow.__yl = YLF; SCENES = b.scenes; TOTAL = YLF.total; CHOOSE_AT = 1e9; FILM_TITLE = smp.name; window.__canvas.yl = YLF; cb();
+    YLP = r[2]; YLMV = r[4]; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film;
+    $("hint").innerHTML = "drag to scrub &middot; tap a part &middot; hold to ask &middot; drag a part to move it"; YLM = r[0]; YLF = b.film; frame.contentWindow.__yl = YLF; frame.contentWindow.__movable = function (id) {
+      if (ylBusy || !YLMV.describe(YLF, YLCUR, id)) return false;
+      var hit = frame.contentWindow.__motion.hits().filter(function (x) { return x.id === id; })[0];
+      return YLMV.liftBox(YLF, YLCUR, id, hit) || true;
+    }; SCENES = b.scenes; TOTAL = YLF.total; CHOOSE_AT = 1e9; FILM_TITLE = smp.name; window.__canvas.yl = YLF; cb();
   }).catch(function () { location.replace("canvas.html" + (Q.get("theme") ? "?theme=" + Q.get("theme") : "")); });
 }
 function loadFilm(cb) {
@@ -238,10 +242,10 @@ function ylNote(h, ask) {
   ylShow(YLP.noteFilm(ylScaled(YLF), h, txt), true);
   setTimeout(function () { window.__canvas.note = ""; if (!ylBusy) ylShow(ylScaled(YLF), false); }, 2600);
 }
-function ylHold(id, ask) {
+function ylHold(id, ask, given) {
   var F = ylWin(), M = F.__motion, h = M.hits().filter(function (x) { return x.id === id; })[0];
-  var rep = YLP.replyFor(YLR, YLID, id), nt = rep && !ylBusy ? YLP.applyPatch(YLCUR, rep) : null, b = nt ? YLM.build(nt) : null;
-  if (!b || b.error) { ylNote(h, ask); return; }
+  var rep = given || YLP.replyFor(YLR, YLID, id), nt = rep && !ylBusy ? YLP.applyPatch(YLCUR, rep) : null, b = nt ? YLM.build(nt) : null;
+  if (!b || b.error) { if (!given) ylNote(h, ask); return; }
   ylBusy = true;
   var nf = b.film, old = YLF, t = clock, cv = F.document.getElementById("cv"), ctx = cv.getContext("2d"), W = F.innerWidth, H = F.innerHeight, dpr = cv.width / W;
   if (nf.chosen === null && old.chosen) nf.chosen = old.chosen;
@@ -263,10 +267,45 @@ function ylHold(id, ask) {
     setTimeout(land, 1560);
   }, 750);
 }
+// YUI-331: drag a mark. A press that starts on a movable mark (list row, queue row, bar, placed shape) lifts it; where it is let go the answer's
+// text changes (yl-move.mjs), the neighbours slide to their new places and the line the app would send shows in place. A canned reply for the
+// drop (yl-replies.json "move:<mark>") then redraws what it names the way a hold does. Alt+Arrow on a focused mark moves it one step.
+function ylMove(d) {
+  var F = ylWin(), M = F.__motion;
+  if (d.phase === "begin") { if (!ylBusy) { setPaused(true); mark(null); line.classList.remove("on"); caps(true); speechSynthesis && speechSynthesis.cancel(); resetSpoken(); $("hint").style.opacity = 0; } return; }
+  if (d.phase !== "end" && d.phase !== "key") return;
+  if (ylBusy) { M.liftBack(); return; }
+  if (d.phase === "key") setPaused(true);
+  var A = M.hits(), h0 = A.filter(function (x) { return x.id === d.id; })[0], nm = label(d.id, h0 && h0.label);
+  var input = d.phase === "key" ? { dx: d.dx, dy: d.dy } : { cx: d.cx, cy: d.cy }, pl = YLMV.plan(YLF, YLCUR, d.id, input, { hits: A });
+  var b = pl && YLM.build(pl.text);
+  if (!pl || !b || b.error) { M.liftBack(); return; }
+  ylBusy = true;
+  var nf = b.film, old = YLF, t = clock, W = F.innerWidth, H = F.innerHeight, ctx = F.document.getElementById("cv").getContext("2d");
+  if (nf.chosen === null && old.chosen) nf.chosen = old.chosen;
+  if (old.checked && nf.checked) old.checked.forEach(function (c) {   // a ticked row keeps its tick when it changes place
+    var m = /^(list:[^:]+:)(\d+)$/.exec(c); if (m && pl.kind === "list" && m[1] === "list:" + pl.fig + ":") { var j = pl.perm.indexOf(+m[2]); nf.checked.add(m[1] + (j < 0 ? m[2] : j)); } else nf.checked.add(c);
+  });
+  var from = d.phase === "key" ? { cx: h0 ? h0.x : 0, cy: h0 ? h0.y : 0 } : { cx: d.cx, cy: d.cy };
+  Y().mark(null); F.__yl = ylScaled(nf); M.renderAt(t); var Bh = M.hits();
+  var groups = YLMV.settleGroups(nf, pl, A, Bh, from, W), line1 = "[yui] " + FILM_ASK + " yl move " + nm + " " + pl.line;
+  var land = function () {
+    YLF = nf; YLCUR = pl.text; YLN++; window.__canvas.yl = nf; $("resetyl").hidden = false; ylBusy = false;
+    var pm = {}; pm[pl.newId] = pl.place; M.place(pm, d.phase === "key" ? pl.newId : null);
+    ylShow(ylScaled(nf), false); mark(pl.newId);
+    var rep = YLMV.moveReplyFor(YLR, YLID, d.id, pl);
+    if (rep && !YLP.applyPatch(pl.text, rep)) rep = null;
+    if (rep) { say("…", line1, true); ylHold(pl.newId, line1, rep); } else say(nm + ", " + pl.place, line1, false);
+  };
+  M.liftOff();
+  if (!groups.length) { land(); return; }
+  ylShow(YLMV.settleFilm(ylScaled(nf), ctx, { groups: groups, W: W, H: H, dur: 380 }), true);
+  setTimeout(land, 420);
+}
 function ylReset() {
   if (ylBusy || !YLN) return;
   YLF = YLF0; YLCUR = YLSRC; YLN = 0; window.__canvas.yl = YLF0; $("resetyl").hidden = true;
-  mark(null); ylShow(YLF0, false); say("Back to the first drawing.", null, false);
+  ylWin().__motion.place({}); mark(null); ylShow(YLF0, false); say("Back to the first drawing.", null, false);
 }
 
 window.addEventListener("message", function (e) {
@@ -317,6 +356,7 @@ window.addEventListener("message", function (e) {
     say(HEART ? words : nm, HEART ? null : (words !== nm ? words : null), false); speak(words);
     return;
   }
+  if (m === "move") { if (YL && YLMV) ylMove(e.data); return; }
   if (m === "drag" || m === "nudge") {
     // YUI-328: a knob moves (drag) or steps (arrow keys); the line is sent when the drag ends or on every step. The picture does not scrub.
     if (!YL) return;

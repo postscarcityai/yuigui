@@ -948,7 +948,7 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
       drawScene(i - 1, scenes[i - 1].dur, sc, snapApi, false);
       c.save(); c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1 - k; c.drawImage(snap, 0, 0); c.restore();
     }
-    drawMark(); syncParts(); drawFocus();
+    drawMark(); drawLift(); syncParts(); drawFocus();
     return true;
   }
   function wait(now) {
@@ -1035,12 +1035,41 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
     });
     return id === null ? null : { id: id, label: label };
   }
+  // YUI-331: a lifted mark. The canvas is drawn clean once and the box around the mark is copied; the copy follows the finger over a veil on
+  // the spot it left. The host decides what the drop means: it either clears the carry (liftOff) or the copy eases back (liftBack).
+  var carry = null, placed = {};
+  function startLift(h, px, py) {
+    var m0 = api.marked; api.marked = null; snapApi.marked = null; var f0 = focusId; focusId = null; renderAt(clock); focusId = f0; api.marked = m0; snapApi.marked = m0;
+    var pad = 5, bw = (h.w || h.r * 2) + pad * 2, bh = (h.h || h.r * 2) + pad * 2, bx = h.x - bw / 2, by = h.y - bh / 2;
+    var k = document.createElement("canvas"); k.width = Math.max(1, Math.round(bw * dpr)); k.height = Math.max(1, Math.round(bh * dpr));
+    k.getContext("2d").drawImage(cv, Math.round(bx * dpr), Math.round(by * dpr), k.width, k.height, 0, 0, k.width, k.height);
+    carry = { img: k, id: h.id, ox: h.x, oy: h.y, cx: h.x, cy: h.y, gx: px - h.x, gy: py - h.y, w: bw, h: bh, round: !!h.auto, r: h.r, back: null }; dirty = true;
+  }
+  function liftBack() { if (carry) { carry.back = { t0: performance.now(), x: carry.cx, y: carry.cy }; dirty = true; } }
+  function liftOff() { carry = null; dirty = true; }
+  function drawLift() {
+    if (!carry) return;
+    if (carry.back) { var u = Math.min(1, (performance.now() - carry.back.t0) / 180), e = 1 - Math.pow(1 - u, 3); carry.cx = carry.back.x + (carry.ox - carry.back.x) * e; carry.cy = carry.back.y + (carry.oy - carry.back.y) * e; if (u >= 1) { carry = null; dirty = true; return; } dirty = true; }
+    var ink = (theme && theme.ink) || INK, L = carry;
+    c.save(); c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // the spot it left: the picture there dims behind a dashed edge
+    c.globalAlpha = 0.8; c.fillStyle = ink; c.beginPath(); if (c.roundRect) c.roundRect(L.ox - L.w / 2, L.oy - L.h / 2, L.w, L.h, L.round ? 12 : L.w / 2); else c.rect(L.ox - L.w / 2, L.oy - L.h / 2, L.w, L.h); c.fill();
+    c.globalAlpha = 0.9; c.strokeStyle = (theme && theme.warn) || "#ffc857"; c.lineWidth = 2; c.setLineDash([6, 5]); c.stroke(); c.setLineDash([]);
+    // the copy, a little bigger, with a shadow
+    c.globalAlpha = 1; c.translate(L.cx, L.cy); c.scale(1.04, 1.04);
+    c.shadowColor = "rgba(0,0,0,.45)"; c.shadowBlur = 18; c.shadowOffsetY = 6;
+    c.beginPath(); if (c.roundRect) c.roundRect(-L.w / 2, -L.h / 2, L.w, L.h, L.round ? 12 : L.w / 2); else c.rect(-L.w / 2, -L.h / 2, L.w, L.h);
+    c.fillStyle = ink; c.fill(); c.shadowColor = "transparent"; c.clip();
+    c.drawImage(L.img, -L.w / 2, -L.h / 2, L.w, L.h);
+    c.restore();
+  }
   var press = null;
   function pt(e) { var r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
   cv.addEventListener("pointerdown", function (e) {
     var q = pt(e); try { cv.setPointerCapture(e.pointerId); } catch (x) {}
     var h0 = hitAt(q.x, q.y), r0 = h0 && hitById(h0.id);
-    press = { x: q.x, y: q.y, t0: clock, drag: false, held: false, timer: null, knob: r0 && r0.drag ? r0.id : null, moved: false };
+    press = { x: q.x, y: q.y, t0: clock, drag: false, held: false, timer: null, knob: r0 && r0.drag ? r0.id : null, moved: false, mv: null, t: Date.now() };
+    var mvr = r0 && !r0.drag && window.__movable && window.__movable(r0.id); if (mvr) press.mv = Object.assign({}, r0, typeof mvr === "object" ? mvr : {});
     press.timer = setTimeout(function () {
       if (!press || press.drag) return;
       var h = hitAt(press.x, press.y) || { id: "moment", label: null };
@@ -1055,6 +1084,16 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
       if (!press.moved) { if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return; press.moved = true; clearTimeout(press.timer); send("drag", { id: press.knob, phase: "begin", x: Math.round(q.x), y: Math.round(q.y) }); }
       send("drag", { id: press.knob, phase: "move", x: Math.round(q.x), y: Math.round(q.y) }); return;
     }
+    // YUI-331: a press that starts on a movable mark lifts it after a clear 8px move (or a short press and a small move) and carries it; it never scrubs
+    if (press.mv) {
+      if (!press.moved) {
+        var dist = Math.hypot(dx, dy); if (dist < 8 && !(Date.now() - press.t >= 180 && dist >= 3)) return;
+        press.moved = true; clearTimeout(press.timer); startLift(press.mv, press.x, press.y);
+        send("move", { id: press.mv.id, phase: "begin", x: Math.round(q.x), y: Math.round(q.y) });
+      }
+      carry.cx = q.x - carry.gx; carry.cy = q.y - carry.gy; dirty = true;
+      send("move", { id: press.mv.id, phase: "move", cx: Math.round(carry.cx), cy: Math.round(carry.cy) }); return;
+    }
     if (!press.drag) {
       if (Math.abs(dx) < 10 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
       press.drag = true; clearTimeout(press.timer); send("scrub", { phase: "begin", t: +clock.toFixed(2) });
@@ -1064,6 +1103,7 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
   function lift(e, cancel) {
     if (!press) return; var p = press; press = null; clearTimeout(p.timer);
     if (p.held) return;
+    if (p.mv && p.moved) { var ml = carry; if (cancel) { send("move", { id: p.mv.id, phase: "cancel" }); liftBack(); } else if (ml) send("move", { id: p.mv.id, phase: "end", cx: Math.round(ml.cx), cy: Math.round(ml.cy) }); return; }
     if (p.knob && p.moved) { var q2 = pt(e); send("drag", { id: p.knob, phase: "end", x: Math.round(q2.x), y: Math.round(q2.y) }); return; }
     if (p.drag) { send("scrub", { phase: "end", t: +clock.toFixed(2) }); return; }
     if (cancel) return;
@@ -1076,8 +1116,8 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
   // (its label). Tab walks them, Enter = tap, Shift-Enter or a long Enter = hold, Space = play/pause, Left/Right = scrub, and a focus
   // ring is drawn on the canvas. Every key sends the same event the touch sends, so the host and the app need no new handler.
   // aria labels here become accessibilityLabel in the native port.
-  var partsEl = document.getElementById("parts"), partSig = "", focusId = null, enter = null, keyDone = 0, kScrub = null;
-  function partName(h) { return h.label || String(h.id).replace(/^(part|mark):/, "").replace(/^(shape|heart4):/, "").replace(/[:~_-]+/g, " ").trim() || "part"; }
+  var partsEl = document.getElementById("parts"), partSig = "", pendingFocus = null, focusId = null, enter = null, keyDone = 0, kScrub = null;
+  function partName(h) { var pl = placed[h.id]; if (pl) return (h.label || String(h.id)) + ", " + pl; return h.label || String(h.id).replace(/^(part|mark):/, "").replace(/^(shape|heart4):/, "").replace(/[:~_-]+/g, " ").trim() || "part"; }
   function hitById(id) { for (var i = 0; i < hits.length; i++) if (hits[i].id === id) return hits[i]; return null; }
   function syncParts() {
     var sig = hits.map(function (h) { return h.id + "|" + partName(h); }).join("\n");
@@ -1092,6 +1132,7 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
       b.addEventListener("click", function () { if (!keyDone || Date.now() - keyDone > 400) { var q = hitById(h.id) || h; send("tap", { id: q.id, label: q.label }); } });
       li.append(b); partsEl.append(li);
     });
+    if (pendingFocus) { var pf = partsEl.querySelector('button[data-id="' + String(pendingFocus).replace(/"/g, '\\"') + '"]'); pendingFocus = null; if (pf) { pf.focus(); keep = false; } }
     if (keep) { var again = partsEl.querySelector('button[data-id="' + String(focusId).replace(/"/g, '\\"') + '"]'); if (again) again.focus(); else { focusId = null; cv.focus(); } }
   }
   function drawFocus() {
@@ -1120,8 +1161,12 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
     if (!en.held) send("tap", en.id === "moment" ? {} : { id: en.id, label: en.label });
   }
   function onKey(e) {
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
     var t = e.target, onPart = t && t.dataset && t.dataset.id !== undefined && t.parentNode.parentNode === partsEl, k = e.key;
+    // YUI-331: Alt+Arrow moves the focused mark one step (the host says where it landed)
+    if (e.altKey && !e.metaKey && !e.ctrlKey && onPart && /^Arrow(Left|Right|Up|Down)$/.test(k) && window.__movable && window.__movable(t.dataset.id)) {
+      e.preventDefault(); send("move", { id: t.dataset.id, phase: "key", dx: k === "ArrowLeft" ? -1 : k === "ArrowRight" ? 1 : 0, dy: k === "ArrowUp" ? -1 : k === "ArrowDown" ? 1 : 0 }); return;
+    }
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (k === "Enter" && (onPart || t === cv)) { e.preventDefault(); enterDown(e, onPart ? hitById(t.dataset.id) || { id: t.dataset.id, label: t.getAttribute("aria-label"), x: 0, y: 0 } : null); }
     else if (k === " " || k === "Spacebar") { e.preventDefault(); if (!e.repeat) send("tap", {}); }
     else if (onPart && (k === "ArrowLeft" || k === "ArrowRight" || k === "ArrowUp" || k === "ArrowDown") && (hitById(t.dataset.id) || {}).drag) { e.preventDefault(); send("nudge", { id: t.dataset.id, dir: k === "ArrowLeft" || k === "ArrowDown" ? -1 : 1 }); }
@@ -1135,7 +1180,8 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
     add: add, loadThree: loadThree, threeLoaded: function () { return !!threeLib; }, end: function () { ended = true; }, theme: Y.theme,
     renderAt: function (t) { clock = t; paused = true; return renderAt(t); }, total: function () { return total; },
     scenes: function () { return scenes.map(function (s) { return { name: s.name, dur: s.dur, start: s.start }; }); },
-    cues: function () { return api.cues; }, hits: function () { return hits.map(function (h) { return { id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h, drag: h.drag }; }); }, hitAt: hitAt, clock: function () { return clock; }, paused: function () { return paused; }, focusId: function () { return focusId; }, errors: function () { return Object.keys(errored); }
+    cues: function () { return api.cues; }, hits: function () { return hits.map(function (h) { return { id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h, r: h.r, drag: h.drag }; }); }, hitAt: hitAt, clock: function () { return clock; }, liftOff: liftOff, liftBack: liftBack, lifted: function () { return carry ? { id: carry.id, cx: carry.cx, cy: carry.cy } : null; },
+    place: function (map, focus) { placed = map || {}; partSig = ""; dirty = true; pendingFocus = focus || null; }, paused: function () { return paused; }, focusId: function () { return focusId; }, errors: function () { return Object.keys(errored); }
   };
   requestAnimationFrame(loop);
   send("ready");

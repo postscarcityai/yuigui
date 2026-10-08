@@ -167,6 +167,7 @@ function drawCartesian(api, c, t, x, y, w, h, mk, marked) {
   const L = 44, R = 14, B = 26 + xlabH, top = y + titleH + legendH + 8;
   const px0 = x + L, px1 = x + w - R, py0 = top, py1 = y + h - B;
   if (py1 - py0 < 60) return;
+  c.geo = { px0, px1, py0, py1, dy: api.dy || 0 };   // YUI-331: where the plot sits, so a moved bar's column can slide
   const sc = yScale(c);
   const Y = (v) => py1 - ((v - sc.lo) / (sc.hi - sc.lo)) * (py1 - py0);
   let xmin = 0, xmax = 1;

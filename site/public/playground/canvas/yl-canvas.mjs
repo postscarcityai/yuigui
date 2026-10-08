@@ -175,6 +175,7 @@ function shapesFilm(d, read0) {
       const aT = top + (sc.title ? 24 : 0), aH = Math.max(120, areaB - aT - cH - 6);
       const s = Math.min((W - 28) / sc.w, aH / sc.h, 84), ox = (W - sc.w * s) / 2, oy = aT + (areaB - aT - (sc.h * s + cH + 6)) / 2;
       const drawH = sc.h * s;
+      film.xf = { ox, oy, s, dy: api.dy || 0 };   // YUI-331: screen px <-> picture units, so a dropped part gets its new at=
       const P = (p) => [ox + p[0] * s, oy + p[1] * s];
       const frames = frame(sc, t);
       frames.forEach((f, idx) => {
