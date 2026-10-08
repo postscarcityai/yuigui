@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T13:35:48.345Z",
+  "updated": "2026-10-08T14:00:44.645Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,14 +290,15 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-269",
-          "title": "Thought on YUI-337, math you can touch",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-269",
+          "title": "Thought on YUI-337, math you can touch",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
