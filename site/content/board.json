@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T14:05:52.426Z",
+  "updated": "2026-10-08T14:10:45.901Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "SITE-269",
           "title": "Thought on YUI-337, math you can touch",
+          "summary": "A Thought: math you can touch",
+          "progress": "/progress#a-thought-math-you-can-touch",
           "owner": "CJohnDesign"
         },
         {
