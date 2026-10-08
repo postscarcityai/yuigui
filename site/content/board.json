@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T08:00:56.914Z",
+  "updated": "2026-10-08T08:06:01.991Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,14 +290,15 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-264",
-          "title": "Thought on YUI-332, talk while touching a part",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-333",
+          "title": "Write the living canvas events into the spec, with a test so spec and code match",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
@@ -306,6 +307,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-264",
+          "title": "Thought on YUI-332, talk while touching a part",
+          "summary": "A Thought: say it while you touch it",
+          "shipped": "2026-10-08",
+          "progress": "/progress#a-thought-say-it-while-you-touch-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d1b0b1ed"
+        },
         {
           "key": "YUI-332",
           "title": "Talk while touching a mark on the living canvas, the agent gets both",
