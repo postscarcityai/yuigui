@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T07:05:54.384Z",
+  "updated": "2026-10-08T07:55:55.726Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-332",
           "title": "Talk while touching a mark on the living canvas, the agent gets both",
+          "summary": "Talk while touching a part",
+          "progress": "/progress#talk-while-touching-a-part",
           "owner": "CJohnDesign"
         },
         {
