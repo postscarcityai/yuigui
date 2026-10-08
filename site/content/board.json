@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T01:10:56.658Z",
+  "updated": "2026-10-08T01:25:59.925Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "YUI-325",
           "title": "The living canvas draws Yui Lines too, a sketch or shapes answer draws stroke by stroke and every row is a touchable mark",
+          "summary": "Drawings on the canvas, touchable",
+          "progress": "/progress#drawings-on-the-canvas-touchable",
           "owner": "CJohnDesign"
         },
         {
