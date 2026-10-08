@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T04:05:27.653Z",
+  "updated": "2026-10-08T04:15:23.510Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -294,13 +294,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-261",
-          "title": "Thought on YUI-329, one answer, one drawing",
-          "summary": "A Thought: one answer, one drawing",
-          "progress": "/progress#a-thought-one-answer-one-drawing",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-330",
           "title": "Hold a mark on the living canvas and the agent redraws just that part in place",
           "owner": "CJohnDesign"
@@ -317,6 +310,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-261",
+          "title": "Thought on YUI-329, one answer, one drawing",
+          "summary": "A Thought: one answer, one drawing",
+          "shipped": "2026-10-08",
+          "progress": "/progress#a-thought-one-answer-one-drawing",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/38dc9b75"
+        },
         {
           "key": "YUI-329",
           "title": "The living canvas draws a whole mixed answer, text, chart, list and a question on one clock",
