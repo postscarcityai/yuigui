@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T02:36:18.577Z",
+  "updated": "2026-10-08T02:45:11.472Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -295,11 +295,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-259",
-          "title": "Thought on YUI-327, the canvas draws lists you tick",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
@@ -311,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-259",
+          "title": "Thought on YUI-327, the canvas draws lists you tick",
+          "summary": "A Thought: lists you can tick",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-lists-you-can-tick",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9899e95f"
+        },
         {
           "key": "YUI-327",
           "title": "The living canvas draws lists, tables and timelines, every row a touchable mark",
