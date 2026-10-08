@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T04:40:26.689Z",
+  "updated": "2026-10-08T04:45:27.466Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-262",
-          "title": "Thought on YUI-330, point at a part and it redraws"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -294,10 +290,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-330",
-          "title": "Hold a mark on the living canvas and the agent redraws just that part in place",
-          "summary": "Hold a part, it redraws",
-          "progress": "/progress#hold-a-part-it-redraws",
+          "key": "SITE-262",
+          "title": "Thought on YUI-330, point at a part and it redraws",
           "owner": "CJohnDesign"
         },
         {
@@ -312,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-330",
+          "title": "Hold a mark on the living canvas and the agent redraws just that part in place",
+          "summary": "Hold a part, it redraws",
+          "shipped": "2026-10-08",
+          "progress": "/progress#hold-a-part-it-redraws",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/44b9b5eb"
+        },
         {
           "key": "SITE-261",
           "title": "Thought on YUI-329, one answer, one drawing",
