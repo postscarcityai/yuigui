@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T11:05:26.419Z",
+  "updated": "2026-10-08T11:15:22.378Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "SITE-267",
           "title": "Thought on YUI-335, the canvas stays smooth",
+          "summary": "A Thought: the canvas stays smooth on a phone",
+          "progress": "/progress#a-thought-the-canvas-stays-smooth-on-a-phone",
           "owner": "CJohnDesign"
         },
         {
