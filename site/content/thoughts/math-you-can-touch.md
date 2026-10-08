@@ -41,7 +41,7 @@ Back undoes the slider move.
 
 Headless Chrome at 390x844, played start to end.
 
-- Math: 460 frames, 95 in 100 at 16.7 ms.
+- Math: 460 frames, 16.7 ms at the 95th percentile.
 - Calc: 353 frames, 16.7 ms.
 - Slider drag and Back: 334 frames, 16.7 ms.
 - With the CPU four times slower: the same, and the worst frame in the slider drag was 33 ms.
