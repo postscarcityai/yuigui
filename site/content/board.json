@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T09:06:10.666Z",
+  "updated": "2026-10-08T09:26:07.685Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-266",
-          "title": "Thought on YUI-334, step back on the canvas"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -294,8 +290,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-334",
-          "title": "Step back on the living canvas, undo a redraw or a drag",
+          "key": "SITE-266",
+          "title": "Thought on YUI-334, step back on the canvas",
           "owner": "CJohnDesign"
         },
         {
@@ -310,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-334",
+          "title": "Step back on the living canvas, undo a redraw or a drag",
+          "summary": "Step back on the canvas",
+          "shipped": "2026-10-08",
+          "progress": "/progress#step-back-on-the-canvas",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b6e890b8"
+        },
         {
           "key": "SITE-265",
           "title": "Thought on YUI-333, the canvas rules written down",
