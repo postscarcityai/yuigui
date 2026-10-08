@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T03:20:15.236Z",
+  "updated": "2026-10-08T03:35:23.135Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-261",
+          "title": "Thought on YUI-329, one answer, one drawing"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -289,6 +293,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-329",
+          "title": "The living canvas draws a whole mixed answer, text, chart, list and a question on one clock",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
