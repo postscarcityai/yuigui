@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T02:11:05.995Z",
+  "updated": "2026-10-08T02:21:07.713Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,18 +290,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-327",
-          "title": "The living canvas draws lists, tables and timelines, every row a touchable mark",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-258",
-          "title": "Thought on YUI-326, the canvas draws charts and stats",
-          "summary": "A Thought: charts you can touch",
-          "progress": "/progress#a-thought-charts-you-can-touch",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
@@ -313,6 +301,22 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-327",
+          "title": "The living canvas draws lists, tables and timelines, every row a touchable mark",
+          "summary": "Lists, tables and timelines on the canvas, touchable",
+          "shipped": "2026-10-07",
+          "progress": "/progress#lists-tables-and-timelines-on-the-canvas-touchable",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/060b9888"
+        },
+        {
+          "key": "SITE-258",
+          "title": "Thought on YUI-326, the canvas draws charts and stats",
+          "summary": "A Thought: charts you can touch",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-charts-you-can-touch",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/98123a1c"
+        },
         {
           "key": "YUI-326",
           "title": "The living canvas draws charts and stats, every bar, point and number a touchable mark",
