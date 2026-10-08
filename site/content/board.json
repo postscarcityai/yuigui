@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T09:26:07.685Z",
+  "updated": "2026-10-08T09:36:15.302Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,13 @@
         {
           "key": "SITE-266",
           "title": "Thought on YUI-334, step back on the canvas",
+          "summary": "A Thought: change your mind on the canvas",
+          "progress": "/progress#a-thought-change-your-mind-on-the-canvas",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-335",
+          "title": "The canvas stays smooth on a phone, a frame budget and a test that holds it",
           "owner": "CJohnDesign"
         },
         {
