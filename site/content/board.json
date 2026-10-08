@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T01:36:09.355Z",
+  "updated": "2026-10-08T01:41:01.015Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -295,11 +295,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-257",
-          "title": "Thought on YUI-325, the canvas draws Yui Lines too",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
@@ -311,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-257",
+          "title": "Thought on YUI-325, the canvas draws Yui Lines too",
+          "summary": "A Thought: the canvas draws Yui Lines too",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-the-canvas-draws-yui-lines-too",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ffae2cb1"
+        },
         {
           "key": "YUI-325",
           "title": "The living canvas draws Yui Lines too, a sketch or shapes answer draws stroke by stroke and every row is a touchable mark",
