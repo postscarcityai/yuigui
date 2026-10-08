@@ -27,7 +27,7 @@ for (const s of list) {
   const errs = []; p.on("pageerror", (e) => errs.push(String(e)));
   await p.addInitScript(() => { window.__log = []; window.addEventListener("message", (e) => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
   const r = await p.goto(base + "?yl=" + s.id + "&theme=dark&replies=off");
-  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 }).catch(() => errs.push("not loaded"));
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 }).catch(() => errs.push("not loaded"));
   const fr = p.frames().find((f) => f.url().includes("player.html"));
   await p.waitForTimeout(300);
   const fails = [], total = await p.evaluate(() => window.__canvas.total);
@@ -150,7 +150,7 @@ const open = async (id) => {
   const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
   p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
   await p.goto(base + "?yl=" + id + "&theme=dark&replies=off");
-  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 });
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 });
   p.fr = p.frames().find((f) => f.url().includes("player.html"));
   p.total = await p.evaluate(() => window.__canvas.total);
   await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); await p.waitForTimeout(500);
@@ -348,7 +348,7 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
     const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
     p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
     await p.goto(base + "?yl=" + id + "&theme=dark" + extra);
-    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 });
+    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 });
     p.fr = p.frames().find((f) => f.url().includes("player.html")); p.total = await p.evaluate(() => window.__canvas.total);
     await p.waitForTimeout(300); return p;
   };
@@ -457,7 +457,7 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
   out.push("ok  replies cover " + [...kindsHit].join(", "));
 }
 // 8. an unknown id falls back to the films tab instead of a blank canvas
-{ const p = await b.newPage({ viewport: { width: 390, height: 844 } }); await p.goto(base + "?yl=nope"); await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 }).catch(() => {}); const ok = !(await p.url()).includes("yl="); if (!ok) { bad++; out.push("BAD unknown id kept ?yl="); } else out.push("ok  unknown id falls back"); await p.close(); }
+{ const p = await b.newPage({ viewport: { width: 390, height: 844 } }); await p.goto(base + "?yl=nope"); await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 }).catch(() => {}); const ok = !(await p.url()).includes("yl="); if (!ok) { bad++; out.push("BAD unknown id kept ?yl="); } else out.push("ok  unknown id falls back"); await p.close(); }
 // 10. YUI-331: drag a mark and it moves, and the agent sees where you put it. A drag that starts ON a movable mark (list row, queue row, bar, placed
 // shape) moves it; a drag on empty canvas, or on a mark that cannot move, still scrubs. A drop sends `[yui] <id> yl move <mark> to=<place>`, a canned reply
 // (yl-replies.json "move:<mark>") redraws only what it names, scrub after a move is stable, Reset restores, Alt+Arrow moves a focused mark.
@@ -468,7 +468,7 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
     p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
     await p.addInitScript(() => { window.__log = []; window.addEventListener("message", (e) => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
     await p.goto(base + "?yl=" + id + "&theme=dark" + extra);
-    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 });
+    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 });
     p.fr = p.frames().find((f) => f.url().includes("player.html")); p.total = await p.evaluate(() => window.__canvas.total);
     await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); await p.waitForTimeout(500); return p;
   };
