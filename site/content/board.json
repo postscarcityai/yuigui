@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T03:05:19.100Z",
+  "updated": "2026-10-08T03:10:14.282Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-260",
-          "title": "Thought on YUI-328, answer the agent right on the canvas"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -294,10 +290,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-328",
-          "title": "The living canvas draws choose, pick, slide, ask and form, every option a touchable mark",
-          "summary": "Buttons and sliders on the canvas",
-          "progress": "/progress#buttons-and-sliders-on-the-canvas",
+          "key": "SITE-260",
+          "title": "Thought on YUI-328, answer the agent right on the canvas",
           "owner": "CJohnDesign"
         },
         {
@@ -312,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-328",
+          "title": "The living canvas draws choose, pick, slide, ask and form, every option a touchable mark",
+          "summary": "Buttons and sliders on the canvas",
+          "shipped": "2026-10-07",
+          "progress": "/progress#buttons-and-sliders-on-the-canvas",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2b18d877"
+        },
         {
           "key": "SITE-259",
           "title": "Thought on YUI-327, the canvas draws lists you tick",
