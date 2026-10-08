@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T09:40:09.678Z",
+  "updated": "2026-10-08T10:05:20.271Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -271,6 +271,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-267",
+          "title": "Thought on YUI-335, the canvas stays smooth"
         },
         {
           "key": "NOTE-21045",

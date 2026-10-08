@@ -126,8 +126,7 @@
       "state": "live",
       "changes": [
         {
-          "text": "MotionView: native full-screen streamed film player (harness, watchdog, say cues, native chrome)",
-          "card": "MOTION-1d"
+          "text": "MotionView: native full-screen streamed film player (harness, watchdog, say cues, native chrome)"
         },
         {
           "text": "Plugin: motion lines become streamed films, older phones get a sketch (MOTION-1e)"
@@ -1616,7 +1615,8 @@
       "state": "live",
       "changes": [
         {
-          "text": "Group threads in the database and the Hermes plugin (YUI-93, step 2 of YUI-77; spec yuigui spec/GROUPS.md, section 7 \"As built\"). Migration 20260925070000_yui_groups.sql, applied to PROOF: yui_threads (lead, max_hops 1-5, max_turns 1-12, stopped_at, archived_at) and yui_thread_members, yui_messages.thread_id. The person's row goes to the agents it names (meta.group.to, three at most) or the lead, rewritten to a `[yui] group \"<title>\" ... hop= from= msg=` header with the group's last six lines quoted, words kept in meta.group.words; the second and third get copies. Agent replies are stamped into the group from meta.turn, and their @s become handoff asks while the hop budget and the turn cap hold, else a guard row (held until Let it or Stop). Let it and Stop are rows that land handled in the lead's thread; Stop cancels undelivered handoffs and says so in one line, and replies rooted before it hand nothing on. Status lines for asleep, offline, not connected and muted agents. Making a group needs the newest app build at or above yui_limits group_min_build (set high until YUI-94 ships the sheet): update_needed below it. yui_user owns threads and members (no delete: archive); yui_connector has no grant on either table and cannot set thread_id or meta.group; its only view of the rest of a group is the quote and yui_group_notes(), one plain line per row, member agents only. In a group @s never become depth-1 mentions; solo threads are unchanged. Plugin groups.py: a turn that answers a group row starts with `[yui] note: in <group>` lines from yui_group_notes(), cursor per agent and group. Channel guide v20 (Groups), published. group_test.py 69/69 live, mention_test 38/38, relay_test 51/51, reactions_test 22/22, test_groups 7/7 and every plugin test green."
+          "text": "Group threads in the database and the Hermes plugin (YUI-93, step 2 of YUI-77; spec yuigui spec/GROUPS.md, section 7 \"As built\"). Migration 20260925070000_yui_groups.sql, applied to PROOF: yui_threads (lead, max_hops 1-5, max_turns 1-12, stopped_at, archived_at) and yui_thread_members, yui_messages.thread_id. The person's row goes to the agents it names (meta.group.to, three at most) or the lead, rewritten to a `[yui] group \"<title>\" ... hop= from= msg=` header with the group's last six lines quoted, words kept in meta.group.words; the second and third get copies. Agent replies are stamped into the group from meta.turn, and their @s become handoff asks while the hop budget and the turn cap hold, else a guard row (held until Let it or Stop). Let it and Stop are rows that land handled in the lead's thread; Stop cancels undelivered handoffs and says so in one line, and replies rooted before it hand nothing on. Status lines for asleep, offline, not connected and muted agents. Making a group needs the newest app build at or above yui_limits group_min_build (set high until YUI-94 ships the sheet): update_needed below it. yui_user owns threads and members (no delete: archive); yui_connector has no grant on either table and cannot set thread_id or meta.group; its only view of the rest of a group is the quote and yui_group_notes(), one plain line per row, member agents only. In a group @s never become depth-1 mentions; solo threads are unchanged. Plugin groups.py: a turn that answers a group row starts with `[yui] note: in <group>` lines from yui_group_notes(), cursor per agent and group. Channel guide v20 (Groups), published. group_test.py 69/69 live, mention_test 38/38, relay_test 51/51, reactions_test 22/22, test_groups 7/7 and every plugin test green.",
+          "card": "YUI-93"
         },
         {
           "text": "Shared agents, database side (YUI-95, step 2 of YUI-57; spec yuigui spec/AGENTS.md \"Shared agents\"). WIP: plugin + app proof follow."
@@ -1738,7 +1738,8 @@
           "text": "Test builds install as Yui Dev beside TestFlight Yui (YUI-91). Chris tapped Install on link build 119.1 and iOS refused: \"Yui is Already Installed\", same bundle id as the TestFlight app."
         },
         {
-          "text": "Settings > About this build shows exactly which Yui is on the phone (YUI-92). Chris on build 96: \"down here I would like to have all of the versioning information so I can know what version I'm looking at at any given time.\""
+          "text": "Settings > About this build shows exactly which Yui is on the phone (YUI-92). Chris on build 96: \"down here I would like to have all of the versioning information so I can know what version I'm looking at at any given time.\"",
+          "card": "YUI-92"
         },
         {
           "text": "0.2.0 test pass (YUI-SHIP): two UI tests caught up with YUI-87 and the picks-as-your-message scroll."
@@ -1859,10 +1860,12 @@
           "text": "A newly added agent answers what you sent before its gateway came up: pairing and the gateway restart are separate steps, and the plugin started a first-seen agent's cursor at \"now\", so anything sent in between was skipped for good and the app sat on \"Sent to an agent\" (TestFlight feedback AMiI7ezKx6x1KcexlzOKYJc: an agent paired 22:36, gateway never restarted, \"Did we stall?\" never answered). A new agent now starts a day back (new_agent_floor); only unhandled user rows are fetched, so nothing already answered replays. Proof on the live case: cleared the agent's cursor, restarted, both waiting messages went in as one turn and an agent replied in 21s. Plugin only, no app build needed."
         },
         {
-          "text": "Links look like links: a card with url= gets an arrow on its button, opens the page in Safari and sends nothing to the chat, so the agent no longer answers a tap that already did its job (TestFlight feedback AHbFq_lhBMRFGDoCfVzMf4A: Install only posted \"Install\" and Yui replied with a second card). The test build card now points at yuigui.com/install.html, so Install opens Safari and installs from there. Channel guide: a link out is card ... url=. PresetFamiliesTests.testCardLink: Install opens Safari with no card event, Start still emits; testFlows passes"
+          "text": "Links look like links: a card with url= gets an arrow on its button, opens the page in Safari and sends nothing to the chat, so the agent no longer answers a tap that already did its job (TestFlight feedback AHbFq_lhBMRFGDoCfVzMf4A: Install only posted \"Install\" and Yui replied with a second card). The test build card now points at yuigui.com/install.html, so Install opens Safari and installs from there. Channel guide: a link out is card ... url=. PresetFamiliesTests.testCardLink: Install opens Safari with no card event, Start still emits; testFlows passes",
+          "card": "YUI-67"
         },
         {
-          "text": "A test build's Install link parses whole: card url= keeps a 300+ character signed link with a fragment, an encoded manifest url, & and = and a JWT, quoted or not, whole or streamed one character at a time, for https and itms-services (TestFlight feedback AMbvlwiMPj49qT1jeKlZID4, build 61.1). The tap-instead-of-Safari bug itself is the url= link fix in dc11e1d, commit 66, after 61.1. CardLinkTests 2/2, YuiLines 11/11"
+          "text": "A test build's Install link parses whole: card url= keeps a 300+ character signed link with a fragment, an encoded manifest url, & and = and a JWT, quoted or not, whole or streamed one character at a time, for https and itms-services (TestFlight feedback AMbvlwiMPj49qT1jeKlZID4, build 61.1). The tap-instead-of-Safari bug itself is the url= link fix in dc11e1d, commit 66, after 61.1. CardLinkTests 2/2, YuiLines 11/11",
+          "card": "YUI-67"
         },
         {
           "text": "Copy any part of a message: hold an agent bubble, Select text opens its words read-only, drag to select and Copy (or Copy all); a bubble at the bottom lifts so the menu never covers it (TestFlight feedback AG9JzU4LeWl-TFeKWftiFIE). Reply to a message is YUI-68. SelectTextTests 2/2 light + dark (no keyboard, whole text, Done closes), ComposerTests.testReactionLeavesTheComposerEmpty, YuiTests 44/44"
@@ -2198,7 +2201,8 @@
       "state": "live",
       "changes": [
         {
-          "text": "Open source readiness: Apache-2.0, README, contributing, security, templates"
+          "text": "Open source readiness: Apache-2.0, README, contributing, security, templates",
+          "card": "OSS-1"
         },
         {
           "text": "Talk to your agents in Yui: Hermes platform plugin + relay",
@@ -2252,7 +2256,8 @@
       "state": "live",
       "changes": [
         {
-          "text": "Drop the cat: typographic identity only"
+          "text": "Drop the cat: typographic identity only",
+          "card": "YUI-9"
         }
       ]
     },
@@ -2263,7 +2268,8 @@
       "state": "live",
       "changes": [
         {
-          "text": "First six presets render in chat: ask, choose, pick, form, list, timer"
+          "text": "First six presets render in chat: ask, choose, pick, form, list, timer",
+          "card": "YUI-4"
         }
       ]
     },
@@ -2274,13 +2280,16 @@
       "state": "live",
       "changes": [
         {
-          "text": "YuiLines: Swift Yui Lines parser package, passes the shared conformance suite"
+          "text": "YuiLines: Swift Yui Lines parser package, passes the shared conformance suite",
+          "card": "YUI-3"
         },
         {
-          "text": "App icon: coral Yui wordmark on cream (Chris's sketch)"
+          "text": "App icon: coral Yui wordmark on cream (Chris's sketch)",
+          "card": "YUI-5"
         },
         {
-          "text": "Coral wordmark in the app: nav, empty state, settings; coral is the brand token"
+          "text": "Coral wordmark in the app: nav, empty state, settings; coral is the brand token",
+          "card": "YUI-5"
         }
       ]
     },
@@ -2291,7 +2300,8 @@
       "state": "live",
       "changes": [
         {
-          "text": "Yui gets a face: Korean-cute theme, cat mascot, light/dark toggle"
+          "text": "Yui gets a face: Korean-cute theme, cat mascot, light/dark toggle",
+          "card": "YUI-2"
         }
       ]
     },
