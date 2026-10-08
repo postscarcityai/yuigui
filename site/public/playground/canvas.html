@@ -43,6 +43,13 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
 @media (prefers-reduced-motion:reduce){#mic.rec{animation:none}}
 #sayfld{flex:1;min-width:0;height:40px;border:2px solid var(--accent);border-radius:20px;background:var(--panel);color:var(--fg);font:700 16px ui-rounded,system-ui,sans-serif;padding:0 14px;outline:none}
 #mic:focus-visible,#sayfld:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#undo{position:absolute;top:calc(74px + env(safe-area-inset-top));right:12px;display:flex;gap:6px;z-index:2}
+#undo button{appearance:none;border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);color:var(--fg);font:inherit;font-size:13px;min-width:44px;height:44px;padding:0 12px;border-radius:22px;display:flex;align-items:center;justify-content:center;gap:5px;cursor:pointer;backdrop-filter:blur(8px)}
+#undo button:disabled{opacity:.35;cursor:default}
+#undo button:not(:disabled):active{transform:scale(.96)}
+#undo button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#undo svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #hint{position:absolute;top:calc(12px + env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:12px;color:var(--dim);pointer-events:none;transition:opacity .6s}
 </style>
 </head>
@@ -57,6 +64,8 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
   <div id="hint" aria-hidden="true">drag to scrub &middot; tap a part &middot; hold to ask</div>
   <input id="fld" type="text" hidden autocomplete="off" aria-label="Your answer">
   <div id="line" aria-live="polite"></div>
+  <div id="sr" class="sr" role="status" aria-live="assertive"></div>
+  <div id="undo"><button id="back" hidden aria-label="Back"><svg viewBox="0 0 24 24"><path d="M9 7L4 12l5 5M4 12h10a6 6 0 0 1 0 12"/></svg><span>Back</span></button><button id="fwd" hidden aria-label="Redo"><svg viewBox="0 0 24 24"><path d="M15 7l5 5-5 5M20 12H10a6 6 0 0 0 0 12"/></svg></button></div>
   <div id="chips"><button id="another">Another take</button><button id="change">Change it</button><button id="resetyl" hidden>Reset</button></div>
   <div id="bar">
     <div id="prog"><i></i></div>
@@ -104,7 +113,7 @@ var PRE = [
   '}'
 ].join("\n");
 
-var YLMV = null, YLS = null, YLP = null, YLR = {}, YLSRC = "", YLCUR = "", YLF0 = null, YLN = 0, ylBusy = false;  // YUI-330: the patch module, the canned replies, the text now drawn, the first film, how many holds redrew it
+var YLU = null, HIST = null, YLMV = null, YLS = null, YLP = null, YLR = {}, YLSRC = "", YLCUR = "", YLF0 = null, YLN = 0, ylBusy = false;  // YUI-330: the patch module, the canned replies, the text now drawn, the first film, how many holds redrew it
 var YLID = (Q.get("yl") || "").toLowerCase().replace(/[^a-z0-9-]/g, ""), YL = !!YLID, YLF = null, YLM = null;  // YUI-325: ?yl=<id> draws a Yui Lines sample
 var FILM = YL ? "yl-" + YLID : (Q.get("film") || "heart").toLowerCase().replace(/[^a-z0-9-]/g, "");
 var FILM_ASK = YL ? YLID : FILM.replace(/-r\d+$/, "");  // the word in the ask line: "heart", "engine"
@@ -153,10 +162,10 @@ var CHOOSE_AT = SCENES[0].dur + SCENES[1].dur;
 var HEART = FILM === "heart";
 var GALLERY = "../demo/motion/gallery/";
 function loadYL(cb) {
-  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }), import("./canvas/yl-patch.mjs"), fetch("canvas/yl-replies.json").then(function (r) { return r.json(); }).catch(function () { return {}; }), import("./canvas/yl-move.mjs"), import("./canvas/yl-say.mjs")]).then(function (r) {
+  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }), import("./canvas/yl-patch.mjs"), fetch("canvas/yl-replies.json").then(function (r) { return r.json(); }).catch(function () { return {}; }), import("./canvas/yl-move.mjs"), import("./canvas/yl-say.mjs"), import("./canvas/yl-undo.mjs")]).then(function (r) {
     var smp = r[1].filter(function (x) { return x.id === YLID; })[0]; if (!smp) throw new Error("no sample " + YLID);
     var b = r[0].build(smp.yl); if (b.error) throw new Error(b.error);
-    YLP = r[2]; YLMV = r[4]; YLS = r[5]; $("mic").hidden = false; frame.contentWindow.__sayable = true; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film;
+    YLP = r[2]; YLMV = r[4]; YLS = r[5]; YLU = r[6]; $("mic").hidden = false; frame.contentWindow.__sayable = true; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film; HIST = YLU.create(b.film, smp.yl); $("back").hidden = false; backSync();
     $("hint").innerHTML = "drag to scrub &middot; tap a part &middot; hold to ask &middot; drag a part to move it"; YLM = r[0]; YLF = b.film; frame.contentWindow.__yl = YLF; frame.contentWindow.__movable = function (id) {
       if (ylBusy || !YLMV.describe(YLF, YLCUR, id)) return false;
       var hit = frame.contentWindow.__motion.hits().filter(function (x) { return x.id === id; })[0];
@@ -250,7 +259,7 @@ function ylNote(h, ask) {
   ylShow(YLP.noteFilm(ylScaled(YLF), h, txt), true);
   setTimeout(function () { window.__canvas.note = ""; if (!ylBusy) ylShow(ylScaled(YLF), false); }, 2600);
 }
-function ylHold(id, ask, given) {
+function ylHold(id, ask, given, merge, kind) {
   var F = ylWin(), M = F.__motion, h = M.hits().filter(function (x) { return x.id === id; })[0];
   var rep = given || YLP.replyFor(YLR, YLID, id), nt = rep && !ylBusy ? YLP.applyPatch(YLCUR, rep) : null, b = nt ? YLM.build(nt) : null;
   if (!b || b.error) { if (!given) ylNote(h, ask); return; }
@@ -264,6 +273,7 @@ function ylHold(id, ask, given) {
   var box = YLP.diffBox(A.img, B.img, dpr), band = YLP.bandOf(A.slots, B.slots, W);
   var land = function () {
     YLF = nf; YLCUR = nt; YLN++; window.__canvas.yl = nf; $("resetyl").hidden = false;
+    record(merge ? "merge" : "push", { kind: kind || "hold", id: id, marks: [id], film: nf, text: nt });
     ylShow(ylScaled(nf), false); ylBusy = false;
     if (rep.mark !== undefined) mark(rep.mark || null);
     if (sayKey && rep.mark) F.__motion.place({}, rep.mark);   // typed with the keyboard: focus follows the touched mark to its new place
@@ -302,11 +312,12 @@ function ylMove(d) {
   var groups = YLMV.settleGroups(nf, pl, A, Bh, from, W), line1 = "[yui] " + FILM_ASK + " yl move " + nm + " " + pl.line;
   var land = function () {
     YLF = nf; YLCUR = pl.text; YLN++; window.__canvas.yl = nf; $("resetyl").hidden = false; ylBusy = false;
+    record("push", { kind: "move", id: pl.newId, marks: d.id === pl.newId ? [d.id] : [d.id, pl.newId], film: nf, text: pl.text });
     var pm = {}; pm[pl.newId] = pl.place; M.place(pm, d.phase === "key" ? pl.newId : null);
     ylShow(ylScaled(nf), false); mark(pl.newId);
     var rep = YLMV.moveReplyFor(YLR, YLID, d.id, pl);
     if (rep && !YLP.applyPatch(pl.text, rep)) rep = null;
-    if (rep) { say("…", line1, true); ylHold(pl.newId, line1, rep); } else say(nm + ", " + pl.place, line1, false);
+    if (rep) { say("…", line1, true); ylHold(pl.newId, line1, rep, true); } else say(nm + ", " + pl.place, line1, false);
   };
   M.liftOff();
   if (!groups.length) { land(); return; }
@@ -334,7 +345,7 @@ function ylSay(words, id) {
   var nm = touchedName(id), l1 = YLS.sayLine(FILM_ASK, words, nm, clock);
   mark(id);
   var rep = id && !ylBusy ? YLS.sayReplyFor(YLR, YLID, id, words) : null;
-  if (rep && YLP.applyPatch(YLCUR, rep)) { say("…", l1, true); ylHold(id, l1, rep); return; }
+  if (rep && YLP.applyPatch(YLCUR, rep)) { say("…", l1, true); ylHold(id, l1, rep, false, "say"); return; }
   say("\u201c" + words + "\u201d", l1, true);
 }
 function openSay(id, fromKey) {
@@ -380,10 +391,63 @@ $("mic").addEventListener("pointerup", micEnd);
 $("mic").addEventListener("pointercancel", micEnd);
 $("mic").addEventListener("contextmenu", function (e) { e.preventDefault(); });
 $("mic").addEventListener("click", function (e) { if (!SPEECH || e.detail === 0) openSay(touchedId(), false); });   // no speech API, or a keyboard Enter: the typed field
+// YUI-334: step back. Each hold redraw, drag answer and say+touch patch is one step (yl-undo.mjs). Back redraws only the marks that step changed,
+// on the same clock, and tells the agent in one line; Redo goes forward the same way. Two-finger tap, the Back mark, Cmd/Ctrl+Z, Shift+Cmd/Ctrl+Z.
+function record(how, step) { if (HIST) { YLU[how === "merge" ? "merge" : "push"](HIST, step); backSync(); } }
+function backSync() {
+  var b = $("back"), f = $("fwd"); if (!HIST) return;
+  b.disabled = !YLU.canBack(HIST); f.disabled = !YLU.canForward(HIST); f.hidden = !HIST.steps.length;
+  var s = HIST.steps[HIST.at - 1]; b.setAttribute("aria-label", s ? "Back. Undo: " + YLU.words(s, "back").replace(/^Back to before /, "").replace(/\.$/, "") : "Back. Nothing to undo");
+  var n = HIST.steps[HIST.at]; f.setAttribute("aria-label", n ? "Redo. " + YLU.words(n, "forward").replace(/\.$/, "") : "Redo. Nothing to redo");
+  window.__canvas.hist = { at: HIST.at, steps: HIST.steps.length };
+}
+function ylStep(dir) {
+  if (!YL || !HIST || ylBusy) return false;
+  closeSay(false);
+  var r = dir === "forward" ? YLU.forward(HIST) : YLU.back(HIST); if (!r) { say(dir === "forward" ? "Nothing to redo." : "Nothing to undo.", null, false); return false; }
+  var F = ylWin(), M = F.__motion, cv = F.document.getElementById("cv"), ctx = cv.getContext("2d"), W = F.innerWidth, H = F.innerHeight, dpr = cv.width / W;
+  var old = YLF, nf = r.state.film, t = clock, words = YLU.words(r.step, dir), l1 = (dir === "forward" ? YLU.redoLine : YLU.undoLine)(FILM_ASK, r.n, r.step.marks);
+  ylBusy = true; setPaused(true); speechSynthesis && speechSynthesis.cancel(); resetSpoken(); backSync();
+  var grab = function (f) { Y().mark(null); F.__yl = ylScaled(f); M.renderAt(t); var img = ctx.getImageData(0, 0, cv.width, cv.height), sl = f.slots && f.slots.map(function (s) { return { y: s.y, h: s.h }; }); return { img: img, slots: sl }; };
+  var A = grab(old), B = grab(nf), box = YLP.diffBox(A.img, B.img, dpr), band = YLP.bandOf(A.slots, B.slots, W);
+  var land = function () {
+    YLF = nf; YLCUR = r.state.text; YLN = HIST.at; window.__canvas.yl = nf; $("resetyl").hidden = !HIST.at; ylBusy = false;
+    M.place({}); mark(null); ylShow(ylScaled(nf), false); backSync();
+    say(words, l1, true); window.__canvas.lastStep = { dir: dir, line: l1, words: words };
+    var live = $("sr"); live.textContent = ""; setTimeout(function () { live.textContent = words; }, 30);
+  };
+  if (!box && !band) { land(); return true; }
+  ylShow(YLP.pulseFilm(ylScaled(old), band ? band.box : box), true);
+  setTimeout(function () {
+    var rd = YLP.redrawFilm(ylScaled(old), ylScaled(nf), ctx, { box: box, band: band, W: W, H: H, dur: 1500 });
+    ylShow(rd, true); setTimeout(land, 1560);
+  }, 750);
+  return true;
+}
+$("back").onclick = function () { ylStep("back"); };
+$("fwd").onclick = function () { ylStep("forward"); };
+// two-finger tap on the canvas (both fingers down together, up fast, neither moved)
+(function () {
+  var down = null;
+  function wire() {
+    var w = ylWin(); if (!w || w.__undoWired) return; w.__undoWired = true;
+    w.document.addEventListener("keydown", undoKey, true);
+    w.document.addEventListener("touchstart", function (e) { if (e.touches.length === 2) down = { t: Date.now(), p: [[e.touches[0].clientX, e.touches[0].clientY], [e.touches[1].clientX, e.touches[1].clientY]], moved: false }; else if (e.touches.length > 2) down = null; }, { passive: true });
+    w.document.addEventListener("touchmove", function (e) { if (down && e.touches.length === 2) for (var i = 0; i < 2; i++) if (Math.hypot(e.touches[i].clientX - down.p[i][0], e.touches[i].clientY - down.p[i][1]) > 14) down.moved = true; }, { passive: true });
+    w.document.addEventListener("touchend", function (e) { if (down && !down.moved && Date.now() - down.t < 450 && e.touches.length <= 1) { var d = down; down = null; if (YL) ylStep("back"); } else if (e.touches.length === 0) down = null; }, { passive: true });
+  }
+  window.__wireUndo = wire;
+})();
+document.addEventListener("keydown", undoKey);
+function undoKey(e) {
+  if (!YL || !(e.metaKey || e.ctrlKey) || e.altKey || String(e.key).toLowerCase() !== "z") return;
+  var t = e.target; if (t && (t.id === "fld" || t.id === "sayfld")) return;
+  e.preventDefault(); ylStep(e.shiftKey ? "forward" : "back");
+}
 function ylReset() {
   if (ylBusy || !YLN) return;
   closeSay(false);
-  YLF = YLF0; YLCUR = YLSRC; YLN = 0; window.__canvas.yl = YLF0; $("resetyl").hidden = true;
+  YLF = YLF0; YLCUR = YLSRC; YLN = 0; window.__canvas.yl = YLF0; $("resetyl").hidden = true; HIST = YLU.create(YLF0, YLSRC); backSync();
   ylWin().__motion.place({}); mark(null); ylShow(YLF0, false); say("Back to the first drawing.", null, false);
 }
 
@@ -391,7 +455,7 @@ window.addEventListener("message", function (e) {
   if (e.source !== frame.contentWindow) return;
   var m = e.data && e.data.motion; if (!m) return;
   if (m === "ready") {
-    ready = true; theme(); Y().auto(!HEART);
+    ready = true; window.__wireUndo && window.__wireUndo(); theme(); Y().auto(!HEART);
     loadFilm(function () { SCENES.forEach(function (s) { Y().scene(s); }); Y().end(); window.__canvas.total = TOTAL; window.__canvas.loaded = true; });
     return;
   }

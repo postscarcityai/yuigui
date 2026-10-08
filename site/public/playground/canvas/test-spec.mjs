@@ -7,6 +7,7 @@ import fs from "fs";
 import * as C from "./yl-canvas.mjs";
 import * as MV from "./yl-move.mjs";
 import * as SY from "./yl-say.mjs";
+import * as UN from "./yl-undo.mjs";
 
 const here = (p) => new URL(p, import.meta.url);
 const list = JSON.parse(fs.readFileSync(here("./yl-samples.json")));
@@ -40,6 +41,8 @@ const build = {
   "choose-in-picture": ({ f }, r) => (f.choose && C.isChoice(f, r.arg) ? `[yui] ${f.choose.id} choose choice=${r.arg}` : "(not a choice)"),
   answer: ({ f }, r) => { const t = C.touch(f, r.id); return t && t.line ? t.line : "(no line)"; },
   nudge: ({ f }, r) => { const t = C.nudge(f, { id: r.id, dir: +r.arg }); return t && t.line ? t.line : "(no line)"; },
+  undo: (_, r) => UN.undoLine(r.sample, +r.arg, r.id.split(",")),
+  redo: (_, r) => UN.redoLine(r.sample, +r.arg, r.id.split(",")),
   form: ({ f }, r) => { for (const kv of r.arg.split(";").map((s) => s.trim()).filter(Boolean)) { const [k, v] = kv.split("="); C.setText(f, r.id.split(":")[1] + ":" + k, q(v)); } const t = C.touch(f, r.id); return t && t.line ? t.line : "(no line)"; },
 };
 const seen = new Set();
@@ -47,7 +50,7 @@ for (const r of rows) {
   seen.add(r.how);
   try {
     if (!build[r.how]) { no(`unknown kind "${r.how}": ${r.raw}`); continue; }
-    const got = build[r.how](r.how === "hold-moment" || r.how === "say-moment" ? {} : film(r.sample), r);
+    const got = build[r.how](r.how === "hold-moment" || r.how === "say-moment" || r.how === "undo" || r.how === "redo" ? {} : film(r.sample), r);
     const want = r.want.startsWith("[yui]") ? r.want : r.want === "(nothing sent)" ? "(nothing)" : r.want;
     if (r.how === "tap") { if (want === "(nothing)" && got !== "(nothing)") no(`tap should send nothing: ${r.raw}`); else if (want !== "(nothing)" && got === "(nothing)") no(`tap sends no line but the spec says one: ${r.raw}`); else ok(`${r.how} ${r.sample} ${r.id}`); continue; }
     got === want ? ok(`${r.how} ${r.sample} ${r.id || r.arg}: ${got}`) : no(`${r.how} ${r.sample} ${r.id}\n     spec: ${want}\n     code: ${got}`);
@@ -55,9 +58,9 @@ for (const r of rows) {
 }
 
 // ---- every kind of event the page can send is in the spec (a new one must be written down)
-const need = ["tap", "hold", "hold-moment", "move", "say", "say-moment", "check", "choose-in-picture", "answer", "nudge", "form"];
+const need = ["tap", "hold", "hold-moment", "move", "say", "say-moment", "check", "choose-in-picture", "answer", "nudge", "form", "undo", "redo"];
 for (const k of need) seen.has(k) ? ok(`spec lists a "${k}" example`) : no(`spec has no "${k}" example`);
-const sends = [["ask line", /ASKV = YL \? " yl ask "/], ["move line", /" yl move "/], ["check line", /" yl check "/], ["picture choose", /" choose choice="/], ["say line", /YLS\.sayLine/]];
+const sends = [["ask line", /ASKV = YL \? " yl ask "/], ["move line", /" yl move "/], ["check line", /" yl check "/], ["picture choose", /" choose choice="/], ["say line", /YLS\.sayLine/], ["undo line", /YLU\.undoLine/], ["redo line", /YLU\.redoLine/]];
 for (const [n, re] of sends) re.test(page) ? ok(`canvas.html still builds the ${n}`) : no(`canvas.html no longer has the ${n}: update the test and the spec`);
 const lits = [...page.matchAll(/"\[yui\] "/g)].length;
 lits === 7 ? ok("canvas.html has the 7 known [yui] line builders (move, choose, check, moment, 3 ask)") : no(`canvas.html has ${lits} "[yui] " builders, the spec knows 7: a new event line must be written into MOTION.md 0b and this test`);

@@ -5,6 +5,11 @@
       "say": "Thursday was short. A shake gets it to 138.",
       "patch": "~chart y=118|132|141|138"
     },
+    "chart:n1:s0:1": {
+      "name": "Protein Tue: 140 g",
+      "say": "Tuesday was close. A snack gets it to 140.",
+      "patch": "~chart y=118|140|141|126"
+    },
     "move:chart:n1:s0:3": {
       "to": 1,
       "say": "Thursday leads now. Goal bar went with it.",

@@ -103,6 +103,7 @@ Events. `<ask>` is the answer's id: the sample name here, the block's own id in 
 - **Hold** on a mark asks about that one part: `[yui] <ask> yl ask <name>`. A hold on nothing asks about the moment: `yl ask moment @<seconds>s`.
 - **Drag** a mark and let go. The line says where it landed: `yl move <name> to=<place>`. Place is the 1-based slot for a list row, a queue row or a bar, and `x,y` in the drawing's grid for a shape. A drag on nothing scrubs and sends nothing. Arrow keys move a focused mark one step and send the same line.
 - **Say** while touching a mark: `yl say "<words>" touched=<name>`. Nothing touched: `touched=@<seconds>s`, the moment on the clock.
+- **Back** (YUI-334) steps the picture back. Every hold redraw, drag answer and say+touch patch is one step; Back (two-finger tap, the Back mark in the corner, Cmd/Ctrl+Z) returns to the picture before the last step and redraws only the marks that step changed, on the same clock. Redo (the forward mark, Shift+Cmd/Ctrl+Z) goes forward the same way. The agent gets one line so it knows the picture changed under it: `[yui] <ask> canvas undo step=<n> marks=<ids>`, `n` the 1-based step undone and `ids` the marks that step changed, comma separated (`redo` the same going forward). The Back mark is named, and each step is announced in plain words: "Back to before the bar moved."
 
 ```canvas-events
 tap | bars | chart:n1:s0:3 | => (nothing sent)
@@ -118,6 +119,8 @@ answer | choose-other | in:next:o0 | => [yui] next choose choice=Legs
 answer | ask-ship | in:ship:o1 | => [yui] ship ask answer="Not yet"
 nudge | slide-sore | in:sore:knob | 1 => [yui] sore slide value=4
 form | form-checkin | in:checkin:send | goal="get strong" => [yui] checkin form form.sleep=6 form.goal="get strong"
+undo | bars | chart:n1:s0:3 | 2 => [yui] bars canvas undo step=2 marks=chart:n1:s0:3
+redo | bars | chart:n1:s0:1,chart:n1:s0:3 | 1 => [yui] bars canvas redo step=1 marks=chart:n1:s0:1,chart:n1:s0:3
 ```
 
 What to send back: a patch of only the marks you name, and nothing else moves. A held or said mark gets `~chart y=118|132|141|138`, `~list ...` or `~stat ...` (the `spec/CHANNEL.md` patch rules), plus one line of words. A drop gets a patch only if you change something because of it (a bar moved first, so the chart is retitled); the mark already sits where it landed. A choice drawn into a picture arrives as `choose choice=<name>` with the name as written, spaces and all, so read to the end of the line. Do not re-send the answer, and do not echo the person's own words or tap.
