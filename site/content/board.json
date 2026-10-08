@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T18:35:27.967Z",
+  "updated": "2026-10-08T19:00:25.043Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,8 +273,14 @@
           "waiting": true
         },
         {
+          "key": "YUI-340",
+          "title": "The canvas draws time, every timer ring, round and workout set a touchable mark",
+          "waiting": true
+        },
+        {
           "key": "SITE-272",
-          "title": "Thought on YUI-340, time you can touch"
+          "title": "Thought on YUI-340, time you can touch",
+          "waiting": true
         },
         {
           "key": "NOTE-21045",
@@ -293,11 +299,6 @@
       "key": "building",
       "title": "Building",
       "cards": [
-        {
-          "key": "YUI-340",
-          "title": "The canvas draws time, every timer ring, round and workout set a touchable mark",
-          "owner": "CJohnDesign"
-        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
