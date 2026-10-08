@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T08:36:07.437Z",
+  "updated": "2026-10-08T08:51:04.108Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-265",
-          "title": "Thought on YUI-333, the canvas rules written down"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -294,8 +290,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-333",
-          "title": "Write the living canvas events into the spec, with a test so spec and code match",
+          "key": "SITE-265",
+          "title": "Thought on YUI-333, the canvas rules written down",
           "owner": "CJohnDesign"
         },
         {
@@ -310,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-333",
+          "title": "Write the living canvas events into the spec, with a test so spec and code match",
+          "summary": "The canvas events, written into the spec",
+          "shipped": "2026-10-08",
+          "progress": "/progress#the-canvas-events-written-into-the-spec",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4573e06e"
+        },
         {
           "key": "SITE-264",
           "title": "Thought on YUI-332, talk while touching a part",
