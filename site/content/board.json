@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T18:10:18.644Z",
+  "updated": "2026-10-08T18:20:19.814Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-271",
-          "title": "Thought on YUI-339, music you can touch"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -294,17 +290,14 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-321",
-          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
-          "blocked": "chris",
+          "key": "SITE-271",
+          "title": "Thought on YUI-339, music you can touch",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-339",
-          "title": "The canvas draws music, every beat cell, key and chord a touchable mark",
-          "summary": "Music you can touch",
-          "blocked": "other",
-          "progress": "/progress#music-you-can-touch",
+          "key": "YUI-321",
+          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
@@ -313,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-339",
+          "title": "The canvas draws music, every beat cell, key and chord a touchable mark",
+          "summary": "Music you can touch",
+          "shipped": "2026-10-08",
+          "progress": "/progress#music-you-can-touch",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/dc25a76a"
+        },
         {
           "key": "SITE-270",
           "title": "Thought on YUI-338, pictures you can touch",
