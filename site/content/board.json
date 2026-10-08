@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T03:10:14.282Z",
+  "updated": "2026-10-08T03:15:14.668Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-260",
           "title": "Thought on YUI-328, answer the agent right on the canvas",
+          "summary": "A Thought: answer on the canvas",
+          "progress": "/progress#a-thought-answer-on-the-canvas",
           "owner": "CJohnDesign"
         },
         {
