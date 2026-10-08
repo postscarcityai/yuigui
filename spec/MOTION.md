@@ -89,6 +89,39 @@ Rules the guide and every agent can draw for:
 
 Live prototype: `/playground/canvas.html` (same harness as the phone, `canvas/player.html`). The host page is under 250 lines: it adds the progress hairline, mute, the chips and the in-place answer line. The words an agent writes back for a held part are canned there; the hold, the tap and the line the agent would receive are real.
 
+### Yui Lines on the canvas (YUI-333)
+
+A Yui Lines answer (`spec/YL.md`) does not open a screen. It draws on the canvas, and every part of it is a mark. This is what the canvas sends back, copied from `site/public/playground/canvas/`. `site/public/playground/canvas/test-spec.mjs` builds each line below from the code and fails when one differs.
+
+Which presets draw as marks: `shapes` and `sketch` drawings, `chart` and `stat`, `list`, `table`, `timeline` and `card`, and the answers `choose`, `pick`, `ask`, `slide` and `form`. A `choose` under a picture is drawn into it. Several in one answer share one canvas.
+
+A mark's id is the preset's own id plus its place. The id is `<preset>:<block id>:<place>`: a chart bar is `chart:n1:s0:3` (series 0, point 3), a list row `list:n2:3`, a timeline row `tl:n2:3`, a stat `stat:n1`, a spark point `spark:n2:0`, an input `in:<block id>:o0` (option 0), `:knob`, `:send`, or the field key. A shape is `yl:<name>`, the name from `shape@name`. A heading or caption is `mark:text:<slug>`. The block id is the `@id` you wrote, or `n<position>` in the answer (the second block is `n2`). The mark's name is the words on it (`Protein Thu: 126 g`, `Calf raises 4x15`); the event line carries the name, not the id.
+
+Events. `<ask>` is the answer's id: the sample name here, the block's own id in the app.
+
+- **Tap** on a mark pauses, lights it and names it. Nothing is sent. A tap on an answer is the answer and is sent: a `choose`/`ask` pill, a `pick` option then its Send, a slider end, a form's Send, a choice drawn into the picture, a `+check` row.
+- **Hold** on a mark asks about that one part: `[yui] <ask> yl ask <name>`. A hold on nothing asks about the moment: `yl ask moment @<seconds>s`.
+- **Drag** a mark and let go. The line says where it landed: `yl move <name> to=<place>`. Place is the 1-based slot for a list row, a queue row or a bar, and `x,y` in the drawing's grid for a shape. A drag on nothing scrubs and sends nothing. Arrow keys move a focused mark one step and send the same line.
+- **Say** while touching a mark: `yl say "<words>" touched=<name>`. Nothing touched: `touched=@<seconds>s`, the moment on the clock.
+
+```canvas-events
+tap | bars | chart:n1:s0:3 | => (nothing sent)
+hold | bars | chart:n1:s0:3 | => [yui] bars yl ask Protein Thu: 126 g
+hold-moment | bars | | 4.2 => [yui] bars yl ask moment @4.2s
+move | queue | tl:n2:3 | dy=-1 => [yui] queue yl move Charts on the canvas to=3
+move | parts | yl:build | dx=1 => [yui] parts yl move Build to=5.5,4.4
+say | bars | chart:n1:s0:3 | "Why is this one low?" => [yui] bars yl say "Why is this one low?" touched=Protein Thu: 126 g
+say-moment | bars | | 3.4 "what is this" => [yui] bars yl say "what is this" touched=@3.4s
+check | today | list:n2:0 | => [yui] today yl check Squat 5x5
+choose-in-picture | sketch-choose | | Later => [yui] move choose choice=Later
+answer | choose-other | in:next:o0 | => [yui] next choose choice=Legs
+answer | ask-ship | in:ship:o1 | => [yui] ship ask answer="Not yet"
+nudge | slide-sore | in:sore:knob | 1 => [yui] sore slide value=4
+form | form-checkin | in:checkin:send | goal="get strong" => [yui] checkin form form.sleep=6 form.goal="get strong"
+```
+
+What to send back: a patch of only the marks you name, and nothing else moves. A held or said mark gets `~chart y=118|132|141|138`, `~list ...` or `~stat ...` (the `spec/CHANNEL.md` patch rules), plus one line of words. A drop gets a patch only if you change something because of it (a bar moved first, so the chart is retitled); the mark already sits where it landed. A choice drawn into a picture arrives as `choose choice=<name>` with the name as written, spaces and all, so read to the end of the line. Do not re-send the answer, and do not echo the person's own words or tap.
+
 ## 1. The three prototypes
 
 | | A. Free code | B. YL grows motion | C. Hybrid |
