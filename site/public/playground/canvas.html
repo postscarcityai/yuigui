@@ -36,6 +36,7 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
 #strip a{flex:none;color:var(--fg);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);backdrop-filter:blur(8px)}
 #strip a.on{border-color:var(--accent);color:var(--accent)}
 #chips button:focus-visible,.row button:focus-visible,#strip a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+#fld{position:absolute;z-index:5;border:2px solid var(--accent);border-radius:14px;background:var(--panel);color:var(--fg);font:700 19px ui-rounded,system-ui,sans-serif;padding:0 14px;outline:none}
 #hint{position:absolute;top:calc(12px + env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:12px;color:var(--dim);pointer-events:none;transition:opacity .6s}
 </style>
 </head>
@@ -48,6 +49,7 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
     <nav id="yls" role="tablist" aria-label="Yui Lines" aria-controls="cv" hidden></nav>
   </div>
   <div id="hint" aria-hidden="true">drag to scrub &middot; tap a part &middot; hold to ask</div>
+  <input id="fld" type="text" hidden autocomplete="off" aria-label="Your answer">
   <div id="line" aria-live="polite"></div>
   <div id="chips"><button id="another">Another take</button><button id="change">Change it</button></div>
   <div id="bar">
@@ -203,6 +205,19 @@ function label(id, given) { return given || (id.indexOf("part:heart4:") === 0 ? 
 function cueAt(t) { var best = null; cues.forEach(function (c) { if (t >= c.from - 0.05 && t <= c.to) best = c; }); return best; }
 function caps(on) { try { frame.contentWindow.__noCaps = !on; Y().mark(Y().__m || null); } catch (e) {} }
 function mark(id) { Y().__m = id || null; Y().mark(id || null); }
+// YUI-328: a text field or the Other pill is edited in a real input laid over the mark (the prototype has no keyboard of its own)
+function openEdit(ed) {
+  var f = $("fld"), r = ed.rect || { x: 20, y: 300, w: 350, h: 44 }, fr = frame.getBoundingClientRect(), ar = $("app").getBoundingClientRect();
+  f.style.left = (fr.left - ar.left + r.x) + "px"; f.style.top = (fr.top - ar.top + (r.y || 0)) + "px"; f.style.width = r.w + "px"; f.style.height = (r.h || 44) + "px";
+  f.value = ed.value || ""; f.hidden = false; f.dataset.key = ed.key; f.dataset.id = ed.id; f.focus();
+}
+function closeEdit(commit) {
+  var f = $("fld"); if (f.hidden) return; var key = f.dataset.key, v = f.value; f.hidden = true; f.dataset.key = "";
+  if (!commit) return;
+  var r = YLM.setText(YLF, key, v); Y().seek(clock); if (r) say(r.say, r.line, false);
+}
+$("fld").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); closeEdit(true); } else if (e.key === "Escape") closeEdit(false); });
+$("fld").addEventListener("blur", function () { setTimeout(function () { closeEdit(true); }, 0); });
 function resetSpoken() { spoken = {}; }
 
 window.addEventListener("message", function (e) {
@@ -233,6 +248,9 @@ window.addEventListener("message", function (e) {
     if (!id) { mark(null); line.classList.remove("on"); caps(true); setPaused(!paused); return; }
     var nm = label(id, e.data.label); mark(id);
     if (YL) {
+      // YUI-328: a tap on a pill, a pick, Send, a form field or an end label is the answer, drawn and sent in place; the canvas keeps playing
+      var ip = YLM.touch(YLF, id);
+      if (ip) { mark(null); if (ip.edit) { openEdit(ip.edit); return; } Y().seek(clock); say(ip.say, ip.line, false); return; }
       // YUI-325: a tap on a choice drawn into the picture is the answer (the picture keeps playing); any other mark pauses, rings and names itself
       if (YLM.isChoice(YLF, nm)) { YLF.chosen = nm; Y().mark(id); say(nm, "[yui] " + YLF.choose.id + " choose choice=" + nm, false); return; }
       // YUI-327: a +check row ticks in place and sends the check line; the picture stays paused with the row ringed
@@ -248,6 +266,13 @@ window.addEventListener("message", function (e) {
     } else setPaused(true);
     var cue = HEART ? null : cueAt(clock), words = SAY[nm] || (cue && cue.text !== nm ? cue.text : nm);
     say(HEART ? words : nm, HEART ? null : (words !== nm ? words : null), false); speak(words);
+    return;
+  }
+  if (m === "drag" || m === "nudge") {
+    // YUI-328: a knob moves (drag) or steps (arrow keys); the line is sent when the drag ends or on every step. The picture does not scrub.
+    if (!YL) return;
+    var r = m === "drag" ? YLM.drag(YLF, e.data) : YLM.nudge(YLF, e.data);
+    Y().seek(clock); if (r && (r.line || e.data.phase === "end")) say(r.say, r.line, false);
     return;
   }
   if (m === "hold") {

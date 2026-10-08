@@ -118,5 +118,35 @@
   "id": "dinner",
   "name": "List + table + check: dinner",
   "yl": "list Shop \"Eggs\" \"Spinach\" \"Greek yogurt\" +check\ntable Totals Item|Cal \"Eggs|140\" \"Spinach|20\" \"Yogurt|120\""
+ },
+ {
+  "id": "choose-other",
+  "name": "Choose with Other: where next",
+  "yl": "choose@next \"Where next?\" Legs|Back|Arms +other"
+ },
+ {
+  "id": "pick-gear",
+  "name": "Pick several: your gear",
+  "yl": "pick@gear \"What gear do you have?\" DB|Bench|Bands|\"Pull-up bar\" submit=Send"
+ },
+ {
+  "id": "slide-sore",
+  "name": "Slide with end labels: how sore",
+  "yl": "slide@sore \"How sore?\" 1-5 Fresh|Wrecked value=3"
+ },
+ {
+  "id": "ask-ship",
+  "name": "Ask with two buttons: ship it",
+  "yl": "ask@ship \"Ship the site update?\" Ship|\"Not yet\""
+ },
+ {
+  "id": "form-checkin",
+  "name": "Form: a 1-10 field and a text field",
+  "yl": "form@checkin \"Check-in\" sleep:1-10 goal:text submit=Send"
+ },
+ {
+  "id": "sketch-choose",
+  "name": "Sketch and a choose, a tap on the answer",
+  "yl": "sketch \"Settings\" frame=phone before=Now\nrow \"Log out\" +hi note=\"buried at the top\"\nrow \"Help\" +x note=\"nobody used it\"\nafter Proposed\nrow \"Log out\" +hi note=\"moved to the bottom\"\nchoose@move \"Move it?\" Yes|Later"
  }
 ]

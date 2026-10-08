@@ -1,4 +1,4 @@
-// YUI-325/326/327: Yui Lines on the living canvas (shapes, sketch, chart, stat, list, table, timeline, card). Every sample on /playground/canvas.html?yl=<id> draws, every mark is hit-testable and
+// YUI-325/326/327/328: Yui Lines on the living canvas (shapes, sketch, chart, stat, list, table, timeline, card, choose, pick, ask, slide, form). Every sample on /playground/canvas.html?yl=<id> draws, every mark is hit-testable and
 // keyboard-reachable, tap / hold send the right lines, a choose drawn into the picture answers, and scrubbing to t=0 and to the end is stable.
 // Serve site/public (python3 -m http.server 8923), then: node test-yl.mjs   (PW_FROM = a package.json whose node_modules has playwright)
 import { createRequire } from "module";
@@ -12,12 +12,14 @@ let bad = 0; const out = [];
 // 0. the browser copies of lib/yl match the originals
 try { execFileSync("node", [new URL("../../../scripts/sync-canvas-yl.mjs", import.meta.url).pathname, "--check"], { stdio: "pipe" }); out.push("ok  canvas yl copies in sync"); } catch (e) { bad++; out.push("BAD canvas yl copies drifted: run node site/scripts/sync-canvas-yl.mjs"); }
 // 1. the sample set
-const kinds = list.map((s) => (/^\s*(say.*\n)?(chart|stat)/.test(s.yl) ? "chart" : /^\s*(say.*\n)?shapes/.test(s.yl) ? "shapes" : /^\s*(say.*\n)?(list|table|timeline|card)/.test(s.yl) ? "lists" : "sketch"));
+const kinds = list.map((s) => (/^\s*(say.*\n)?(chart|stat)/.test(s.yl) ? "chart" : /^\s*(say.*\n)?shapes/.test(s.yl) ? "shapes" : /^\s*(say.*\n)?(list|table|timeline|card)/.test(s.yl) ? "lists" : /^\s*(say.*\n)?(choose|pick|ask|slide|form)/.test(s.yl) ? "inputs" : "sketch"));
 const chartTypes = new Set(list.flatMap((s) => [...s.yl.matchAll(/^chart (line|bar|area|scatter|pie|donut)/gm)].map((m) => m[1])));
 const need = { n: list.length >= 16, shapes: kinds.filter((k) => k === "shapes").length >= 4, sketch: kinds.filter((k) => k === "sketch").length >= 3, charts: kinds.filter((k) => k === "chart").length >= 6, types: ["line", "bar", "area", "pie", "donut"].every((t) => chartTypes.has(t)), stat: list.some((s) => /^stat .*delta=.*spark=/m.test(s.yl)), pair: list.some((s) => /^stat /m.test(s.yl) && /^chart /m.test(s.yl) && /^choose/m.test(s.yl)), choose: list.filter((s) => /^choose/m.test(s.yl)).length >= 1,
   // YUI-327: a list, a +check list, a table, a timeline with done/now/next, a card with a body, and a timeline + choose pair
   lists: kinds.filter((k) => k === "lists").length >= 6, plainList: list.some((s) => /^list /m.test(s.yl) && !/\+check/.test(s.yl)), checkList: list.some((s) => /^list .*\+check/m.test(s.yl)), table: list.some((s) => /^table /m.test(s.yl)),
-  timeline: list.some((s) => /^timeline/m.test(s.yl) && /^done /m.test(s.yl) && /^now /m.test(s.yl) && /^next /m.test(s.yl)), card: list.some((s) => /^card .*body=|^card "[^"]*" "/m.test(s.yl)), tlChoose: list.some((s) => /^timeline/m.test(s.yl) && /^choose/m.test(s.yl)) };
+  timeline: list.some((s) => /^timeline/m.test(s.yl) && /^done /m.test(s.yl) && /^now /m.test(s.yl) && /^next /m.test(s.yl)), card: list.some((s) => /^card .*body=|^card "[^"]*" "/m.test(s.yl)), tlChoose: list.some((s) => /^timeline/m.test(s.yl) && /^choose/m.test(s.yl)),
+  // YUI-328: a choose with +other, a pick of several, a slide with end labels, an ask with two buttons, a form with a 1-10 field and a text field, a sketch + choose pair
+  inputs: kinds.filter((k) => k === "inputs").length >= 5, chooseOther: list.some((s) => /^choose.*\+other/m.test(s.yl)), pickMany: list.some((s) => /^pick\b.*\|.*\|/m.test(s.yl)), slideEnds: list.some((s) => /^slide\b.*\d-\d+ \w+\|\w+/m.test(s.yl)), askTwo: list.some((s) => /^ask\b.*\w+\|"?[\w ]+"?\s*$/m.test(s.yl)), formFields: list.some((s) => /^form\b/m.test(s.yl) && /:1-10/.test(s.yl) && /:text/.test(s.yl)), sketchChoose: list.some((s) => /^sketch/m.test(s.yl) && /^choose/m.test(s.yl)) };
 if (!Object.values(need).every(Boolean)) { bad++; out.push("BAD sample set " + JSON.stringify(need)); } else out.push("ok  " + list.length + " samples (" + kinds.filter((k) => k === "shapes").length + " shapes, " + kinds.filter((k) => k === "sketch").length + " sketch, " + kinds.filter((k) => k === "chart").length + " chart/stat, " + kinds.filter((k) => k === "lists").length + " list/table/timeline/card)");
 const b = await chromium.launch({ executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", headless: true });
 for (const s of list) {
@@ -109,7 +111,7 @@ for (const s of list) {
   await fr.evaluate(async ([x, y]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: 8, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, 60)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [hit.x, hit.y]);
   await p.waitForTimeout(250);
   const tapLine = await p.evaluate(() => document.getElementById("line").innerText), paused = await fr.evaluate(() => window.__motion.paused());
-  if (!paused) fails.push("tap did not pause"); if (!tapLine.includes(hit.label)) fails.push("tap line " + JSON.stringify(tapLine)); if (!(await p.evaluate(() => document.getElementById("line").classList.contains("on")))) fails.push("tap line hidden");
+  if (!paused && film.kind !== "inputs") fails.push("tap did not pause"); if (!tapLine.includes(hit.label)) fails.push("tap line " + JSON.stringify(tapLine)); if (!(await p.evaluate(() => document.getElementById("line").classList.contains("on")))) fails.push("tap line hidden");
   // 6. a choose drawn into the picture is answered by tapping it
   if (film.choose) {
     const opt = film.choose.options[0];
@@ -124,6 +126,16 @@ for (const s of list) {
       if (chosen !== opt || !cl.includes("choice=" + opt)) fails.push("choice answer " + JSON.stringify(cl) + " chosen=" + chosen);
     }
   }
+  // YUI-328: every input is a named mark, in order, and the film ends on a stable frame after an answer too
+  if (film.kind === "inputs") {
+    const named = await fr.evaluate((t) => { window.__motion.renderAt(t); return window.__motion.hits().map((h) => h.label); }, total);
+    const btns = await fr.evaluate(() => [...document.querySelectorAll("#parts button")].map((x) => x.getAttribute("aria-label")));
+    if (named.some((l) => !l || !l.trim())) fails.push("an input mark has no name");
+    if (JSON.stringify(named) !== JSON.stringify(btns)) fails.push("keyboard names differ from hit names");
+    if (new Set(film.marks.map((m) => m.id)).size !== film.marks.length) fails.push("duplicate mark ids");
+    const early = await fr.evaluate(() => { window.__motion.renderAt(0.4); return window.__motion.hits().length; });
+    if (early > 1) fails.push("inputs appear before they draw (hits@0.4=" + early + ")");
+  }
   // 7. the picker: Lines tab is a tablist with this sample selected
   const tl = await p.evaluate(() => { const n = document.getElementById("yls"), t = [...n.querySelectorAll("[role=tab]")]; return { vis: !n.hidden, tabs: t.length, sel: t.filter((x) => x.getAttribute("aria-selected") === "true").length, stops: t.filter((x) => x.tabIndex === 0).length, films: document.getElementById("films").hidden }; });
   if (!tl.vis || tl.tabs !== list.length || tl.sel !== 1 || tl.stops !== 1 || !tl.films) fails.push("tablist " + JSON.stringify(tl));
@@ -133,6 +145,87 @@ for (const s of list) {
   out.push(`${fails.length ? "BAD" : "ok "} ${s.id} ${film.kind} total=${total.toFixed(1)} marks=${film.marks.length} hits(max)=${maxHits}${film.onShapes ? " choice-on-shapes" : film.choose ? " choice-pills" : ""} ${[...new Set(fails)].slice(0, 6).join(" | ")}`);
   await p.close();
 }
+// 7b. YUI-328: the inputs answer. A fresh page per case, real pointer events on the canvas, the event line read back from the page.
+const open = async (id) => {
+  const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+  p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
+  await p.goto(base + "?yl=" + id + "&theme=dark");
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 });
+  p.fr = p.frames().find((f) => f.url().includes("player.html"));
+  p.total = await p.evaluate(() => window.__canvas.total);
+  await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); await p.waitForTimeout(500);
+  p.hits = () => p.fr.evaluate(() => window.__motion.hits());
+  p.hitOf = async (label) => { const hs = await p.hits(); return hs.find((h) => h.label === label) || hs.find((h) => h.label.startsWith(label) && !/^in:[^:]+:q$/.test(h.id)); };
+  p.line = () => p.evaluate(() => document.getElementById("line").innerText);
+  p.st = () => p.evaluate(() => JSON.parse(JSON.stringify(window.__canvas.yl.state)));
+  p.tap = async (h, pid = 40) => { await p.fr.evaluate(async ([x, y, pid]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, 60)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [h.x, h.y, pid]); await p.waitForTimeout(300); };
+  p.dragTo = async (h, x, y = h.y, pid = 41) => { await p.fr.evaluate(async ([x0, y0, x1, y1, pid]) => { const cv = document.getElementById("cv"), o = (x, y) => ({ clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" }); cv.dispatchEvent(new PointerEvent("pointerdown", o(x0, y0))); for (let i = 1; i <= 8; i++) { await new Promise((r) => setTimeout(r, 25)); cv.dispatchEvent(new PointerEvent("pointermove", o(x0 + (x1 - x0) * i / 8, y0 + (y1 - y0) * i / 8))); } cv.dispatchEvent(new PointerEvent("pointerup", o(x1, y1))); }, [h.x, h.y, x, y, pid]); await p.waitForTimeout(300); };
+  p.clock = () => p.fr.evaluate(() => window.__motion.clock());
+  p.xFor = async (id, v) => p.evaluate(([id, v]) => { const f = window.__canvas.yl, g = f.geo[id], b = f.blocks.find((q) => id.startsWith("in:" + q.id + ":")), fl = b.kind === "slide" ? b : b.fields.find((q) => id === "in:" + b.id + ":" + q.key); return g.x0 + (g.x1 - g.x0) * (v - fl.min) / (fl.max - fl.min); }, [id, v]);
+  p.frameSig = () => p.fr.evaluate(() => { const c = document.getElementById("cv"); return c.toDataURL().length + ":" + c.toDataURL().slice(-200); });
+  return p;
+};
+const check = async (name, fn) => { const fails = []; let p; try { p = await open(name.id); await fn(p, fails); if (p.errs.length) fails.push(p.errs.join(";")); } catch (e) { fails.push("threw " + String(e).slice(0, 160)); } if (fails.length) bad++; out.push(`${fails.length ? "BAD" : "ok "} inputs ${name.id} ${name.what} ${fails.join(" | ")}`); if (p) await p.close(); };
+const has = (l, want) => l.includes(want);
+if (list.some((s) => s.id === "choose-other")) {
+  await check({ id: "choose-other", what: "choose locks, other types" }, async (p, f) => {
+    await p.tap(await p.hitOf("Back")); let l = await p.line(), st = await p.st();
+    if (!has(l, "[yui] next choose choice=Back") || st.chosen.next !== "Back") f.push("choose line " + JSON.stringify(l));
+    await p.tap(await p.hitOf("Legs"), 42); const st2 = await p.st(), l2 = await p.line();
+    if (st2.chosen.next !== "Back" || has(l2, "choice=Legs")) f.push("choose did not lock: " + JSON.stringify(st2.chosen) + " " + JSON.stringify(l2));
+    const a = await p.frameSig(), z = await p.fr.evaluate(() => { window.__motion.renderAt(0); return document.getElementById("cv").toDataURL().length; }); if (!z) f.push("t=0 blank frame lost"); await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); if ((await p.frameSig()) !== a) f.push("end not stable after an answer");
+  });
+  await check({ id: "choose-other", what: "Other opens the field and sends what is typed" }, async (p, f) => {
+    await p.tap(await p.hitOf("Other")); const vis = await p.evaluate(() => !document.getElementById("fld").hidden);
+    if (!vis) { f.push("Other did not open the field"); return; }
+    await p.fill("#fld", "Core"); await p.press("#fld", "Enter"); await p.waitForTimeout(250);
+    const l = await p.line(), st = await p.st();
+    if (!has(l, "[yui] next choose choice=Core") || st.chosen.next !== "Core") f.push("other line " + JSON.stringify(l));
+  });
+}
+if (list.some((s) => s.id === "pick-gear")) await check({ id: "pick-gear", what: "pick toggles, Send sends the set" }, async (p, f) => {
+  await p.tap(await p.hitOf("Send")); if (has(await p.line(), "[yui]")) f.push("Send with nothing picked sent a line");
+  await p.tap(await p.hitOf("DB")); await p.tap(await p.hitOf("Bands"), 43); await p.tap(await p.hitOf("Bench"), 44); await p.tap(await p.hitOf("Bench"), 45);
+  let st = await p.st(); if (JSON.stringify(st.picked.gear) !== '["DB","Bands"]') f.push("toggle " + JSON.stringify(st.picked));
+  await p.tap(await p.hitOf("Send"), 46); const l = await p.line();
+  if (!has(l, "[yui] gear pick picked=DB|Bands")) f.push("pick line " + JSON.stringify(l));
+  await p.tap(await p.hitOf("Pull-up"), 47); st = await p.st(); if (st.picked.gear.length !== 2) f.push("pick toggled after Send");
+});
+if (list.some((s) => s.id === "slide-sore")) await check({ id: "slide-sore", what: "knob drags, arrows step, no scrub" }, async (p, f) => {
+  const kid = "in:sore:knob", c0 = await p.clock();
+  await p.dragTo(await p.hitOf("How sore"), await p.xFor(kid, 5));
+  let st = await p.st(), l = await p.line();
+  if (st.value.sore !== 5 || !has(l, "[yui] sore slide value=5")) f.push("drag to 5: " + st.value.sore + " " + JSON.stringify(l));
+  if ((await p.clock()) !== c0) f.push("a drag on the knob scrubbed (" + c0 + " -> " + (await p.clock()) + ")");
+  await p.dragTo(await p.hitOf("How sore"), await p.xFor(kid, 1), undefined, 48); st = await p.st(); l = await p.line();
+  if (st.value.sore !== 1 || !has(l, "slide value=1") || !has(l, "changed=true")) f.push("drag to 1: " + st.value.sore + " " + JSON.stringify(l));
+  const kb = p.fr.locator('#parts button[data-id="' + kid + '"]'); await kb.focus();
+  await p.keyboard.press("ArrowRight"); await p.keyboard.press("ArrowRight"); await p.waitForTimeout(250); st = await p.st(); l = await p.line();
+  if (st.value.sore !== 3 || !has(l, "slide value=3")) f.push("arrows to 3: " + st.value.sore + " " + JSON.stringify(l));
+  await p.keyboard.press("ArrowLeft"); await p.waitForTimeout(200); st = await p.st(); if (st.value.sore !== 2) f.push("arrow left: " + st.value.sore);
+  if ((await p.clock()) !== c0) f.push("arrow keys on the knob scrubbed");
+  await p.tap(await p.hitOf("Wrecked"), 49); st = await p.st(); if (st.value.sore !== 5) f.push("end label did not jump to 5");
+  if (!(await p.hitOf("How sore? 5"))) f.push("knob name lacks its value");
+  await p.fr.evaluate(() => { document.activeElement.blur(); document.getElementById("cv").blur(); }); await p.waitForTimeout(100); await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total);
+  const a = await p.frameSig(); await p.fr.evaluate(() => window.__motion.renderAt(0)); const z1 = await p.frameSig(); await p.fr.evaluate(() => window.__motion.renderAt(0)); if ((await p.frameSig()) !== z1) f.push("t=0 not stable after a drag"); await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); if ((await p.frameSig()) !== a) f.push("end not stable after a drag");
+});
+if (list.some((s) => s.id === "ask-ship")) await check({ id: "ask-ship", what: "ask answers and locks" }, async (p, f) => {
+  await p.tap(await p.hitOf("Not yet")); const l = await p.line();
+  if (!has(l, '[yui] ship ask answer="Not yet"')) f.push("ask line " + JSON.stringify(l));
+  await p.tap(await p.hitOf("Ship"), 50); if ((await p.st()).chosen.ship !== "Not yet") f.push("ask did not lock");
+});
+if (list.some((s) => s.id === "form-checkin")) await check({ id: "form-checkin", what: "1-10 knob, text field, Send" }, async (p, f) => {
+  await p.dragTo(await p.hitOf("sleep"), await p.xFor("in:checkin:sleep", 9));
+  let st = await p.st(); if (st.value["checkin:sleep"] !== 9) f.push("sleep knob " + st.value["checkin:sleep"]);
+  await p.tap(await p.hitOf("goal"), 51); if (!(await p.evaluate(() => !document.getElementById("fld").hidden))) { f.push("text field did not open"); return; }
+  await p.fill("#fld", "get strong"); await p.press("#fld", "Enter"); await p.waitForTimeout(250);
+  if (!(await p.hitOf("goal: get strong"))) f.push("text field name lacks its text");
+  await p.tap(await p.hitOf("Send"), 52); const l = await p.line();
+  if (!has(l, '[yui] checkin form form.sleep=9 form.goal="get strong"')) f.push("form line " + JSON.stringify(l));
+  if (!(await p.hitOf("Sent"))) f.push("Send did not turn to Sent");
+  const kb = p.fr.locator('#parts button[data-id="in:checkin:sleep"]'); await kb.focus(); await p.keyboard.press("ArrowLeft"); await p.waitForTimeout(200);
+  if ((await p.st()).value["checkin:sleep"] !== 9) f.push("form moved after Send");
+});
 // 8. an unknown id falls back to the films tab instead of a blank canvas
 { const p = await b.newPage({ viewport: { width: 390, height: 844 } }); await p.goto(base + "?yl=nope"); await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 }).catch(() => {}); const ok = !(await p.url()).includes("yl="); if (!ok) { bad++; out.push("BAD unknown id kept ?yl="); } else out.push("ok  unknown id falls back"); await p.close(); }
 console.log(out.join("\n")); console.log("bad", bad, "of", list.length + 3);
