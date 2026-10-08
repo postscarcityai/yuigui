@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T08:51:04.108Z",
+  "updated": "2026-10-08T08:56:05.305Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-265",
           "title": "Thought on YUI-333, the canvas rules written down",
+          "summary": "A Thought: the canvas rules, written down",
+          "progress": "/progress#a-thought-the-canvas-rules-written-down",
           "owner": "CJohnDesign"
         },
         {
