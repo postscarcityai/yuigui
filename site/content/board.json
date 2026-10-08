@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T01:06:02.939Z",
+  "updated": "2026-10-08T01:10:56.658Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -295,13 +295,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-256",
-          "title": "Thought on YUI-324, the canvas works by keyboard and screen reader",
-          "summary": "A Thought: the canvas works without touch",
-          "progress": "/progress#a-thought-the-canvas-works-without-touch",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
@@ -313,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-256",
+          "title": "Thought on YUI-324, the canvas works by keyboard and screen reader",
+          "summary": "A Thought: the canvas works without touch",
+          "shipped": "2026-10-07",
+          "progress": "/progress#a-thought-the-canvas-works-without-touch",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/270f5649"
+        },
         {
           "key": "YUI-324",
           "title": "The living canvas works by keyboard and screen reader, every part named",
