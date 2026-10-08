@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T06:40:44.376Z",
+  "updated": "2026-10-08T06:45:44.865Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-263",
           "title": "Thought on YUI-331, drag a part and the agent answers where you put it",
+          "summary": "A Thought: drag a part and the agent answers",
+          "progress": "/progress#a-thought-drag-a-part-and-the-agent-answers",
           "owner": "CJohnDesign"
         },
         {
