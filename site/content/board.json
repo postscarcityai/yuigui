@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T04:15:23.510Z",
+  "updated": "2026-10-08T04:40:26.689Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-330",
           "title": "Hold a mark on the living canvas and the agent redraws just that part in place",
+          "summary": "Hold a part, it redraws",
+          "progress": "/progress#hold-a-part-it-redraws",
           "owner": "CJohnDesign"
         },
         {
