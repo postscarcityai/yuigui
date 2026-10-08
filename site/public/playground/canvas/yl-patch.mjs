@@ -70,9 +70,12 @@ export function replyFor(replies, sample, id) {
 export function diffBox(a, b, dpr) {
   if (!a || !b || a.width !== b.width || a.height !== b.height) return null;
   const w = a.width, h = a.height, A = a.data, B = b.data;
+  // YUI-335: most pixels are the same, so compare four bytes at a time and only look at the channels of the ones that are not.
+  const A32 = new Uint32Array(A.buffer, A.byteOffset, w * h), B32 = new Uint32Array(B.buffer, B.byteOffset, w * h);
   let x0 = w, y0 = h, x1 = -1, y1 = -1;
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
+      if (A32[y * w + x] === B32[y * w + x]) continue;
       const i = (y * w + x) * 4;
       if (Math.abs(A[i] - B[i]) > 10 || Math.abs(A[i + 1] - B[i + 1]) > 10 || Math.abs(A[i + 2] - B[i + 2]) > 10) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
     }

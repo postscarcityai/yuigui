@@ -11,7 +11,9 @@ const TAU = Math.PI * 2;
 const slug = (s) => String(s).trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").slice(0, 28);
 
 const num = (v) => (typeof v === "number" && isFinite(v) ? v : Number(v));
-export const fmt = (v) => (isFinite(v) ? Number(v).toLocaleString("en-US", { maximumFractionDigits: 2 }) : String(v));
+// YUI-335: one formatter for every frame; toLocaleString built a new one on each call, the top cost of a chart frame on a phone
+const nf2 = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
+export const fmt = (v) => (isFinite(v) ? nf2.format(Number(v)) : String(v));
 const decimals = (v) => { const s = String(v), i = s.indexOf("."); return i < 0 ? 0 : Math.min(3, s.length - i - 1); };
 const withUnit = (v, unit) => (unit ? (unit.length <= 1 && !/[a-z]/i.test(unit) ? unit + fmt(v) : fmt(v) + " " + unit) : fmt(v));
 

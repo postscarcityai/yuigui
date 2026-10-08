@@ -35,6 +35,7 @@ step "bench"                bash -c 'cd bench && { [ -d node_modules ] || npm ci
 step "motion kit"             bash -c 'cd site && node --test lib/motion/kit.test.mjs lib/motion/scene.test.mjs'
 step "canvas events match the spec" node site/public/playground/canvas/test-spec.mjs
 step "canvas undo (history, lines, words)" node site/public/playground/canvas/test-undo.mjs
+step "canvas frame budget (390x844, 1x and 4x CPU)" node site/public/playground/canvas/test-perf.mjs
 step "proposal credits"       bash -c 'cd site && node scripts/proposals-check.mjs'
 step "share previews (og-check)" bash -c 'cd site && node scripts/og-check.mjs'
 step "share previews (retry test)" bash -c 'cd site && node scripts/share-previews-retry.test.mjs'

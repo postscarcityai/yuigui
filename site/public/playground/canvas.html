@@ -259,18 +259,25 @@ function ylNote(h, ask) {
   ylShow(YLP.noteFilm(ylScaled(YLF), h, txt), true);
   setTimeout(function () { window.__canvas.note = ""; if (!ylBusy) ylShow(ylScaled(YLF), false); }, 2600);
 }
+// YUI-335: what changed between two films. The two full-canvas readbacks and the diff are about 40 ms in one go, over a frame's budget on a phone,
+// so each gets its own frame; the canvas goes back to the old picture and its mark after every readback, so nothing shows between them.
+function ylDiff(old, nf, t, done) {
+  var F = ylWin(), M = F.__motion, cv = F.document.getElementById("cv"), ctx = cv.getContext("2d"), W = F.innerWidth, dpr = cv.width / W, m0 = Y().__m || null, A, B;
+  var grab = function (f) {
+    Y().mark(null); F.__yl = ylScaled(f); M.renderAt(t);
+    var img = ctx.getImageData(0, 0, cv.width, cv.height), sl = f.slots && f.slots.map(function (s) { return { y: s.y, h: s.h }; });
+    F.__yl = ylScaled(old); Y().mark(m0); M.renderAt(t); return { img: img, slots: sl };
+  };
+  requestAnimationFrame(function () { A = grab(old); requestAnimationFrame(function () { B = grab(nf); requestAnimationFrame(function () { done(YLP.diffBox(A.img, B.img, dpr), YLP.bandOf(A.slots, B.slots, W)); }); }); });
+}
 function ylHold(id, ask, given, merge, kind) {
   var F = ylWin(), M = F.__motion, h = M.hits().filter(function (x) { return x.id === id; })[0];
   var rep = given || YLP.replyFor(YLR, YLID, id), nt = rep && !ylBusy ? YLP.applyPatch(YLCUR, rep) : null, b = nt ? YLM.build(nt) : null;
   if (!b || b.error) { if (!given) ylNote(h, ask); return; }
   ylBusy = true;
-  var nf = b.film, old = YLF, t = clock, cv = F.document.getElementById("cv"), ctx = cv.getContext("2d"), W = F.innerWidth, H = F.innerHeight, dpr = cv.width / W;
+  var nf = b.film, old = YLF, t = clock, cv = F.document.getElementById("cv"), ctx = cv.getContext("2d"), W = F.innerWidth, H = F.innerHeight;
   if (nf.chosen === null && old.chosen) nf.chosen = old.chosen;
   if (old.checked && nf.checked) old.checked.forEach(function (c) { nf.checked.add(c); });
-  var grab = function (f) { Y().mark(null); F.__yl = ylScaled(f); M.renderAt(t); var img = ctx.getImageData(0, 0, cv.width, cv.height), sl = f.slots && f.slots.map(function (s) { return { y: s.y, h: s.h }; }); return { img: img, slots: sl }; };
-  var A = grab(old), B = grab(nf);
-  Y().mark(id); Y().seek(t);
-  var box = YLP.diffBox(A.img, B.img, dpr), band = YLP.bandOf(A.slots, B.slots, W);
   var land = function () {
     YLF = nf; YLCUR = nt; YLN++; window.__canvas.yl = nf; $("resetyl").hidden = false;
     record(merge ? "merge" : "push", { kind: kind || "hold", id: id, marks: [id], film: nf, text: nt });
@@ -280,13 +287,16 @@ function ylHold(id, ask, given, merge, kind) {
     sayKey = false;
     say(rep.say, ask, true); speak(rep.say);
   };
-  if (!box && !band) { land(); return; }
-  ylShow(YLP.pulseFilm(ylScaled(old), band ? band.box : box), true);
-  setTimeout(function () {
-    var rd = YLP.redrawFilm(ylScaled(old), ylScaled(nf), ctx, { box: box, band: band, W: W, H: H, dur: 1500 });
-    ylShow(rd, true);
-    setTimeout(land, 1560);
-  }, 750);
+  ylDiff(old, nf, t, function (box, band) {
+    Y().mark(id); Y().seek(t);
+    if (!box && !band) { land(); return; }
+    ylShow(YLP.pulseFilm(ylScaled(old), band ? band.box : box), true);
+    setTimeout(function () {
+      var rd = YLP.redrawFilm(ylScaled(old), ylScaled(nf), ctx, { box: box, band: band, W: W, H: H, dur: 1500 });
+      ylShow(rd, true);
+      setTimeout(land, 1560);
+    }, 750);
+  });
 }
 // YUI-331: drag a mark. A press that starts on a movable mark (list row, queue row, bar, placed shape) lifts it; where it is let go the answer's
 // text changes (yl-move.mjs), the neighbours slide to their new places and the line the app would send shows in place. A canned reply for the
@@ -405,23 +415,23 @@ function ylStep(dir) {
   if (!YL || !HIST || ylBusy) return false;
   closeSay(false);
   var r = dir === "forward" ? YLU.forward(HIST) : YLU.back(HIST); if (!r) { say(dir === "forward" ? "Nothing to redo." : "Nothing to undo.", null, false); return false; }
-  var F = ylWin(), M = F.__motion, cv = F.document.getElementById("cv"), ctx = cv.getContext("2d"), W = F.innerWidth, H = F.innerHeight, dpr = cv.width / W;
+  var F = ylWin(), M = F.__motion, cv = F.document.getElementById("cv"), ctx = cv.getContext("2d"), W = F.innerWidth, H = F.innerHeight;
   var old = YLF, nf = r.state.film, t = clock, words = YLU.words(r.step, dir), l1 = (dir === "forward" ? YLU.redoLine : YLU.undoLine)(FILM_ASK, r.n, r.step.marks);
   ylBusy = true; setPaused(true); speechSynthesis && speechSynthesis.cancel(); resetSpoken(); backSync();
-  var grab = function (f) { Y().mark(null); F.__yl = ylScaled(f); M.renderAt(t); var img = ctx.getImageData(0, 0, cv.width, cv.height), sl = f.slots && f.slots.map(function (s) { return { y: s.y, h: s.h }; }); return { img: img, slots: sl }; };
-  var A = grab(old), B = grab(nf), box = YLP.diffBox(A.img, B.img, dpr), band = YLP.bandOf(A.slots, B.slots, W);
   var land = function () {
     YLF = nf; YLCUR = r.state.text; YLN = HIST.at; window.__canvas.yl = nf; $("resetyl").hidden = !HIST.at; ylBusy = false;
     M.place({}); mark(null); ylShow(ylScaled(nf), false); backSync();
     say(words, l1, true); window.__canvas.lastStep = { dir: dir, line: l1, words: words };
     var live = $("sr"); live.textContent = ""; setTimeout(function () { live.textContent = words; }, 30);
   };
-  if (!box && !band) { land(); return true; }
-  ylShow(YLP.pulseFilm(ylScaled(old), band ? band.box : box), true);
-  setTimeout(function () {
-    var rd = YLP.redrawFilm(ylScaled(old), ylScaled(nf), ctx, { box: box, band: band, W: W, H: H, dur: 1500 });
-    ylShow(rd, true); setTimeout(land, 1560);
-  }, 750);
+  ylDiff(old, nf, t, function (box, band) {
+    if (!box && !band) { land(); return; }
+    ylShow(YLP.pulseFilm(ylScaled(old), band ? band.box : box), true);
+    setTimeout(function () {
+      var rd = YLP.redrawFilm(ylScaled(old), ylScaled(nf), ctx, { box: box, band: band, W: W, H: H, dur: 1500 });
+      ylShow(rd, true); setTimeout(land, 1560);
+    }, 750);
+  });
   return true;
 }
 $("back").onclick = function () { ylStep("back"); };
