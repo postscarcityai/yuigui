@@ -31,7 +31,7 @@ function readChart(o) {
   const n = Math.max(0, ...series.map((s) => s.ys.length));
   const labels = Array.from({ length: n }, (_, i) => (xs && xs[i] !== undefined ? xs[i] : i + 1));
   const numericX = type !== "bar" && type !== "pie" && type !== "donut" && !!xs && xs.length === n && xs.every((v) => typeof v === "number") && (type === "scatter" || type === "line" || type === "area");
-  return { kind: "chart", id: o.id, type, title: String(p.title || ""), unit: String(p.unit || ""), xlabel: String(p.xlabel || ""), labels, series, n, numericX, stack: !!p.stack, min: p.min, max: p.max };
+  return { kind: "chart", id: o.id, type, title: String(p.title || ""), unit: String(p.unit || ""), xlabel: String(p.xlabel || ""), labels, series, n, numericX, stack: !!p.stack, min: p.min, max: p.max, note: p.note === undefined ? "" : String(p.note), noteAt: p.noteat === undefined ? -1 : labels.findIndex((l) => String(l) === String(p.noteat)) };
 }
 
 function readStat(o) {
@@ -212,6 +212,11 @@ function drawCartesian(api, c, t, x, y, w, h, mk, marked) {
         if (on) api.rect(bx - 4, (v >= 0 ? bot - hh : bot) - 4, bw + 6, Math.abs(hh) + 8, { c: "warn", w: 5, r: 8, rough: 0 });
         if (s.errs[i] && kb > 0.9) { const cx = bx + (bw - 2) / 2; api.line(cx, Y(v - s.errs[i]), cx, Y(v + s.errs[i]), { c: "fg", w: 2, rough: 0 }); api.line(cx - 4, Y(v + s.errs[i]), cx + 4, Y(v + s.errs[i]), { c: "fg", w: 2, rough: 0 }); api.line(cx - 4, Y(v - s.errs[i]), cx + 4, Y(v - s.errs[i]), { c: "fg", w: 2, rough: 0 }); }
         if (c.n * groups <= 10 && kb > 0.85) api.text(fmt(v), bx + (bw - 2) / 2, top0 - 10, { size: 12, c: "fg", weight: 700, k: seg(kb, 0.85, 1), free: true, noHit: true });
+        if (c.note && c.noteAt === i && si === 0 && kb > 0.95) {   // YUI-332: the agent's note on one bar, a leader up from the value to the words
+          const ky = seg(t, d0 + i * 0.18 + 0.55, d0 + i * 0.18 + 1.05), nx = bx + (bw - 2) / 2, ny = py0 - 10;
+          api.line(nx, top0 - 24, nx, ny + 8, { c: "warn", w: 2, k: ky, rough: 0 });
+          api.text(c.note, Math.min(px1 + 6, nx + 40), ny, { size: 14, c: "warn", weight: 800, k: ky, free: true, noHit: true, align: "right", maxw: Math.min(220, px1 - px0) });
+        }
         if (stacked) acc += v;
         if (kb > 0.5) hitList.push({ i, si, id: m.id, label: m.label, x: bx + (bw - 2) / 2, y: (top0 + bot) / 2, r: Math.max((bw - 2) / 2 + 8, Math.min(Math.abs(bot - top0) / 2, 90)) });
       });

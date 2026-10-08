@@ -37,6 +37,12 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
 #strip a.on{border-color:var(--accent);color:var(--accent)}
 #chips button:focus-visible,.row button:focus-visible,#strip a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 #fld{position:absolute;z-index:5;border:2px solid var(--accent);border-radius:14px;background:var(--panel);color:var(--fg);font:700 19px ui-rounded,system-ui,sans-serif;padding:0 14px;outline:none}
+#mic{touch-action:none;-webkit-user-select:none;user-select:none}
+#mic.rec{background:var(--accent);color:var(--ink);animation:rec 1s ease-in-out infinite}
+@keyframes rec{50%{transform:scale(1.12)}}
+@media (prefers-reduced-motion:reduce){#mic.rec{animation:none}}
+#sayfld{flex:1;min-width:0;height:40px;border:2px solid var(--accent);border-radius:20px;background:var(--panel);color:var(--fg);font:700 16px ui-rounded,system-ui,sans-serif;padding:0 14px;outline:none}
+#mic:focus-visible,#sayfld:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 #hint{position:absolute;top:calc(12px + env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:12px;color:var(--dim);pointer-events:none;transition:opacity .6s}
 </style>
 </head>
@@ -57,6 +63,8 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
     <div class="row">
       <button id="pp" aria-label="Pause"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
       <button id="mute" aria-label="Mute"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM17 9c1.5 1.5 1.5 4.5 0 6"/></svg></button>
+      <button id="mic" aria-label="Talk about this moment" hidden><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg></button>
+      <input id="sayfld" type="text" hidden autocomplete="off" enterkeyhint="send" placeholder="Say something">
       <span class="t" id="clock">0:00</span>
     </div>
   </div>
@@ -96,7 +104,7 @@ var PRE = [
   '}'
 ].join("\n");
 
-var YLMV = null, YLP = null, YLR = {}, YLSRC = "", YLCUR = "", YLF0 = null, YLN = 0, ylBusy = false;  // YUI-330: the patch module, the canned replies, the text now drawn, the first film, how many holds redrew it
+var YLMV = null, YLS = null, YLP = null, YLR = {}, YLSRC = "", YLCUR = "", YLF0 = null, YLN = 0, ylBusy = false;  // YUI-330: the patch module, the canned replies, the text now drawn, the first film, how many holds redrew it
 var YLID = (Q.get("yl") || "").toLowerCase().replace(/[^a-z0-9-]/g, ""), YL = !!YLID, YLF = null, YLM = null;  // YUI-325: ?yl=<id> draws a Yui Lines sample
 var FILM = YL ? "yl-" + YLID : (Q.get("film") || "heart").toLowerCase().replace(/[^a-z0-9-]/g, "");
 var FILM_ASK = YL ? YLID : FILM.replace(/-r\d+$/, "");  // the word in the ask line: "heart", "engine"
@@ -145,10 +153,10 @@ var CHOOSE_AT = SCENES[0].dur + SCENES[1].dur;
 var HEART = FILM === "heart";
 var GALLERY = "../demo/motion/gallery/";
 function loadYL(cb) {
-  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }), import("./canvas/yl-patch.mjs"), fetch("canvas/yl-replies.json").then(function (r) { return r.json(); }).catch(function () { return {}; }), import("./canvas/yl-move.mjs")]).then(function (r) {
+  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }), import("./canvas/yl-patch.mjs"), fetch("canvas/yl-replies.json").then(function (r) { return r.json(); }).catch(function () { return {}; }), import("./canvas/yl-move.mjs"), import("./canvas/yl-say.mjs")]).then(function (r) {
     var smp = r[1].filter(function (x) { return x.id === YLID; })[0]; if (!smp) throw new Error("no sample " + YLID);
     var b = r[0].build(smp.yl); if (b.error) throw new Error(b.error);
-    YLP = r[2]; YLMV = r[4]; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film;
+    YLP = r[2]; YLMV = r[4]; YLS = r[5]; $("mic").hidden = false; frame.contentWindow.__sayable = true; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film;
     $("hint").innerHTML = "drag to scrub &middot; tap a part &middot; hold to ask &middot; drag a part to move it"; YLM = r[0]; YLF = b.film; frame.contentWindow.__yl = YLF; frame.contentWindow.__movable = function (id) {
       if (ylBusy || !YLMV.describe(YLF, YLCUR, id)) return false;
       var hit = frame.contentWindow.__motion.hits().filter(function (x) { return x.id === id; })[0];
@@ -210,7 +218,7 @@ function fmt(t) { var s = Math.floor(t); return Math.floor(s / 60) + ":" + Strin
 function label(id, given) { return given || (id.indexOf("part:heart4:") === 0 ? id.slice(12).replace(/_/g, " ") : ""); }
 function cueAt(t) { var best = null; cues.forEach(function (c) { if (t >= c.from - 0.05 && t <= c.to) best = c; }); return best; }
 function caps(on) { try { frame.contentWindow.__noCaps = !on; Y().mark(Y().__m || null); } catch (e) {} }
-function mark(id) { Y().__m = id || null; Y().mark(id || null); }
+function mark(id) { Y().__m = id || null; Y().mark(id || null); micSync(); }
 // YUI-328: a text field or the Other pill is edited in a real input laid over the mark (the prototype has no keyboard of its own)
 function openEdit(ed) {
   var f = $("fld"), r = ed.rect || { x: 20, y: 300, w: 350, h: 44 }, fr = frame.getBoundingClientRect(), ar = $("app").getBoundingClientRect();
@@ -257,6 +265,9 @@ function ylHold(id, ask, given) {
   var land = function () {
     YLF = nf; YLCUR = nt; YLN++; window.__canvas.yl = nf; $("resetyl").hidden = false;
     ylShow(ylScaled(nf), false); ylBusy = false;
+    if (rep.mark !== undefined) mark(rep.mark || null);
+    if (sayKey && rep.mark) F.__motion.place({}, rep.mark);   // typed with the keyboard: focus follows the touched mark to its new place
+    sayKey = false;
     say(rep.say, ask, true); speak(rep.say);
   };
   if (!box && !band) { land(); return; }
@@ -302,8 +313,76 @@ function ylMove(d) {
   ylShow(YLMV.settleFilm(ylScaled(nf), ctx, { groups: groups, W: W, H: H, dur: 380 }), true);
   setTimeout(land, 420);
 }
+// YUI-332: talk while touching. The mark that is highlighted (the last tap) is the one touched; the mic (hold) or the typed field (no speech
+// in the browser, or Alt+Enter on a focused mark) takes the words; on release the one line the app would send shows in place, and a canned
+// reply for that mark and those words redraws what it names the way a hold does. No canned match: the line shows and nothing else changes.
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition, SPEECH = !!SR && Q.get("speech") !== "off", rec = null, sayFor = null, sayKey = false, micDown = 0;
+function touchedId() { return Y() && Y().__m || null; }
+function touchedName(id) {
+  if (!id) return null;
+  var h = null; try { h = ylWin().__motion.hits().filter(function (x) { return x.id === id; })[0]; } catch (e) {}
+  return label(id, h && h.label) || id;
+}
+function micSync() {
+  var m = $("mic"); if (!m) return; var id = Y() && Y().__m, n = touchedName(id);
+  m.setAttribute("aria-label", n ? "Hold to talk about " + n : "Hold to talk about this moment");
+}
+function ylSay(words, id) {
+  words = String(words || "").replace(/\s+/g, " ").trim();
+  if (!words) { say("Heard nothing.", null, false); return; }
+  setPaused(true); speechSynthesis && speechSynthesis.cancel();
+  var nm = touchedName(id), l1 = YLS.sayLine(FILM_ASK, words, nm, clock);
+  mark(id);
+  var rep = id && !ylBusy ? YLS.sayReplyFor(YLR, YLID, id, words) : null;
+  if (rep && YLP.applyPatch(YLCUR, rep)) { say("…", l1, true); ylHold(id, l1, rep); return; }
+  say("\u201c" + words + "\u201d", l1, true);
+}
+function openSay(id, fromKey) {
+  var f = $("sayfld"), n = touchedName(id); sayFor = id || null;
+  if (id) mark(id);
+  setPaused(true);
+  f.setAttribute("aria-label", n ? "Say something about " + n + ". Enter sends, Escape cancels." : "Say something about this moment. Enter sends, Escape cancels.");
+  f.placeholder = n ? "Say something about " + n : "Say something";
+  f.value = ""; f.hidden = false; $("mic").hidden = true; f.dataset.key = fromKey ? "1" : ""; f.focus();
+  say(n ? "Touching " + n : "Touching the moment", null, true);
+}
+function closeSay(send) {
+  var f = $("sayfld"); if (f.hidden) return; var v = f.value, id = sayFor, key = f.dataset.key;
+  f.hidden = true; $("mic").hidden = false; sayFor = null;
+  sayKey = !!key;
+  if (send) ylSay(v, id); else if (id) { mark(id); line.classList.remove("on"); caps(true); }
+  if (key) { try { var b = ylWin().document.querySelector('#parts button[data-id="' + String(id || "").replace(/"/g, '\\"') + '"]'); (b || ylWin().document.getElementById("cv")).focus(); } catch (e) {} }
+}
+$("sayfld").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); closeSay(true); } else if (e.key === "Escape") { e.preventDefault(); closeSay(false); } });
+$("sayfld").addEventListener("blur", function () { setTimeout(function () { closeSay(false); }, 0); });
+function micStart(e) {
+  if (!YL || !YLS || ylBusy || rec) return;
+  micDown = Date.now();
+  if (!SPEECH) return;
+  var id = touchedId(), n = touchedName(id), heard = "", r;
+  try { r = new SR(); } catch (er) { return; }
+  r.lang = navigator.language || "en-US"; r.interimResults = true; r.continuous = true;
+  rec = { r: r, id: id, words: "", denied: false, stopped: false };
+  r.onresult = function (ev) { heard = ""; for (var i = 0; i < ev.results.length; i++) heard += ev.results[i][0].transcript + " "; rec && (rec.words = heard.trim()); say(rec && rec.words ? "\u201c" + rec.words + "\u201d" : "Listening\u2026", n ? "touching " + n : "touching the moment", true); };
+  r.onerror = function (ev) { if (rec && /not-allowed|service-not-allowed/.test(ev.error)) rec.denied = true; };
+  r.onend = function () { var c = rec; if (!c) return; rec = null; $("mic").classList.remove("rec"); if (c.denied) { openSay(c.id, false); return; } ylSay(c.words, c.id); };
+  setPaused(true); speechSynthesis && speechSynthesis.cancel(); if (id) mark(id);
+  $("mic").classList.add("rec"); say("Listening\u2026", n ? "touching " + n : "touching the moment", true);
+  try { r.start(); } catch (er) { rec = null; $("mic").classList.remove("rec"); }
+}
+function micEnd(e) {
+  if (!rec) return;
+  if (Date.now() - micDown < 300) { var id = rec.id; rec.r.onend = null; try { rec.r.abort(); } catch (er) {} rec = null; $("mic").classList.remove("rec"); openSay(id, false); return; }   // a tap, not a hold: type instead
+  try { rec.r.stop(); } catch (er) { var c = rec; rec = null; $("mic").classList.remove("rec"); ylSay(c.words, c.id); }
+}
+$("mic").addEventListener("pointerdown", function (e) { e.preventDefault(); try { this.setPointerCapture(e.pointerId); } catch (er) {} micStart(e); });
+$("mic").addEventListener("pointerup", micEnd);
+$("mic").addEventListener("pointercancel", micEnd);
+$("mic").addEventListener("contextmenu", function (e) { e.preventDefault(); });
+$("mic").addEventListener("click", function (e) { if (!SPEECH || e.detail === 0) openSay(touchedId(), false); });   // no speech API, or a keyboard Enter: the typed field
 function ylReset() {
   if (ylBusy || !YLN) return;
+  closeSay(false);
   YLF = YLF0; YLCUR = YLSRC; YLN = 0; window.__canvas.yl = YLF0; $("resetyl").hidden = true;
   ylWin().__motion.place({}); mark(null); ylShow(YLF0, false); say("Back to the first drawing.", null, false);
 }
@@ -356,6 +435,7 @@ window.addEventListener("message", function (e) {
     say(HEART ? words : nm, HEART ? null : (words !== nm ? words : null), false); speak(words);
     return;
   }
+  if (m === "say") { if (YL && YLS && !ylBusy) openSay(e.data.id || null, true); return; }
   if (m === "move") { if (YL && YLMV) ylMove(e.data); return; }
   if (m === "drag" || m === "nudge") {
     // YUI-328: a knob moves (drag) or steps (arrow keys); the line is sent when the drag ends or on every step. The picture does not scrub.

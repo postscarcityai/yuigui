@@ -9,7 +9,18 @@
       "to": 1,
       "say": "Thursday leads now. Goal bar went with it.",
       "patch": "~chart bar \"Best day first\""
-    }
+    },
+    "say:chart:n1:s0:3": [
+      {
+        "words": [
+          "why",
+          "how come"
+        ],
+        "name": "Protein Thu: 126 g",
+        "say": "Thursday fell short. Dinner ran late, so no shake.",
+        "patch": "~chart note=\"Late dinner, no shake\" noteat=Thu"
+      }
+    ]
   },
   "today": {
     "list:n2:3": {
@@ -95,7 +106,25 @@
           "with": "\"Now: Easy jog\""
         }
       ]
-    }
+    },
+    "say:list:n1:2": [
+      {
+        "words": [
+          "later",
+          "not now",
+          "after"
+        ],
+        "name": "Bodyweight squats",
+        "mark": "list:n1:3",
+        "say": "Squats wait. They go last, struck soft, still there.",
+        "replace": [
+          {
+            "find": "\"Bodyweight squats\"|\"Easy jog\" +num",
+            "with": "\"Easy jog\"|\"Bodyweight squats\" +num later=\"Bodyweight squats\""
+          }
+        ]
+      }
+    ]
   },
   "queue": {
     "move:tl:n2:4": {
@@ -135,6 +164,24 @@
         "say": "Test follows Build. Arrow drawn.",
         "add": [
           "shape arrow from=build to=test"
+        ]
+      }
+    ],
+    "say:yl:build": [
+      {
+        "words": [
+          "split",
+          "two",
+          "halves"
+        ],
+        "name": "Build",
+        "mark": "yl:build-app",
+        "say": "Build splits in two: the app and the site.",
+        "replace": [
+          {
+            "find": "shape@build box Build at=5,4.4 size=2.6,1.1 tone=mint +fill",
+            "with": "shape@build-app box \"Build app\" at=3.9,4.4 size=1.7,1.1 tone=mint +fill\nshape@build-site box \"Build site\" at=6.1,4.4 size=1.7,1.1 tone=mint +fill"
+          }
         ]
       }
     ]

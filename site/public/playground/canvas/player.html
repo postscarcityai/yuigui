@@ -1166,6 +1166,10 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
     if (e.altKey && !e.metaKey && !e.ctrlKey && onPart && /^Arrow(Left|Right|Up|Down)$/.test(k) && window.__movable && window.__movable(t.dataset.id)) {
       e.preventDefault(); send("move", { id: t.dataset.id, phase: "key", dx: k === "ArrowLeft" ? -1 : k === "ArrowRight" ? 1 : 0, dy: k === "ArrowUp" ? -1 : k === "ArrowDown" ? 1 : 0 }); return;
     }
+    // YUI-332: Alt+Enter on a focused mark (or the canvas) opens the typed words field with that mark as the one touched
+    if (e.altKey && !e.metaKey && !e.ctrlKey && !e.shiftKey && k === "Enter" && (onPart || t === cv) && window.__sayable) {
+      e.preventDefault(); if (!e.repeat) send("say", onPart ? { id: t.dataset.id, label: t.getAttribute("aria-label") } : {}); return;
+    }
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (k === "Enter" && (onPart || t === cv)) { e.preventDefault(); enterDown(e, onPart ? hitById(t.dataset.id) || { id: t.dataset.id, label: t.getAttribute("aria-label"), x: 0, y: 0 } : null); }
     else if (k === " " || k === "Spacebar") { e.preventDefault(); if (!e.repeat) send("tap", {}); }

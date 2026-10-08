@@ -21,7 +21,7 @@ function readBlocks(ops) {
   const out = [];
   for (const o of ops) {
     const p = o.props;
-    if (o.preset === "list") out.push({ kind: "list", id: o.id, title: String(p.title || ""), items: (p.items || []).map(String), check: !!p.check, num: !!p.num });
+    if (o.preset === "list") out.push({ kind: "list", id: o.id, title: String(p.title || ""), items: (p.items || []).map(String), check: !!p.check, num: !!p.num, later: new Set([].concat(p.later === undefined ? [] : p.later).map(String)) });
     else if (o.preset === "table") out.push({ kind: "table", id: o.id, name: String(p.name || ""), cols: (p.cols || []).map(String), rows: (p.rows || []).map((r) => (Array.isArray(r) ? r : [r])), units: (p.units || []).map(String) });
     else if (o.preset === "card") out.push({ kind: "card", id: o.id, title: String(p.title || ""), body: String(p.body || ""), sub: String(p.sub || ""), cta: String(p.cta || "") });
     else if (o.preset === "timeline") out.push({ kind: "timeline", id: o.id, title: String(p.title || ""), mark: String(p.mark || "Now"), steps: [] });
@@ -131,16 +131,17 @@ function drawList(api, b, mk, t, x, y, w, f, checked) {
   b.items.forEach((it, i) => {
     const m = mk[i], k = seg(t, markAppear(b, m), markAppear(b, m) + 0.35);
     if (k > 0) {
-      const cy = yy + ph / 2, on = checked.has(m.id);
+      const cy = yy + ph / 2, on = checked.has(m.id), soft = !!b.later && b.later.has(it);
       let tx = x + 6;
       api.line(x, yy + ph, x + w, yy + ph, { c: "line", w: 1.5, k, a: 0.55, rough: 0 });
       if (b.check) {
-        api.rect(x + 6, cy - 12, 24, 24, { r: 7, c: on ? "good" : "accent", w: 3, k, fill: on ? "good" : null, fa: 0.22 });
+        api.rect(x + 6, cy - 12, 24, 24, { r: 7, c: on ? "good" : soft ? "dim" : "accent", w: 3, k, fill: on ? "good" : null, fa: 0.22 });
         if (on) api.stroke([[x + 12, cy], [x + 17, cy + 6], [x + 26, cy - 6]], { c: "good", w: 4, k: 1, rough: 0 });
         tx = x + 44;
       } else if (b.num) { api.text(`${i + 1}.`, x + 6, cy, { size: 17, weight: 800, c: "accent", align: "left", k, free: true, noHit: true }); tx = x + 38; }
       else { api.dot(x + 14, cy, 4.5, { c: "accent", a: k }); tx = x + 34; }
-      api.text(it, tx, cy, { size: 18, weight: 600, align: "left", c: on ? "dim" : "fg", k, free: true, noHit: true, maxw: w - (tx - x) - 6 });
+      api.text(it, tx, cy, { size: 18, weight: 600, align: "left", c: on || soft ? "dim" : "fg", k, free: true, noHit: true, maxw: w - (tx - x) - 6 });
+      if (soft && !on) { const tw3 = Math.min(w - (tx - x) - 6, api.measure(it, { size: 18, weight: 600 }).w); api.line(tx - 2, cy, tx + tw3 + 2, cy, { c: "dim", w: 2, k, rough: 0 }); }   // YUI-332: "later" strikes the row soft
       if (on) { const tw2 = Math.min(w - (tx - x) - 6, api.measure(it, { size: 18, weight: 600 }).w); api.line(tx - 2, cy, tx + tw2 + 2, cy, { c: "good", w: 2.5, k: 1, rough: 0 }); }
       if (k > 0.4) box(api, m.id, x, yy + 2, w, ph - 4, m.label);
     }

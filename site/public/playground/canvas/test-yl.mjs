@@ -366,7 +366,7 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
   // the latest moment the mark is on the canvas (a sketch row leaves when the Proposed side comes in)
   const lastSeen = async (p, id) => { for (let t = p.total; t >= 0; t -= 0.1) { if ((await hitsAt(p, t)).some((x) => x.id === id)) return t; } return null; };
   const same = (a, b2) => Math.abs(a.x - b2.x) < 0.6 && Math.abs(a.y - b2.y) < 0.6 && Math.abs((a.w || 0) - (b2.w || 0)) < 0.6 && Math.abs((a.h || 0) - (b2.h || 0)) < 0.6;
-  for (const sid of sampleIds) for (const [mid, rep] of Object.entries(replies[sid]).filter(([k]) => !k.startsWith("move:"))) {   // YUI-331: move: replies are tested in section 10
+  for (const sid of sampleIds) for (const [mid, rep] of Object.entries(replies[sid]).filter(([k]) => !k.startsWith("move:") && !k.startsWith("say:"))) {   // YUI-331: move: replies are tested in section 10, YUI-332: say: replies in section 11
     const f = [], p = await open(sid), tot = p.total;
     const marks0 = await p.evaluate(() => window.__canvas.yl.marks.map((m) => m.id + "|" + m.label).join("\n"));
     const ts = (await lastSeen(p, mid)) ?? tot, before = await hitsAt(p, ts), shot0 = await px(p, ts), zero0 = await px(p, 0), h = before.find((x) => x.id === mid);
@@ -653,6 +653,193 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
     const name = await p.fr.evaluate(() => document.activeElement && document.activeElement.getAttribute("aria-label"));
     if (!/Build, moved to 5\.5, 4\.4/.test(name || "")) f.push("name " + name);
   });
+}
+// 11. YUI-332: talk while touching a mark. The mic (hold) or, with no speech API or on Alt+Enter, a typed field takes the words; the one line
+// the app would send shows in place: [yui] <id> yl say "<words>" touched=<mark> (touched=@t when no mark). A canned reply (yl-replies.json "say:<mark>",
+// matched on the touched mark plus a keyword) redraws only what it names the way a hold does. No match: the line shows, nothing else changes.
+{
+  const replies = JSON.parse(fs.readFileSync(new URL("./yl-replies.json", import.meta.url)));
+  const saySamples = Object.entries(replies).filter(([, r]) => Object.keys(r).some((k) => k.startsWith("say:"))).map(([k]) => k);
+  if (saySamples.length < 3) { bad++; out.push("BAD say replies: only " + saySamples.length + " samples have say: replies"); } else out.push("ok  say replies in " + saySamples.join(","));
+  const open = async (id, extra = "&speech=off", init) => {
+    const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+    p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
+    if (init) await p.addInitScript(init);
+    p.status = (await p.goto(base + "?yl=" + id + "&theme=dark" + extra)).status();
+    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 });
+    p.fr = p.frames().find((f) => f.url().includes("player.html")); p.total = await p.evaluate(() => window.__canvas.total);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); await p.waitForTimeout(500); return p;
+  };
+  const hits = (p) => p.fr.evaluate(() => window.__motion.hits().map((h) => ({ id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h })));
+  const line = (p) => p.evaluate(() => document.getElementById("line").innerText);
+  const clock = (p) => p.fr.evaluate(() => window.__motion.clock());
+  const byLabel = (hs, l) => hs.find((h) => h.label === l) || hs.find((h) => h.label.startsWith(l));
+  const px = (p, t) => p.fr.evaluate((t) => { window.yui.mark(null); window.__noCaps = false; window.__motion.renderAt(t); return document.getElementById("cv").toDataURL(); }, t);
+  const tap = async (p, h, pid = 80) => { await p.fr.evaluate(([x, y, pid]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [h.x, h.y, pid]); await p.waitForTimeout(350); };
+  const marked = (p) => p.evaluate(() => window.__canvas.yui().__m || null);
+  const field = (p) => p.evaluate(() => { const f = document.getElementById("sayfld"); return { shown: !f.hidden, label: f.getAttribute("aria-label"), focused: document.activeElement === f, mic: !document.getElementById("mic").hidden }; });
+  const typeSay = async (p, words, wait = 3600) => { await p.click("#mic"); await p.fill("#sayfld", words); await p.keyboard.press("Enter"); await p.waitForTimeout(wait); };
+  const same = (a, b2) => b2 && Math.abs(a.x - b2.x) < 0.6 && Math.abs(a.y - b2.y) < 0.6;
+  const near = (p, a, b2) => p.evaluate(async ([a, b2]) => {
+    const load = (u) => new Promise((r) => { const i = new Image(); i.onload = () => r(i); i.src = u; });
+    const [x, y] = await Promise.all([load(a), load(b2)]), cv = new OffscreenCanvas(x.width, x.height), c = cv.getContext("2d", { willReadFrequently: true });
+    c.drawImage(x, 0, 0); const A = c.getImageData(0, 0, x.width, x.height).data; c.clearRect(0, 0, x.width, x.height); c.drawImage(y, 0, 0); const B = c.getImageData(0, 0, x.width, x.height).data;
+    let n = 0; for (let i = 0; i < A.length; i += 4) if (Math.abs(A[i] - B[i]) > 100 || Math.abs(A[i + 1] - B[i + 1]) > 100 || Math.abs(A[i + 2] - B[i + 2]) > 100) n++;
+    return n === 0;
+  }, [a, b2]);
+  const check11 = async (name, id, extra, fn, init) => {
+    const f = []; let p;
+    try { p = await open(id, extra, init); await fn(p, f); if (p.errs.length) f.push("page errors " + p.errs.join(";")); } catch (e) { f.push("threw " + String(e).slice(0, 240)); }
+    if (f.length) bad++; out.push((f.length ? "BAD" : "ok ") + " say " + id + " " + name + (f.length ? " " + f.join(" | ") : "")); if (p) await p.close();
+  };
+  // every sample that has say replies loads (200) and shows the mic
+  for (const sid of saySamples) await check11("loads, mic rides the bar", sid, "&speech=off", async (p, f) => {
+    if (p.status !== 200) f.push("status " + p.status);
+    if (!(await p.evaluate(() => !document.getElementById("mic").hidden))) f.push("no mic");
+    const bar = await p.evaluate(() => { const m = document.getElementById("mic").getBoundingClientRect(), mu = document.getElementById("mute").getBoundingClientRect(), pp = document.getElementById("pp").getBoundingClientRect(); return m.left >= mu.right - 1 && m.left > pp.right && Math.abs(m.top - mu.top) < 2; });
+    if (!bar) f.push("mic is not beside pause and mute");
+  });
+  await check11("a chart bar + 'why': the agent annotates that bar, only that bar", "bars", "&speech=off", async (p, f) => {
+    const hs = await hits(p), thu = byLabel(hs, "Protein Thu"), shot0 = await px(p, p.total), z0 = await px(p, 0);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total);
+    await tap(p, thu);
+    if ((await marked(p)) !== thu.id) f.push("touched mark not highlighted " + (await marked(p)));
+    await p.click("#mic"); const fd = await field(p);
+    if (!fd.shown || !fd.focused || fd.mic) f.push("typed field did not open in place of the mic " + JSON.stringify(fd));
+    if (!/Protein Thu: 126 g/.test(fd.label || "")) f.push("field name does not say what is touched: " + fd.label);
+    if ((await marked(p)) !== thu.id) f.push("mark lost while typing");
+    await p.fill("#sayfld", "Why is this one low?"); await p.keyboard.press("Enter"); await p.waitForTimeout(400);
+    const l0 = await line(p);
+    if (!l0.includes('[yui] bars yl say "Why is this one low?" touched=Protein Thu: 126 g')) f.push("line " + JSON.stringify(l0));
+    if (!(await field(p)).mic || (await field(p)).shown) f.push("field did not close");
+    await p.waitForTimeout(3600);
+    const l1 = await line(p), hs2 = await hits(p);
+    if (!l1.includes("Thursday fell short. Dinner ran late, so no shake.")) f.push("reply " + JSON.stringify(l1));
+    if (JSON.stringify(hs2.map((h) => h.label)) !== JSON.stringify(hs.map((h) => h.label)) || hs.some((h, i) => !same(h, hs2[i]))) f.push("a mark changed");
+    if ((await marked(p)) !== thu.id) f.push("bar not ringed after the reply " + (await marked(p)));
+    const e1 = await px(p, p.total), e2 = await px(p, p.total), z1 = await px(p, 0), z2 = await px(p, 0);
+    if (e1 === shot0) f.push("the bar has no note"); if (e1 !== e2 || z1 !== z2) f.push("scrub not stable");
+    if (!(await near(p, z1, z0))) f.push("t=0 changed"); 
+    const mid = await px(p, p.total * 0.5); if (mid === e1) f.push("scrub mid equals end");
+    if (await p.evaluate(() => document.getElementById("resetyl").hidden)) f.push("no Reset");
+    await p.evaluate(() => document.getElementById("resetyl").click()); await p.waitForTimeout(300);
+    if (!(await near(p, await px(p, p.total), shot0))) f.push("Reset did not restore");
+  });
+  await check11("a list row + 'later': the row moves to the end and is struck soft", "steps", "&speech=off", async (p, f) => {
+    const hs = await hits(p), sq = byLabel(hs, "Bodyweight squats"), shot0 = await px(p, p.total);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total);
+    await tap(p, sq); await typeSay(p, "do this one later");
+    const names = (await hits(p)).map((h) => h.label), ln = await line(p);
+    if (JSON.stringify(names.filter((x) => x !== "Warm-up")) !== JSON.stringify(["Jumping jacks", "Hip openers", "Easy jog", "Bodyweight squats"])) f.push("order " + names);
+    if (!ln.includes('[yui] steps yl say "do this one later" touched=Bodyweight squats') || !ln.includes("Squats wait.")) f.push("line " + JSON.stringify(ln));
+    if (!(await p.evaluate(() => window.__canvas.yl.blocks.find((x) => x.kind === "list").later.has("Bodyweight squats")))) f.push("row not struck soft");
+    if ((await marked(p)) !== "list:n1:3") f.push("ring on " + (await marked(p)));
+    if ((await px(p, p.total)) === shot0) f.push("end frame did not change");
+    await p.evaluate(() => document.getElementById("resetyl").click()); await p.waitForTimeout(300);
+    if (!(await near(p, await px(p, p.total), shot0))) f.push("Reset did not restore");
+  });
+  await check11("a shapes part + 'split': the part redraws as two, the others stay", "parts", "&speech=off", async (p, f) => {
+    const hs = await hits(p), build = byLabel(hs, "Build"), plan = byLabel(hs, "Plan"), test = byLabel(hs, "Test"), shot0 = await px(p, p.total);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total);
+    await tap(p, build); await typeSay(p, "split it in two");
+    const hs2 = await hits(p), names = hs2.map((h) => h.label), ln = await line(p);
+    if (names.includes("Build") || !names.includes("Build app") || !names.includes("Build site")) f.push("not two parts: " + names);
+    if (!same(plan, byLabel(hs2, "Plan")) || !same(test, byLabel(hs2, "Test"))) f.push("Plan or Test moved");
+    if (hs2.length !== hs.length + 1) f.push("mark count " + hs.length + " -> " + hs2.length);
+    if (!ln.includes('[yui] parts yl say "split it in two" touched=Build') || !ln.includes("Build splits in two")) f.push("line " + JSON.stringify(ln));
+    await p.evaluate(() => document.getElementById("resetyl").click()); await p.waitForTimeout(300);
+    if (!(await near(p, await px(p, p.total), shot0))) f.push("Reset did not restore");
+  });
+  await check11("no canned match, or the wrong mark: the line shows and nothing else changes", "bars", "&speech=off", async (p, f) => {
+    const hs = await hits(p), thu = byLabel(hs, "Protein Thu"), mon = byLabel(hs, "Protein Mon"), shot0 = await px(p, p.total);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total);
+    await tap(p, thu); await typeSay(p, "hello there", 800);
+    let ln = await line(p);
+    if (!ln.includes('[yui] bars yl say "hello there" touched=Protein Thu: 126 g')) f.push("line " + JSON.stringify(ln));
+    if (/Thursday fell short/.test(ln)) f.push("an answer showed");
+    await tap(p, mon, 81); await typeSay(p, "why", 3600);   // the keyword is right, the mark is not the one the reply names
+    ln = await line(p);
+    if (!ln.includes('yl say "why" touched=Protein Mon: 118 g') || /Thursday fell short/.test(ln)) f.push("wrong-mark line " + JSON.stringify(ln));
+    if ((await marked(p)) !== mon.id) f.push("touched mark not kept");
+    if (!(await near(p, await px(p, p.total), shot0)) || (await hits(p)).some((h, i) => !same(h, hs[i]))) f.push("the picture changed");
+    if (!(await p.evaluate(() => document.getElementById("resetyl").hidden))) f.push("Reset shown for no change");
+    if ((await p.evaluate(() => window.__canvas.note))) f.push("note stuck");
+  });
+  await check11("nothing touched: touched=@t, the moment on the clock; quotes are escaped", "bars", "&speech=off", async (p, f) => {
+    await p.fr.evaluate(() => window.__motion.renderAt(2.3)); await p.evaluate(() => window.__canvas.yui().seek(2.3)); await p.waitForTimeout(400);
+    const c = await clock(p), shot0 = await px(p, 2.3);
+    await typeSay(p, 'what is "this"', 600);
+    const ln = await line(p);
+    if (!/\[yui\] bars yl say "what is \\"this\\"" touched=@\d\.\ds/.test(ln)) f.push("line " + JSON.stringify(ln));
+    if (await marked(p)) f.push("a mark was highlighted");
+    if (!(await near(p, await px(p, 2.3), shot0))) f.push("the picture changed");
+    if (Math.abs((await clock(p)) - c) > 0.35) f.push("clock moved " + c + " -> " + (await clock(p)));
+    await p.click("#mic"); await p.keyboard.press("Escape"); await p.waitForTimeout(200);
+    const fd = await field(p); if (fd.shown || !fd.mic) f.push("Escape did not close the field");
+    await p.click("#mic"); await p.keyboard.press("Enter"); await p.waitForTimeout(300);   // empty words send nothing
+    if (/yl say/.test(await line(p)) && (await line(p)).includes('say ""')) f.push("sent empty words");
+  });
+  await check11("Alt+Enter on a focused mark opens the typed field with that mark touched", "steps", "", async (p, f) => {
+    const kb = p.fr.locator('#parts button[data-id="list:n1:2"]'); await kb.focus();
+    await p.keyboard.press("Alt+Enter"); await p.waitForTimeout(300);
+    const fd = await field(p);
+    if (!fd.shown || !fd.focused) f.push("field not open " + JSON.stringify(fd));
+    if (!/Bodyweight squats/.test(fd.label || "")) f.push("name " + fd.label);
+    if ((await marked(p)) !== "list:n1:2") f.push("mark " + (await marked(p)));
+    await p.keyboard.press("Escape"); await p.waitForTimeout(300);
+    const back = await p.fr.evaluate(() => document.activeElement && document.activeElement.dataset ? document.activeElement.dataset.id : null);
+    if (back !== "list:n1:2") f.push("focus did not return to the mark: " + back);
+    if (await p.evaluate(() => /yl say/.test(document.getElementById("line").innerText))) f.push("Escape sent something");
+    await p.keyboard.press("Alt+Enter"); await p.waitForTimeout(200); await p.keyboard.type("later"); await p.keyboard.press("Enter"); await p.waitForTimeout(3800);
+    const ln = await line(p), names = (await hits(p)).map((h) => h.label).filter((x) => x !== "Warm-up");
+    if (!ln.includes('yl say "later" touched=Bodyweight squats') || names[3] !== "Bodyweight squats") f.push("Alt+Enter path: " + JSON.stringify(ln) + " " + names);
+    const name = await p.fr.evaluate(() => document.activeElement && document.activeElement.getAttribute("aria-label"));
+    if (!/Bodyweight squats/.test(name || "")) f.push("focus after reply " + name);
+    // a plain Enter on a mark is still a tap, Shift+Enter still a hold
+    await p.evaluate(() => document.getElementById("resetyl").click()); await p.waitForTimeout(300);
+    await p.fr.locator('#parts button[data-id="list:n1:0"]').focus(); await p.keyboard.press("Enter"); await p.waitForTimeout(300);
+    if ((await field(p)).shown || !(await line(p)).includes("Jumping jacks")) f.push("plain Enter changed " + JSON.stringify(await line(p)));
+  });
+  await check11("Alt+Enter on the bare canvas touches the moment", "bars", "", async (p, f) => {
+    await p.fr.locator("#cv").focus(); await p.keyboard.press("Alt+Enter"); await p.waitForTimeout(300);
+    const fd = await field(p); if (!fd.shown || !/this moment/.test(fd.label || "")) f.push("field " + JSON.stringify(fd));
+    await p.keyboard.type("hmm"); await p.keyboard.press("Enter"); await p.waitForTimeout(400);
+    if (!/yl say "hmm" touched=@/.test(await line(p))) f.push("line " + JSON.stringify(await line(p)));
+  });
+  // the speech path, with a stand-in recogniser: hold the mic on a touched mark, the words show live, release sends the line and the canned answer
+  const fakeSR = () => {
+    class SR { start() { window.__sr = this; this.started = true; } stop() { this.stopped = true; setTimeout(() => this.onend && this.onend(), 20); } abort() { this.aborted = true; } say(t) { this.onresult && this.onresult({ results: [[{ transcript: t }]] }); } }
+    window.SpeechRecognition = SR; window.webkitSpeechRecognition = SR;
+  };
+  await check11("hold the mic on a touched mark: live words, release sends, the canned answer lands", "bars", "", async (p, f) => {
+    const hs = await hits(p), thu = byLabel(hs, "Protein Thu");
+    await tap(p, thu);
+    const mic = (type) => p.evaluate((type) => document.getElementById("mic").dispatchEvent(new PointerEvent(type, { pointerId: 5, bubbles: true, pointerType: "touch" })), type);
+    await mic("pointerdown"); await p.waitForTimeout(450);
+    if (!(await p.evaluate(() => window.__sr && window.__sr.started))) f.push("recognition did not start");
+    if (!(await p.evaluate(() => document.getElementById("mic").classList.contains("rec")))) f.push("mic not recording");
+    await p.evaluate(() => window.__sr.say("why is")); await p.waitForTimeout(120);
+    if (!(await line(p)).includes("why is") || !(await line(p)).includes("Protein Thu")) f.push("live words " + JSON.stringify(await line(p)));
+    if ((await marked(p)) !== thu.id) f.push("touched mark not kept while talking");
+    await p.evaluate(() => window.__sr.say("why is it low")); await p.waitForTimeout(100);
+    await mic("pointerup"); await p.waitForTimeout(500);
+    const ln = await line(p);
+    if (!ln.includes('[yui] bars yl say "why is it low" touched=Protein Thu: 126 g')) f.push("line " + JSON.stringify(ln));
+    await p.waitForTimeout(3600);
+    if (!(await line(p)).includes("Thursday fell short")) f.push("no answer " + JSON.stringify(await line(p)));
+    if (await p.evaluate(() => document.getElementById("mic").classList.contains("rec"))) f.push("mic still recording");
+    // a quick tap on the mic is not a hold: the typed field opens instead
+    await mic("pointerdown"); await p.waitForTimeout(80); await mic("pointerup"); await p.waitForTimeout(200);
+    if (!(await field(p)).shown) f.push("a quick tap did not open the typed field");
+    if (!(await p.evaluate(() => window.__sr.aborted))) f.push("quick tap kept listening");
+  }, fakeSR);
+  { const f = [], p = await b.newPage({ viewport: { width: 390, height: 844 }, hasTouch: true }); p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
+    await p.goto(base + "?theme=dark"); await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 }); await p.waitForTimeout(500);
+    if (!(await p.evaluate(() => document.getElementById("mic").hidden))) f.push("mic on the heart film");
+    const fr = p.frames().find((x) => x.url().includes("player.html")); await fr.locator("#cv").focus(); await p.keyboard.press("Alt+Enter"); await p.waitForTimeout(250);
+    if (!(await p.evaluate(() => document.getElementById("sayfld").hidden))) f.push("Alt+Enter opened a field on the heart film");
+    if (f.length || p.errs.length) { bad++; out.push("BAD say heart " + f.concat(p.errs).join("; ")); } else out.push("ok  say heart film untouched (no mic, no Alt+Enter)");
+    await p.close(); }
 }
 console.log(out.join("\n")); console.log("bad", bad, "of", out.length);
 await b.close(); process.exit(bad ? 1 : 0);
