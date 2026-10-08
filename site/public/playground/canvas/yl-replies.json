@@ -1,0 +1,72 @@
+{
+  "bars": {
+    "chart:n1:s0:3": {
+      "name": "Protein Thu: 138 g",
+      "say": "Thursday was short. A shake gets it to 138.",
+      "patch": "~chart y=118|132|141|138"
+    }
+  },
+  "today": {
+    "list:n2:3": {
+      "name": "Calf raises 4x12",
+      "say": "Dropped to 4x12. Legs get a break.",
+      "patch": "~list Today \"Squat 5x5\" \"Romanian deadlift 3x8\" \"Walking lunges 3x12\" \"Calf raises 4x12\" +check"
+    }
+  },
+  "stat": {
+    "stat:n1": {
+      "name": "Weight: 178.4 lb",
+      "say": "Down a bit more. 178.4.",
+      "patch": "~stat 178.4lb Weight delta=-2.8 spark=181.2|180.6|179.8|178.4"
+    }
+  },
+  "ui": {
+    "mark:text:help": {
+      "name": "Support",
+      "say": "Help moves under Profile and gets a better name.",
+      "replace": [
+        {
+          "find": "row \"Help\" +x note=\"nobody used it\"",
+          "with": "row \"Support\" +dim note=\"moved under Profile\""
+        }
+      ]
+    }
+  },
+  "venn": {
+    "yl:circle-2": {
+      "name": "circle",
+      "say": "Pays gets the warm colour.",
+      "replace": [
+        {
+          "find": "shape circle at=6.2,3 size=4.2 tone=mint +fill +draw",
+          "with": "shape circle at=6.2,3 size=4.2 tone=butter +fill +draw"
+        }
+      ]
+    }
+  },
+  "mix-protein": {
+    "chart:n3:s0:4": {
+      "name": "Fri: 122 g",
+      "say": "Add a shake and Friday lands at 122.",
+      "patch": "~chart y=118|132|141|126|122"
+    },
+    "stat:n2": {
+      "name": "Protein: 146 g",
+      "say": "With the shake it is 146 for the week.",
+      "patch": "~stat 146g Protein delta=14"
+    }
+  },
+  "mix-dinner": {
+    "table:n2:1:2": {
+      "name": "Sardines",
+      "grows": true,
+      "say": "Sardines go on the list. The slider drops to make room.",
+      "replace": [
+        {
+          "find": "\"Chicken|220|40\"",
+          "with": "\"Chicken|220|40\" \"Sardines|210|25\""
+        }
+      ]
+    }
+  }
+}

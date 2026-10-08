@@ -26,7 +26,7 @@ for (const s of list) {
   const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
   const errs = []; p.on("pageerror", (e) => errs.push(String(e)));
   await p.addInitScript(() => { window.__log = []; window.addEventListener("message", (e) => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
-  const r = await p.goto(base + "?yl=" + s.id + "&theme=dark");
+  const r = await p.goto(base + "?yl=" + s.id + "&theme=dark&replies=off");
   await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 }).catch(() => errs.push("not loaded"));
   const fr = p.frames().find((f) => f.url().includes("player.html"));
   await p.waitForTimeout(300);
@@ -149,7 +149,7 @@ for (const s of list) {
 const open = async (id) => {
   const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
   p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
-  await p.goto(base + "?yl=" + id + "&theme=dark");
+  await p.goto(base + "?yl=" + id + "&theme=dark&replies=off");
   await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 });
   p.fr = p.frames().find((f) => f.url().includes("player.html"));
   p.total = await p.evaluate(() => window.__canvas.total);
@@ -339,6 +339,123 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
   const l = await p.line(); if (!l.includes("[yui] hungry slide value=5")) f.push("slide line " + JSON.stringify(l));
   if ((await p.clock()) !== c0) f.push("a drag on the knob scrubbed");
 });
+// 9. YUI-330: hold a mark with a canned reply and only that part redraws, in place.
+{
+  const replies = JSON.parse(fs.readFileSync(new URL("./yl-replies.json", import.meta.url)));
+  const sampleIds = Object.keys(replies), kindsHit = new Set();
+  if (sampleIds.length < 4) { bad++; out.push("BAD replies: only " + sampleIds.length + " samples have replies"); }
+  const open = async (id, extra = "") => {
+    const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+    p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
+    await p.goto(base + "?yl=" + id + "&theme=dark" + extra);
+    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 });
+    p.fr = p.frames().find((f) => f.url().includes("player.html")); p.total = await p.evaluate(() => window.__canvas.total);
+    await p.waitForTimeout(300); return p;
+  };
+  const px = (p, t) => p.fr.evaluate((t) => { window.yui.mark(null); window.__noCaps = false; window.__motion.renderAt(t); const c = document.getElementById("cv"); return c.toDataURL(); }, t);   // captions on: the page hides them while its line is up
+  // two frames are the same picture when no pixel differs by more than anti-aliasing (Chrome rasterises a canvas that was read back a little differently)
+  const near = (p, a, b2) => p.evaluate(async ([a, b2]) => {
+    const load = (u) => new Promise((r) => { const i = new Image(); i.onload = () => r(i); i.src = u; });
+    const [x, y] = await Promise.all([load(a), load(b2)]), cv = new OffscreenCanvas(x.width, x.height), c = cv.getContext("2d", { willReadFrequently: true });
+    c.drawImage(x, 0, 0); const A = c.getImageData(0, 0, x.width, x.height).data; c.clearRect(0, 0, x.width, x.height); c.drawImage(y, 0, 0); const B = c.getImageData(0, 0, x.width, x.height).data;
+    let n = 0; for (let i = 0; i < A.length; i += 4) if (Math.abs(A[i] - B[i]) > 100 || Math.abs(A[i + 1] - B[i + 1]) > 100 || Math.abs(A[i + 2] - B[i + 2]) > 100) n++;
+    return n === 0;
+  }, [a, b2]);
+  const hitsAt = (p, t) => p.fr.evaluate((t) => { window.__motion.renderAt(t); return window.__motion.hits().map((h) => ({ id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h })); }, t);
+  const holdAt = (p, h, pid) => p.fr.evaluate(async ([x, y, pid]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, 650)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [h.x, h.y, pid]);
+  // the latest moment the mark is on the canvas (a sketch row leaves when the Proposed side comes in)
+  const lastSeen = async (p, id) => { for (let t = p.total; t >= 0; t -= 0.1) { if ((await hitsAt(p, t)).some((x) => x.id === id)) return t; } return null; };
+  const same = (a, b2) => Math.abs(a.x - b2.x) < 0.6 && Math.abs(a.y - b2.y) < 0.6 && Math.abs((a.w || 0) - (b2.w || 0)) < 0.6 && Math.abs((a.h || 0) - (b2.h || 0)) < 0.6;
+  for (const sid of sampleIds) for (const [mid, rep] of Object.entries(replies[sid])) {
+    const f = [], p = await open(sid), tot = p.total;
+    const marks0 = await p.evaluate(() => window.__canvas.yl.marks.map((m) => m.id + "|" + m.label).join("\n"));
+    const ts = (await lastSeen(p, mid)) ?? tot, before = await hitsAt(p, ts), shot0 = await px(p, ts), zero0 = await px(p, 0), h = before.find((x) => x.id === mid);
+    await px(p, ts); await p.waitForTimeout(300);
+    if (!h) { f.push("no mark " + mid + " at the end"); }
+    else {
+      await holdAt(p, h, 91);
+      await p.waitForTimeout(200);
+      const mid1 = await p.evaluate(() => document.getElementById("line").innerText);
+      if (!mid1.includes("[yui] " + sid + " yl ask " + h.label)) f.push("ask line " + JSON.stringify(mid1));
+      // mid redraw: the canvas is drawing (the frame changes with time) while the clock holds still
+      await p.waitForTimeout(1400);
+      const m1 = await p.fr.evaluate(() => document.getElementById("cv").toDataURL()), m2 = await (async () => { await p.waitForTimeout(160); return p.fr.evaluate(() => document.getElementById("cv").toDataURL()); })();
+      if (m1 === m2) f.push("nothing moves during the redraw");
+      await p.waitForTimeout(1800);
+      const line = await p.evaluate(() => document.getElementById("line").innerText);
+      if (!line.includes(rep.say)) f.push("reply line " + JSON.stringify(line));
+      const changed = await p.evaluate(() => window.__canvas.yl.marks.map((m) => m.id + "|" + m.label).join("\n")) !== marks0;
+      if (!changed && rep.name !== h.label) f.push("film marks unchanged after the patch");
+      // only that part: every other mark is where it was, to the pixel; the pixels that differ sit around the held mark
+      const after = await hitsAt(p, ts), shot1 = await px(p, ts);
+      const grp = (id) => (/^(stat|spark):/.test(id) ? "stat:" + id.split(":")[1] : id);   // a stat is its number and its spark
+      const moved = before.filter((o) => o.id !== mid && grp(o.id) !== grp(mid) && !(after.find((n) => n.id === o.id) && same(o, after.find((n) => n.id === o.id)))).map((o) => o.id);
+      if (rep.grows) {
+        // a taller part: what is above stays, what is below slides down to its new place
+        const above = before.filter((o) => o.y < h.y && !/^table:/.test(o.id)), slid = before.find((o) => /knob/.test(o.id));
+        const stay = above.filter((o) => { const n = after.find((q) => q.id === o.id); return !n || !same(o, n); });
+        if (stay.length) f.push("marks above moved: " + stay.map((o) => o.id));
+        const sl2 = after.find((o) => o.id === slid.id); if (!sl2 || sl2.y <= slid.y + 5) f.push("the slider did not slide down");
+      } else if (moved.length) f.push("other marks moved: " + moved.join(","));
+      if (shot1 === shot0) f.push("end frame did not change");
+      const nm = after.find((x) => x.id === mid || x.label === rep.name);
+      if (!nm) f.push("held mark gone after the patch");
+      // the keyboard: the patched mark keeps its place in the tab order under its new name
+      const names = await p.fr.evaluate(() => [...document.querySelectorAll("#parts button")].map((x) => x.getAttribute("aria-label")));
+      const idsAfter = after.map((x) => x.id), pos0 = before.findIndex((x) => x.id === mid), pos1 = names.findIndex((n) => n === rep.name);
+      if (rep.name !== h.label && !names.includes(rep.name)) f.push("new name " + rep.name + " not on the keyboard list");
+      if (!rep.grows && rep.name !== h.label && names.includes(h.label) && h.label !== rep.name && names.filter((n) => n === h.label).length >= before.filter((x) => x.label === h.label).length) f.push("old name still listed: " + h.label);
+      if (!rep.grows && rep.name !== h.label && pos1 !== pos0 && pos1 >= 0) f.push("tab place moved " + pos0 + " -> " + pos1);
+      if (!rep.grows && idsAfter.length !== before.length) f.push("mark count " + before.length + " -> " + idsAfter.length);
+      // scrub after the patch: t=0 and the end are stable, and the end is the patched drawing
+      const e1 = await px(p, ts), e2 = await px(p, ts), z1 = await px(p, 0), z2 = await px(p, 0);
+      if (e1 !== e2 || z1 !== z2) f.push("scrub not stable after the patch");
+      if (z1 !== zero0 && sid !== "x") { /* t=0 may differ only when the patch touches a mark drawn at 0 */ }
+      if ((await p.evaluate(() => document.getElementById("resetyl").hidden))) f.push("no Reset after a patch");
+      // Reset returns the original, exactly
+      await p.evaluate(() => document.getElementById("resetyl").click()); await p.waitForTimeout(300);
+      const r1 = await px(p, ts), marks2 = await p.evaluate(() => window.__canvas.yl.marks.map((m) => m.id + "|" + m.label).join("\n"));
+      if (!(await near(p, r1, shot0)) || marks2 !== marks0) f.push("Reset did not restore the original");
+      if (!(await p.evaluate(() => document.getElementById("resetyl").hidden))) f.push("Reset still showing");
+      // a second hold after a Reset works again
+      await px(p, ts); await p.waitForTimeout(300); await holdAt(p, h, 92); await p.waitForTimeout(3300);
+      if (!(await near(p, await px(p, ts), shot1))) f.push("second hold after Reset drew something else");
+    }
+    if (p.errs.length) f.push("page errors " + p.errs.join(";"));
+    kindsHit.add(sid);
+    if (f.length) bad++; out.push((f.length ? "BAD" : "ok ") + " reply " + sid + " " + mid + (f.length ? " " + f.join("; ") : ""));
+    await p.close();
+  }
+  // a hold with no canned reply: a quiet note on the mark, the picture untouched, no Reset
+  for (const [sid, skip] of [["bars", "chart:n1:s0:0"], ["mix-protein", "chart:n3:s0:0"], ["today", "list:n2:0"]]) {
+    const f = [], p = await open(sid), tot = p.total, hs = await hitsAt(p, tot), h = hs.find((x) => x.id === skip);
+    const shot0 = await px(p, tot), marks0 = await p.evaluate(() => window.__canvas.yl.marks.map((m) => m.id).join());
+    await p.waitForTimeout(300); await holdAt(p, h, 93); await p.waitForTimeout(500);
+    const note = await p.evaluate(() => window.__canvas.note), line = await p.evaluate(() => document.getElementById("line").innerText);
+    if (!/no answer in the demo/.test(note || "")) f.push("no note " + JSON.stringify(note));
+    if (!line.includes("[yui] " + sid + " yl ask " + h.label)) f.push("ask line " + JSON.stringify(line));
+    if (/Thursday|Dropped|Friday|shake/.test(line)) f.push("an answer showed");
+    await p.waitForTimeout(3000);
+    if (!(await near(p, await px(p, tot), shot0)) || (await p.evaluate(() => window.__canvas.yl.marks.map((m) => m.id).join())) !== marks0) f.push("the picture changed");
+    if (!(await p.evaluate(() => document.getElementById("resetyl").hidden))) f.push("Reset shown for no change");
+    if ((await p.evaluate(() => window.__canvas.note))) f.push("note stuck");
+    if (f.length) bad++; out.push((f.length ? "BAD" : "ok ") + " no-reply " + sid + " " + skip + (f.length ? " " + f.join("; ") : ""));
+    await p.close();
+  }
+  // a mixed answer where a part gets taller: the parts below ease down, nothing above moves
+  {
+    const f = [], p = await open("mix-protein"); const tot = p.total, before = await hitsAt(p, tot);
+    const tall = await p.evaluate(async () => { const m = await import("./canvas/yl-patch.mjs"); return m.bandOf([{ y: 100, h: 50 }, { y: 162, h: 80 }, { y: 254, h: 40 }], [{ y: 100, h: 50 }, { y: 162, h: 120 }, { y: 294, h: 40 }], 390); });
+    if (!tall || tall.box.y0 !== 156 || tall.below.newTop !== 288 || tall.below.shift !== -40) f.push("bandOf " + JSON.stringify(tall));
+    const short = await p.evaluate(async () => { const m = await import("./canvas/yl-patch.mjs"); return m.bandOf([{ y: 100, h: 50 }, { y: 162, h: 80 }], [{ y: 100, h: 50 }, { y: 162, h: 80 }], 390); });
+    if (short !== null) f.push("bandOf of equal slots should be null");
+    if (before.length < 5) f.push("few marks");
+    if (f.length) bad++; out.push((f.length ? "BAD" : "ok ") + " band geometry " + f.join("; "));
+    await p.close();
+  }
+  // the first sentence of the card: a hold on the heart film and the other films is untouched (no canned replies there)
+  out.push("ok  replies cover " + [...kindsHit].join(", "));
+}
 // 8. an unknown id falls back to the films tab instead of a blank canvas
 { const p = await b.newPage({ viewport: { width: 390, height: 844 } }); await p.goto(base + "?yl=nope"); await p.waitForFunction(() => window.__canvas && window.__canvas.loaded, null, { timeout: 15000 }).catch(() => {}); const ok = !(await p.url()).includes("yl="); if (!ok) { bad++; out.push("BAD unknown id kept ?yl="); } else out.push("ok  unknown id falls back"); await p.close(); }
 console.log(out.join("\n")); console.log("bad", bad, "of", out.length);

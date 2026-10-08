@@ -51,7 +51,7 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
   <div id="hint" aria-hidden="true">drag to scrub &middot; tap a part &middot; hold to ask</div>
   <input id="fld" type="text" hidden autocomplete="off" aria-label="Your answer">
   <div id="line" aria-live="polite"></div>
-  <div id="chips"><button id="another">Another take</button><button id="change">Change it</button></div>
+  <div id="chips"><button id="another">Another take</button><button id="change">Change it</button><button id="resetyl" hidden>Reset</button></div>
   <div id="bar">
     <div id="prog"><i></i></div>
     <div class="row">
@@ -96,6 +96,7 @@ var PRE = [
   '}'
 ].join("\n");
 
+var YLP = null, YLR = {}, YLSRC = "", YLCUR = "", YLF0 = null, YLN = 0, ylBusy = false;  // YUI-330: the patch module, the canned replies, the text now drawn, the first film, how many holds redrew it
 var YLID = (Q.get("yl") || "").toLowerCase().replace(/[^a-z0-9-]/g, ""), YL = !!YLID, YLF = null, YLM = null;  // YUI-325: ?yl=<id> draws a Yui Lines sample
 var FILM = YL ? "yl-" + YLID : (Q.get("film") || "heart").toLowerCase().replace(/[^a-z0-9-]/g, "");
 var FILM_ASK = YL ? YLID : FILM.replace(/-r\d+$/, "");  // the word in the ask line: "heart", "engine"
@@ -144,9 +145,10 @@ var CHOOSE_AT = SCENES[0].dur + SCENES[1].dur;
 var HEART = FILM === "heart";
 var GALLERY = "../demo/motion/gallery/";
 function loadYL(cb) {
-  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); })]).then(function (r) {
+  Promise.all([import("./canvas/yl-canvas.mjs"), fetch("canvas/yl-samples.json").then(function (r) { return r.json(); }), import("./canvas/yl-patch.mjs"), fetch("canvas/yl-replies.json").then(function (r) { return r.json(); }).catch(function () { return {}; })]).then(function (r) {
     var smp = r[1].filter(function (x) { return x.id === YLID; })[0]; if (!smp) throw new Error("no sample " + YLID);
     var b = r[0].build(smp.yl); if (b.error) throw new Error(b.error);
+    YLP = r[2]; YLR = Q.get("replies") === "off" ? {} : r[3]; YLSRC = YLCUR = smp.yl; YLF0 = b.film;
     YLM = r[0]; YLF = b.film; frame.contentWindow.__yl = YLF; SCENES = b.scenes; TOTAL = YLF.total; CHOOSE_AT = 1e9; FILM_TITLE = smp.name; window.__canvas.yl = YLF; cb();
   }).catch(function () { location.replace("canvas.html" + (Q.get("theme") ? "?theme=" + Q.get("theme") : "")); });
 }
@@ -220,6 +222,53 @@ $("fld").addEventListener("keydown", function (e) { if (e.key === "Enter") { e.p
 $("fld").addEventListener("blur", function () { setTimeout(function () { closeEdit(true); }, 0); });
 function resetSpoken() { spoken = {}; }
 
+// YUI-330: a hold on a mark with a canned reply redraws just that part. The old picture and the patched one are drawn at the same moment;
+// the pixels that differ are the part (yl-patch.mjs). It pulses while the reply "arrives", the old part wipes out and the new one writes in.
+// The patched film then replaces the first one, so scrub, replay and the keyboard all see the answer as patched. Reset puts the first back.
+function ylWin() { return frame.contentWindow; }
+function ylScaled(f) {  // the player's clock is fixed at the first film's length; a patch that changes the length plays on that clock
+  var k = f.total / TOTAL; if (Math.abs(k - 1) < 1e-6) return f;
+  return { draw: function (t, api) { return f.draw(Math.min(f.total, t * k), api); } };
+}
+function ylShow(obj, always) { var F = ylWin(); F.__yl = obj; F.__always = !!always; Y().seek(clock); }
+function ylNote(h, ask) {
+  say(" ", ask, true);
+  if (!h) return;
+  var txt = "no answer in the demo"; window.__canvas.note = txt;
+  ylShow(YLP.noteFilm(ylScaled(YLF), h, txt), true);
+  setTimeout(function () { window.__canvas.note = ""; if (!ylBusy) ylShow(ylScaled(YLF), false); }, 2600);
+}
+function ylHold(id, ask) {
+  var F = ylWin(), M = F.__motion, h = M.hits().filter(function (x) { return x.id === id; })[0];
+  var rep = YLP.replyFor(YLR, YLID, id), nt = rep && !ylBusy ? YLP.applyPatch(YLCUR, rep) : null, b = nt ? YLM.build(nt) : null;
+  if (!b || b.error) { ylNote(h, ask); return; }
+  ylBusy = true;
+  var nf = b.film, old = YLF, t = clock, cv = F.document.getElementById("cv"), ctx = cv.getContext("2d"), W = F.innerWidth, H = F.innerHeight, dpr = cv.width / W;
+  if (nf.chosen === null && old.chosen) nf.chosen = old.chosen;
+  if (old.checked && nf.checked) old.checked.forEach(function (c) { nf.checked.add(c); });
+  var grab = function (f) { Y().mark(null); F.__yl = ylScaled(f); M.renderAt(t); var img = ctx.getImageData(0, 0, cv.width, cv.height), sl = f.slots && f.slots.map(function (s) { return { y: s.y, h: s.h }; }); return { img: img, slots: sl }; };
+  var A = grab(old), B = grab(nf);
+  Y().mark(id); Y().seek(t);
+  var box = YLP.diffBox(A.img, B.img, dpr), band = YLP.bandOf(A.slots, B.slots, W);
+  var land = function () {
+    YLF = nf; YLCUR = nt; YLN++; window.__canvas.yl = nf; $("resetyl").hidden = false;
+    ylShow(ylScaled(nf), false); ylBusy = false;
+    say(rep.say, ask, true); speak(rep.say);
+  };
+  if (!box && !band) { land(); return; }
+  ylShow(YLP.pulseFilm(ylScaled(old), band ? band.box : box), true);
+  setTimeout(function () {
+    var rd = YLP.redrawFilm(ylScaled(old), ylScaled(nf), ctx, { box: box, band: band, W: W, H: H, dur: 1500 });
+    ylShow(rd, true);
+    setTimeout(land, 1560);
+  }, 750);
+}
+function ylReset() {
+  if (ylBusy || !YLN) return;
+  YLF = YLF0; YLCUR = YLSRC; YLN = 0; window.__canvas.yl = YLF0; $("resetyl").hidden = true;
+  mark(null); ylShow(YLF0, false); say("Back to the first drawing.", null, false);
+}
+
 window.addEventListener("message", function (e) {
   if (e.source !== frame.contentWindow) return;
   var m = e.data && e.data.motion; if (!m) return;
@@ -286,6 +335,7 @@ window.addEventListener("message", function (e) {
     } else {
       mark(id2);
       say("…", "[yui] " + FILM_ASK + ASKV + nm2, true);
+      if (YL) { ylHold(id2, "[yui] " + FILM_ASK + ASKV + nm2); if (navigator.vibrate) navigator.vibrate(12); return; }
       setTimeout(function () { var a = HEART ? (ASK[nm2] || SAY[nm2] || nm2) : "Asked about this. In the app the agent answers right here."; say(a, "[yui] " + FILM_ASK + ASKV + nm2, true); speak(HEART ? ASK[nm2] || "" : ""); }, 650);
     }
     if (navigator.vibrate) navigator.vibrate(12);
@@ -301,6 +351,7 @@ $("mute").onclick = function () {
   muted = !muted; if (muted && window.speechSynthesis) speechSynthesis.cancel();
   $("mute").innerHTML = muted ? '<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM17 9l4 6M21 9l-4 6"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM17 9c1.5 1.5 1.5 4.5 0 6"/></svg>';
 };
+$("resetyl").onclick = ylReset;
 $("another").onclick = function () { take = (take + 1) % TAKES.length; mark(null); line.classList.remove("on"); caps(true); theme(); setPaused(false); Y().replay(); resetSpoken(); };
 $("change").onclick = function () {
   LIGHT = !LIGHT; document.documentElement.classList.toggle("light", LIGHT); theme();

@@ -113,6 +113,7 @@ export function mixFilm(parts, host) {
       const ys = [];
       let y = TOP;
       g.forEach((x, i) => { ys[i] = y; y += x.h + GAP; });
+      film.slots = g.map((x, i) => ({ y: ys[i], h: x.h }));   // YUI-330: where each part sits, so a redraw can tell which part changed height
       for (const i of order) if (t >= start[i]) g[i].draw(ys[i], t - start[i]);
     },
   };
