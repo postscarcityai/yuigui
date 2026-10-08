@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T09:01:04.317Z",
+  "updated": "2026-10-08T09:06:10.666Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-266",
+          "title": "Thought on YUI-334, step back on the canvas"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -289,6 +293,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-334",
+          "title": "Step back on the living canvas, undo a redraw or a drag",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
