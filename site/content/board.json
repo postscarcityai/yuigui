@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T18:30:21.655Z",
+  "updated": "2026-10-08T18:35:27.967Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,6 +273,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-272",
+          "title": "Thought on YUI-340, time you can touch"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -290,10 +294,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-271",
-          "title": "Thought on YUI-339, music you can touch",
-          "summary": "A Thought: music you can touch",
-          "progress": "/progress#a-thought-music-you-can-touch",
+          "key": "YUI-340",
+          "title": "The canvas draws time, every timer ring, round and workout set a touchable mark",
           "owner": "CJohnDesign"
         },
         {
@@ -308,6 +310,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-271",
+          "title": "Thought on YUI-339, music you can touch",
+          "summary": "A Thought: music you can touch",
+          "shipped": "2026-10-08",
+          "progress": "/progress#a-thought-music-you-can-touch",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e86ff7eb"
+        },
         {
           "key": "YUI-339",
           "title": "The canvas draws music, every beat cell, key and chord a touchable mark",
