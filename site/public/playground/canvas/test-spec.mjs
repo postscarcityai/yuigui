@@ -33,7 +33,7 @@ const build = {
   tap: ({ f }, r) => (C.touch(f, r.id) || C.tick(f, r.id) || (f.choose && C.isChoice(f, labelOf(f, r.id))) ? "(something)" : "(nothing)"),
   hold: ({ f }, r) => `[yui] ${r.sample} yl ask ${labelOf(f, r.id)}`,
   "hold-moment": (_, r) => `[yui] ${r.sample} yl ask moment @${(+r.arg).toFixed(1)}s`,
-  move: ({ f, text }, r) => { if (f.kind === "shape" || /^shapes/.test(text)) f.xf = f.xf || { ox: 0, oy: 0, s: 60, dy: 0 };   // the canvas sets this when it draws; a key step needs only that it exists
+  move: ({ f, text }, r) => { if (f.kind === "shape" || f.kind === "map" || /^shapes/.test(text)) f.xf = f.xf || { ox: 0, oy: 0, s: 60, dy: 0 };   // the canvas sets this when it draws; a key step needs only that it exists
     const p = MV.plan(f, text, r.id, key(r.arg), { hits: [] }); return p ? `[yui] ${r.sample} yl move ${labelOf(f, r.id)} ${p.line}` : "(no move)"; },
   say: ({ f }, r) => SY.sayLine(r.sample, q(r.arg), labelOf(f, r.id), 0),
   "say-moment": (_, r) => SY.sayLine(r.sample, q(r.arg.split(" ").slice(1).join(" ")), null, +r.arg.split(" ")[0]),

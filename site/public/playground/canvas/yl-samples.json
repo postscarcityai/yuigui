@@ -188,5 +188,20 @@
   "id": "parts",
   "name": "Parts: drag one next to another",
   "yl": "shapes w=10 h=6 \"Plan the build\" caption=\"Drag a part next to another.\"\nshape@plan box Plan at=2,1.6 size=2.6,1.1 +fill\nshape@build box Build at=5,4.4 size=2.6,1.1 tone=mint +fill\nshape@test pill Test at=8,1.6 size=2.6,1.1 tone=butter +fill"
+ },
+ {
+  "id": "map",
+  "name": "Map: the Mongol Empire, 1279",
+  "yl": "map \"The Mongol Empire, 1279\" caption=\"24M km². The biggest land empire there has been.\"\narea \"Mongol Empire\" 53,140|43,131|34.7,126.5|22.3,114|24,98|34,70|25.5,57|33,44|41,31|46,30.5|54,23|60,56|55,95 tone=butter\narea Raided PL|HU +dash\npin@ka Karakorum 47.2,102.8 +pulse\nroute East ka|37.6,127 +arrow\nroute West ka|50.4,30.5 +arrow"
+ },
+ {
+  "id": "route",
+  "name": "Route: a three-stop trip",
+  "yl": "map \"Lisbon, Paris, Rome\" caption=\"Three stops. Drag a pin to change the trip.\"\npin@lis Lisbon 38.7,-9.1 tone=mint\npin@par Paris 48.9,2.4 +pulse\npin@rom Rome 41.9,12.5 tone=lavender\nroute \"The trip\" lis|par|rom +arrow"
+ },
+ {
+  "id": "mix-map",
+  "name": "Mixed: a line, a map, a chart",
+  "yl": "say Karakorum sat in the middle.\nmap caption=\"It rode out every way.\"\narea Empire MN|CN|KR tone=butter\npin@ka Karakorum 47.2,102.8 +pulse\nchart bar \"Land empires, million km²\" x=Mongol|Russian|Qing|Roman y=24|22.8|14.7|5"
  }
 ]

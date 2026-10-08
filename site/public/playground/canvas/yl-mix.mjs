@@ -75,7 +75,7 @@ export function mixFilm(parts, host) {
       const availS = Math.max(160, Math.round(card ? nat : nat * k)), ff = nat > availS ? clamp(availS / nat, 0.62, 1) : 1, used = card ? nat : nat * ff, S = availS + 4;
       return { h: used, give: !card, draw: (y, tt) => { p.dy = y - 112 - (availS - used) / 2; f.draw(tt, shifted(api, p.dy, S + 308)); } };
     }
-    if (p.kind === "draw" && f.kind === "shapes") {
+    if (p.kind === "draw" && (f.kind === "shapes" || f.kind === "map")) {   // YUI-336: a map fits its slot the way a shapes drawing does
       const sc = f.sc, full = sc.h * Math.min((W - 28) / sc.w, 84), aH = Math.max(120, Math.min(full, 250 * k)), S = (sc.title ? 24 : 0) + aH + 6, ft = f.fit(W, S), head = sc.title ? 22 : 0;
       return { h: head + (sc.title ? 24 : 0) + ft.drawH + 6, give: true, draw: (y, tt) => { p.dy = y - 112 + head - ft.shift; f.draw(tt, shifted(api, p.dy, S + 308)); } };
     }

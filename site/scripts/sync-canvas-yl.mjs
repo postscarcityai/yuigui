@@ -1,9 +1,9 @@
-// YUI-325: the living canvas parses Yui Lines in the browser. site/public is served as is, so the four modules it needs
-// (the parser, its two imports and the shapes scene) are copied next to the canvas. Run after changing lib/yl:
+// YUI-325: the living canvas parses Yui Lines in the browser. site/public is served as is, so the modules it needs
+// (the parser, its two imports, the shapes scene, the map scene and the world outline) are copied next to the canvas. Run after changing lib/yl:
 //   node site/scripts/sync-canvas-yl.mjs          copy
 //   node site/scripts/sync-canvas-yl.mjs --check  exit 1 if a copy has drifted (test-yl.mjs runs this)
 import fs from "fs";
-const FILES = ["yl.mjs", "look.mjs", "tables.mjs", "shapes.mjs"];
+const FILES = ["yl.mjs", "look.mjs", "tables.mjs", "shapes.mjs", "map.mjs", "world.mjs"];   // YUI-336: the map scene and the world outline
 const from = new URL("../lib/yl/", import.meta.url), to = new URL("../public/playground/canvas/yl/", import.meta.url);
 const HEAD = "// Copy of site/lib/yl/ (YUI-325). Edit the original, then run node site/scripts/sync-canvas-yl.mjs.\n";
 const check = process.argv.includes("--check");

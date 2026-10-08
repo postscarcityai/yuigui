@@ -8,12 +8,14 @@ import { chartFilm } from "./yl-charts.mjs";
 import { listFilm } from "./yl-lists.mjs";
 import { inputsFilm } from "./yl-inputs.mjs";
 import { mixFilm } from "./yl-mix.mjs";
+import { mapFilm } from "./yl-map.mjs";
 import { scene, frame, blobPoints, ringPoints, control, bracketPoints, smooth, STEP } from "./yl/shapes.mjs";
 
 const TONE = { accent: "accent", mint: "good", lavender: "a3", butter: "warn", ink: "fg", mute: "dim" };
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const seg = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
 const slug = (s) => String(s).trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").slice(0, 28);
+const MAPPART = ["area", "pin", "route"];
 const HOLD = 1.4; // seconds the finished picture holds before the film ends
 
 // ---- parse ---------------------------------------------------------------------------------------------------------------
@@ -27,9 +29,11 @@ export function read(text) {
     if (o.preset === "say" && !out.draw && !out.figs.length && !out.blocks.length) out.says.push(String(o.props.text || o.props.body || ""));
     else if ((o.preset === "chart" || o.preset === "stat") && !out.draw) out.figs.push(o);
     else if (["list", "table", "timeline", "done", "now", "next", "card"].includes(o.preset) && !out.draw && !out.figs.length) out.blocks.push(o);
-    else if ((o.preset === "shapes" || o.preset === "sketch") && !out.draw) out.draw = { kind: o.preset, id: o.id, head: o.props, items: [] };
+    else if ((o.preset === "shapes" || o.preset === "sketch" || o.preset === "map") && !out.draw) out.draw = { kind: o.preset, id: o.id, head: o.props, items: [] };
+    else if (MAPPART.includes(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length) out.draw = { kind: "map", id: "map", head: {}, items: [o] };   // a bare area / pin / route is a map of just that part
     else if (["choose", "pick", "ask", "slide", "form"].includes(o.preset) && !o.in && !out.draw && !out.figs.length && !out.blocks.length) out.inputs.push(o);
-    else if (out.draw && o.in === out.draw.id && (o.preset === "shape" || o.preset === "row" || o.preset === "after")) out.draw.items.push(o);
+    else if (out.draw && o.in === out.draw.id && (o.preset === "shape" || o.preset === "row" || o.preset === "after" || MAPPART.includes(o.preset))) out.draw.items.push(o);
+    else if (out.draw && out.draw.id === "map" && !o.in && MAPPART.includes(o.preset)) out.draw.items.push(o);
     else if (o.preset === "choose" && (out.draw || out.figs.length || out.blocks.length) && !out.choose) out.choose = { id: AUTO_ID.test(o.id) ? "choose" : o.id, q: String(o.props.q || ""), options: (o.props.options || []).map(String) };
   }
   return out;
@@ -46,14 +50,14 @@ export function readParts(text) {
   let tl = null, dr = null;
   for (const o of ops) {
     if (o.op !== "add") continue;
-    if (dr && o.in === dr.id && (o.preset === "shape" || o.preset === "row" || o.preset === "after")) { dr.items.push(o); continue; }
+    if (dr && o.in === dr.id && (o.preset === "shape" || o.preset === "row" || o.preset === "after" || MAPPART.includes(o.preset))) { dr.items.push(o); continue; }
     if (o.in && !(tl && o.in === tl.ops[0].id)) continue;
     if (o.preset === "done" || o.preset === "now" || o.preset === "next") { if (tl) tl.ops.push(o); continue; }
     if (o.preset === "say") parts.push({ kind: "text", text: String(o.props.text || o.props.body || "") });
     else if (o.preset === "chart" || o.preset === "stat") parts.push({ kind: "fig", ops: [o] });
     else if (o.preset === "timeline") parts.push((tl = { kind: "blocks", ops: [o] }));
     else if (["list", "table", "card"].includes(o.preset)) parts.push({ kind: "blocks", ops: [o] });
-    else if (o.preset === "shapes" || o.preset === "sketch") { dr = { kind: "draw", d: { kind: o.preset, id: o.id, head: o.props, items: [] } }; dr.id = o.id; dr.items = dr.d.items; parts.push(dr); }
+    else if (o.preset === "shapes" || o.preset === "sketch" || o.preset === "map") { dr = { kind: "draw", d: { kind: o.preset, id: o.id, head: o.props, items: [] } }; dr.id = o.id; dr.items = dr.d.items; parts.push(dr); }
     else if (INPUTS.includes(o.preset)) parts.push({ kind: "input", ops: [o] });
   }
   return { parts: parts.filter((p) => p.kind !== "text" || p.text), errors };
@@ -80,7 +84,7 @@ function buildMix(text) {
     if (p.kind === "text") return p;
     if (p.kind === "fig") { const film = chartFilm(p.ops, r0, { chooseBlock, HOLD }); return film && { kind: "fig", film }; }
     if (p.kind === "blocks") { const film = listFilm(p.ops, r0, { chooseBlock, HOLD }); return film && { kind: "blocks", film }; }
-    if (p.kind === "draw") { const film = p.d.kind === "shapes" ? shapesFilm(p.d, r0) : sketchFilm(p.d, r0); return { kind: "draw", film, frame: p.d.head.frame }; }
+    if (p.kind === "draw") { const film = drawFilm(p.d, r0); return film && { kind: "draw", film, frame: p.d.head.frame }; }
     // two inputs with auto ids would both be "n1": give each its own id
     const o = p.ops[0], id = AUTO_ID.test(o.id) ? o.preset + (seen[o.preset] = (seen[o.preset] || 0) + 1) : o.id;
     const film = inputsFilm([{ ...o, id }], r0, { AUTO_ID, HOLD });
@@ -348,6 +352,8 @@ function sketchFilm(d, read0) {
   return film;
 }
 
+const drawFilm = (d, r) => (d.kind === "shapes" ? shapesFilm(d, r) : d.kind === "map" ? mapFilm(d, r, { chooseBlock, HOLD, AUTO_ID, TONE, sample }) : sketchFilm(d, r));
+
 // ---- the film for the page --------------------------------------------------------------------------------------------
 
 // text: Yui Lines. Returns { film, scenes } for the player, or { error } when there is nothing to draw.
@@ -376,7 +382,8 @@ export function build(text) {
     return { film: inf, scenes: [{ name: "yl", dur: inf.total, code: "return window.__yl && window.__yl.draw(t, api);" }] };
   }
   if (!r.draw) return { error: r.errors[0] || "nothing to draw" };
-  const film = r.draw.kind === "shapes" ? shapesFilm(r.draw, r) : sketchFilm(r.draw, r);
+  const film = drawFilm(r.draw, r);
+  if (!film) return { error: "nothing to draw" };
   film.read = r;
   // the choose options are marks too: a tap on one is the answer
   if (film.choose && !film.onShapes) film.choose.options.forEach((o, i) => film.marks.push({ id: "mark:text:" + slug(o), label: o, words: "Tap to choose " + o + ".", choice: o, appear: film.total - 3 }));

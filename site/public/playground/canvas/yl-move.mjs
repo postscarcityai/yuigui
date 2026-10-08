@@ -6,8 +6,9 @@
 //   moveReplyFor(replies, sample, id, plan)   the canned agent answer for this drop, or null
 //   settleGroups / settleFilm   the short ease where the mark lands and its neighbours reflow
 // Movable: list rows, the `next` rows of a timeline (the queue), the bars of a bar chart (a bar and its goal bar move together), and
-// the closed shapes of a `shapes` drawing that were placed with at=.
+// the closed shapes of a `shapes` drawing that were placed with at=, and the pins of a `map` (YUI-336: the drop is a new lat,lon).
 import { parse, tokenize } from "./yl/yl.mjs";
+import { whereIs, ll } from "./yl-map.mjs";
 
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const quote = (s) => '"' + String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"') + '"';
@@ -55,6 +56,10 @@ function chartLine(op, perm) {
 
 const stepsOf = (ops, fig) => ops.filter((o) => o.in === fig && ["done", "now", "next"].includes(o.preset));
 const shapesFilmOf = (film) => (film && film.sc ? film : film && film.films ? film.films.find((f) => f.sc) : null);
+const mapFilmOf = (film) => (film && film.kind === "map" ? film : film && film.films ? film.films.find((f) => f.kind === "map") : null);
+const LL = /^-?[\d.]+,-?[\d.]+$/;
+// the lat,lon token of a pin row: `at=47.2,102.8` or the first bare place
+const pinTok = (op) => tokenize(op.line).find((t) => typeof t.value === "string" && LL.test(t.value) && (t.key === "at" || t.key === undefined)) || tokenize(op.line).find((t) => !t.key && LL.test(t.text));
 const figOf = (film, fig) => {
   const fs = film.figs ? [film] : film.films || [];
   for (const f of fs) for (const g of f.figs || []) if (g.id === fig) return g;
@@ -83,6 +88,12 @@ export function describe(film, text, id) {
     if (chartLine(op, op.props.x.map((_, k) => k)) === null) return null;
     return { kind: "bars", fig: m[1], index: i, series: +m[2], count: op.props.x.length, allowed: op.props.x.map((_, k) => k) };
   }
+  if ((m = /^map:([^:]+):pin:/.exec(id))) {
+    const mf = mapFilmOf(film), mk = mf && mf.marks.find((x) => x.id === id && x.item !== undefined);
+    const head = ops.find((o) => o.preset === "map" && o.id === m[1]), op = head && mk && ops.filter((o) => o.in === head.id)[mk.item], tok = op && op.preset === "pin" && pinTok(op);
+    if (!tok) return null;
+    return { kind: "pin", fig: m[1], item: mk.item, at: String(tok.value || tok.text).split(",").map(Number), label: mk.label };
+  }
   const sf = shapesFilmOf(film);
   if (sf && sf.marks) {
     const mk = sf.marks.find((x) => x.id === id && x.item !== undefined), it = mk && sf.sc.items.find((x) => x.i === mk.item);
@@ -105,6 +116,7 @@ export function liftBox(film, text, id, hit) {
     const sw = (g.px1 - g.px0) / d.count, y0 = g.py0 - 28 + g.dy, y1 = g.py1 + 26 + g.dy;
     return { x: g.px0 + (d.index + 0.5) * sw, y: (y0 + y1) / 2, w: sw - 6, h: y1 - y0 - 8, auto: true };
   }
+  if (d.kind === "pin") { const mf = mapFilmOf(film); return hit && mf && mf.xf ? { x: hit.x, y: hit.y, w: 44, h: 44, auto: true } : null; }
   if (d.kind === "shape") {
     const sf = shapesFilmOf(film), it = sf.sc.items.find((x) => x.i === d.item);
     if (!hit || !sf.xf || !["box", "pill"].includes(it.kind)) return null;
@@ -132,6 +144,7 @@ export function plan(film, text, id, input, geo) {
   if (!d) return null;
   const { ops, idx } = read(text);
   if (d.kind === "shape") return planShape(film, ops, idx, d, id, input);
+  if (d.kind === "pin") return planPin(film, ops, idx, d, id, input);
   const c = centres(d, geo.hits || []), axis = d.kind === "bars" ? "x" : "y";
   let to = d.index;
   const at = d.allowed.indexOf(d.index);
@@ -167,6 +180,28 @@ export function plan(film, text, id, input, geo) {
   }
   if (out === text) return null;
   return { text: out, kind: d.kind, fig: d.fig, index: d.index, to, count: d.count, perm, line: `to=${to + 1}`, toKey: to + 1, place: `moved to ${to + 1} of ${d.count}`, newId: idOf(d, to, d.series), near: null };
+}
+
+// A pin dropped on the map: the screen point back to degrees (the projection is linear in the view), written into its row.
+function planPin(film, ops, idx, d, id, input) {
+  const mf = mapFilmOf(film), xf = mf && mf.xf, sc = mf && mf.sc;
+  if (!xf) return null;
+  const [lon0, lon1] = sc.view.lon, [lat0, lat1] = sc.view.lat;
+  let lat, lon;
+  if (input.dx !== undefined || input.dy !== undefined) {   // a key step is a twentieth of the view
+    lat = d.at[0] - (input.dy || 0) * ((lat1 - lat0) / 20); lon = d.at[1] + (input.dx || 0) * ((lon1 - lon0) / 20);
+  } else {
+    lon = lon0 + ((input.cx - xf.ox) / (sc.w * xf.s)) * (lon1 - lon0);
+    lat = lat1 - ((input.cy - (xf.dy || 0) - xf.oy) / (sc.h * xf.s)) * (lat1 - lat0);
+  }
+  lat = Math.round(clamp(lat, -85, 85) * 10) / 10; lon = Math.round((((lon + 540) % 360) - 180) * 10) / 10;
+  if (lat === d.at[0] && lon === d.at[1]) return null;
+  const head = ops.find((o) => o.preset === "map" && o.id === d.fig), op = ops.filter((o) => o.in === head.id)[d.item], at0 = idx.at.get(op), tok = pinTok(op);
+  if (at0 === undefined || !tok) return null;
+  const lines = idx.lines.slice();
+  lines[at0] = idx.lines[at0].replace(tok.raw, () => (tok.key ? `at=${lat},${lon}` : `${lat},${lon}`));
+  const where = whereIs(lat, lon);
+  return { text: lines.join("\n"), kind: "pin", index: d.item, to: `${lat},${lon}`, count: 1, perm: null, line: `to=${lat},${lon}`, toKey: null, place: `now ${where ? "in " + where : "at sea"} (${ll(lat, lon)})`, newId: id, near: null, where };
 }
 
 function planShape(film, ops, idx, d, id, input) {
@@ -205,7 +240,7 @@ export function moveReplyFor(replies, sample, id, pl) {
 // Boxes (css px, in the NEW picture) that slide from where they were to where they are, and the offset each starts at.
 // A, B: the hits before and after the move. from: where the lifted mark was let go, { cx, cy }.
 export function settleGroups(film, pl, A, B, from, W) {
-  if (pl.kind === "shape") {
+  if (pl.kind === "shape" || pl.kind === "pin") {
     const h = B.find((x) => x.id === pl.newId); if (!h) return [];
     const r = (h.w ? Math.max(h.w, h.h) / 2 : 40) + 22;
     return [{ x0: h.x - r, y0: h.y - r, x1: h.x + r, y1: h.y + r, dx: from.cx - h.x, dy: from.cy - h.y, s0: 1.07 }];

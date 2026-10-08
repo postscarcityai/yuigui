@@ -12,14 +12,16 @@ let bad = 0; const out = [];
 // 0. the browser copies of lib/yl match the originals
 try { execFileSync("node", [new URL("../../../scripts/sync-canvas-yl.mjs", import.meta.url).pathname, "--check"], { stdio: "pipe" }); out.push("ok  canvas yl copies in sync"); } catch (e) { bad++; out.push("BAD canvas yl copies drifted: run node site/scripts/sync-canvas-yl.mjs"); }
 // 1. the sample set
-const kinds = list.map((s) => (/^\s*(say.*\n)?(chart|stat)/.test(s.yl) ? "chart" : /^\s*(say.*\n)?shapes/.test(s.yl) ? "shapes" : /^\s*(say.*\n)?(list|table|timeline|card)/.test(s.yl) ? "lists" : /^\s*(say.*\n)?(choose|pick|ask|slide|form)/.test(s.yl) ? "inputs" : "sketch"));
+const kinds = list.map((s) => (/^\s*(say.*\n)?(chart|stat)/.test(s.yl) ? "chart" : /^\s*(say.*\n)?shapes/.test(s.yl) ? "shapes" : /^\s*(say.*\n)?(list|table|timeline|card)/.test(s.yl) ? "lists" : /^\s*(say.*\n)?(choose|pick|ask|slide|form)/.test(s.yl) ? "inputs" : /^\s*(say.*\n)?map\b/.test(s.yl) ? "map" : "sketch"));
 const chartTypes = new Set(list.flatMap((s) => [...s.yl.matchAll(/^chart (line|bar|area|scatter|pie|donut)/gm)].map((m) => m[1])));
 const need = { n: list.length >= 16, shapes: kinds.filter((k) => k === "shapes").length >= 4, sketch: kinds.filter((k) => k === "sketch").length >= 3, charts: kinds.filter((k) => k === "chart").length >= 6, types: ["line", "bar", "area", "pie", "donut"].every((t) => chartTypes.has(t)), stat: list.some((s) => /^stat .*delta=.*spark=/m.test(s.yl)), pair: list.some((s) => /^stat /m.test(s.yl) && /^chart /m.test(s.yl) && /^choose/m.test(s.yl)), choose: list.filter((s) => /^choose/m.test(s.yl)).length >= 1,
   // YUI-327: a list, a +check list, a table, a timeline with done/now/next, a card with a body, and a timeline + choose pair
   lists: kinds.filter((k) => k === "lists").length >= 6, plainList: list.some((s) => /^list /m.test(s.yl) && !/\+check/.test(s.yl)), checkList: list.some((s) => /^list .*\+check/m.test(s.yl)), table: list.some((s) => /^table /m.test(s.yl)),
   timeline: list.some((s) => /^timeline/m.test(s.yl) && /^done /m.test(s.yl) && /^now /m.test(s.yl) && /^next /m.test(s.yl)), card: list.some((s) => /^card .*body=|^card "[^"]*" "/m.test(s.yl)), tlChoose: list.some((s) => /^timeline/m.test(s.yl) && /^choose/m.test(s.yl)),
   // YUI-328: a choose with +other, a pick of several, a slide with end labels, an ask with two buttons, a form with a 1-10 field and a text field, a sketch + choose pair
-  inputs: kinds.filter((k) => k === "inputs").length >= 5, chooseOther: list.some((s) => /^choose.*\+other/m.test(s.yl)), pickMany: list.some((s) => /^pick\b.*\|.*\|/m.test(s.yl)), slideEnds: list.some((s) => /^slide\b.*\d-\d+ \w+\|\w+/m.test(s.yl)), askTwo: list.some((s) => /^ask\b.*\w+\|"?[\w ]+"?\s*$/m.test(s.yl)), formFields: list.some((s) => /^form\b/m.test(s.yl) && /:1-10/.test(s.yl) && /:text/.test(s.yl)), sketchChoose: list.some((s) => /^sketch/m.test(s.yl) && /^choose/m.test(s.yl)) };
+  inputs: kinds.filter((k) => k === "inputs").length >= 5, chooseOther: list.some((s) => /^choose.*\+other/m.test(s.yl)), pickMany: list.some((s) => /^pick\b.*\|.*\|/m.test(s.yl)), slideEnds: list.some((s) => /^slide\b.*\d-\d+ \w+\|\w+/m.test(s.yl)), askTwo: list.some((s) => /^ask\b.*\w+\|"?[\w ]+"?\s*$/m.test(s.yl)), formFields: list.some((s) => /^form\b/m.test(s.yl) && /:1-10/.test(s.yl) && /:text/.test(s.yl)), sketchChoose: list.some((s) => /^sketch/m.test(s.yl) && /^choose/m.test(s.yl)),
+  // YUI-336: a map with an area, a pin and a route (the Mongol Empire), and a three-stop trip
+  maps: kinds.filter((k) => k === "map").length >= 2 && list.some((s) => s.id === "map" && /^area /m.test(s.yl) && /^pin/m.test(s.yl) && /^route /m.test(s.yl)) && list.some((s) => s.id === "route" && (s.yl.match(/^pin/gm) || []).length >= 3 && /^route /m.test(s.yl)) };
 if (!Object.values(need).every(Boolean)) { bad++; out.push("BAD sample set " + JSON.stringify(need)); } else out.push("ok  " + list.length + " samples (" + kinds.filter((k) => k === "shapes").length + " shapes, " + kinds.filter((k) => k === "sketch").length + " sketch, " + kinds.filter((k) => k === "chart").length + " chart/stat, " + kinds.filter((k) => k === "lists").length + " list/table/timeline/card)");
 const b = await chromium.launch({ executablePath: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", headless: true });
 for (const s of list) {
@@ -840,6 +842,110 @@ await mixCheck("mix-dinner", "a table cell names itself, the knob drags without 
     if (!(await p.evaluate(() => document.getElementById("sayfld").hidden))) f.push("Alt+Enter opened a field on the heart film");
     if (f.length || p.errs.length) { bad++; out.push("BAD say heart " + f.concat(p.errs).join("; ")); } else out.push("ok  say heart film untouched (no mic, no Alt+Enter)");
     await p.close(); }
+}
+
+// 12. YUI-336: maps. ?yl=map and ?yl=route draw the world outline, then each area fills in, each pin drops and each route draws, in line order; every one is
+// a mark named by its label (`map:<block>:<area|pin|route>:<slug>`). Tap names it, hold asks about it, a pin drags to a new place (the line carries lat,lon and
+// where that is), arrow keys step it, Back undoes it, Reset restores, and the whole drawing is keyboard-reachable.
+{
+  const open = async (id, extra = "&replies=off") => {
+    const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+    p.errs = []; p.on("pageerror", (e) => p.errs.push(String(e)));
+    await p.addInitScript(() => { window.__log = []; window.addEventListener("message", (e) => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
+    await p.goto(base + "?yl=" + id + "&theme=dark" + extra);
+    await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 });
+    p.fr = p.frames().find((f) => f.url().includes("player.html")); p.total = await p.evaluate(() => window.__canvas.total);
+    await p.fr.evaluate((t) => window.__motion.renderAt(t), p.total); await p.waitForTimeout(500); return p;
+  };
+  const hitsAt = (p, t) => p.fr.evaluate((t) => { window.__motion.renderAt(t); return window.__motion.hits().map((h) => ({ id: h.id, label: h.label, x: h.x, y: h.y })); }, t);
+  const line = (p) => p.evaluate(() => document.getElementById("line").innerText);
+  const press = (p, h, ms, pid = 60) => p.fr.evaluate(async ([x, y, ms, pid]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: pid, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise((r) => setTimeout(r, ms)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [h.x, h.y, ms, pid]);
+  const drag = async (p, from, to, wait = 800) => {
+    await p.fr.evaluate(async ([x0, y0, x1, y1]) => {
+      const cv = document.getElementById("cv"), ev = (x, y) => ({ clientX: x, clientY: y, pointerId: 61, bubbles: true, pointerType: "touch" });
+      cv.dispatchEvent(new PointerEvent("pointerdown", ev(x0, y0)));
+      for (let i = 1; i <= 10; i++) { await new Promise((r) => setTimeout(r, 25)); cv.dispatchEvent(new PointerEvent("pointermove", ev(x0 + (x1 - x0) * i / 10, y0 + (y1 - y0) * i / 10))); }
+      cv.dispatchEvent(new PointerEvent("pointerup", ev(x1, y1)));
+    }, [from.x, from.y, to.x, to.y]);
+    await p.waitForTimeout(wait);
+  };
+  const check12 = async (name, id, extra, fn) => {
+    const f = []; let p;
+    try { p = await open(id, extra); await fn(p, f); if (p.errs.length) f.push("page errors " + p.errs.join(";")); } catch (e) { f.push("threw " + String(e).slice(0, 200)); }
+    if (f.length) bad++; out.push((f.length ? "BAD" : "ok ") + " map " + id + " " + name + (f.length ? " " + f.join(" | ") : "")); if (p) await p.close();
+  };
+  const KA = "map:n1:pin:karakorum";
+  await check12("every area, pin and route is a named mark, in line order", "map", "&replies=off", async (p, f) => {
+    const hs = await hitsAt(p, p.total);
+    const want = [["map:n1:area:mongol_empire", "Mongol Empire"], ["map:n1:area:raided", "Raided"], [KA, "Karakorum"], ["map:n1:route:east", "East"], ["map:n1:route:west", "West"]];
+    const got = hs.filter((h) => h.id.startsWith("map:")).map((h) => [h.id, h.label]);
+    if (JSON.stringify(got) !== JSON.stringify(want)) f.push("marks " + JSON.stringify(got));
+    // the clock: the outline first, parts in line order (the area is hit before the pin, the pin before the routes)
+    const early = (await hitsAt(p, 0.3)).filter((h) => h.id.startsWith("map:")), t1 = (await hitsAt(p, 1.3)).filter((h) => h.id.startsWith("map:")).map((h) => h.label);
+    if (early.length) f.push("a part is touchable before the outline is down: " + early.map((h) => h.id));
+    if (t1.includes("West") || !t1.includes("Mongol Empire")) f.push("order at 1.3s " + t1);
+    const tp = p.total, a = await p.fr.evaluate((t) => { window.__motion.renderAt(t); return document.getElementById("cv").toDataURL().length; }, tp * 0.3), z = await p.fr.evaluate((t) => { window.__motion.renderAt(t); return document.getElementById("cv").toDataURL().length; }, p.total);
+    if (a === z) f.push("mid equals end");
+    // the keyboard: one named button per mark, Tab walks them in order
+    const names = await p.fr.evaluate(() => [...document.querySelectorAll("#parts button")].map((x) => x.getAttribute("aria-label")));
+    if (!want.every(([, l]) => names.includes(l))) f.push("buttons " + names);
+  });
+  await check12("tap lights and names a pin, sends nothing; hold sends the ask line", "map", "&replies=off", async (p, f) => {
+    const pin = (await hitsAt(p, p.total)).find((h) => h.id === KA);
+    await press(p, pin, 60); await p.waitForTimeout(250);
+    const ln = await line(p), paused = await p.fr.evaluate(() => window.__motion.paused()), marked = await p.fr.evaluate(() => window.yui && window.yui.__m);
+    if (!ln.includes("Karakorum")) f.push("tap line " + JSON.stringify(ln)); if (!paused) f.push("tap did not pause");
+    void marked;
+    const tapped = await p.evaluate(() => window.__log.filter((m) => m.motion === "tap").map((m) => m.id));
+    if (tapped[tapped.length - 1] !== KA) f.push("tap event " + JSON.stringify(tapped));
+    await press(p, pin, 650); await p.waitForTimeout(900);
+    const hl = await line(p);
+    if (!hl.includes("[yui] map yl ask Karakorum")) f.push("hold line " + JSON.stringify(hl));
+  });
+  await check12("a held area redraws only that part from its canned reply", "map", "", async (p, f) => {
+    const raided = (await hitsAt(p, p.total)).find((h) => h.id === "map:n1:area:raided");
+    await press(p, raided, 650); await p.waitForTimeout(3200);
+    const src = await p.evaluate(() => window.__canvas.yl.items.map((o) => o.label + ":" + o.it.tone).join(","));
+    if (!/Raided:lavender/.test(src)) f.push("area did not take its new tone: " + src);
+    if (!(await line(p)).includes("Raided in 1241")) f.push("reply " + JSON.stringify(await line(p)));
+  });
+  await check12("dragging a pin sends where it landed; Back undoes it; Reset restores", "map", "&replies=off", async (p, f) => {
+    const pin = (await hitsAt(p, p.total)).find((h) => h.id === KA), before = JSON.stringify((await hitsAt(p, p.total)).map((h) => [h.id, Math.round(h.x), Math.round(h.y)]));
+    await drag(p, pin, { x: pin.x - 40, y: pin.y + 36 });
+    const ln = await line(p), m = /\[yui\] map yl move Karakorum to=(-?[\d.]+),(-?[\d.]+)/.exec(ln);
+    if (!m) { f.push("move line " + JSON.stringify(ln)); return; }
+    if (!(+m[1] < 47.2 && +m[2] < 102.8)) f.push("the pin went the wrong way: " + m[0]);
+    if (!/now (in .+|at sea) \(/.test(ln)) f.push("place missing " + JSON.stringify(ln));
+    const after = await hitsAt(p, p.total), now = after.find((h) => h.id === KA);
+    if (Math.abs(now.x - (pin.x - 40)) > 6 || Math.abs(now.y - (pin.y + 36)) > 6) f.push("pin not where dropped: " + JSON.stringify([pin, now]));
+    const route = after.find((h) => h.id === "map:n1:route:east");
+    if (!route) f.push("route lost");
+    if (!(await p.evaluate(() => !document.getElementById("resetyl").hidden))) f.push("no Reset");
+    await p.fr.evaluate(() => window.__motion.liftOff());
+    await p.click("#back"); await p.waitForFunction(() => window.__canvas.hist.at === 0, null, { timeout: 8000 }); await p.waitForTimeout(2600);
+    const back = JSON.stringify((await hitsAt(p, p.total)).map((h) => [h.id, Math.round(h.x), Math.round(h.y)]));
+    if (back !== before) f.push("Back did not restore the map");
+    const l2 = await line(p);
+    if (!l2.includes("[yui] map canvas undo step=1 marks=" + KA)) f.push("undo line " + JSON.stringify(l2));
+  });
+  await check12("a focused pin steps with Alt+Arrow and sends the move line", "map", "&replies=off", async (p, f) => {
+    await p.fr.evaluate(() => document.getElementById("cv").focus());
+    let at = null;
+    for (let i = 0; i < 8 && at !== KA; i++) { await p.keyboard.press("Tab"); at = await p.fr.evaluate(() => document.activeElement.dataset.id); }
+    if (at !== KA) { f.push("Tab never reached the pin: " + at); return; }
+    await p.keyboard.press("Alt+ArrowRight"); await p.waitForTimeout(900);
+    const ln = await line(p);
+    if (!/\[yui\] map yl move Karakorum to=47\.2,\d+/.test(ln) || /to=47\.2,102\.8/.test(ln)) f.push("key step line " + JSON.stringify(ln));
+  });
+  await check12("three-stop trip: the route follows a dragged pin, its canned reply redraws", "route", "", async (p, f) => {
+    const hs = await hitsAt(p, p.total), par = hs.find((h) => h.id === "map:n1:pin:paris");
+    if (hs.filter((h) => h.id.startsWith("map:n1:pin:")).length !== 3 || !hs.some((h) => h.id === "map:n1:route:the_trip")) f.push("marks " + hs.map((h) => h.id));
+    const r0 = hs.find((h) => h.id === "map:n1:route:the_trip");
+    await drag(p, par, { x: par.x + 30, y: par.y - 40 }, 3400);
+    const ln = await line(p), after = await hitsAt(p, p.total), r1 = after.find((h) => h.id === "map:n1:route:the_trip");
+    if (!ln.includes("Paris moved")) f.push("canned reply " + JSON.stringify(ln));
+    if (!r1 || (Math.abs(r1.x - r0.x) < 1 && Math.abs(r1.y - r0.y) < 1)) f.push("the route did not follow the pin");
+  });
 }
 console.log(out.join("\n")); console.log("bad", bad, "of", out.length);
 await b.close(); process.exit(bad ? 1 : 0);

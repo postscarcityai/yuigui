@@ -190,5 +190,43 @@
         ]
       }
     ]
+  },
+  "map": {
+    "map:n1:pin:karakorum": {
+      "name": "Karakorum",
+      "say": "The capital. Built in 1235 on the steppe.",
+      "patch": "~pin@ka tone=butter"
+    },
+    "map:n1:area:raided": {
+      "name": "Raided",
+      "say": "Raided in 1241, then left alone.",
+      "replace": [
+        {
+          "find": "area Raided PL|HU +dash",
+          "with": "area Raided PL|HU tone=lavender +dash"
+        }
+      ]
+    },
+    "map:n1:area:mongol_empire": {
+      "name": "Mongol Empire",
+      "say": "Biggest at 1279. Korea to Hungary.",
+      "replace": [
+        {
+          "find": "tone=butter",
+          "with": "tone=mint"
+        }
+      ]
+    }
+  },
+  "route": {
+    "map:n1:pin:paris": {
+      "name": "Paris",
+      "say": "Paris is the long stop. Two days, not one.",
+      "patch": "~pin@par tone=butter"
+    },
+    "move:map:n1:pin:paris": {
+      "say": "Paris moved. The trip bends with it.",
+      "patch": "~pin@par tone=butter"
+    }
   }
 }

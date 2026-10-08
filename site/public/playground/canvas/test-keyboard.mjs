@@ -92,6 +92,45 @@ for (const id of ids) {
   out.push(`${fails.length ? "BAD" : "ok "} ${id} parts=${best.n} walked=${walked} ${same} ${fails.join(" | ")}`);
   await p.close();
 }
+// YUI-336: the map samples of the yl canvas. Every area, pin and route is one named, focusable button, Tab walks them in line order, Enter and
+// Shift-Enter do what a tap and a hold do, and Alt+Arrow on a pin moves it (the same `yl move` line a drag sends).
+for (const yid of ["map", "route"]) {
+  const p = await b.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true });
+  const errs = [], fails = []; p.on("pageerror", e => errs.push(String(e)));
+  await p.addInitScript(() => { window.__log = []; window.addEventListener("message", e => { const m = e.data && e.data.motion; if (m && m !== "time" && m !== "cues") window.__log.push(e.data); }); });
+  await p.goto("http://localhost:" + (process.env.PORT || 8923) + "/playground/canvas.html?yl=" + yid + "&theme=dark&replies=off");
+  await p.waitForFunction(() => window.__canvas && window.__canvas.loaded && window.__canvas.yl, null, { timeout: 15000 }).catch(() => fails.push("not loaded"));
+  const fr = p.frames().find(f => f.url().includes("player.html"));
+  await p.waitForTimeout(300);
+  const total = await p.evaluate(() => window.__canvas.total);
+  const r = await fr.evaluate(t => { window.__motion.renderAt(t); const h = window.__motion.hits(); const bs = [...document.querySelectorAll("#parts button")]; return { ids: h.map(x => x.id), btn: bs.map(x => x.dataset.id), names: bs.map(x => x.getAttribute("aria-label")), ok: bs.map(x => x.tabIndex >= 0 && !x.disabled) }; }, total);
+  const marks = r.ids.filter(i => i.startsWith("map:"));
+  checks += r.ids.length; parts += marks.length; filmsWithParts++;
+  if (marks.length < (yid === "map" ? 5 : 4)) fails.push("only " + marks.length + " map marks");
+  if (JSON.stringify(r.ids) !== JSON.stringify(r.btn)) fails.push("list!=hits");
+  if (r.names.some(n => !n || !n.trim())) fails.push("unnamed " + JSON.stringify(r.names));
+  if (r.ok.some(x => !x)) fails.push("unfocusable");
+  await fr.evaluate(() => document.getElementById("cv").focus());
+  const seen = [];
+  for (let i = 0; i < r.ids.length; i++) { await p.keyboard.press("Tab"); seen.push(await fr.evaluate(() => document.activeElement.dataset.id)); }
+  if (JSON.stringify(seen) !== JSON.stringify(r.ids)) fails.push("tab order " + seen + " != " + r.ids);
+  const pinId = marks.find(i => /:pin:/.test(i)), hit = (await fr.evaluate(() => window.__motion.hits())).find(h => h.id === pinId);
+  const sent = () => p.evaluate(() => window.__log.filter(m => m.motion === "tap" || m.motion === "hold").map(m => ({ motion: m.motion, id: m.id, label: m.label })));
+  const touch = async (ms) => { await p.evaluate(() => (window.__log = [])); await fr.evaluate(async ([x, y, ms]) => { const cv = document.getElementById("cv"), o = { clientX: x, clientY: y, pointerId: 7, bubbles: true, pointerType: "touch" }; cv.dispatchEvent(new PointerEvent("pointerdown", o)); await new Promise(r => setTimeout(r, ms)); cv.dispatchEvent(new PointerEvent("pointerup", o)); }, [hit.x, hit.y, ms]); await p.waitForTimeout(150); return sent(); };
+  const focusPin = async () => { await fr.evaluate(id => document.querySelector('#parts button[data-id="' + id + '"]').focus(), pinId); };
+  const key = async (fn) => { await p.evaluate(() => (window.__log = [])); await fn(); await p.waitForTimeout(700); return sent(); };
+  const tT = await touch(60); await focusPin(); const kT = await key(() => p.keyboard.press("Enter"));
+  const tH = await touch(650); await focusPin(); const kH = await key(() => p.keyboard.press("Shift+Enter"));
+  if (tT.length !== 1 || tT[0].id !== pinId || JSON.stringify(tT) !== JSON.stringify(kT)) fails.push("tap " + JSON.stringify(tT) + " vs Enter " + JSON.stringify(kT));
+  if (tH.length !== 1 || JSON.stringify(tH) !== JSON.stringify(kH)) fails.push("hold " + JSON.stringify(tH) + " vs Shift-Enter " + JSON.stringify(kH));
+  await focusPin(); await p.keyboard.press("Alt+ArrowRight"); await p.waitForTimeout(900);
+  const ln = await p.evaluate(() => document.getElementById("line").innerText);
+  if (!/\[yui\] \S+ yl move .+ to=-?[\d.]+,-?[\d.]+/.test(ln)) fails.push("Alt+Arrow line " + JSON.stringify(ln));
+  if (errs.length) fails.push(errs.join(";"));
+  if (fails.length) bad++;
+  out.push(`${fails.length ? "BAD" : "ok "} yl=${yid} map marks=${marks.length} walked=${seen.length} tap+hold=same ${fails.join(" | ")}`);
+  await p.close();
+}
 console.log(out.join("\n"));
 console.log(`bad ${bad} of ${ids.length} films; films_with_parts ${filmsWithParts}; max-parts parts checked ${parts}; per-frame part checks ${checks}`);
 await b.close(); process.exit(bad ? 1 : 0);
