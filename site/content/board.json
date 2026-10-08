@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T11:20:22.996Z",
+  "updated": "2026-10-08T11:45:26.012Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -296,6 +296,8 @@
         {
           "key": "YUI-336",
           "title": "The canvas draws maps, every area, pin and route a touchable mark",
+          "summary": "Maps you can touch",
+          "progress": "/progress#maps-you-can-touch",
           "owner": "CJohnDesign"
         },
         {
