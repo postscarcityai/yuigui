@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T09:36:15.302Z",
+  "updated": "2026-10-08T09:40:09.678Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,13 +290,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-266",
-          "title": "Thought on YUI-334, step back on the canvas",
-          "summary": "A Thought: change your mind on the canvas",
-          "progress": "/progress#a-thought-change-your-mind-on-the-canvas",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-335",
           "title": "The canvas stays smooth on a phone, a frame budget and a test that holds it",
           "owner": "CJohnDesign"
@@ -313,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-266",
+          "title": "Thought on YUI-334, step back on the canvas",
+          "summary": "A Thought: change your mind on the canvas",
+          "shipped": "2026-10-08",
+          "progress": "/progress#a-thought-change-your-mind-on-the-canvas",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/74ec76d6"
+        },
         {
           "key": "YUI-334",
           "title": "Step back on the living canvas, undo a redraw or a drag",
