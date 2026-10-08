@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T02:06:15.001Z",
+  "updated": "2026-10-08T02:11:05.995Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -297,6 +297,8 @@
         {
           "key": "SITE-258",
           "title": "Thought on YUI-326, the canvas draws charts and stats",
+          "summary": "A Thought: charts you can touch",
+          "progress": "/progress#a-thought-charts-you-can-touch",
           "owner": "CJohnDesign"
         },
         {
