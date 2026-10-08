@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T07:55:55.726Z",
+  "updated": "2026-10-08T08:00:56.914Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-264",
-          "title": "Thought on YUI-332, talk while touching a part"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -294,10 +290,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-332",
-          "title": "Talk while touching a mark on the living canvas, the agent gets both",
-          "summary": "Talk while touching a part",
-          "progress": "/progress#talk-while-touching-a-part",
+          "key": "SITE-264",
+          "title": "Thought on YUI-332, talk while touching a part",
           "owner": "CJohnDesign"
         },
         {
@@ -312,6 +306,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-332",
+          "title": "Talk while touching a mark on the living canvas, the agent gets both",
+          "summary": "Talk while touching a part",
+          "shipped": "2026-10-08",
+          "progress": "/progress#talk-while-touching-a-part",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a479096b"
+        },
         {
           "key": "SITE-263",
           "title": "Thought on YUI-331, drag a part and the agent answers where you put it",
