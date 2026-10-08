@@ -28,12 +28,17 @@ html,body{margin:0;height:100%;background:var(--ink);color:var(--fg);font:600 16
 .row button:active{background:var(--line)}
 .row svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .row .t{margin-left:auto;font:600 12px ui-monospace,Menlo,monospace;color:var(--dim)}
+#films{position:absolute;top:calc(34px + env(safe-area-inset-top));left:0;right:0;display:flex;gap:6px;overflow-x:auto;padding:2px 14px;scrollbar-width:none;z-index:2}
+#films::-webkit-scrollbar{display:none}
+#films a{flex:none;color:var(--fg);text-decoration:none;font-size:13px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:color-mix(in srgb,var(--panel) 80%,transparent);backdrop-filter:blur(8px)}
+#films a.on{border-color:var(--accent);color:var(--accent)}
 #hint{position:absolute;top:calc(12px + env(safe-area-inset-top));left:0;right:0;text-align:center;font-size:12px;color:var(--dim);pointer-events:none;transition:opacity .6s}
 </style>
 </head>
 <body>
 <div id="app">
   <iframe id="cv" src="canvas/player.html" title="The canvas"></iframe>
+  <nav id="films" aria-label="Films"></nav>
   <div id="hint">drag to scrub &middot; tap a part &middot; hold to ask</div>
   <div id="line" aria-live="polite"></div>
   <div id="chips"><button id="another">Another take</button><button id="change">Change it</button></div>
@@ -81,6 +86,8 @@ var PRE = [
   '}'
 ].join("\n");
 
+var FILM = (Q.get("film") || "heart").toLowerCase().replace(/[^a-z0-9-]/g, "");
+var FILM_ASK = FILM.replace(/-r\d+$/, "");  // the word in the ask line: "heart", "engine"
 var SCENES = [
   { name: "draw", dur: 6, code: PRE + [
     'var k = api.seg(t, 0.2, 3.2);',
@@ -122,6 +129,19 @@ var SCENES = [
 ];
 var TOTAL = SCENES.reduce(function (a, s) { return a + s.dur; }, 0);
 var CHOOSE_AT = SCENES[0].dur + SCENES[1].dur;
+var HEART = FILM === "heart";
+var GALLERY = "../demo/motion/gallery/";
+function loadFilm(cb) {
+  if (HEART) { cb(); return; }
+  var id = /-r\d+$/.test(FILM) ? FILM : FILM + "-r1";
+  fetch(GALLERY + id + ".json").then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+    SCENES = d.scenes.map(function (s) { return { name: s.name, dur: s.dur, code: s.code }; });
+    TOTAL = SCENES.reduce(function (a, s) { return a + s.dur; }, 0); CHOOSE_AT = 1e9; FILM_TITLE = d.ask; cb();
+  }).catch(function () { location.replace("canvas.html" + (Q.get("theme") ? "?theme=" + Q.get("theme") : "")); });
+}
+var FILM_TITLE = "";
+// the picker: heart first (the default), then every ready-made film the site ships (the gallery), run 1
+
 
 // What a part says when touched, and what the agent writes back when it is held. Canned in the prototype.
 var SAY = {
@@ -161,7 +181,8 @@ function setPaused(b) {
   $("pp").innerHTML = b ? '<svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>' : '<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>';
 }
 function fmt(t) { var s = Math.floor(t); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); }
-function label(id) { return id.indexOf("part:heart4:") === 0 ? id.slice(12).replace(/_/g, " ") : ""; }
+function label(id, given) { return given || (id.indexOf("part:heart4:") === 0 ? id.slice(12).replace(/_/g, " ") : ""); }
+function cueAt(t) { var best = null; cues.forEach(function (c) { if (t >= c.from - 0.05 && t <= c.to) best = c; }); return best; }
 function caps(on) { try { frame.contentWindow.__noCaps = !on; Y().mark(Y().__m || null); } catch (e) {} }
 function mark(id) { Y().__m = id || null; Y().mark(id || null); }
 function resetSpoken() { spoken = {}; }
@@ -170,11 +191,11 @@ window.addEventListener("message", function (e) {
   if (e.source !== frame.contentWindow) return;
   var m = e.data && e.data.motion; if (!m) return;
   if (m === "ready") {
-    ready = true; theme();
-    SCENES.forEach(function (s) { Y().scene(s); });
-    Y().end();
+    ready = true; theme(); Y().auto(!HEART);
+    loadFilm(function () { SCENES.forEach(function (s) { Y().scene(s); }); Y().end(); window.__canvas.total = TOTAL; window.__canvas.loaded = true; });
     return;
   }
+  if (m === "need-three") { fetch("../demo/motion/three.min.js").then(function (r) { return r.text(); }).then(function (src) { Y().three(src); }).catch(function () {}); return; }
   if (m === "cues") { cues = cues.concat(e.data.cues || []); return; }
   if (m === "time") {
     clock = e.data.t; var tot = e.data.total || TOTAL;
@@ -192,26 +213,28 @@ window.addEventListener("message", function (e) {
     $("hint").style.opacity = 0;
     var id = e.data.id;
     if (!id) { mark(null); line.classList.remove("on"); caps(true); setPaused(!paused); return; }
-    var nm = label(id); mark(id);
-    if (clock >= CHOOSE_AT) {
+    var nm = label(id, e.data.label); mark(id);
+    if (HEART && clock >= CHOOSE_AT) {
       // inside the question the touch is the answer: the canvas follows the part and keeps playing
       if (clock > CHOOSE_AT + 9) Y().seek(CHOOSE_AT + 3);
       if (paused) setPaused(false);
     } else setPaused(true);
-    say(SAY[nm] || nm, null, false); speak(SAY[nm] || nm);
+    var cue = HEART ? null : cueAt(clock), words = SAY[nm] || (cue && cue.text !== nm ? cue.text : nm);
+    say(HEART ? words : nm, HEART ? null : (words !== nm ? words : null), false); speak(words);
     return;
   }
   if (m === "hold") {
-    var id2 = e.data.id, nm2 = label(id2);
+    var id2 = e.data.id, nm2 = label(id2, e.data.label);
     setPaused(true);
     if (id2 === "moment") {
       mark(null);
       var half = clock < 3.4 ? "Half drawn. I sketch the outline first, then each chamber fills." : clock < 6 ? "Drawn. Now two pumps, side by side." : "Here the heart is mid-beat: the chambers squeeze, the blood moves on.";
-      say(half, "[yui] heart motion ask moment @" + clock.toFixed(1) + "s", true); speak(half);
+      if (!HEART) half = "Held on the picture at " + clock.toFixed(1) + " seconds. In the app the agent answers about this moment, right here.";
+      say(half, "[yui] " + FILM_ASK + " motion ask moment @" + clock.toFixed(1) + "s", true); speak(half);
     } else {
       mark(id2);
-      say("…", "[yui] heart motion ask " + nm2, true);
-      setTimeout(function () { say(ASK[nm2] || SAY[nm2] || nm2, "[yui] heart motion ask " + nm2, true); speak(ASK[nm2] || ""); }, 650);
+      say("…", "[yui] " + FILM_ASK + " motion ask " + nm2, true);
+      setTimeout(function () { var a = HEART ? (ASK[nm2] || SAY[nm2] || nm2) : "Asked about this. In the app the agent answers right here."; say(a, "[yui] " + FILM_ASK + " motion ask " + nm2, true); speak(HEART ? ASK[nm2] || "" : ""); }, 650);
     }
     if (navigator.vibrate) navigator.vibrate(12);
     return;
@@ -232,7 +255,17 @@ $("change").onclick = function () {
   say(LIGHT ? "Light." : "Dark.", null, false);
 };
 setTimeout(function () { $("hint").style.opacity = 0; }, 9000);
-window.__canvas = { total: TOTAL, chooseAt: CHOOSE_AT, yui: Y };
+window.__canvas = { total: TOTAL, chooseAt: CHOOSE_AT, yui: Y, film: FILM, loaded: false };
+// the picker: heart first (the default), then every ready-made film the site ships, as plain links (?film=<ask>, or <ask>-r2 for run 2)
+(function () {
+  var nav = $("films"), keep = Q.get("theme") ? "&theme=" + Q.get("theme") : "";
+  function chip(id, text, title) { var a = document.createElement("a"); a.href = id === "heart" ? "canvas.html" + (keep ? "?" + keep.slice(1) : "") : "canvas.html?film=" + id + keep; a.textContent = text; a.title = title || text; if (id === FILM || (FILM.replace(/-r\d+$/, "") === id && id !== "heart" && !/-r\d+$/.test(FILM))) a.className = "on"; if (id === "heart" && HEART) a.className = "on"; nav.append(a); return a; }
+  chip("heart", "Heart", "The hand-built heart");
+  fetch("canvas/films.json").then(function (r) { return r.json(); }).then(function (list) {
+    list.forEach(function (f) { f.runs.forEach(function (r) { var id = f.id + "-r" + r; var a = chip(id, f.id.charAt(0).toUpperCase() + f.id.slice(1) + " " + r, f.ask); if (r === 1 && FILM === f.id) a.className = "on"; }); });
+    var on = nav.querySelector(".on"); if (on && on.scrollIntoView) on.scrollIntoView({ inline: "center", block: "nearest" });
+  }).catch(function () {});
+})();
 </script>
 </body>
 </html>

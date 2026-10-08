@@ -1,0 +1,169 @@
+[
+ {
+  "id": "heart",
+  "ask": "Draw how a heart pumps blood.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "engine",
+  "ask": "Show how a four-stroke engine works.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "rome",
+  "ask": "How the Roman Empire grew and then fell, 27 BC to 476 AD.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "chicken",
+  "ask": "Roast a lemon-garlic chicken: the steps and the timing.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "workout",
+  "ask": "A 20 minute no-equipment workout. Show the moves and the rhythm.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "dogbox",
+  "ask": "A business idea: a monthly subscription box of toys for rescue dogs. Show the model and where the money comes from.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "anxiety",
+  "ask": "What it feels like when anxiety builds and then lets go.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "jumpstart",
+  "ask": "How to jump-start a dead car battery safely.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "rentbuy",
+  "ask": "Compare renting and buying a home over 10 years.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "tax",
+  "ask": "Show how US federal tax brackets work, with a $90,000 income.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "settings",
+  "ask": "I changed the settings screen today: Log out moved to the bottom, a Dark mode switch was added, and the Help row was removed. Show what changed.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "plan",
+  "ask": "Show the plan: Monday design the new onboarding, Tuesday and Wednesday build it, Thursday test with 5 users, Friday ship. We are at Wednesday.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "pieces",
+  "ask": "Show how the pieces fit: phone app, gateway, agent, model, database. A message goes from the phone to the model and back.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "bug",
+  "ask": "A bug and its fix: the app crashed when a thread had more than 400 rows because it loaded all rows at once. The fix loads 50 at a time. Show the bug and the fix.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "status",
+  "ask": "Status of the launch: 14 of 20 tasks are done, 3 are blocked on App Review, 3 have not started. Launch is Friday. Show where we are.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "robot",
+  "ask": "A quick sketch of an idea: a tiny robot that waters houseplants and tells you when its water tank is low.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "checkout",
+  "ask": "Show how two parts connect: the checkout page sends an order to the payments service, which confirms with the bank and then tells the warehouse.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "today",
+  "ask": "Explain what I did today: I answered 12 customer emails, fixed 2 broken links on the website, and drafted next week's newsletter. Show my day.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "sunday",
+  "ask": "A mood: a calm Sunday morning, rain on the window, a warm cup of coffee.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "people",
+  "ask": "Show how many people live on each continent and which one is growing fastest.",
+  "runs": [
+   1,
+   2
+  ]
+ },
+ {
+  "id": "three",
+  "ask": "Show the Earth, Moon and Sun in real 3D (api.three): the Moon orbits the Earth and the sun lights one side, so we see phases. Camera moves around them.",
+  "runs": [
+   1
+  ]
+ }
+]

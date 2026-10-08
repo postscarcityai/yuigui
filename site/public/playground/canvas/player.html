@@ -150,6 +150,17 @@
     api.takeCaps = function () { var x = caps; caps = []; return x; };
     api.takeHits = function () { var x = hits; hits = []; return x; };
     api.hit = function (id, x, y, r, label) { hits.push({ id: String(id), x: x, y: y, r: r || 30, label: label ? String(label) : undefined }); };
+    // YUI-323: a film that names no parts is still touchable. Each text and each shape the scene draws becomes a hit target
+    // (id `mark:...`, label = its words or shape name), in screen pixels whatever the camera does. A film's own api.hit/api.thing win.
+    api.autoHit = true;
+    function autoHit(id, label, x, y, w, h, o) {
+      if (!api.autoHit || (o && o.noHit)) return;
+      var tm = c.getTransform && c.getTransform(); if (!tm || typeof tm.a !== "number") tm = { a: DPR, b: 0, c: 0, d: DPR, e: 0, f: 0 };
+      var sx = (tm.a * x + tm.c * y + tm.e) / DPR, sy = (tm.b * x + tm.d * y + tm.f) / DPR, sw = Math.abs(w * tm.a / DPR), sh = Math.abs(h * tm.d / DPR);
+      if (sx < -sw || sx > W + sw || sy < -sh || sy > H + sh || sw < 6 || sh < 6) return;
+      var n = 0; for (var i = 0; i < hits.length; i++) if (hits[i].id.indexOf(id) === 0) n++;
+      hits.push({ id: n ? id + "~" + n : id, x: sx, y: sy, r: Math.max(sw, sh) / 2, w: sw, h: sh, label: String(label).slice(0, 60), auto: true });
+    }
     Object.defineProperty(api, "w", { get: function () { return W; } });
     Object.defineProperty(api, "h", { get: function () { return H; } });
     Object.defineProperty(api, "u", { get: function () { return W / 390; } });
@@ -322,9 +333,10 @@
     api.pathPts = function (d, o) { o = o || {}; var s = o.s == null ? 1 : o.s; var subs = parsePath(d); return subs.map(function (sb) { return sb.pts.map(function (p) { return [(o.x || 0) + p[0] * s, (o.y || 0) + p[1] * s]; }); }); };
     api.shape = function (name, x, y, size, o) {
       o = o || {}; var s = size / 100;
-      if (name === "gear") { stroke(gearPts(size * 0.46, o.teeth || 8).map(function (p) { return [x + p[0], y + p[1]]; }), Object.assign({}, o, { rot: 0 }), true); api.circle(x, y, size * 0.16, Object.assign({}, o, { fill: null })); return; }
+      if (name === "gear") { stroke(gearPts(size * 0.46, o.teeth || 8).map(function (p) { return [x + p[0], y + p[1]]; }), Object.assign({}, o, { rot: 0 }), true); api.circle(x, y, size * 0.16, Object.assign({}, o, { fill: null })); autoHit("mark:shape:gear", "gear", x, y, size, size, o); return; }
       var d = SHAPES[name]; if (!d) return;
       api.path(d, Object.assign({}, o, { x: x, y: y, s: s, w: o.w == null ? Math.max(2, size / 22) : o.w }));
+      if ((o.k == null ? 1 : o.k) >= 0.4) autoHit("mark:shape:" + name, String(name).replace(/[_-]+/g, " "), x, y, size, size, o);
     };
     api.shapes = Object.keys(SHAPES);
 
@@ -535,7 +547,9 @@
         if (o.outline) { c.lineWidth = o.outline; c.strokeStyle = C(o.outlinec || "ink"); c.lineJoin = "round"; c.strokeText(s2, xx, yy); }
         c.fillText(s2, xx, yy);
       });
-      c.restore(); return box;
+      c.restore();
+      if (k >= 0.4 && str.trim().length > 1 && !o.free) autoHit("mark:text:" + str.trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").slice(0, 28), str.replace(/\s+/g, " ").trim(), box.cx, box.cy, Math.max(w, 24) + pad0 * 2, Math.max(h, 24) + pad0 * 1.2, o);
+      return box;
     };
     api.label = function (str, x, y, o) {
       o = o || {}; var k = o.k == null ? 1 : o.k; if (k <= 0) return null;
@@ -916,8 +930,9 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
   function drawMark() {
     var id = api.marked; if (!id) return; var h = null; for (var i = 0; i < hits.length; i++) if (hits[i].id === id) { h = hits[i]; break; }
     if (!h || !h.label) return;
+    if (h.auto) { c.save(); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.strokeStyle = (theme && theme.warn) || "#ffc857"; c.lineWidth = 3; c.setLineDash([]); c.beginPath(); if (c.roundRect) c.roundRect(h.x - h.w / 2 - 6, h.y - h.h / 2 - 6, h.w + 12, h.h + 12, 14); else c.rect(h.x - h.w / 2 - 6, h.y - h.h / 2 - 6, h.w + 12, h.h + 12); c.stroke(); c.restore(); }
     c.save(); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.font = "800 18px ui-rounded, system-ui, -apple-system, sans-serif"; c.textAlign = "center"; c.textBaseline = "middle";
-    var tw = c.measureText(h.label).width + 28, x = Math.max(tw / 2 + 8, Math.min(W - tw / 2 - 8, h.x)), y = Math.max(40, h.y - h.r - 26);
+    var tw = c.measureText(h.label).width + 28, x = Math.max(tw / 2 + 8, Math.min(W - tw / 2 - 8, h.x)), y = Math.max(40, h.y - (h.auto ? h.h / 2 + 6 : h.r) - 26);
     c.fillStyle = (theme && theme.fg) || "#fff"; c.beginPath(); if (c.roundRect) c.roundRect(x - tw / 2, y - 16, tw, 32, 16); else c.rect(x - tw / 2, y - 16, tw, 32); c.fill();
     c.fillStyle = (theme && theme.ink) || INK; c.fillText(h.label, x, y + 1); c.restore();
   }
@@ -989,6 +1004,7 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
     replay: function () { clock = 0; paused = false; doneSent = false; stalled = false; dirty = true; lastTime = -1; },
     still: function (b) { still = !!b; dirty = true; },
     three: loadThree,
+    auto: function (b) { api.autoHit = !!b; snapApi.autoHit = !!b; dirty = true; },
     mark: function (id) { api.marked = id || null; snapApi.marked = id || null; dirty = true; },
     theme: function (t) { theme = t; api.theme(t); snapApi.theme(t); document.body.style.background = (t && t.ink) || INK; dirty = true; }
   };
@@ -1008,7 +1024,12 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
   // pauses (the host decides), a long press on a part is "ask about this", a tap on nothing is the host's play/pause.
   function hitAt(x, y) {
     var id = null, label = null, best = 1e9;
-    hits.forEach(function (h) { var d = Math.hypot(h.x - x, h.y - y); if (d <= h.r + 14 && d < best) { best = d; id = h.id; label = h.label || null; } });
+    hits.forEach(function (h) {
+      var d, area = 0;
+      if (h.auto) { d = Math.hypot(Math.max(0, Math.abs(h.x - x) - h.w / 2), Math.max(0, Math.abs(h.y - y) - h.h / 2)); if (d > 14) return; area = h.w * h.h; d = d * 1000 + area / 1000 + 5; }
+      else { d = Math.hypot(h.x - x, h.y - y); if (d > h.r + 14) return; }
+      if (d < best) { best = d; id = h.id; label = h.label || null; }
+    });
     return id === null ? null : { id: id, label: label };
   }
   var press = null;
@@ -1045,7 +1066,7 @@ window.__GEO={c:{"FJ":[[180,-16.1,180,-16.6,179.4,-16.8,178.7,-17,178.6,-16.6,17
     add: add, loadThree: loadThree, threeLoaded: function () { return !!threeLib; }, end: function () { ended = true; }, theme: Y.theme,
     renderAt: function (t) { clock = t; paused = true; return renderAt(t); }, total: function () { return total; },
     scenes: function () { return scenes.map(function (s) { return { name: s.name, dur: s.dur, start: s.start }; }); },
-    cues: function () { return api.cues; }, errors: function () { return Object.keys(errored); }
+    cues: function () { return api.cues; }, hits: function () { return hits.map(function (h) { return { id: h.id, label: h.label, x: h.x, y: h.y, w: h.w, h: h.h }; }); }, hitAt: hitAt, errors: function () { return Object.keys(errored); }
   };
   requestAnimationFrame(loop);
   send("ready");
