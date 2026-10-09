@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T22:50:58.092Z",
+  "updated": "2026-10-09T13:36:10.821Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -299,6 +299,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "BIZ-13",
+          "title": "Research week, ChatGPT Intelligent UI + Claude Dashboards + Claude Motion, and the open equivalent",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
