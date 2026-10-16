@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-09T22:50:24.582Z",
+  "updated": "2026-10-16T21:25:31.751Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5440,7 +5440,7 @@
           "summary": "Thoughts: Yui's own blog, pictures first",
           "shipped": "2026-09-25",
           "progress": "/progress#thoughts-yui-s-own-blog-pictures-first",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3a8de3fe"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/fc924041"
         },
         {
           "key": "YUI-66",
