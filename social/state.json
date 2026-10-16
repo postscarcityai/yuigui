@@ -1,7 +1,7 @@
 {
   "floor": "2026-09-24",
-  "hwm": "2026-10-09",
-  "updated": "2026-10-09T22:30:31.853Z",
+  "hwm": "2026-10-16",
+  "updated": "2026-10-16T22:30:38.513Z",
   "done": [
     "2026-09-23|Apple Developer account active",
     "2026-09-23|First TestFlight build",
@@ -784,6 +784,7 @@
     "2026-10-08|YUI-337",
     "2026-10-08|YUI-338",
     "2026-10-08|YUI-339",
-    "2026-10-09|Week of Oct 5: films on the phone, then one living canvas"
+    "2026-10-09|Week of Oct 5: films on the phone, then one living canvas",
+    "2026-10-16|Week of Oct 12: a quiet week, nothing shipped"
   ]
 }
