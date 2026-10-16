@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-16T21:25:31.751Z",
+  "updated": "2026-10-16T22:35:32.202Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5812,7 +5812,7 @@
           "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
           "shipped": "2026-09-24",
           "progress": "/progress#a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/42dbef6c"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/426f5a3c"
         },
         {
           "key": "YUI-27",
