@@ -2,18 +2,39 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 545,
-    "site": 1977,
+    "site": 1981,
     "builds": 59,
-    "shipped": 801,
+    "shipped": 802,
     "screenshots": 2068
   },
   "days": [
+    {
+      "date": "2026-10-16",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-10-16T21:03:11.502Z",
+          "title": "Week of Oct 12: a quiet week, nothing shipped",
+          "card": null,
+          "anchor": "week-of-oct-12-a-quiet-week-nothing-shipped",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 545,
+            "site": 1981,
+            "builds": 59,
+            "shipped": 802
+          }
+        }
+      ],
+      "commits": []
+    },
     {
       "date": "2026-10-09",
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-09T21:02:34.992Z",
+          "at": "2026-10-09T21:03:42.000Z",
           "title": "Week of Oct 5: films on the phone, then one living canvas",
           "card": null,
           "anchor": "week-of-oct-5-films-on-the-phone-then-one-living-canvas",
@@ -34,13 +55,41 @@
           "commits": 0,
           "totals": {
             "app": 545,
-            "site": 1977,
+            "site": 1978,
             "builds": 59,
             "shipped": 801
           }
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "071f1c9b",
+          "at": "2026-10-09T22:50:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/071f1c9b"
+        },
+        {
+          "repo": "site",
+          "sha": "42dbef6c",
+          "at": "2026-10-09T22:30:31.000Z",
+          "text": "Social drafts: 1 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/42dbef6c"
+        },
+        {
+          "repo": "site",
+          "sha": "e85c49c1",
+          "at": "2026-10-09T21:15:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e85c49c1"
+        },
+        {
+          "repo": "site",
+          "sha": "3a8de3fe",
+          "at": "2026-10-09T21:03:42.000Z",
+          "text": "Week of Oct 5: films on the phone, then one living canvas; draft Thought on the canvas (SITE-30)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3a8de3fe"
+        },
         {
           "repo": "site",
           "sha": "437f0700",
@@ -20216,7 +20265,7 @@
           "card": "SOC-1",
           "anchor": "a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
           "images": [],
-          "commits": 15,
+          "commits": 16,
           "totals": {
             "app": 367,
             "site": 827,
@@ -33693,7 +33742,7 @@
               "alt": "Why presets, not generated code, in dark mode: generated Swift beside the one line timer 40/20x8 Tabata"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 70,
             "site": 182,
