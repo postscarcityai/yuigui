@@ -50,7 +50,7 @@ html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; backgro
 .apphead { position: absolute; left: 0; right: 0; top: 54px; height: 60px; z-index: 4; background: linear-gradient(var(--background) 70%, rgba(255,249,240,0)); }
 .hbtn { position: absolute; top: 4px; width: 44px; height: 44px; border-radius: 50%; background: #F6EDE2; box-shadow: 0 1px 2px rgba(58,51,64,.08), inset 0 0 0 1px #EFE3D5; display: grid; place-items: center; }
 .hbtn svg { width: 22px; height: 22px; }
-.apphead .hwm { position: absolute; left: 50%; top: 13px; height: 25px; transform: translateX(-50%); }
+.apphead .hwm { position: absolute; left: 50%; top: 13px; height: 25px; transform: translateX(-55%); }
 .chat { position: absolute; left: 0; right: 0; top: 104px; bottom: 86px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent 0, #000 22px); }
 .log { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 16px 10px; }
 .msg { overflow: visible; }
@@ -104,7 +104,7 @@ html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; backgro
 
 /* Outro */
 #outro { position: absolute; left: 0; right: 0; top: 0; height: 1080px; text-align: center; }
-#outro .wm { height: 230px; margin: 0 auto; position: absolute; left: 50%; top: 190px; transform: translateX(-50%); }
+#outro .wm { height: 230px; margin: 0 auto; position: absolute; left: 50%; top: 190px; transform: translateX(-55%); }
 #outro .tag { position: absolute; left: 0; right: 0; top: 480px; font-size: 76px; font-weight: 800; letter-spacing: -0.02em; }
 #outro .url { position: absolute; left: 0; right: 0; top: 600px; font-size: 64px; font-weight: 800; color: var(--link); letter-spacing: -0.01em; }
 #outro .pills { position: absolute; left: 0; right: 0; top: 720px; display: flex; justify-content: center; gap: 20px; }
@@ -481,7 +481,7 @@ function render(t) {
   if (ov) {
     const w = back(prog(t, 18.5, 19.0));
     $("owm").style.opacity = clamp(prog(t, 18.5, 18.66));
-    $("owm").style.transform = `translateX(-50%) scale(${0.6 + 0.4 * w + prog(t, 19, 21.5) * 0.03})`;
+    $("owm").style.transform = `translateX(-55%) scale(${0.6 + 0.4 * w + prog(t, 19, 21.5) * 0.03})`;
     textIO($("otag"), t, 18.86, 99);
     textIO($("ourl"), t, 19.22, 99);
     textIO($("opills"), t, 19.5, 99, 20);
