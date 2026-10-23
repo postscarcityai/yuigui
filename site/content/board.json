@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23T21:40:31.329Z",
+  "updated": "2026-10-23T21:55:25.945Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -6112,14 +6112,6 @@
           "mvp": true,
           "shipped": "2026-09-23",
           "progress": "/progress#yui-gets-a-face"
-        },
-        {
-          "key": "YUI-1",
-          "title": "Yui Lines and the web renderer",
-          "summary": "Yui Lines v0: spec, 12 presets, playground, token benchmark",
-          "mvp": true,
-          "shipped": "2026-09-23",
-          "progress": "/progress#yui-lines-v0-spec-12-presets-playground-token-benchmark"
         }
       ]
     }
