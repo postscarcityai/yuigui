@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T05:00:26.240Z",
+  "updated": "2026-10-24T05:04:35.560Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5925,22 +5925,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#a-plan-for-every-agent-framework",
           "commit": "https://github.com/postscarcityai/yuigui/commit/162aa3c1"
-        },
-        {
-          "key": "SITE-4",
-          "title": "Site drives traffic to the open source repo and the app (CTAs, waitlist, TestFlight)",
-          "summary": "Every page points to the code and the beta",
-          "shipped": "2026-09-24",
-          "progress": "/progress#every-page-points-to-the-code-and-the-beta",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b1b87bb6"
-        },
-        {
-          "key": "YUI-8",
-          "title": "Push handoff",
-          "summary": "Pick it up in Yui",
-          "shipped": "2026-09-24",
-          "progress": "/progress#pick-it-up-in-yui",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9df2b899"
         }
       ]
     }
