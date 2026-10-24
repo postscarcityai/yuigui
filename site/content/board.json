@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T13:00:25.450Z",
+  "updated": "2026-10-24T13:10:32.636Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5798,21 +5798,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#demo-clips-of-every-preset-recorded-from-the-app",
           "commit": "https://github.com/postscarcityai/yui/commit/6fc0cbb"
-        },
-        {
-          "key": "SITE-12",
-          "title": "Reposition yuigui.com around the generative UI, sell the MVP",
-          "summary": "The site now leads with what Yui is: a generative user interface",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-site-now-leads-with-what-yui-is-a-generative-user-interface",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b4619d98"
-        },
-        {
-          "key": "SOC-1",
-          "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
-          "shipped": "2026-09-24",
-          "progress": "/progress#a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a1b6c1a2"
         }
       ]
     }
