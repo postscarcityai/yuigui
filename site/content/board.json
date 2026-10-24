@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T13:45:25.358Z",
+  "updated": "2026-10-24T14:25:25.810Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5775,14 +5775,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#the-roadmap-catches-up-with-the-work",
           "commit": "https://github.com/postscarcityai/yuigui/commit/da8742d2"
-        },
-        {
-          "key": "SITE-9",
-          "title": "Kill horizontal scroll on every yuigui.com page",
-          "summary": "No page scrolls sideways on a phone",
-          "shipped": "2026-09-24",
-          "progress": "/progress#no-page-scrolls-sideways-on-a-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/808c485d"
         }
       ]
     }
