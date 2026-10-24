@@ -9,6 +9,7 @@ const dir = path.join(process.cwd(), "content", "spec");
 const ORDER = [
   ["values", "Values", null, "What makes a screen feel like Yui: nine rules every agent, brief and page is held to."],
   ["yl", "Yui Lines", "/yl", "The screen language: one short line per element, every preset and its options."],
+  ["yuicss", "yuicss", null, "How Yui looks, as one stylesheet: tokens, every element finished with no class, Tailwind-named utilities and every component. The gallery at /yuicss is the visual contract."],
   ["channel", "Channel guide", "/channel", "What every agent on the Yui channel is told, and the eval that scores it."],
   ["reactions", "Reactions", "/reactions", "Hold a message and react. What each of the six tells your agent to do."],
   ["benchmark", "Benchmark", null, "Yui Lines against JSON, token by token, on ten real screens."],

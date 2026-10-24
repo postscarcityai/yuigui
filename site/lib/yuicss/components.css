@@ -1,0 +1,353 @@
+/* yuicss layer 4: components. Ready-made parts with Yui's defaults, and every YL preset as a
+   part you can place anywhere in a screen. Markup is plain HTML with one class; the gallery
+   at /yuicss shows each one. */
+
+/* card, hero */
+.yuicss .card { display: flex; flex-direction: column; gap: 8px; background: var(--surface); color: var(--ink); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-soft); min-width: 0; }
+.yuicss .card > button { margin-top: 6px; width: 100%; }
+.yuicss .card.accent { background: var(--accent); color: var(--accent-ink); }
+.yuicss .card.accent :is(h1, h2, h3, h4, p, small, .muted) { color: inherit; }
+.yuicss .card.accent > button { background: var(--surface); color: var(--ink); }
+.yuicss .card.soft { background: var(--accent-100); box-shadow: none; }
+.yuicss .card.flat { box-shadow: none; border: var(--line-w) solid var(--line); }
+.yuicss .card.tap { cursor: pointer; transition: transform calc(var(--mo-handoff) * .5) var(--mo-ease); }
+.yuicss .card.tap:active { transform: scale(.98); }
+.yuicss .card > img:first-child { margin: -18px -20px 6px; width: calc(100% + 40px); max-width: none; border-radius: var(--radius) var(--radius) 0 0; aspect-ratio: 16 / 9; }
+.yuicss .hero { display: flex; flex-direction: column; gap: 10px; padding: 28px 0 10px; }
+.yuicss .hero h1 { font-size: var(--text-3xl); }
+.yuicss .hero p { font-size: var(--text-lg); color: var(--muted); line-height: var(--leading-snug); }
+.yuicss .hero.accent { background: var(--accent); color: var(--accent-ink); border-radius: var(--radius); padding: 28px 22px; }
+.yuicss .hero.accent :is(h1, p) { color: inherit; }
+.yuicss .eyebrow { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .12em; font-weight: var(--weight-bold); color: var(--accent-text); }
+
+/* chip, chips (ask / pick) */
+.yuicss .chip, .yuicss button.chip { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 var(--line-w) var(--line); font: var(--weight-semibold) var(--text-sm) / 1 var(--font); white-space: nowrap; }
+.yuicss .chip.on, .yuicss button.chip.on, .yuicss button.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); box-shadow: none; }
+.yuicss .chip.soft { background: var(--accent-100); box-shadow: none; }
+.yuicss .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.yuicss .chips.big .chip { min-height: 48px; padding: 0 18px; font-size: var(--text-base); }
+
+/* options: the buttons of an ask, a choose or a pick */
+.yuicss .options { display: flex; flex-wrap: wrap; gap: 8px; }
+.yuicss .options > button { flex: 1 1 40%; }
+.yuicss .options.stack, .yuicss .choose .options { flex-direction: column; }
+.yuicss .options.stack > button, .yuicss .choose .options > button { flex: none; width: 100%; justify-content: space-between; text-align: left; padding: 0 18px 0 20px; background: var(--accent-100); color: var(--ink); }
+.yuicss .options > button.on, .yuicss .options > button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.yuicss .ask, .yuicss .choose, .yuicss .pick { display: flex; flex-direction: column; gap: 12px; }
+.yuicss .ask h3, .yuicss .choose h3, .yuicss .pick h3, .yuicss .q { font-size: var(--text-lg); line-height: var(--leading-snug); font-weight: var(--weight-heading); }
+
+/* tabs, segmented */
+.yuicss .tabs, .yuicss .segmented { display: flex; gap: 4px; padding: 4px; background: var(--accent-50); border-radius: var(--radius-control); }
+.yuicss .tabs > *, .yuicss .segmented > * { flex: 1 1 0; min-height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: calc(var(--radius-control) - 4px); font: var(--weight-semibold) var(--text-sm) / 1 var(--font); color: var(--muted); background: transparent; padding: 0 10px; cursor: pointer; white-space: nowrap; }
+.yuicss .tabs > .on, .yuicss .segmented > .on, .yuicss .tabs > [aria-selected="true"], .yuicss .segmented > [aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-soft); }
+.yuicss .tabs.line { background: none; padding: 0; gap: 0; border-bottom: var(--line-w) solid var(--line); border-radius: 0; }
+.yuicss .tabs.line > * { border-radius: 0; box-shadow: none; border-bottom: 3px solid transparent; margin-bottom: calc(var(--line-w) * -1); }
+.yuicss .tabs.line > .on { background: none; border-bottom-color: var(--accent); color: var(--ink); }
+
+/* sheet, toast */
+.yuicss .sheet { background: var(--surface); color: var(--ink); border-radius: var(--radius) var(--radius) 0 0; padding: 28px 20px max(20px, env(safe-area-inset-bottom)); box-shadow: var(--shadow-lift); display: flex; flex-direction: column; gap: 12px; position: relative; }
+.yuicss .sheet::before { content: ""; position: absolute; top: 10px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 999px; background: var(--line); }
+.yuicss .toast { display: inline-flex; align-items: center; gap: 10px; align-self: center; padding: 12px 18px; border-radius: 999px; background: var(--ink); color: var(--paper); font: var(--weight-semibold) var(--text-sm) / 1.2 var(--font); box-shadow: var(--shadow-lift); }
+.yuicss .toast.good { background: var(--good); color: var(--good-ink); }
+.yuicss .toast.warn { background: var(--warn); color: var(--warn-ink); }
+.yuicss .toast.bad { background: var(--bad); color: var(--bad-ink); }
+.yuicss .toast.accent { background: var(--accent); color: var(--accent-ink); }
+
+/* progress bar, ring */
+.yuicss .progress { width: 100%; height: 10px; border-radius: 999px; background: var(--accent-100); overflow: hidden; }
+.yuicss .progress > * { display: block; height: 100%; width: var(--v, 0%); border-radius: inherit; background: var(--accent); transition: width var(--mo-handoff) var(--mo-ease); }
+.yuicss .progress.thin { height: 6px; }
+.yuicss .progress.thick { height: 16px; }
+.yuicss .progress.good > * { background: var(--good); }
+.yuicss .progress.warn > * { background: var(--warn); }
+.yuicss .progress.bad > * { background: var(--bad); }
+.yuicss .ring { position: relative; display: grid; place-items: center; width: var(--size, 160px); aspect-ratio: 1; border-radius: 50%; background: conic-gradient(var(--accent) calc(var(--v, 62) * 1%), var(--accent-100) 0); transition: background var(--mo-handoff) linear; }
+.yuicss .ring::before { content: ""; grid-area: 1 / 1; width: calc(100% - 2 * var(--ring-w, 14px)); aspect-ratio: 1; border-radius: 50%; background: var(--paper); }
+.yuicss .ring > * { grid-area: 1 / 1; position: relative; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.05; }
+.yuicss .ring .value, .yuicss .ring strong { font-size: calc(var(--size, 160px) * .24); font-weight: var(--weight-heading); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.yuicss .ring small { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .1em; color: var(--accent-text); font-weight: var(--weight-bold); }
+.yuicss .ring.sm { --size: 72px; --ring-w: 8px; }
+.yuicss .ring.lg { --size: 220px; --ring-w: 18px; }
+.yuicss .ring.good { background: conic-gradient(var(--good) calc(var(--v, 62) * 1%), var(--good-soft) 0); }
+
+/* avatar, badge */
+.yuicss .avatar { display: inline-grid; place-items: center; width: var(--size, 44px); height: var(--size, 44px); border-radius: var(--radius-control); background: var(--accent-200); color: var(--ink); font: var(--weight-bold) calc(var(--size, 44px) * .4) / 1 var(--font); overflow: hidden; flex: none; text-transform: uppercase; }
+.yuicss .avatar img { width: 100%; height: 100%; border-radius: 0; }
+.yuicss .avatar.round { border-radius: 50%; }
+.yuicss .avatar.sm { --size: 32px; }
+.yuicss .avatar.lg { --size: 64px; }
+.yuicss .avatar.xl { --size: 96px; }
+.yuicss .avatars { display: flex; }
+.yuicss .avatars > * + * { margin-left: -10px; box-shadow: 0 0 0 2px var(--paper); }
+.yuicss .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 999px; background: var(--accent-100); color: var(--accent-text); font: var(--weight-bold) var(--text-xs) / 1.2 var(--font); white-space: nowrap; vertical-align: middle; }
+.yuicss .badge.good { background: var(--good-soft); color: var(--good-text); }
+.yuicss .badge.warn { background: var(--warn-soft); color: var(--warn-text); }
+.yuicss .badge.bad { background: var(--bad-soft); color: var(--bad-text); }
+.yuicss .badge.solid { background: var(--accent); color: var(--accent-ink); }
+.yuicss .badge.dot::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.yuicss .count { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font: var(--weight-bold) var(--text-xs) / 1 var(--font); }
+
+/* toggle, slider, stepper */
+.yuicss .toggle { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; min-height: var(--tap); font-size: var(--text-base); color: var(--ink); font-weight: var(--weight-body); cursor: pointer; }
+.yuicss .toggle input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.yuicss .toggle .knob, .yuicss .toggle > span:last-child { position: relative; flex: none; width: 52px; height: 32px; border-radius: 999px; background: var(--line); transition: background var(--mo-handoff) var(--mo-ease); }
+.yuicss .toggle .knob::before, .yuicss .toggle > span:last-child::before { content: ""; position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: var(--surface); box-shadow: var(--shadow-soft); transition: transform var(--mo-handoff) var(--mo-ease); }
+.yuicss .toggle input:checked ~ .knob, .yuicss .toggle input:checked ~ span:last-child { background: var(--accent); }
+.yuicss .toggle input:checked ~ .knob::before, .yuicss .toggle input:checked ~ span:last-child::before { transform: translateX(20px); }
+.yuicss .toggle input:focus-visible ~ .knob, .yuicss .toggle input:focus-visible ~ span:last-child { outline: 3px solid var(--accent-300); outline-offset: 2px; }
+.yuicss .slider, .yuicss .slide { display: flex; flex-direction: column; gap: 4px; }
+.yuicss .slider .ends, .yuicss .slide .ends { display: flex; justify-content: space-between; font-size: var(--text-sm); color: var(--muted); font-weight: var(--weight-semibold); }
+.yuicss .slider output, .yuicss .slide output { align-self: center; font-size: var(--text-2xl); font-weight: var(--weight-heading); }
+.yuicss .stepper { display: inline-flex; align-items: center; gap: 4px; background: var(--accent-50); border-radius: var(--radius-control); padding: 4px; }
+.yuicss .stepper button, .yuicss .stepper button ~ button { width: 44px; min-height: 44px; padding: 0; border-radius: calc(var(--radius-control) - 4px); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-soft); font-size: var(--text-xl); }
+.yuicss .stepper output { min-width: 2.2ch; text-align: center; font-size: var(--text-xl); padding: 0 8px; }
+
+/* field, form, empty */
+.yuicss .field { display: flex; flex-direction: column; gap: 6px; }
+.yuicss .field > label, .yuicss .field > .label { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--muted); }
+.yuicss .field .hint { font-size: var(--text-sm); color: var(--muted); }
+.yuicss .field .error, .yuicss .field.error .hint { color: var(--bad-text); font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+.yuicss .field .row > input { flex: 1; }
+.yuicss .form { display: flex; flex-direction: column; gap: 14px; }
+.yuicss .empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 40px 20px; color: var(--muted); }
+.yuicss .empty .icon, .yuicss .empty .glyph { font-size: var(--text-4xl); line-height: 1; margin-bottom: 6px; }
+.yuicss .empty h3 { color: var(--ink); }
+.yuicss .empty button { margin-top: 8px; }
+
+/* icon, divider, spinner */
+.yuicss .icon { display: inline-grid; place-items: center; width: 1.25em; height: 1.25em; flex: none; vertical-align: -0.2em; }
+.yuicss .icon svg { width: 100%; height: 100%; }
+.yuicss .divider { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: var(--text-sm); }
+.yuicss .divider::before, .yuicss .divider::after { content: ""; flex: 1; border-top: var(--line-w) solid var(--line); }
+.yuicss .spinner { width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--accent-100); border-top-color: var(--accent); animation: y-spin .9s linear infinite; flex: none; }
+.yuicss .working { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+
+/* ---- the presets, as parts ---- */
+
+/* say: a bubble */
+.yuicss .say { align-self: flex-start; max-width: 88%; padding: 12px 16px; background: var(--surface); color: var(--ink); border-radius: var(--radius); border-bottom-left-radius: 8px; box-shadow: var(--shadow-soft); }
+.yuicss .say.me { align-self: flex-end; background: var(--accent-200); border-bottom-left-radius: var(--radius); border-bottom-right-radius: 8px; }
+
+/* list: rows to read or tick */
+.yuicss .list { display: flex; flex-direction: column; padding: 0; gap: 0; list-style: none; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-soft); overflow: hidden; }
+.yuicss .list > * { display: flex; align-items: center; gap: 12px; min-height: var(--control); padding: 10px 16px; }
+.yuicss .list > * + * { border-top: var(--line-w) solid var(--line); }
+.yuicss .list > * > :first-child:not(.check, .avatar, .icon, img, .count) { flex: 1; min-width: 0; }
+.yuicss .list .grow, .yuicss .list .text { flex: 1; min-width: 0; }
+.yuicss .list small { display: block; }
+.yuicss .list .chev::after, .yuicss .list > .tap::after { content: ""; width: 9px; height: 9px; border-right: 2.5px solid var(--muted); border-top: 2.5px solid var(--muted); transform: rotate(45deg); flex: none; margin-left: auto; }
+.yuicss .list.plain { background: none; box-shadow: none; border-radius: 0; }
+.yuicss .list.plain > * { padding-left: 0; padding-right: 0; }
+.yuicss .check { flex: none; width: 26px; height: 26px; border-radius: 8px; box-shadow: inset 0 0 0 2px var(--line); display: grid; place-items: center; background: var(--surface); transition: background .15s, box-shadow .15s; }
+.yuicss .check.round { border-radius: 50%; }
+.yuicss .done .check, .yuicss .check.on { background: var(--accent); box-shadow: none; }
+.yuicss .done .check::after, .yuicss .check.on::after { content: ""; width: 6px; height: 11px; border-right: 2.5px solid var(--accent-ink); border-bottom: 2.5px solid var(--accent-ink); transform: rotate(45deg) translate(-1px, -1px); }
+.yuicss .list .done, .yuicss li.done { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+.yuicss .list .done .check { text-decoration: none; }
+
+/* table: a card around the rows */
+.yuicss .table { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-soft); overflow: hidden; padding: 4px 6px; }
+.yuicss .table table { width: 100%; }
+.yuicss .table th { padding-top: 12px; }
+
+/* stat: a number that tells a story */
+.yuicss .stat { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.yuicss .stat .value, .yuicss .stat > strong { font-size: var(--text-4xl); line-height: 1; font-weight: var(--weight-heading); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
+.yuicss .stat .value small, .yuicss .stat .unit { font-size: var(--text-lg); font-weight: var(--weight-bold); color: var(--muted); letter-spacing: 0; margin-left: 2px; }
+.yuicss .stat .label, .yuicss .stat > span { font-size: var(--text-sm); color: var(--muted); font-weight: var(--weight-semibold); }
+.yuicss .stat .delta { font-size: var(--text-sm); font-weight: var(--weight-bold); color: var(--good-text); }
+.yuicss .stat .delta.down, .yuicss .delta.bad { color: var(--bad-text); }
+.yuicss .stat .delta.flat { color: var(--muted); }
+.yuicss .stat.sm .value { font-size: var(--text-2xl); }
+.yuicss .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+.yuicss .stats > .stat, .yuicss .card > .stat { padding: 0; }
+.yuicss .stats > .stat { background: var(--surface); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-soft); }
+.yuicss .spark { display: flex; align-items: flex-end; gap: 3px; height: 32px; margin-top: 6px; }
+.yuicss .spark > * { flex: 1; height: var(--v, 50%); min-height: 3px; border-radius: 3px; background: var(--accent-300); }
+.yuicss .spark > :last-child { background: var(--accent); }
+.yuicss .spark svg { width: 100%; height: 100%; }
+.yuicss .spark path { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* timer: the ring, the time, the controls */
+.yuicss .timer { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 10px 0; }
+.yuicss .timer .ring { --size: 220px; --ring-w: 16px; }
+.yuicss .timer .time { font-size: var(--text-4xl); font-weight: var(--weight-heading); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; line-height: 1; }
+.yuicss .timer .phase { font-size: var(--text-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-text); font-weight: var(--weight-bold); }
+.yuicss .timer .controls { display: flex; gap: 10px; width: 100%; }
+.yuicss .timer .controls > button { flex: 1; }
+.yuicss .timer .rounds { display: flex; gap: 6px; }
+.yuicss .timer .rounds > * { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-200); }
+.yuicss .timer .rounds > .on { background: var(--accent); }
+
+/* chart: bars and axes with no script; lines as svg */
+.yuicss .chart { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow-soft); min-width: 0; }
+.yuicss .chart .title, .yuicss .chart > h3 { font-size: var(--text-base); }
+.yuicss .bars { display: flex; align-items: flex-end; gap: 6px; height: var(--h, 128px); }
+.yuicss .bars > * { flex: 1; height: var(--v, 50%); min-height: 4px; border-radius: 6px 6px 2px 2px; background: var(--accent-300); position: relative; transition: height var(--mo-handoff) var(--mo-ease); }
+.yuicss .bars > .on, .yuicss .bars > :last-child { background: var(--accent); }
+.yuicss .bars > .muted { background: var(--accent-100); }
+.yuicss .bars > [data-v]::after { content: attr(data-v); position: absolute; left: 50%; bottom: 100%; transform: translate(-50%, -4px); font-size: var(--text-xs); color: var(--muted); font-weight: var(--weight-semibold); font-variant-numeric: tabular-nums; }
+.yuicss .bars.stack > * { display: flex; flex-direction: column-reverse; background: none; }
+.yuicss .bars.stack > * > * { height: var(--v); background: var(--accent); border-radius: 3px; }
+.yuicss .axis { display: flex; justify-content: space-between; gap: 4px; font-size: var(--text-xs); color: var(--muted); font-weight: var(--weight-semibold); }
+.yuicss .axis > * { flex: 1; text-align: center; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.yuicss .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: var(--text-sm); color: var(--muted); }
+.yuicss .legend > * { display: inline-flex; align-items: center; gap: 6px; }
+.yuicss .legend .dot, .yuicss .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex: none; }
+.yuicss .chart svg { width: 100%; height: auto; overflow: visible; }
+.yuicss .chart .line { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.yuicss .chart .line2 { fill: none; stroke: var(--accent-300); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.yuicss .chart .area { fill: var(--accent); opacity: .16; }
+.yuicss .chart .pt { fill: var(--accent); stroke: var(--surface); stroke-width: 2.5; }
+.yuicss .chart .gridline { stroke: var(--line); stroke-width: 1; }
+.yuicss .chart .tick { font-size: 11px; fill: var(--muted); font-weight: 600; font-family: var(--font); }
+.yuicss .pie { width: var(--size, 160px); aspect-ratio: 1; border-radius: 50%; background: conic-gradient(var(--accent) 0 var(--a, 40%), var(--accent-300) 0 var(--b, 70%), var(--accent-100) 0); }
+.yuicss .pie.donut { display: grid; place-items: center; }
+.yuicss .pie.donut::before { content: ""; grid-area: 1 / 1; width: 58%; aspect-ratio: 1; border-radius: 50%; background: var(--surface); }
+.yuicss .pie.donut > * { grid-area: 1 / 1; position: relative; text-align: center; font-weight: var(--weight-heading); font-size: var(--text-xl); }
+
+/* map: a frame with pins */
+.yuicss .map { position: relative; aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; background: var(--surface); background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 28px 28px; box-shadow: var(--shadow-soft); }
+.yuicss .map .road { position: absolute; background: var(--accent-100); border-radius: 999px; }
+.yuicss .map .pin { position: absolute; left: var(--x, 50%); top: var(--y, 50%); width: 18px; height: 18px; margin: -9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--surface), var(--shadow-soft); }
+.yuicss .map .pin.me { background: var(--good); }
+.yuicss .map .pin[data-label]::after { content: attr(data-label); position: absolute; left: 50%; top: 100%; transform: translate(-50%, 8px); white-space: nowrap; font: var(--weight-bold) var(--text-xs) / 1 var(--font); color: var(--ink); background: var(--surface); padding: 5px 9px; border-radius: 999px; box-shadow: var(--shadow-soft); }
+.yuicss .map .cap { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 10px 14px; border-radius: var(--radius-control); background: color-mix(in srgb, var(--surface) 86%, transparent); backdrop-filter: blur(10px); font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+
+/* shapes: boxes, circles and arrows in a row */
+.yuicss .shapes { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px; padding: 18px 16px; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-soft); }
+.yuicss .shape { display: inline-flex; align-items: center; justify-content: center; text-align: center; min-width: 64px; min-height: 48px; padding: 10px 16px; border: 2px solid var(--accent); border-radius: var(--radius-control); font-weight: var(--weight-bold); font-size: var(--text-sm); line-height: 1.2; }
+.yuicss .shape.circle { border-radius: 50%; width: 76px; height: 76px; min-width: 0; padding: 8px; background: var(--accent-100); }
+.yuicss .shape.fill { background: var(--accent); color: var(--accent-ink); }
+.yuicss .shape.soft { background: var(--accent-100); border-color: transparent; }
+.yuicss .shape.pill { border-radius: 999px; }
+.yuicss .shape.diamond { transform: rotate(45deg); border-radius: 8px; width: 64px; height: 64px; min-width: 0; padding: 0; }
+.yuicss .shape.diamond > * { transform: rotate(-45deg); }
+.yuicss .shape.hand { border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; }
+.yuicss .shapes .arrow { color: var(--muted); font-size: var(--text-2xl); line-height: 1; min-width: 0; }
+.yuicss .shapes .arrow::before { content: "→"; }
+.yuicss .shapes .arrow.down::before { content: "↓"; }
+.yuicss .shapes .caption { flex-basis: 100%; text-align: center; font-size: var(--text-sm); color: var(--muted); }
+
+/* sketch: a drawn window, bubble or phone with rows to strike, light up and note */
+.yuicss .sketch { display: flex; flex-direction: column; gap: 0; padding: 0; list-style: none; background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow-soft); overflow: visible; position: relative; }
+.yuicss .sketch > * { position: relative; padding: 12px 16px; display: flex; align-items: center; gap: 10px; min-height: 44px; }
+.yuicss .sketch > * + *:not(.after) { border-top: var(--line-w) solid var(--line); }
+.yuicss .sketch .x, .yuicss .sketch > .x { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--bad); text-decoration-thickness: 2px; }
+.yuicss .sketch .hi, .yuicss .sketch > .hi { background: var(--accent-100); box-shadow: inset 4px 0 0 var(--accent); }
+.yuicss .sketch > .hi:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+.yuicss .sketch > .hi:last-child { border-radius: 0 0 var(--radius) var(--radius); }
+.yuicss .sketch .button, .yuicss .sketch > .button > span:first-child { background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-control); padding: 8px 14px; font-weight: var(--weight-bold); display: inline-block; }
+.yuicss .sketch [data-note] { padding-right: 44%; }
+.yuicss .sketch [data-note]::after { content: attr(data-note); position: absolute; right: 12px; top: 50%; transform: translateY(-50%) rotate(-1.5deg); font: var(--weight-bold) var(--text-xs) / 1.1 var(--font); color: var(--accent-text); background: var(--paper); border: 1.5px dashed var(--accent-300); padding: 4px 8px; border-radius: 8px; max-width: 42%; white-space: normal; text-align: right; }
+.yuicss .sketch > .after { justify-content: center; padding: 6px; min-height: 0; color: var(--muted); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: .14em; font-weight: var(--weight-bold); background: var(--paper); border-top: var(--line-w) dashed var(--line); border-bottom: var(--line-w) dashed var(--line); }
+.yuicss .sketch.window::before { content: ""; display: block; height: 30px; padding: 0; min-height: 0; border-bottom: var(--line-w) solid var(--line); background: radial-gradient(circle at 16px 50%, var(--bad) 5px, transparent 6px), radial-gradient(circle at 34px 50%, var(--warn) 5px, transparent 6px), radial-gradient(circle at 52px 50%, var(--good) 5px, transparent 6px); border-radius: var(--radius) var(--radius) 0 0; }
+.yuicss .sketch.bubble { border-bottom-left-radius: 8px; }
+.yuicss .sketch.phone { border: 5px solid var(--ink); border-radius: 30px; padding-top: 22px; }
+.yuicss .sketch.phone::before { content: ""; position: absolute; top: 8px; left: 50%; width: 64px; height: 8px; margin-left: -32px; border-radius: 999px; background: var(--ink); }
+.yuicss .sketch.hand { border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; border: 2px solid var(--ink); box-shadow: none; }
+
+/* math, steps, calc */
+.yuicss .math { background: var(--surface); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-soft); text-align: center; font-size: var(--text-xl); overflow-x: auto; font-family: var(--font-math, "Latin Modern Math", "STIX Two Math", "Cambria Math", var(--font-serif)); }
+.yuicss .math.inline { display: inline; background: none; padding: 0; box-shadow: none; font-size: inherit; }
+.yuicss .steps { counter-reset: step; list-style: none; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.yuicss .steps > li { display: flex; gap: 14px; align-items: flex-start; counter-increment: step; }
+.yuicss .steps > li::before { content: counter(step); flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: var(--weight-bold); font-size: var(--text-sm); }
+.yuicss .steps .math { padding: 10px 14px; font-size: var(--text-lg); margin-top: 6px; }
+.yuicss .calc { display: flex; flex-direction: column; gap: 14px; background: var(--surface); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow-soft); }
+.yuicss .calc .result { text-align: center; font-size: var(--text-3xl); font-weight: var(--weight-heading); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.yuicss .calc .result small { display: block; font-size: var(--text-sm); color: var(--muted); letter-spacing: 0; margin-top: 2px; }
+.yuicss .calc .var { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; }
+.yuicss .calc .var > :first-child { font-weight: var(--weight-bold); font-family: var(--font-mono); font-size: var(--text-sm); min-width: 1.5ch; }
+.yuicss .calc .var output { font-size: var(--text-sm); min-width: 4ch; text-align: right; }
+
+/* gallery, image, compare, storyboard */
+.yuicss .gallery { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad); -webkit-overflow-scrolling: touch; }
+.yuicss .gallery::-webkit-scrollbar { display: none; }
+.yuicss .gallery > * { flex: none; scroll-snap-align: start; width: 72%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius); background: var(--accent-100); }
+.yuicss .gallery.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; margin: 0; padding: 0; }
+.yuicss .gallery.grid > * { width: auto; aspect-ratio: 1; }
+.yuicss .gallery.feed { flex-direction: column; overflow: visible; margin: 0; padding: 0; }
+.yuicss .gallery.feed > * { width: 100%; aspect-ratio: 4 / 3; }
+.yuicss .gallery .on, .yuicss .gallery > [aria-pressed="true"] { box-shadow: 0 0 0 3px var(--paper), 0 0 0 6px var(--accent); }
+.yuicss .image { display: flex; flex-direction: column; gap: 8px; }
+.yuicss .image img { width: 100%; }
+.yuicss .image figcaption { text-align: left; padding: 0 4px; }
+.yuicss .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; border-radius: var(--radius); overflow: hidden; position: relative; }
+.yuicss .compare > img, .yuicss .compare > figure > img { aspect-ratio: 3 / 4; border-radius: 0; width: 100%; }
+.yuicss .compare > figure { position: relative; margin: 0; gap: 0; }
+.yuicss .compare figcaption, .yuicss .compare .tag { position: absolute; left: 10px; bottom: 10px; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 70%, transparent); color: var(--paper); font: var(--weight-bold) var(--text-xs) / 1.2 var(--font); backdrop-filter: blur(6px); }
+.yuicss .storyboard { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.yuicss .storyboard > * { display: flex; flex-direction: column; gap: 6px; font-size: var(--text-xs); color: var(--muted); font-weight: var(--weight-semibold); text-align: center; }
+.yuicss .storyboard img { aspect-ratio: 9 / 16; border-radius: var(--radius-control); }
+.yuicss .storyboard .n { position: absolute; }
+
+/* camera, mic */
+.yuicss .camera { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; aspect-ratio: 4 / 3; border-radius: var(--radius); border: 2px dashed var(--accent-300); background: var(--accent-50); color: var(--muted); font-weight: var(--weight-semibold); text-align: center; padding: 20px; }
+.yuicss .camera .shutter { width: 64px; height: 64px; border-radius: 50%; background: var(--surface); box-shadow: 0 0 0 4px var(--accent), var(--shadow-soft); }
+.yuicss .mic { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 16px 0; }
+.yuicss .mic .orb { position: relative; width: 96px; height: 96px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-size: 34px; box-shadow: var(--shadow-lift); }
+.yuicss .mic.on .orb { animation: y-pulse var(--mo-breath) ease-in-out infinite; animation-play-state: var(--pulse-play); }
+.yuicss .mic.on .orb::after { content: ""; position: absolute; inset: 0; border-radius: 50%; animation: y-ring var(--mo-breath) ease-out infinite; animation-play-state: var(--pulse-play); }
+.yuicss .mic .prompt { font-size: var(--text-lg); font-weight: var(--weight-heading); text-align: center; }
+.yuicss .wave { display: flex; align-items: center; gap: 3px; height: 32px; }
+.yuicss .wave > * { width: 4px; border-radius: 2px; background: var(--accent); height: var(--v, 40%); }
+
+/* page, deck, dots: full-screen pages, big type, edge to edge */
+.yuicss .page { display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; min-height: 100%; padding: 36px var(--pad) var(--pad); }
+.yuicss .page h1, .yuicss .page h2 { font-size: var(--text-3xl); }
+.yuicss .page p { font-size: var(--text-lg); line-height: var(--leading-snug); color: var(--muted); }
+.yuicss .page .points { padding-left: 1.2em; font-size: var(--text-lg); }
+.yuicss .page.accent { background: var(--accent); color: var(--accent-ink); }
+.yuicss .page.accent :is(h1, h2, p, li) { color: inherit; }
+.yuicss .page.center { justify-content: center; text-align: center; align-items: center; }
+.yuicss .deck { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 calc(var(--pad) * -1); padding: 0 var(--pad); }
+.yuicss .deck::-webkit-scrollbar { display: none; }
+.yuicss .deck > .page { flex: none; width: 100%; scroll-snap-align: start; min-height: 0; background: var(--surface); border-radius: var(--radius); padding: 24px 22px; justify-content: flex-start; box-shadow: var(--shadow-soft); }
+.yuicss .deck > .page.accent { background: var(--accent); }
+.yuicss .dots { display: flex; justify-content: center; gap: 6px; }
+.yuicss .dots > * { width: 7px; height: 7px; border-radius: 999px; background: var(--line); transition: width var(--mo-handoff) var(--mo-ease), background .2s; }
+.yuicss .dots > .on { width: 22px; background: var(--accent); }
+
+/* timeline: done, now, next */
+.yuicss .timeline { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 4px 0 4px 26px; list-style: none; }
+.yuicss .timeline::before { content: ""; position: absolute; left: 7px; top: 10px; bottom: 10px; border-left: 2px solid var(--line); }
+.yuicss .timeline > * { position: relative; display: flex; flex-direction: column; gap: 2px; min-height: 24px; }
+.yuicss .timeline > *::before { content: ""; position: absolute; left: -26px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--paper); box-shadow: inset 0 0 0 2px var(--line); }
+.yuicss .timeline > .done::before { background: var(--accent); box-shadow: none; }
+.yuicss .timeline > .now::before { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-200); animation: y-pulse var(--mo-breath) ease-in-out infinite; animation-play-state: var(--pulse-play); }
+.yuicss .timeline > .next::before { box-shadow: inset 0 0 0 2px var(--accent-300); border: 0; }
+.yuicss .timeline > .now { font-weight: var(--weight-bold); }
+.yuicss .timeline > .next { color: var(--muted); }
+.yuicss .timeline .when, .yuicss .timeline time { font-size: var(--text-xs); color: var(--muted); font-weight: var(--weight-semibold); text-transform: uppercase; letter-spacing: .08em; }
+
+/* game: a board of cells */
+.yuicss .game { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.yuicss .board { display: grid; grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 8px; width: 100%; max-width: 360px; aspect-ratio: 1; }
+.yuicss .cell { display: grid; place-items: center; aspect-ratio: 1; border-radius: var(--radius-control); background: var(--surface); box-shadow: var(--shadow-soft); font-size: var(--text-3xl); font-weight: var(--weight-heading); line-height: 1; cursor: pointer; user-select: none; }
+.yuicss .cell.x { color: var(--accent-text); }
+.yuicss .cell.o { color: var(--muted); }
+.yuicss .cell.win { background: var(--accent); color: var(--accent-ink); }
+.yuicss .cell.hidden-card { background: var(--accent-200); color: transparent; }
+.yuicss .board.snake { gap: 2px; max-width: 320px; background: var(--surface); border-radius: var(--radius); padding: 6px; box-shadow: var(--shadow-soft); }
+.yuicss .board.snake > * { border-radius: 3px; aspect-ratio: 1; }
+.yuicss .board.snake > .s { background: var(--accent); }
+.yuicss .board.snake > .h { background: var(--ink); border-radius: 6px; }
+.yuicss .board.snake > .f { background: var(--good); border-radius: 50%; }
+.yuicss .score { display: flex; justify-content: space-between; width: 100%; max-width: 360px; font-weight: var(--weight-bold); color: var(--muted); font-size: var(--text-sm); text-transform: uppercase; letter-spacing: .08em; }
+.yuicss .score strong { color: var(--ink); font-size: var(--text-xl); letter-spacing: 0; text-transform: none; font-variant-numeric: tabular-nums; margin-left: 6px; }
+
+/* flow / plan steps: pills joined by a line */
+.yuicss .flow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.yuicss .flow > .step { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 var(--line-w) var(--line); font-size: var(--text-sm); font-weight: var(--weight-semibold); }
+.yuicss .flow > .step.on { background: var(--accent); color: var(--accent-ink); box-shadow: none; }
+.yuicss .flow > .step.done { background: var(--accent-100); box-shadow: none; }
+.yuicss .flow > .then { width: 14px; border-top: 2px solid var(--line); }
+
+/* fab, bar: controls that sit over the screen */
+.yuicss .fab { position: fixed; right: 20px; bottom: max(20px, env(safe-area-inset-bottom)); width: 60px; height: 60px; border-radius: 50%; padding: 0; box-shadow: var(--shadow-lift); font-size: var(--text-2xl); z-index: 5; }
+.yuicss .bar { position: sticky; bottom: 0; display: flex; gap: 10px; padding: 12px 0 max(0px, env(safe-area-inset-bottom)); background: linear-gradient(transparent, var(--paper) 30%); margin-top: auto; }
+.yuicss .bar > button { flex: 1; }
+.yuicss .topbar { display: flex; align-items: center; gap: 12px; min-height: 48px; }
+.yuicss .topbar h1, .yuicss .topbar h2 { font-size: var(--text-lg); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.yuicss .topbar button.icon, .yuicss .topbar button.icon ~ button.icon { width: var(--tap); min-height: var(--tap); background: var(--surface); color: var(--ink); box-shadow: var(--shadow-soft); font-size: var(--text-lg); }

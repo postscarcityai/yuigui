@@ -1,0 +1,186 @@
+/* yuicss layer 3: utilities, Tailwind's names. The scales (p-4, gap-2, text-xl, bg-accent-200,
+   rounded-lg, w-32) are generated from tokens.json by build.mjs; this file holds the rest. */
+
+/* layout */
+.yuicss .row { display: flex; flex-direction: row; align-items: center; gap: var(--gap); min-width: 0; }
+.yuicss .col { display: flex; flex-direction: column; gap: var(--gap); min-width: 0; }
+.yuicss .stack { display: grid; place-items: center; }
+.yuicss .stack > * { grid-area: 1 / 1; }
+.yuicss .box { display: block; }
+.yuicss .grid { display: grid; gap: var(--gap); }
+.yuicss .grid-1, .yuicss .grid-cols-1 { display: grid; gap: var(--gap); grid-template-columns: minmax(0, 1fr); }
+.yuicss .grid-2, .yuicss .grid-cols-2 { display: grid; gap: var(--gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.yuicss .grid-3, .yuicss .grid-cols-3 { display: grid; gap: var(--gap); grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.yuicss .grid-4, .yuicss .grid-cols-4 { display: grid; gap: var(--gap); grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.yuicss .grid-5, .yuicss .grid-cols-5 { display: grid; gap: var(--gap); grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.yuicss .grid-6, .yuicss .grid-cols-6 { display: grid; gap: var(--gap); grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.yuicss .grid-7, .yuicss .grid-cols-7 { display: grid; gap: var(--gap); grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.yuicss .col-span-2 { grid-column: span 2; }
+.yuicss .col-span-3 { grid-column: span 3; }
+.yuicss .col-span-4 { grid-column: span 4; }
+.yuicss .col-span-full { grid-column: 1 / -1; }
+.yuicss .row-span-2 { grid-row: span 2; }
+.yuicss .row-span-3 { grid-row: span 3; }
+.yuicss .flex { display: flex; }
+.yuicss .inline-flex { display: inline-flex; }
+.yuicss .block { display: block; }
+.yuicss .inline { display: inline; }
+.yuicss .inline-block { display: inline-block; }
+.yuicss .contents { display: contents; }
+.yuicss .hidden { display: none; }
+.yuicss .flex-row { flex-direction: row; }
+.yuicss .flex-col { flex-direction: column; }
+.yuicss .flex-row-reverse { flex-direction: row-reverse; }
+.yuicss .flex-col-reverse { flex-direction: column-reverse; }
+.yuicss .wrap, .yuicss .flex-wrap { flex-wrap: wrap; }
+.yuicss .nowrap, .yuicss .flex-nowrap { flex-wrap: nowrap; }
+.yuicss .flex-1 { flex: 1 1 0%; min-width: 0; }
+.yuicss .flex-auto { flex: 1 1 auto; }
+.yuicss .flex-none { flex: none; }
+.yuicss .grow { flex-grow: 1; }
+.yuicss .grow-0 { flex-grow: 0; }
+.yuicss .shrink-0 { flex-shrink: 0; }
+.yuicss .basis-0 { flex-basis: 0; }
+.yuicss .items-start { align-items: flex-start; }
+.yuicss .items-center { align-items: center; }
+.yuicss .items-end { align-items: flex-end; }
+.yuicss .items-stretch { align-items: stretch; }
+.yuicss .items-baseline { align-items: baseline; }
+.yuicss .justify-start { justify-content: flex-start; }
+.yuicss .justify-center { justify-content: center; }
+.yuicss .justify-end { justify-content: flex-end; }
+.yuicss .justify-between { justify-content: space-between; }
+.yuicss .justify-around { justify-content: space-around; }
+.yuicss .justify-evenly { justify-content: space-evenly; }
+.yuicss .self-start { align-self: flex-start; }
+.yuicss .self-center { align-self: center; }
+.yuicss .self-end { align-self: flex-end; }
+.yuicss .self-stretch { align-self: stretch; }
+.yuicss .content-center { align-content: center; }
+.yuicss .place-center { place-items: center; }
+.yuicss .order-first { order: -1; }
+.yuicss .order-last { order: 99; }
+
+/* position */
+.yuicss .relative { position: relative; }
+.yuicss .absolute { position: absolute; }
+.yuicss .fixed { position: fixed; }
+.yuicss .sticky { position: sticky; top: 0; }
+.yuicss .static { position: static; }
+.yuicss .inset-0 { inset: 0; }
+.yuicss .inset-x-0 { left: 0; right: 0; }
+.yuicss .inset-y-0 { top: 0; bottom: 0; }
+.yuicss .top-0 { top: 0; }
+.yuicss .right-0 { right: 0; }
+.yuicss .bottom-0 { bottom: 0; }
+.yuicss .left-0 { left: 0; }
+.yuicss .top-2 { top: 8px; }
+.yuicss .right-2 { right: 8px; }
+.yuicss .bottom-2 { bottom: 8px; }
+.yuicss .left-2 { left: 8px; }
+.yuicss .top-4 { top: 16px; }
+.yuicss .right-4 { right: 16px; }
+.yuicss .bottom-4 { bottom: 16px; }
+.yuicss .left-4 { left: 16px; }
+.yuicss .center-x { left: 50%; transform: translateX(-50%); }
+.yuicss .center-xy { left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.yuicss .overflow-hidden { overflow: hidden; }
+.yuicss .overflow-auto { overflow: auto; }
+.yuicss .overflow-visible { overflow: visible; }
+.yuicss .overflow-x-auto { overflow-x: auto; overflow-y: hidden; }
+.yuicss .overflow-y-auto { overflow-y: auto; }
+.yuicss .scroll-x { display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.yuicss .scroll-x::-webkit-scrollbar { display: none; }
+.yuicss .scroll-x > * { scroll-snap-align: start; flex: none; }
+.yuicss .bleed { margin-left: calc(var(--pad) * -1); margin-right: calc(var(--pad) * -1); padding-left: var(--pad); padding-right: var(--pad); }
+.yuicss .safe { padding-bottom: max(var(--pad), env(safe-area-inset-bottom)); }
+.yuicss .safe-top { padding-top: max(var(--pad), env(safe-area-inset-top)); }
+
+/* text */
+.yuicss .text-left { text-align: left; }
+.yuicss .text-center { text-align: center; }
+.yuicss .text-right { text-align: right; }
+.yuicss .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.yuicss .clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.yuicss .clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.yuicss .uppercase { text-transform: uppercase; letter-spacing: .08em; }
+.yuicss .lowercase { text-transform: lowercase; }
+.yuicss .capitalize { text-transform: capitalize; }
+.yuicss .normal-case { text-transform: none; letter-spacing: 0; }
+.yuicss .italic { font-style: italic; }
+.yuicss .not-italic { font-style: normal; }
+.yuicss .underline { text-decoration: underline; text-underline-offset: 3px; }
+.yuicss .line-through { text-decoration: line-through; }
+.yuicss .no-underline { text-decoration: none; }
+.yuicss .tabular { font-variant-numeric: tabular-nums; }
+.yuicss .tracking-tight { letter-spacing: -0.02em; }
+.yuicss .tracking-normal { letter-spacing: 0; }
+.yuicss .tracking-wide { letter-spacing: .06em; }
+.yuicss .tracking-wider { letter-spacing: .12em; }
+.yuicss .whitespace-nowrap { white-space: nowrap; }
+.yuicss .whitespace-pre { white-space: pre-wrap; }
+.yuicss .break-words { overflow-wrap: anywhere; }
+.yuicss .balance { text-wrap: balance; }
+.yuicss .pretty { text-wrap: pretty; }
+.yuicss .font-rounded { font-family: var(--font-rounded); }
+.yuicss .font-sans { font-family: var(--font-default); }
+.yuicss .font-serif { font-family: var(--font-serif); }
+.yuicss .font-mono { font-family: var(--font-mono); }
+.yuicss .muted { color: var(--muted); }
+.yuicss .accent { color: var(--accent-text); }
+
+/* shape and surface */
+.yuicss .border { border: var(--line-w) solid var(--line); }
+.yuicss .border-0 { border: 0; }
+.yuicss .border-2 { border-width: 2px; border-style: solid; border-color: var(--line); }
+.yuicss .border-t { border-top: var(--line-w) solid var(--line); }
+.yuicss .border-b { border-bottom: var(--line-w) solid var(--line); }
+.yuicss .border-l { border-left: var(--line-w) solid var(--line); }
+.yuicss .border-r { border-right: var(--line-w) solid var(--line); }
+.yuicss .border-dashed { border-style: dashed; }
+.yuicss .border-dotted { border-style: dotted; }
+.yuicss .divide-y > * + * { border-top: var(--line-w) solid var(--line); }
+.yuicss .divide-x > * + * { border-left: var(--line-w) solid var(--line); }
+.yuicss .ring { box-shadow: 0 0 0 3px var(--accent-300); }
+.yuicss .ring-accent { box-shadow: 0 0 0 3px var(--accent); }
+.yuicss .ring-line { box-shadow: 0 0 0 var(--line-w) var(--line); }
+.yuicss .glass { background: color-mix(in srgb, var(--surface) 72%, transparent); backdrop-filter: blur(16px) saturate(1.4); -webkit-backdrop-filter: blur(16px) saturate(1.4); }
+.yuicss .shadow, .yuicss .shadow-soft { box-shadow: var(--shadow-soft); }
+.yuicss .shadow-lift { box-shadow: var(--shadow-lift); }
+.yuicss .shadow-none { box-shadow: none; }
+.yuicss .aspect-square { aspect-ratio: 1; }
+.yuicss .aspect-video { aspect-ratio: 16 / 9; }
+.yuicss .aspect-portrait { aspect-ratio: 3 / 4; }
+.yuicss .aspect-photo { aspect-ratio: 4 / 3; }
+.yuicss .object-cover { object-fit: cover; }
+.yuicss .object-contain { object-fit: contain; }
+.yuicss .object-top { object-position: top; }
+.yuicss .pointer { cursor: pointer; }
+.yuicss .select-none { user-select: none; -webkit-user-select: none; }
+.yuicss .pointer-events-none { pointer-events: none; }
+.yuicss .transition { transition: all var(--mo-handoff) var(--mo-ease); }
+.yuicss .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* motion. enter-* plays once in the look's time; the rest loop and breathe at the look's pulse. */
+.yuicss .enter-rise { animation: y-rise var(--mo-enter) var(--mo-ease) both; }
+.yuicss .enter-pop { animation: y-pop var(--mo-enter) var(--mo-ease) both; }
+.yuicss .enter-slide { animation: y-slide var(--mo-enter) var(--mo-ease) both; }
+.yuicss .enter-drop { animation: y-drop var(--mo-enter) var(--mo-ease) both; }
+.yuicss .enter-fade { animation: y-fade var(--mo-enter) var(--mo-ease) both; }
+.yuicss .enter { animation: var(--enter-name) var(--mo-enter) var(--mo-ease) both; }
+.yuicss .still, .yuicss .no-enter { animation: none; }
+.yuicss .spin { animation: y-spin calc(var(--mo-beat) * 1.6) linear infinite; }
+.yuicss .pulse { animation: y-pulse var(--mo-breath) ease-in-out infinite; animation-play-state: var(--pulse-play); }
+.yuicss .float { animation: y-float calc(var(--mo-breath) * 1.4) ease-in-out infinite; animation-play-state: var(--pulse-play); }
+.yuicss .bounce { animation: y-bounce var(--mo-beat) infinite; animation-play-state: var(--pulse-play); }
+.yuicss .wiggle { animation: y-wiggle calc(var(--mo-beat) * .6) ease-in-out infinite; animation-play-state: var(--pulse-play); }
+.yuicss .ping { position: relative; }
+.yuicss .ping::after { content: ""; position: absolute; inset: 0; border-radius: inherit; animation: y-ring var(--mo-breath) ease-out infinite; animation-play-state: var(--pulse-play); }
+.yuicss .shimmer { background: linear-gradient(90deg, var(--accent-50) 25%, var(--accent-100) 50%, var(--accent-50) 75%); background-size: 200% 100%; animation: y-shimmer calc(var(--mo-breath) * .9) linear infinite; color: transparent; border-radius: var(--radius-control); }
+.yuicss .stagger > * { animation: var(--enter-name) var(--mo-enter) var(--mo-ease) both; animation-delay: calc(var(--mo-stagger) * var(--i, 0)); }
+.yuicss .stagger > :nth-child(2) { --i: 1; }
+.yuicss .stagger > :nth-child(3) { --i: 2; }
+.yuicss .stagger > :nth-child(4) { --i: 3; }
+.yuicss .stagger > :nth-child(5) { --i: 4; }
+.yuicss .stagger > :nth-child(6) { --i: 5; }
+.yuicss .stagger > :nth-child(n+7) { --i: 6; }

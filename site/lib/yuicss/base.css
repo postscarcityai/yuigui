@@ -1,0 +1,191 @@
+/* yuicss layer 2: classless defaults. Every element looks finished with no class at all.
+   Scope: everything lives under .yuicss (the body in the app, a frame on the site). */
+
+.yuicss {
+  background: var(--paper);
+  color: var(--ink);
+  font: var(--weight-body) var(--text-base) / var(--leading-normal) var(--font);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  accent-color: var(--accent);
+  overflow-wrap: break-word;
+}
+.yuicss :not(svg, svg *), .yuicss :not(svg, svg *)::before, .yuicss :not(svg, svg *)::after { box-sizing: border-box; margin: 0; }
+.yuicss ::selection { background: var(--accent-200); color: var(--ink); }
+.yuicss :focus-visible { outline: 3px solid var(--accent-300); outline-offset: 2px; border-radius: 8px; }
+
+/* The screen: one column, the default gap, padded, children staggered in. */
+.yuicss.screen, .yuicss .screen, .yuicss main, .yuicss section, .yuicss article, .yuicss form, .yuicss fieldset, .yuicss header, .yuicss footer {
+  display: flex; flex-direction: column; gap: var(--gap); min-width: 0;
+}
+.yuicss.screen, .yuicss .screen, .yuicss main { padding: var(--pad); min-height: 100%; }
+.yuicss.screen > *, .yuicss .screen > *, .yuicss main > * { animation: var(--enter-name) var(--mo-enter) var(--mo-ease) both; animation-delay: calc(var(--mo-stagger) * var(--i, 0)); }
+.yuicss.screen > :nth-child(2), .yuicss .screen > :nth-child(2), .yuicss main > :nth-child(2) { --i: 1; }
+.yuicss.screen > :nth-child(3), .yuicss .screen > :nth-child(3), .yuicss main > :nth-child(3) { --i: 2; }
+.yuicss.screen > :nth-child(4), .yuicss .screen > :nth-child(4), .yuicss main > :nth-child(4) { --i: 3; }
+.yuicss.screen > :nth-child(5), .yuicss .screen > :nth-child(5), .yuicss main > :nth-child(5) { --i: 4; }
+.yuicss.screen > :nth-child(6), .yuicss .screen > :nth-child(6), .yuicss main > :nth-child(6) { --i: 5; }
+.yuicss.screen > :nth-child(7), .yuicss .screen > :nth-child(7), .yuicss main > :nth-child(7) { --i: 6; }
+.yuicss.screen > :nth-child(8), .yuicss .screen > :nth-child(8), .yuicss main > :nth-child(8) { --i: 7; }
+.yuicss.screen > :nth-child(n+9), .yuicss .screen > :nth-child(n+9), .yuicss main > :nth-child(n+9) { --i: 8; }
+
+/* Type. Headings carry the look's weight; the scale is the app's. */
+.yuicss h1, .yuicss h2, .yuicss h3, .yuicss h4, .yuicss h5, .yuicss h6 { font-weight: var(--weight-heading); line-height: var(--leading-tight); letter-spacing: -0.01em; text-wrap: balance; color: var(--ink); }
+.yuicss h1 { font-size: var(--text-2xl); }
+.yuicss h2 { font-size: var(--text-xl); }
+.yuicss h3 { font-size: var(--text-lg); line-height: var(--leading-snug); }
+.yuicss h4, .yuicss h5, .yuicss h6 { font-size: var(--text-base); line-height: var(--leading-snug); }
+.yuicss p { text-wrap: pretty; }
+.yuicss p + p { margin-top: calc(var(--gap) * -0.25); }
+.yuicss small, .yuicss figcaption, .yuicss caption, .yuicss sub, .yuicss sup { font-size: var(--text-sm); color: var(--muted); }
+.yuicss sub, .yuicss sup { line-height: 0; }
+.yuicss strong, .yuicss b { font-weight: var(--weight-bold); }
+.yuicss em, .yuicss i, .yuicss cite { font-style: italic; }
+.yuicss mark { background: var(--accent-200); color: var(--ink); border-radius: 4px; padding: 0 .2em; }
+.yuicss del, .yuicss s { color: var(--muted); }
+.yuicss abbr[title] { text-decoration: underline dotted; }
+.yuicss a { color: var(--accent-text); font-weight: var(--weight-semibold); text-decoration: none; text-underline-offset: 3px; }
+.yuicss a:hover, .yuicss a:focus-visible { text-decoration: underline; }
+.yuicss hr { border: 0; border-top: var(--line-w) solid var(--line); }
+.yuicss blockquote { border-left: 3px solid var(--accent-300); padding: 2px 0 2px 16px; color: var(--muted); font-size: var(--text-lg); line-height: var(--leading-snug); }
+.yuicss code, .yuicss kbd, .yuicss samp, .yuicss pre { font-family: var(--font-mono); font-size: var(--text-sm); }
+.yuicss code { background: var(--accent-50); color: var(--ink); padding: 2px 6px; border-radius: 6px; }
+.yuicss kbd { background: var(--surface); border: var(--line-w) solid var(--line); border-bottom-width: 3px; padding: 2px 7px; border-radius: 6px; }
+.yuicss pre { background: var(--surface); border: var(--line-w) solid var(--line); border-radius: var(--radius-control); padding: 14px 16px; overflow-x: auto; line-height: 1.5; }
+.yuicss pre code { background: none; padding: 0; }
+
+/* Lists. Bullets in the accent; a list of things to tap is the .list component. */
+.yuicss ul, .yuicss ol { padding-left: 1.3em; display: flex; flex-direction: column; gap: 6px; }
+.yuicss li::marker { color: var(--accent-text); font-weight: var(--weight-bold); }
+.yuicss ul ul, .yuicss ol ol, .yuicss ul ol, .yuicss ol ul { margin-top: 6px; }
+.yuicss dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; }
+.yuicss dt { color: var(--muted); font-size: var(--text-sm); font-weight: var(--weight-semibold); align-self: baseline; }
+.yuicss dd { font-weight: var(--weight-semibold); }
+
+/* Pictures fill their width and take the look's radius. */
+.yuicss img, .yuicss video, .yuicss canvas, .yuicss svg, .yuicss iframe { display: block; max-width: 100%; }
+.yuicss img, .yuicss video, .yuicss iframe { height: auto; border-radius: var(--radius); object-fit: cover; }
+.yuicss svg { height: auto; }
+.yuicss figure { display: flex; flex-direction: column; gap: 8px; }
+.yuicss figcaption { text-align: center; }
+
+/* Tables: quiet lines, numbers that line up. */
+.yuicss table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.yuicss th, .yuicss td { text-align: left; padding: 10px 10px; border-bottom: var(--line-w) solid var(--line); vertical-align: top; }
+.yuicss th { font-size: var(--text-sm); color: var(--muted); font-weight: var(--weight-semibold); }
+.yuicss tr:last-child td { border-bottom: 0; }
+.yuicss td:not(:first-child):is(.num, [data-num]), .yuicss th:not(:first-child):is(.num, [data-num]) { text-align: right; }
+.yuicss tfoot td { font-weight: var(--weight-bold); }
+
+/* Buttons: big tap targets in the accent. The first button is the primary one;
+   a sibling that follows it steps down to a tint, so a row of buttons reads at a glance. */
+.yuicss button, .yuicss [role="button"], .yuicss input[type="submit"], .yuicss input[type="button"] {
+  appearance: none; -webkit-appearance: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: var(--control); padding: 0 20px;
+  border: 0; border-radius: var(--radius-control);
+  background: var(--accent); color: var(--accent-ink);
+  font: var(--weight-bold) var(--text-base) / 1.2 var(--font);
+  cursor: pointer; user-select: none; text-decoration: none; white-space: nowrap;
+  transition: transform calc(var(--mo-handoff) * .5) var(--mo-ease), background-color .15s, color .15s, opacity .15s;
+}
+.yuicss button:active, .yuicss [role="button"]:active { transform: scale(.97); }
+.yuicss button:disabled, .yuicss button[aria-disabled="true"] { opacity: .45; cursor: default; transform: none; }
+.yuicss button ~ button:not(.primary, .danger, .good, .ghost, .link, .chip), .yuicss button.secondary {
+  background: var(--accent-100); color: var(--ink);
+}
+.yuicss button.primary { background: var(--accent); color: var(--accent-ink); }
+.yuicss button.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 var(--line-w) var(--line); }
+.yuicss button.link { background: transparent; color: var(--accent-text); padding: 0 8px; min-height: var(--tap); }
+.yuicss button.danger { background: var(--bad); color: var(--bad-ink); }
+.yuicss button.good { background: var(--good); color: var(--good-ink); }
+.yuicss button.soft { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-soft); }
+.yuicss button.sm { min-height: 40px; padding: 0 14px; font-size: var(--text-sm); }
+.yuicss button.lg { min-height: 60px; padding: 0 26px; font-size: var(--text-lg); }
+.yuicss button.full, .yuicss .screen > button, .yuicss main > button, .yuicss form > button { width: 100%; }
+.yuicss button.icon { width: var(--control); padding: 0; }
+.yuicss button.sm.icon { width: 40px; }
+.yuicss button svg { width: 1.25em; height: 1.25em; flex: none; }
+.yuicss button .badge { margin-left: 2px; }
+
+/* Inputs: one height with buttons, the surface color, the accent on focus. */
+.yuicss input, .yuicss textarea, .yuicss select {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; min-height: var(--control); padding: 0 16px;
+  border: var(--line-w) solid var(--line); border-radius: var(--radius-control);
+  background: var(--surface); color: var(--ink);
+  font: var(--weight-body) var(--text-base) / 1.3 var(--font);
+  transition: border-color .15s, box-shadow .15s;
+}
+.yuicss input:focus, .yuicss textarea:focus, .yuicss select:focus { outline: 0; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-100); }
+.yuicss input::placeholder, .yuicss textarea::placeholder { color: var(--muted); opacity: 1; }
+.yuicss input:disabled, .yuicss textarea:disabled, .yuicss select:disabled { opacity: .5; }
+.yuicss input[aria-invalid="true"], .yuicss textarea[aria-invalid="true"], .yuicss .error input, .yuicss .error textarea { border-color: var(--bad); }
+.yuicss textarea { min-height: 120px; padding: 14px 16px; resize: vertical; line-height: var(--leading-normal); }
+.yuicss select { padding-right: 44px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none' stroke='%23888' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+.yuicss input[type="checkbox"], .yuicss input[type="radio"] { width: 26px; height: 26px; min-height: 0; padding: 0; appearance: auto; -webkit-appearance: auto; flex: none; border-radius: 8px; vertical-align: middle; }
+.yuicss input[type="radio"] { border-radius: 50%; }
+.yuicss input[type="color"] { width: var(--control); padding: 6px; }
+.yuicss input[type="file"] { padding: 12px 16px; min-height: 0; }
+.yuicss input[type="file"]::file-selector-button { border: 0; border-radius: 999px; padding: 8px 14px; margin-right: 12px; background: var(--accent-100); color: var(--ink); font: var(--weight-bold) var(--text-sm) var(--font); }
+.yuicss input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; }
+.yuicss input[type="number"] { font-variant-numeric: tabular-nums; }
+
+/* A range input is the slider, with no class at all. */
+.yuicss input[type="range"] { -webkit-appearance: none; appearance: none; height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.yuicss input[type="range"]:focus { box-shadow: none; }
+.yuicss input[type="range"]::-webkit-slider-runnable-track { height: 8px; border-radius: 999px; background: linear-gradient(var(--accent), var(--accent)) 0 / var(--v, 50%) 100% no-repeat, var(--accent-100); }
+.yuicss input[type="range"]::-moz-range-track { height: 8px; border-radius: 999px; background: var(--accent-100); }
+.yuicss input[type="range"]::-moz-range-progress { height: 8px; border-radius: 999px; background: var(--accent); }
+.yuicss input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -10px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent); box-shadow: var(--shadow-soft); }
+.yuicss input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 3px solid var(--accent); box-shadow: var(--shadow-soft); }
+
+/* Labels and fields. A label that wraps its input stacks them. */
+.yuicss label { display: flex; flex-direction: column; gap: 6px; font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--muted); }
+.yuicss label:has(> input[type="checkbox"]), .yuicss label:has(> input[type="radio"]) { flex-direction: row; align-items: center; gap: 12px; font-size: var(--text-base); color: var(--ink); font-weight: var(--weight-body); min-height: var(--tap); }
+.yuicss fieldset { border: 0; padding: 0; min-width: 0; }
+.yuicss legend { font-size: var(--text-lg); font-weight: var(--weight-heading); color: var(--ink); padding: 0; margin-bottom: 4px; }
+.yuicss output { font-variant-numeric: tabular-nums; font-weight: var(--weight-bold); }
+
+/* Details fold like a card. */
+.yuicss details { background: var(--surface); border-radius: var(--radius); padding: 0 18px; box-shadow: var(--shadow-soft); }
+.yuicss summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: var(--control); font-weight: var(--weight-bold); }
+.yuicss summary::-webkit-details-marker { display: none; }
+.yuicss summary::after { content: ""; width: 10px; height: 10px; border-right: 2.5px solid var(--muted); border-bottom: 2.5px solid var(--muted); transform: rotate(45deg); transition: transform .2s; margin-right: 4px; flex: none; }
+.yuicss details[open] summary::after { transform: rotate(-135deg); }
+.yuicss details > :not(summary) { padding-bottom: 16px; }
+.yuicss details > :not(summary):last-child { padding-bottom: 16px; }
+
+/* Progress and meters in the accent. */
+.yuicss progress, .yuicss meter { -webkit-appearance: none; appearance: none; width: 100%; height: 10px; border: 0; border-radius: 999px; background: var(--accent-100); overflow: hidden; display: block; }
+.yuicss progress::-webkit-progress-bar, .yuicss meter::-webkit-meter-bar { background: var(--accent-100); border-radius: 999px; border: 0; }
+.yuicss progress::-webkit-progress-value { background: var(--accent); border-radius: 999px; transition: width var(--mo-handoff) var(--mo-ease); }
+.yuicss progress::-moz-progress-bar { background: var(--accent); border-radius: 999px; }
+.yuicss meter::-webkit-meter-optimum-value { background: var(--good); }
+.yuicss meter::-webkit-meter-suboptimum-value { background: var(--warn); }
+.yuicss meter::-webkit-meter-even-less-good-value { background: var(--bad); }
+.yuicss meter::-moz-meter-bar { background: var(--good); }
+
+/* Dialogs sit on the paper. */
+.yuicss dialog { border: 0; border-radius: var(--radius); background: var(--surface); color: var(--ink); padding: 24px 20px; box-shadow: var(--shadow-lift); max-width: min(92vw, 420px); }
+.yuicss dialog::backdrop { background: rgba(0, 0, 0, .35); backdrop-filter: blur(6px); }
+.yuicss [hidden] { display: none !important; }
+
+/* Motion: the five ways things come on, and the four ways they breathe. Reduce Motion takes it all away. */
+@keyframes y-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes y-pop { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: none; } }
+@keyframes y-slide { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: none; } }
+@keyframes y-drop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+@keyframes y-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes y-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.06); opacity: .86; } }
+@keyframes y-spin { to { transform: rotate(360deg); } }
+@keyframes y-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes y-bounce { 0%, 100% { transform: translateY(0); animation-timing-function: cubic-bezier(.8,0,1,1); } 50% { transform: translateY(-20%); animation-timing-function: cubic-bezier(0,0,.2,1); } }
+@keyframes y-wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes y-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes y-ring { from { box-shadow: 0 0 0 0 var(--accent-300); } to { box-shadow: 0 0 0 18px transparent; } }
+@media (prefers-reduced-motion: reduce) {
+  .yuicss *, .yuicss *::before, .yuicss *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+.yuicss.still *, .yuicss.still *::before, .yuicss.still *::after { animation: none !important; transition: none !important; }

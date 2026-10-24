@@ -5,7 +5,9 @@
   "scripts": {
     "sync": "node scripts/sync-content.mjs && node scripts/export-timeline.mjs",
     "dev": "next dev",
-    "build": "node scripts/library-check.mjs && node scripts/og-pages-check.mjs && next build",
+    "build": "node scripts/library-check.mjs && node scripts/og-pages-check.mjs && node lib/yuicss/yuicss.test.mjs && next build",
+    "yuicss": "node lib/yuicss/build.mjs",
+    "test:yuicss": "node lib/yuicss/yuicss.test.mjs",
     "library": "node scripts/library-check.mjs",
     "start": "next start",
     "freshness": "node scripts/freshness.mjs",

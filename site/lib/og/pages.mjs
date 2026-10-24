@@ -126,6 +126,11 @@ card "Sunday plan" body="3 sessions, 40 min" cta="Start"`,
     yl: `say Hold a message and react.
 choose "What should the agent do?" "Build it"|"No"|"Not sure"|"Later"|"Priority"`,
   },
+  "/yuicss": {
+    eyebrow: "YUICSS | HOW YUI LOOKS",
+    yl: `say A bare button already looks like Yui.
+card "yuicss" body="Tokens, classless defaults, utilities, components" cta="See the gallery"`,
+  },
   "/playground": {
     eyebrow: "PLAYGROUND",
     yl: `timer 40/20x8 Tabata
