@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T03:40:30.852Z",
+  "updated": "2026-10-24T03:45:25.223Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -6046,15 +6046,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#yui-lines-learn-pictures-and-video",
           "commit": "https://github.com/postscarcityai/yuigui/commit/31171602"
-        },
-        {
-          "key": "YUI-11",
-          "title": "Debug screen gone, agents one tap away",
-          "summary": "Beta feedback: the debug screen is gone",
-          "mvp": true,
-          "shipped": "2026-09-23",
-          "progress": "/progress#beta-feedback-the-debug-screen-is-gone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/0e983162"
         }
       ]
     }
