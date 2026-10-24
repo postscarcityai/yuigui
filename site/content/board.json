@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T18:45:26.447Z",
+  "updated": "2026-10-24T18:55:26.001Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -165,6 +165,46 @@
         {
           "key": "YUI-310",
           "title": "Voice-over, body copy is spoken on the phone so the screen shows a few words",
+          "waiting": true
+        },
+        {
+          "key": "YUI-341",
+          "title": "YL screens and yuicss, the reach of HTML in short lines, styled by default",
+          "waiting": true
+        },
+        {
+          "key": "YUI-342",
+          "title": "Yuicss, tokens + classless defaults + utilities + components + the /yuicss gallery",
+          "waiting": true
+        },
+        {
+          "key": "YUI-343",
+          "title": "YL screens, YL.md section 7 + reference parser + renderer + conformance + 5 playground screens",
+          "waiting": true
+        },
+        {
+          "key": "YUI-344",
+          "title": "The 50-screen test and the Claude artifact bar",
+          "waiting": true
+        },
+        {
+          "key": "YUI-345",
+          "title": "YL screens parser ports, Python first, then Rust, Kotlin, Swift",
+          "waiting": true
+        },
+        {
+          "key": "YUI-346",
+          "title": "ScreenStage, the renderer in a web view on the stage, the bridge, YuiTokens.swift generated",
+          "waiting": true
+        },
+        {
+          "key": "YUI-347",
+          "title": "The channel guide on one page, compat SCREEN_BUILD, Telegram fallback",
+          "waiting": true
+        },
+        {
+          "key": "YUI-348",
+          "title": "Presets as components inside screens, app chrome on yuicss tokens",
           "waiting": true
         },
         {
