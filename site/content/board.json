@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T20:35:25.472Z",
+  "updated": "2026-10-24T20:50:25.191Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5689,14 +5689,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#the-go-to-market-plan-is-public",
           "commit": "https://github.com/postscarcityai/yuigui/commit/95c545f3"
-        },
-        {
-          "key": "INT-1",
-          "title": "OpenClaw adapter",
-          "summary": "OpenClaw agents can talk in Yui now",
-          "shipped": "2026-09-24",
-          "progress": "/progress#openclaw-agents-can-talk-in-yui-now",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b5c3af6d"
         }
       ]
     }
