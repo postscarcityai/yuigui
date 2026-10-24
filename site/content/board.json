@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T05:10:33.843Z",
+  "updated": "2026-10-24T05:35:26.003Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5909,14 +5909,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#full-screen-when-it-matters",
           "commit": "https://github.com/postscarcityai/yuigui/commit/88c9648b"
-        },
-        {
-          "key": "YUI-20",
-          "title": "Every agent has its own look and feel (theme per agent, light + dark, preferred screens)",
-          "summary": "Every agent has its own look",
-          "shipped": "2026-09-24",
-          "progress": "/progress#every-agent-has-its-own-look",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9985a2f9"
         }
       ]
     }
