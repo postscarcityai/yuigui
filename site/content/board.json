@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T21:10:32.810Z",
+  "updated": "2026-10-24T21:30:24.809Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5665,14 +5665,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#polish-the-roadmap-tabs-read-current",
           "commit": "https://github.com/postscarcityai/yuigui/commit/680825bf"
-        },
-        {
-          "key": "SITE-19",
-          "title": "Shareable moments",
-          "summary": "Share any screen: a link with a real preview, a Share button, an embed and a badge",
-          "shipped": "2026-09-24",
-          "progress": "/progress#share-any-screen-a-link-with-a-real-preview-a-share-button-an-embed-and-a-badge",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/06161c47"
         }
       ]
     }
