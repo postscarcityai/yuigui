@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T20:20:26.086Z",
+  "updated": "2026-10-24T20:35:25.472Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5697,14 +5697,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#openclaw-agents-can-talk-in-yui-now",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b5c3af6d"
-        },
-        {
-          "key": "SITE-18",
-          "title": "Polish pass on /developers and /playground",
-          "summary": "Polish: Developers and the playground",
-          "shipped": "2026-09-24",
-          "progress": "/progress#polish-developers-and-the-playground",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5f72dc20"
         }
       ]
     }
