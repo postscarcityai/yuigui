@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T09:25:26.094Z",
+  "updated": "2026-10-24T09:50:26.118Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5849,15 +5849,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#first-run-from-sign-in-to-your-agent-s-first-screen",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7cd6dbdf"
-        },
-        {
-          "key": "YUI-24",
-          "title": "Push when an agent answers",
-          "summary": "A buzz when your agent answers",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#a-buzz-when-your-agent-answers",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/752b0612"
         }
       ]
     }
