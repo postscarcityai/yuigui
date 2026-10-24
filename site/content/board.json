@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T04:40:31.738Z",
+  "updated": "2026-10-24T04:50:25.959Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5963,14 +5963,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#decks-plan-mode-and-narrated-walkthroughs",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a1c12a45"
-        },
-        {
-          "key": "SITE-2",
-          "title": "Live kanban board on yuigui.com",
-          "summary": "The board is public",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-board-is-public",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4830100e"
         }
       ]
     }
