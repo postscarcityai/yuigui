@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T04:25:24.617Z",
+  "updated": "2026-10-24T04:35:25.186Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5985,29 +5985,6 @@
           "title": "Content plan for Yui",
           "shipped": "2026-09-24",
           "progress": "/progress#a-content-plan-built-from-what-ships"
-        },
-        {
-          "key": "BIZ-2",
-          "title": "Outreach plan, Hermes users first",
-          "shipped": "2026-09-24",
-          "progress": "/progress#how-we-will-find-our-first-users"
-        },
-        {
-          "key": "YUI-7",
-          "title": "Hermes plugin: agents answer with screens",
-          "summary": "Talk to your agent in Yui",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#talk-to-your-agent-in-yui",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/dd0e1520"
-        },
-        {
-          "key": "SITE-1",
-          "title": "yuigui.com rebrand",
-          "summary": "The site now looks like the app",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-site-now-looks-like-the-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3fe34020"
         }
       ]
     }
