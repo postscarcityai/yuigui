@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T04:50:25.959Z",
+  "updated": "2026-10-24T04:55:26.476Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5955,14 +5955,6 @@
           "title": "yuiguiai social handles",
           "shipped": "2026-09-24",
           "progress": "/progress#who-yui-is-on-each-platform"
-        },
-        {
-          "key": "YUI-18",
-          "title": "Learn + plan",
-          "summary": "Decks, plan mode and narrated walkthroughs",
-          "shipped": "2026-09-24",
-          "progress": "/progress#decks-plan-mode-and-narrated-walkthroughs",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a1c12a45"
         }
       ]
     }
