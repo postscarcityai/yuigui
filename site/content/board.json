@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T13:30:25.340Z",
+  "updated": "2026-10-24T13:45:25.358Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5783,14 +5783,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#no-page-scrolls-sideways-on-a-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/808c485d"
-        },
-        {
-          "key": "SITE-8",
-          "title": "Responsive navigation on yuigui.com (mobile menu)",
-          "summary": "The site menu works on a phone",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-site-menu-works-on-a-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5a19f91e"
         }
       ]
     }
