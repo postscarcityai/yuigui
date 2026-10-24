@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T17:05:26.491Z",
+  "updated": "2026-10-24T17:15:26.688Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5721,36 +5721,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#notes-longer-pieces-starting-with-why-yui-is-open-source",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3ae8bb49"
-        },
-        {
-          "key": "SITE-14",
-          "title": "Mockups show everything built, each tied to its roadmap item and ship date",
-          "summary": "See everything Yui can draw",
-          "shipped": "2026-09-24",
-          "progress": "/progress#see-everything-yui-can-draw",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/07330fa4"
-        },
-        {
-          "key": "SITE-7",
-          "title": "Preset gallery",
-          "summary": "See everything Yui can draw",
-          "shipped": "2026-09-24",
-          "progress": "/progress#see-everything-yui-can-draw"
-        },
-        {
-          "key": "SITE-6",
-          "title": "Playground a11y labels (Lighthouse 89 -> 95+)",
-          "summary": "The playground reads right to a screen reader",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-playground-reads-right-to-a-screen-reader",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/cb365139"
-        },
-        {
-          "key": "BIZ-6",
-          "title": "Private beta list",
-          "shipped": "2026-09-24",
-          "progress": "/progress#who-the-first-outside-testers-are",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f58b06b8"
         }
       ]
     }
