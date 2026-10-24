@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T04:20:25.836Z",
+  "updated": "2026-10-24T04:25:24.617Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -6008,20 +6008,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#the-site-now-looks-like-the-app",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3fe34020"
-        },
-        {
-          "key": "BIZ-1",
-          "title": "Marketing + positioning brief",
-          "shipped": "2026-09-24",
-          "progress": "/progress#business-docs-in-the-open"
-        },
-        {
-          "key": "YUI-17",
-          "title": "Charts, graphs and science tools (spec + web)",
-          "summary": "Yui Lines learn charts, equations and experiments",
-          "shipped": "2026-09-24",
-          "progress": "/progress#yui-lines-learn-charts-equations-and-experiments",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/913bd93e"
         }
       ]
     }
