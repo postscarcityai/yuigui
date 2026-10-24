@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T17:40:31.492Z",
+  "updated": "2026-10-24T17:45:27.171Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5705,14 +5705,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#yui-lines-back-on-the-front-page-and-every-spec-on-the-site",
           "commit": "https://github.com/postscarcityai/yuigui/commit/61973cfe"
-        },
-        {
-          "key": "OSS-2",
-          "title": "Yui Lines parsers in more languages",
-          "summary": "Yui Lines in Python and Kotlin",
-          "shipped": "2026-09-24",
-          "progress": "/progress#yui-lines-in-python-and-kotlin",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/bd87dddb"
         }
       ]
     }
