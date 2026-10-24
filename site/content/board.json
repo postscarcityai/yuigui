@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T17:45:27.171Z",
+  "updated": "2026-10-24T18:10:32.231Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5697,14 +5697,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#watch-yui-grow-the-whole-history-on-one-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3e40af4d"
-        },
-        {
-          "key": "SITE-15",
-          "title": "Yui Lines back in sight",
-          "summary": "Yui Lines back on the front page, and every spec on the site",
-          "shipped": "2026-09-24",
-          "progress": "/progress#yui-lines-back-on-the-front-page-and-every-spec-on-the-site",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/61973cfe"
         }
       ]
     }
