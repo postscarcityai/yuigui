@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T22:40:31.302Z",
+  "updated": "2026-10-24T22:50:25.975Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5621,14 +5621,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#yui-home-lend-your-idle-agent-to-yui",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2d30ed26"
-        },
-        {
-          "key": "SITE-23",
-          "title": "Polish pass on /start, /yl, /channel and /privacy",
-          "summary": "Get started, the specs and Privacy, checked for strangers",
-          "shipped": "2026-09-24",
-          "progress": "/progress#get-started-the-specs-and-privacy-checked-for-strangers",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/73820440"
         }
       ]
     }
