@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T12:20:25.530Z",
+  "updated": "2026-10-24T13:00:25.450Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5813,15 +5813,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a1b6c1a2"
-        },
-        {
-          "key": "YUI-27",
-          "title": "Ready for beta review",
-          "summary": "Ready for Apple's beta review: a demo agent, help, and a full privacy page",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#ready-for-apple-s-beta-review-a-demo-agent-help-and-a-full-privacy-page",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/218dddf5"
         }
       ]
     }
