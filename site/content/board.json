@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T13:10:32.636Z",
+  "updated": "2026-10-24T13:30:25.340Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5791,13 +5791,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#the-site-menu-works-on-a-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5a19f91e"
-        },
-        {
-          "key": "SOC-2",
-          "title": "Yui demo clip pipeline (simulator recording per preset)",
-          "shipped": "2026-09-24",
-          "progress": "/progress#demo-clips-of-every-preset-recorded-from-the-app",
-          "commit": "https://github.com/postscarcityai/yui/commit/6fc0cbb"
         }
       ]
     }
