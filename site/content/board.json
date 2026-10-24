@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T18:10:32.231Z",
+  "updated": "2026-10-24T18:45:26.447Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5689,14 +5689,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#a-polish-pass-on-see-it-get-started-and-timeline",
           "commit": "https://github.com/postscarcityai/yuigui/commit/50691325"
-        },
-        {
-          "key": "SITE-16",
-          "title": "Evolution timeline from GitHub history (was SITE-5, key already used by /notes)",
-          "summary": "Watch Yui grow: the whole history on one page",
-          "shipped": "2026-09-24",
-          "progress": "/progress#watch-yui-grow-the-whole-history-on-one-page",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3e40af4d"
         }
       ]
     }
