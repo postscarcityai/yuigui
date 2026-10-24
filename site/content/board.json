@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T19:40:34.293Z",
+  "updated": "2026-10-24T19:45:25.051Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5713,14 +5713,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#not-on-hermes-any-agent-that-answers-a-web-request-can-talk-in-yui-now",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7eddcdab"
-        },
-        {
-          "key": "YUI-42",
-          "title": "The preset flywheel",
-          "summary": "The preset flywheel: custom screens that keep coming back become presets",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/10a9420f"
         }
       ]
     }
