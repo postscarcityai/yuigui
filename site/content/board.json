@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T20:50:25.191Z",
+  "updated": "2026-10-24T21:10:32.810Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5673,22 +5673,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#share-any-screen-a-link-with-a-real-preview-a-share-button-an-embed-and-a-badge",
           "commit": "https://github.com/postscarcityai/yuigui/commit/06161c47"
-        },
-        {
-          "key": "OSS-5",
-          "title": "Grassroots kit for Yui Lines",
-          "summary": "Draw your best screen in three lines: a community page and the first open challenge",
-          "shipped": "2026-09-24",
-          "progress": "/progress#draw-your-best-screen-in-three-lines-a-community-page-and-the-first-open-challen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f25d5a2a"
-        },
-        {
-          "key": "SITE-20",
-          "title": "Go-to-market plan on the site",
-          "summary": "The go-to-market plan is public",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-go-to-market-plan-is-public",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/95c545f3"
         }
       ]
     }
