@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T04:55:26.476Z",
+  "updated": "2026-10-24T05:00:26.240Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5941,20 +5941,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#pick-it-up-in-yui",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9df2b899"
-        },
-        {
-          "key": "SITE-3",
-          "title": "Screenshots on the site + changelog with screenshots",
-          "summary": "Screenshots everywhere, and a changelog",
-          "shipped": "2026-09-24",
-          "progress": "/progress#screenshots-everywhere-and-a-changelog",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/62dc14a6"
-        },
-        {
-          "key": "BIZ-5",
-          "title": "yuiguiai social handles",
-          "shipped": "2026-09-24",
-          "progress": "/progress#who-yui-is-on-each-platform"
         }
       ]
     }
