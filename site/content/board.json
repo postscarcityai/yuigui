@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T07:50:26.962Z",
+  "updated": "2026-10-24T08:50:26.420Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5867,14 +5867,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#connect-your-agent-in-three-steps",
           "commit": "https://github.com/postscarcityai/yuigui/commit/49b101fc"
-        },
-        {
-          "key": "YUI-19",
-          "title": "Native SwiftUI versions of the YUI-16/17/18 presets",
-          "summary": "Every preset, native on iPhone",
-          "shipped": "2026-09-24",
-          "progress": "/progress#every-preset-native-on-iphone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6540a119"
         }
       ]
     }
