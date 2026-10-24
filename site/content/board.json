@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T18:55:26.001Z",
+  "updated": "2026-10-24T19:40:34.293Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5721,14 +5721,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets",
           "commit": "https://github.com/postscarcityai/yuigui/commit/10a9420f"
-        },
-        {
-          "key": "SITE-17",
-          "title": "Polish pass on /mockups, /start and /timeline",
-          "summary": "A polish pass on See it, Get started and Timeline",
-          "shipped": "2026-09-24",
-          "progress": "/progress#a-polish-pass-on-see-it-get-started-and-timeline",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/50691325"
         }
       ]
     }
