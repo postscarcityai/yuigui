@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T23:15:26.497Z",
+  "updated": "2026-10-24T23:45:26.681Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5605,14 +5605,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#test-builds-by-link-new-app-builds-on-the-phone-without-testflight",
           "commit": "https://github.com/postscarcityai/yuigui/commit/08572326"
-        },
-        {
-          "key": "SITE-25",
-          "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)",
-          "summary": "The site catches up: what is on your phone, and what comes with build 57",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a6d18566"
         }
       ]
     }
