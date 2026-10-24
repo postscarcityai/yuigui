@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T21:45:25.253Z",
+  "updated": "2026-10-24T22:05:25.744Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5644,13 +5644,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#anyone-can-try-yui",
           "commit": "https://github.com/postscarcityai/yuigui/commit/74189862"
-        },
-        {
-          "key": "SOC-3",
-          "title": "Three marketing videos",
-          "shipped": "2026-09-24",
-          "progress": "/progress#three-short-videos-yui-in-15-seconds-yui-lines-in-30-your-hermes-on-your-phone-i",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e8aac8f4"
         }
       ]
     }
