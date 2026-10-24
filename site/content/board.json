@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T03:45:25.223Z",
+  "updated": "2026-10-24T04:05:25.250Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -6029,23 +6029,6 @@
           "summary": "Yui is open source",
           "shipped": "2026-09-24",
           "progress": "/progress#yui-is-open-source"
-        },
-        {
-          "key": "YUI-15",
-          "title": "Add and manage your own agents",
-          "summary": "Your agents are yours to add",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#your-agents-are-yours-to-add",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/439e66a8"
-        },
-        {
-          "key": "YUI-16",
-          "title": "Media presets (spec + web)",
-          "summary": "Yui Lines learn pictures and video",
-          "shipped": "2026-09-24",
-          "progress": "/progress#yui-lines-learn-pictures-and-video",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/31171602"
         }
       ]
     }
