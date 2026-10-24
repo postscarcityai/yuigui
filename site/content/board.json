@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T04:35:25.186Z",
+  "updated": "2026-10-24T04:40:31.738Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5971,20 +5971,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#the-board-is-public",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4830100e"
-        },
-        {
-          "key": "MVP-0",
-          "title": "MVP roadmap + deep backlog, reflected on yuigui.com",
-          "summary": "The MVP, and a bar that shows how close it is",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-mvp-and-a-bar-that-shows-how-close-it-is",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/93855803"
-        },
-        {
-          "key": "BIZ-4",
-          "title": "Content plan for Yui",
-          "shipped": "2026-09-24",
-          "progress": "/progress#a-content-plan-built-from-what-ships"
         }
       ]
     }
