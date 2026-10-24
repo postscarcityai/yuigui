@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T21:35:25.561Z",
+  "updated": "2026-10-24T21:45:25.253Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5651,14 +5651,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#three-short-videos-yui-in-15-seconds-yui-lines-in-30-your-hermes-on-your-phone-i",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e8aac8f4"
-        },
-        {
-          "key": "SITE-21",
-          "title": "Polish pass on /roadmap, /board, /progress and /changelog",
-          "summary": "Polish: the Roadmap tabs read current",
-          "shipped": "2026-09-24",
-          "progress": "/progress#polish-the-roadmap-tabs-read-current",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/680825bf"
         }
       ]
     }
