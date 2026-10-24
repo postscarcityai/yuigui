@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T15:40:32.424Z",
+  "updated": "2026-10-24T16:15:26.150Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5759,14 +5759,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#one-story-five-menu-items",
           "commit": "https://github.com/postscarcityai/yuigui/commit/282af278"
-        },
-        {
-          "key": "SITE-11",
-          "title": "Full freshness + polish pass on yuigui.com",
-          "summary": "The site catches up with the app",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-site-catches-up-with-the-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f23fcd9e"
         }
       ]
     }
