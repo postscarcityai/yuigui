@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T06:25:26.280Z",
+  "updated": "2026-10-24T07:15:25.804Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5883,15 +5883,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#pictures-in-photos-out",
           "commit": "https://github.com/postscarcityai/yuigui/commit/13ce7da8"
-        },
-        {
-          "key": "YUI-10",
-          "title": "Channel guide for every agent",
-          "summary": "The channel guide, now tested",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-channel-guide-now-tested",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a5ef916d"
         }
       ]
     }
