@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T22:50:25.975Z",
+  "updated": "2026-10-24T23:15:26.497Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5613,14 +5613,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a6d18566"
-        },
-        {
-          "key": "SITE-24",
-          "title": "Yui@home story",
-          "summary": "Yui@home: lend your idle agent to Yui",
-          "shipped": "2026-09-24",
-          "progress": "/progress#yui-home-lend-your-idle-agent-to-yui",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2d30ed26"
         }
       ]
     }
