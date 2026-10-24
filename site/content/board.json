@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T22:20:24.836Z",
+  "updated": "2026-10-24T22:40:31.302Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -175,7 +175,9 @@
         {
           "key": "YUI-342",
           "title": "Yuicss, tokens + classless defaults + utilities + components + the /yuicss gallery",
-          "waiting": true
+          "summary": "Yuicss: how Yui looks, as one stylesheet",
+          "waiting": true,
+          "progress": "/progress#yuicss-how-yui-looks-as-one-stylesheet"
         },
         {
           "key": "YUI-343",
