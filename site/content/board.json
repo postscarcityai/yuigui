@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T07:15:25.804Z",
+  "updated": "2026-10-24T07:50:26.962Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5875,14 +5875,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#every-preset-native-on-iphone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6540a119"
-        },
-        {
-          "key": "YUI-21",
-          "title": "Media pipeline",
-          "summary": "Pictures in, photos out",
-          "shipped": "2026-09-24",
-          "progress": "/progress#pictures-in-photos-out",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/13ce7da8"
         }
       ]
     }
