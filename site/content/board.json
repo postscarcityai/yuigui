@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T22:10:33.105Z",
+  "updated": "2026-10-24T22:15:25.256Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5627,14 +5627,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#get-started-the-specs-and-privacy-checked-for-strangers",
           "commit": "https://github.com/postscarcityai/yuigui/commit/73820440"
-        },
-        {
-          "key": "SITE-22",
-          "title": "Polish pass on / (home) and /business",
-          "summary": "Home and Business pages, cleaned up for a first visit",
-          "shipped": "2026-09-24",
-          "progress": "/progress#home-and-business-pages-cleaned-up-for-a-first-visit",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1be95bdc"
         }
       ]
     }
