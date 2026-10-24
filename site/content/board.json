@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T05:35:26.003Z",
+  "updated": "2026-10-24T06:05:25.330Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5901,14 +5901,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#change-your-answer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4a499feb"
-        },
-        {
-          "key": "YUI-13",
-          "title": "Immersive full-screen mode, agent decides; workouts always full screen",
-          "summary": "Full screen when it matters",
-          "shipped": "2026-09-24",
-          "progress": "/progress#full-screen-when-it-matters",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/88c9648b"
         }
       ]
     }
