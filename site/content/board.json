@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T04:05:25.250Z",
+  "updated": "2026-10-24T04:20:25.836Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -6022,13 +6022,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#yui-lines-learn-charts-equations-and-experiments",
           "commit": "https://github.com/postscarcityai/yuigui/commit/913bd93e"
-        },
-        {
-          "key": "OSS-1",
-          "title": "Open-source readiness",
-          "summary": "Yui is open source",
-          "shipped": "2026-09-24",
-          "progress": "/progress#yui-is-open-source"
         }
       ]
     }
