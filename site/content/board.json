@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T11:10:31.449Z",
+  "updated": "2026-10-24T12:20:25.530Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5822,15 +5822,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#ready-for-apple-s-beta-review-a-demo-agent-help-and-a-full-privacy-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/218dddf5"
-        },
-        {
-          "key": "YUI-26",
-          "title": "Safe for strangers",
-          "summary": "Safe for strangers: limits, an off switch, and 90 days of history",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#safe-for-strangers-limits-an-off-switch-and-90-days-of-history",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8ce48cf3"
         }
       ]
     }
