@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23T23:00:26.127Z",
+  "updated": "2026-10-24T02:30:25.581Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -6104,14 +6104,6 @@
           "mvp": true,
           "shipped": "2026-09-23",
           "progress": "/progress#yui-lines-has-a-test-suite"
-        },
-        {
-          "key": "YUI-2",
-          "title": "The app's look, light and dark",
-          "summary": "Yui gets a face",
-          "mvp": true,
-          "shipped": "2026-09-23",
-          "progress": "/progress#yui-gets-a-face"
         }
       ]
     }
