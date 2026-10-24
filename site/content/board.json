@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T19:45:25.051Z",
+  "updated": "2026-10-24T20:20:26.086Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5705,14 +5705,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#polish-developers-and-the-playground",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5f72dc20"
-        },
-        {
-          "key": "INT-2",
-          "title": "Generic webhook adapter, Python and Node",
-          "summary": "Not on Hermes? Any agent that answers a web request can talk in Yui now",
-          "shipped": "2026-09-24",
-          "progress": "/progress#not-on-hermes-any-agent-that-answers-a-web-request-can-talk-in-yui-now",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/7eddcdab"
         }
       ]
     }
