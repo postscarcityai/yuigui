@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T22:05:25.744Z",
+  "updated": "2026-10-24T22:10:33.105Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5635,15 +5635,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#home-and-business-pages-cleaned-up-for-a-first-visit",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1be95bdc"
-        },
-        {
-          "key": "YUI-22",
-          "title": "Public TestFlight link",
-          "summary": "Anyone can try Yui",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#anyone-can-try-yui",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/74189862"
         }
       ]
     }
