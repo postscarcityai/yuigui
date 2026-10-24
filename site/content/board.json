@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T21:30:24.809Z",
+  "updated": "2026-10-24T21:35:25.561Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -173,39 +173,28 @@
           "waiting": true
         },
         {
-          "key": "YUI-342",
-          "title": "Yuicss, tokens + classless defaults + utilities + components + the /yuicss gallery",
-          "waiting": true
-        },
-        {
           "key": "YUI-343",
-          "title": "YL screens, YL.md section 7 + reference parser + renderer + conformance + 5 playground screens",
-          "waiting": true
+          "title": "YL screens, YL.md section 7 + reference parser + renderer + conformance + 5 playground screens"
         },
         {
           "key": "YUI-344",
-          "title": "The 50-screen test and the Claude artifact bar",
-          "waiting": true
+          "title": "The 50-screen test and the Claude artifact bar"
         },
         {
           "key": "YUI-345",
-          "title": "YL screens parser ports, Python first, then Rust, Kotlin, Swift",
-          "waiting": true
+          "title": "YL screens parser ports, Python first, then Rust, Kotlin, Swift"
         },
         {
           "key": "YUI-346",
-          "title": "ScreenStage, the renderer in a web view on the stage, the bridge, YuiTokens.swift generated",
-          "waiting": true
+          "title": "ScreenStage, the renderer in a web view on the stage, the bridge, YuiTokens.swift generated"
         },
         {
           "key": "YUI-347",
-          "title": "The channel guide on one page, compat SCREEN_BUILD, Telegram fallback",
-          "waiting": true
+          "title": "The channel guide on one page, compat SCREEN_BUILD, Telegram fallback"
         },
         {
           "key": "YUI-348",
-          "title": "Presets as components inside screens, app chrome on yuicss tokens",
-          "waiting": true
+          "title": "Presets as components inside screens, app chrome on yuicss tokens"
         },
         {
           "key": "SITE-28",
@@ -345,6 +334,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-342",
+          "title": "Yuicss, tokens + classless defaults + utilities + components + the /yuicss gallery",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
