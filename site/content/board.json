@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T10:25:26.194Z",
+  "updated": "2026-10-24T11:10:31.449Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5831,15 +5831,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#safe-for-strangers-limits-an-off-switch-and-90-days-of-history",
           "commit": "https://github.com/postscarcityai/yuigui/commit/8ce48cf3"
-        },
-        {
-          "key": "YUI-28",
-          "title": "No lost messages",
-          "summary": "Nothing gets lost: sleeping Macs, dropped networks, killed apps",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#nothing-gets-lost-sleeping-macs-dropped-networks-killed-apps",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2fc5fbad"
         }
       ]
     }
