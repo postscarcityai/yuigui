@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T13:00:40.548Z",
+  "updated": "2026-10-25T13:15:39.534Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5345,14 +5345,6 @@
           "summary": "Yui screens in Telegram",
           "shipped": "2026-09-25",
           "progress": "/progress#yui-screens-in-telegram"
-        },
-        {
-          "key": "YUI-79",
-          "title": "No text bombs",
-          "summary": "No more text bombs",
-          "shipped": "2026-09-25",
-          "progress": "/progress#no-more-text-bombs",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f8"
         }
       ]
     }
