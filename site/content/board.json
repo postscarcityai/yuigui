@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T22:35:19.018Z",
+  "updated": "2026-10-25T22:50:12.131Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5136,13 +5136,6 @@
           "summary": "Group threads: the plumbing is live",
           "shipped": "2026-09-25",
           "progress": "/progress#group-threads-the-plumbing-is-live"
-        },
-        {
-          "key": "YUI-77",
-          "title": "Group threads, several agents in one conversation (YUI-44 step 2)",
-          "summary": "Group threads: several agents in one conversation, on paper and in the playground",
-          "shipped": "2026-09-25",
-          "progress": "/progress#group-threads-several-agents-in-one-conversation-on-paper-and-in-the-playground"
         }
       ]
     }
