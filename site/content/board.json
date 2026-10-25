@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T20:45:10.355Z",
+  "updated": "2026-10-25T21:10:11.400Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5116,21 +5116,6 @@
           "title": "Agents fill the drawer",
           "shipped": "2026-09-25",
           "progress": "/progress#agents-fill-the-drawer"
-        },
-        {
-          "key": "YUI-87",
-          "title": "Screens the phone's build can't draw arrive as words, not raw lines",
-          "summary": "Screens your Yui can't draw yet turn into words",
-          "shipped": "2026-09-25",
-          "progress": "/progress#screens-your-yui-can-t-draw-yet-turn-into-words"
-        },
-        {
-          "key": "YUI-88",
-          "title": "Cron failures never reach Chris, Yui handles them (Yui beta feedback)",
-          "summary": "Cron failures go to Yui, not to your chat",
-          "shipped": "2026-09-25",
-          "progress": "/progress#cron-failures-go-to-yui-not-to-your-chat",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e19ff681"
         }
       ]
     }
