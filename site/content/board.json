@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T19:20:09.956Z",
+  "updated": "2026-10-25T19:35:17.605Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5177,14 +5177,6 @@
           "summary": "The site reads like the app now",
           "shipped": "2026-09-25",
           "progress": "/progress#the-site-reads-like-the-app-now"
-        },
-        {
-          "key": "FLOW-1",
-          "title": "Flows",
-          "summary": "Flows, written in Mermaid",
-          "shipped": "2026-09-25",
-          "progress": "/progress#flows-written-in-mermaid",
-          "commit": "https://github.com/postscarcityai/yui/commit/deec1f8"
         }
       ]
     }
