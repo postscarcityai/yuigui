@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T07:20:40.736Z",
+  "updated": "2026-10-25T07:55:40.000Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5438,14 +5438,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#the-war-room-built-out",
           "commit": "https://github.com/postscarcityai/yuigui/commit/0216ee8b"
-        },
-        {
-          "key": "YUI-68",
-          "title": "Reply to a message",
-          "summary": "Reply to one message",
-          "shipped": "2026-09-25",
-          "progress": "/progress#reply-to-one-message",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ba629f0e"
         }
       ]
     }
