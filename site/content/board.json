@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T21:30:11.827Z",
+  "updated": "2026-10-25T21:45:11.690Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5161,13 +5161,6 @@
           "summary": "Meet Yui: an onboarding interview that suggests your first agents",
           "shipped": "2026-09-25",
           "progress": "/progress#meet-yui-an-onboarding-interview-that-suggests-your-first-agents"
-        },
-        {
-          "key": "SITE-35",
-          "title": "See it catches up",
-          "summary": "See it catches up with 0.2.0",
-          "shipped": "2026-09-25",
-          "progress": "/progress#see-it-catches-up-with-0-2-0"
         }
       ]
     }
