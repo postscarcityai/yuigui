@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T19:05:23.011Z",
+  "updated": "2026-10-25T19:10:11.330Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5193,13 +5193,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in",
           "commit": "https://github.com/postscarcityai/yuigui/commit/146d5bf1"
-        },
-        {
-          "key": "YUI-72",
-          "title": "Admin console, scope only",
-          "summary": "The admin console, scoped",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-admin-console-scoped"
         }
       ]
     }
