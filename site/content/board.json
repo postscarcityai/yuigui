@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T21:45:11.690Z",
+  "updated": "2026-10-25T21:50:11.608Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5154,13 +5154,6 @@
           "summary": "Connect your tools: the plan, and a flow you can try",
           "shipped": "2026-09-25",
           "progress": "/progress#connect-your-tools-the-plan-and-a-flow-you-can-try"
-        },
-        {
-          "key": "YUI-38",
-          "title": "Onboarding interview that builds your first agents",
-          "summary": "Meet Yui: an onboarding interview that suggests your first agents",
-          "shipped": "2026-09-25",
-          "progress": "/progress#meet-yui-an-onboarding-interview-that-suggests-your-first-agents"
         }
       ]
     }
