@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T21:10:11.400Z",
+  "updated": "2026-10-25T21:20:10.141Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -345,6 +345,13 @@
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-349",
+          "title": "Epic (APP+WEB, Chris)",
+          "summary": "Beats, the dialogue stage. Talk, anchors, waypoints, barge-in",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
@@ -5110,12 +5117,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#agents-keep-data-on-your-phone-tables",
           "commit": "https://github.com/postscarcityai/yui/commit/6730547"
-        },
-        {
-          "key": "YUI-86",
-          "title": "Agents fill the drawer",
-          "shipped": "2026-09-25",
-          "progress": "/progress#agents-fill-the-drawer"
         }
       ]
     }
