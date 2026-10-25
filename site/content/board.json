@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T23:50:13.006Z",
+  "updated": "2026-10-25T23:55:10.364Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -319,11 +319,6 @@
           "summary": "Beats, the dialogue stage. Talk, anchors, waypoints, barge-in"
         },
         {
-          "key": "YUI-351",
-          "title": "DLG-2 (WEB, now, Chris)",
-          "summary": "beats.mjs, plain text and YL in, beats and anchors out"
-        },
-        {
           "key": "YUI-352",
           "title": "DLG-3 (WEB, now, Chris)",
           "summary": "The dialogue prototype on the canvas, spoken beats, anchors, waypoints, talk over it"
@@ -405,6 +400,13 @@
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-351",
+          "title": "DLG-2 (WEB, now, Chris)",
+          "summary": "beats.mjs, plain text and YL in, beats and anchors out",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
@@ -5093,13 +5095,6 @@
           "summary": "Ask any agent to restyle Yui, in the app",
           "shipped": "2026-09-25",
           "progress": "/progress#ask-any-agent-to-restyle-yui-in-the-app"
-        },
-        {
-          "key": "YUI-95",
-          "title": "Shared agents in the app, step 2 of YUI-57 (migration, grant script, client-safe check, sim proof)",
-          "summary": "Share an agent with a client, and take it back",
-          "shipped": "2026-09-25",
-          "progress": "/progress#share-an-agent-with-a-client-and-take-it-back"
         }
       ]
     }
