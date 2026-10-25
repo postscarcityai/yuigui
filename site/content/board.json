@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T16:40:11.197Z",
+  "updated": "2026-10-25T17:05:17.106Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5268,13 +5268,6 @@
           "summary": "Microsoft Agent Framework agents in Yui",
           "shipped": "2026-09-25",
           "progress": "/progress#microsoft-agent-framework-agents-in-yui"
-        },
-        {
-          "key": "YUI-81",
-          "title": "The build-ready deck reads like a changelog for people",
-          "summary": "The build-ready message reads like a changelog for people",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-build-ready-message-reads-like-a-changelog-for-people"
         }
       ]
     }
