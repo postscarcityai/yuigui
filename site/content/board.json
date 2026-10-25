@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T11:10:39.824Z",
+  "updated": "2026-10-25T11:35:46.547Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5377,14 +5377,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#add-any-a2a-agent-by-its-agent-card",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7d2cb663"
-        },
-        {
-          "key": "YUI-64",
-          "title": "An agent that is paired but not listening says so",
-          "summary": "An agent that isn't listening yet says so",
-          "shipped": "2026-09-25",
-          "progress": "/progress#an-agent-that-isn-t-listening-yet-says-so",
-          "commit": "https://github.com/postscarcityai/yui/commit/580a604"
         }
       ]
     }
