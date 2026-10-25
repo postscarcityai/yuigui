@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T19:35:17.605Z",
+  "updated": "2026-10-25T19:55:10.361Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5170,13 +5170,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#yui-in-the-browser-has-a-brief-open-for-contributors",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2fdd7016"
-        },
-        {
-          "key": "SITE-34",
-          "title": "yuigui.com type pass, the site reads like the app's story pages",
-          "summary": "The site reads like the app now",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-site-reads-like-the-app-now"
         }
       ]
     }
