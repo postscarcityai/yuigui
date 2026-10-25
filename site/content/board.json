@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T17:15:10.562Z",
+  "updated": "2026-10-25T18:00:12.493Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5248,19 +5248,6 @@
           "summary": "Yui's values, written down",
           "shipped": "2026-09-25",
           "progress": "/progress#yui-s-values-written-down"
-        },
-        {
-          "key": "YUI-62",
-          "title": "Chat with a screen",
-          "shipped": "2026-09-25",
-          "progress": "/progress#chat-with-a-screen"
-        },
-        {
-          "key": "INT-13",
-          "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)",
-          "summary": "Flue agents in Yui",
-          "shipped": "2026-09-25",
-          "progress": "/progress#flue-agents-in-yui"
         }
       ]
     }
