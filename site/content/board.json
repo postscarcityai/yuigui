@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T10:50:40.681Z",
+  "updated": "2026-10-25T11:10:39.824Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5385,14 +5385,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#an-agent-that-isn-t-listening-yet-says-so",
           "commit": "https://github.com/postscarcityai/yui/commit/580a604"
-        },
-        {
-          "key": "INT-6",
-          "title": "Research",
-          "summary": "Where the hosted connector will run",
-          "shipped": "2026-09-25",
-          "progress": "/progress#where-the-hosted-connector-will-run",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/306da781"
         }
       ]
     }
