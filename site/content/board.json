@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T21:20:10.141Z",
+  "updated": "2026-10-25T21:25:11.082Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -314,6 +314,66 @@
           "waiting": true
         },
         {
+          "key": "YUI-349",
+          "title": "Epic (APP+WEB, Chris)",
+          "summary": "Beats, the dialogue stage. Talk, anchors, waypoints, barge-in"
+        },
+        {
+          "key": "YUI-351",
+          "title": "DLG-2 (WEB, now, Chris)",
+          "summary": "beats.mjs, plain text and YL in, beats and anchors out"
+        },
+        {
+          "key": "YUI-352",
+          "title": "DLG-3 (WEB, now, Chris)",
+          "summary": "The dialogue prototype on the canvas, spoken beats, anchors, waypoints, talk over it"
+        },
+        {
+          "key": "YUI-353",
+          "title": "DLG-4 (SPEC, now, Chris)",
+          "summary": "The words, YL 5b The dialogue, anchor and wait lines, RELAY flows, MOTION 0c, CHANNEL update"
+        },
+        {
+          "key": "YUI-354",
+          "title": "DLG-5 (PLUGIN)",
+          "summary": "Hermes streams beat rows, send_draft as flow rows, shim forwards real deltas (backlog)"
+        },
+        {
+          "key": "YUI-355",
+          "title": "DLG-6 (APP)",
+          "summary": "Flow rows become one turn live, Realtime for the open thread (backlog)"
+        },
+        {
+          "key": "YUI-356",
+          "title": "DLG-7 (APP)",
+          "summary": "BeatStage, anchors, Speaker, waypoints, behind the dialogue flag (backlog)"
+        },
+        {
+          "key": "YUI-357",
+          "title": "DLG-8 (APP)",
+          "summary": "Barge-in, voiceChat echo cancel, talking state (backlog)"
+        },
+        {
+          "key": "YUI-358",
+          "title": "DLG-9 (APP)",
+          "summary": "Reduce Motion, VoiceOver, memory ceiling (backlog)"
+        },
+        {
+          "key": "YUI-359",
+          "title": "DLG-10 (PLUGIN)",
+          "summary": "Native agents stream beats (backlog)"
+        },
+        {
+          "key": "YUI-360",
+          "title": "DLG-11 (APP+WEB)",
+          "summary": "The record is the timeline, the flag flips, DeckFilm path removed (backlog)"
+        },
+        {
+          "key": "YUI-361",
+          "title": "DLG-12 (SPEC/WEB)",
+          "summary": "Learn from a live week, tune inference (backlog)"
+        },
+        {
           "key": "SITE-272",
           "title": "Thought on YUI-340, time you can touch",
           "waiting": true
@@ -342,16 +402,15 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-321",
-          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
-          "blocked": "chris",
+          "key": "YUI-350",
+          "title": "DLG-1 (WEB, now, Chris)",
+          "summary": "The script, three exchanges written as beats (heart, what's left before launch, roast chicken)",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-349",
-          "title": "Epic (APP+WEB, Chris)",
-          "summary": "Beats, the dialogue stage. Talk, anchors, waypoints, barge-in",
-          "blocked": "other",
+          "key": "YUI-321",
+          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
