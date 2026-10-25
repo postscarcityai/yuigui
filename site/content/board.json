@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T08:40:39.750Z",
+  "updated": "2026-10-25T09:05:46.449Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5416,14 +5416,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#type-to-see-what-your-agent-can-do",
           "commit": "https://github.com/postscarcityai/yuigui/commit/881bbc2d"
-        },
-        {
-          "key": "INT-19",
-          "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)",
-          "summary": "Add Yui to Claude or ChatGPT by pasting one URL",
-          "shipped": "2026-09-25",
-          "progress": "/progress#add-yui-to-claude-or-chatgpt-by-pasting-one-url",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4cb9c8e3"
         }
       ]
     }
