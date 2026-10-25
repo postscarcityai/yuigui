@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T14:10:38.625Z",
+  "updated": "2026-10-25T14:45:20.038Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5310,13 +5310,6 @@
           "summary": "LangGraph agents in Yui",
           "shipped": "2026-09-25",
           "progress": "/progress#langgraph-agents-in-yui"
-        },
-        {
-          "key": "INT-11",
-          "title": "Meta Muse Spark adapter via the Meta Model API",
-          "summary": "Meta's Muse Spark in Yui",
-          "shipped": "2026-09-25",
-          "progress": "/progress#meta-s-muse-spark-in-yui"
         }
       ]
     }
