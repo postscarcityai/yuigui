@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T06:40:39.679Z",
+  "updated": "2026-10-25T07:05:45.658Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5454,13 +5454,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#claude-code-can-put-a-screen-on-your-phone-now",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3e049443"
-        },
-        {
-          "key": "SITE-32",
-          "title": "Site polish and depth pass",
-          "summary": "Polish and depth: every page checked, See it catches up",
-          "shipped": "2026-09-25",
-          "progress": "/progress#polish-and-depth-every-page-checked-see-it-catches-up"
         }
       ]
     }
