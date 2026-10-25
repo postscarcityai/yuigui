@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T02:25:25.795Z",
+  "updated": "2026-10-25T03:50:26.840Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5539,14 +5539,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of",
           "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b6"
-        },
-        {
-          "key": "SITE-27",
-          "title": "Build to earn, V1 page on yuigui.com",
-          "summary": "Build to earn, a first draft",
-          "shipped": "2026-09-24",
-          "progress": "/progress#build-to-earn-a-first-draft",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/69afe5be"
         }
       ]
     }
