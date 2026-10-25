@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T18:40:11.788Z",
+  "updated": "2026-10-25T18:50:11.278Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5214,13 +5214,6 @@
           "summary": "Yui Lines in Rust",
           "shipped": "2026-09-25",
           "progress": "/progress#yui-lines-in-rust"
-        },
-        {
-          "key": "INT-21",
-          "title": "AG-UI client, Yui screens as frontend tools (Agent Framework, CopilotKit, Mastra and others)",
-          "summary": "AG-UI agents in Yui",
-          "shipped": "2026-09-25",
-          "progress": "/progress#ag-ui-agents-in-yui"
         }
       ]
     }
