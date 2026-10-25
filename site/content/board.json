@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T12:55:40.240Z",
+  "updated": "2026-10-25T13:00:40.548Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5353,14 +5353,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#no-more-text-bombs",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f8"
-        },
-        {
-          "key": "INT-12",
-          "title": "Model connector for any OpenAI-compatible API (Ollama, LM Studio, vLLM)",
-          "summary": "Your own model, in Yui",
-          "shipped": "2026-09-25",
-          "progress": "/progress#your-own-model-in-yui",
-          "commit": "https://github.com/postscarcityai/yui/commit/e015c15"
         }
       ]
     }
