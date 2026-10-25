@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T23:45:26.681Z",
+  "updated": "2026-10-25T00:15:25.355Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5597,14 +5597,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#request-an-invite-the-waitlist-is-now-the-way-into-the-beta",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b79e4356"
-        },
-        {
-          "key": "YUI-55",
-          "title": "Test builds by link",
-          "summary": "Test builds by link: new app builds on the phone without TestFlight",
-          "shipped": "2026-09-24",
-          "progress": "/progress#test-builds-by-link-new-app-builds-on-the-phone-without-testflight",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/08572326"
         }
       ]
     }
