@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T05:45:41.168Z",
+  "updated": "2026-10-25T06:05:46.166Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5477,14 +5477,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#thoughts-yui-s-own-blog-pictures-first",
           "commit": "https://github.com/postscarcityai/yuigui/commit/40395e7d"
-        },
-        {
-          "key": "YUI-66",
-          "title": "Reorder mode",
-          "summary": "Drag the war room queue into your own order",
-          "shipped": "2026-09-25",
-          "progress": "/progress#drag-the-war-room-queue-into-your-own-order",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4295a921"
         }
       ]
     }
