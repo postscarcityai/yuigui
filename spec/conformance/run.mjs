@@ -8,6 +8,16 @@ import { apply, attachBody, doingOf, visualOf, flowEvent, flowPath, flowVariant,
 import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
 import { appLook, checks } from "../../site/lib/yl/look.mjs";
 import { loopVoices } from "../../site/lib/music/theory.mjs";
+import { beats, beatsView } from "../../site/lib/yl/beats.mjs";
+
+// beats.json (DLG-2, docs/plans/dialogue-stage.md section 4): a reply in, its beats and anchors out. `prev` holds the
+// earlier replies of the same conversation, read first, so ids, marks and anchors last into the follow-up.
+export function checkBeats(v) {
+  let prev = null;
+  for (const p of v.prev || []) prev = beats(p, { prev, yl: v.yl });
+  const got = beatsView(beats(v.input, { prev, known: v.known, yl: v.yl }));
+  return isDeepStrictEqual(got, v.expected) ? [] : [["beats", got]];
+}
 
 // Parser ops minus the fields that are not compared: `line` (the source
 // text) and an error's `message` (wording is up to each parser).
@@ -176,6 +186,21 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     pass += ok;
     console.log(`${ok === vectors.length ? "ok  " : "FAIL"} ${f.padEnd(34)} ${ok}/${vectors.length}`);
   }
-  console.log(`\n${pass} passed, ${fail} failed, ${pass + fail} vectors in ${files.length} files`);
+  // The beat builder's vectors: the JS reference only until the app mirrors it (DLG-7).
+  {
+    const { vectors } = JSON.parse(readFileSync(new URL("beats.json", dir), "utf8"));
+    let ok = 0;
+    for (const v of vectors) {
+      const fails = checkBeats(v);
+      if (!fails.length) { ok++; continue; }
+      fail++;
+      console.log(`FAIL beats.json :: ${v.name}`);
+      console.log(`  expected: ${JSON.stringify(v.expected)}`);
+      for (const [how, got] of fails) console.log(`  ${how}: ${JSON.stringify(got)}`);
+    }
+    pass += ok;
+    console.log(`${ok === vectors.length ? "ok  " : "FAIL"} ${"beats.json".padEnd(34)} ${ok}/${vectors.length}`);
+  }
+  console.log(`\n${pass} passed, ${fail} failed, ${pass + fail} vectors in ${files.length + 1} files`);
   process.exit(fail ? 1 : 0);
 }

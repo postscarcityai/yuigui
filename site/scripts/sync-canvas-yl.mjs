@@ -3,7 +3,7 @@
 //   node site/scripts/sync-canvas-yl.mjs          copy
 //   node site/scripts/sync-canvas-yl.mjs --check  exit 1 if a copy has drifted (test-yl.mjs runs this)
 import fs from "fs";
-const FILES = ["yl.mjs", "look.mjs", "tables.mjs", "shapes.mjs", "map.mjs", "world.mjs", "expr.mjs"];   // YUI-336: the map scene and the world outline; YUI-337: the calc expression engine
+const FILES = ["yl.mjs", "look.mjs", "tables.mjs", "shapes.mjs", "map.mjs", "world.mjs", "expr.mjs", "beats.mjs", "chunks.mjs", "readtext.mjs"];   // YUI-336: the map scene and the world outline; YUI-337: the calc expression engine; DLG-2: the beat builder and its two imports
 const from = new URL("../lib/yl/", import.meta.url), to = new URL("../public/playground/canvas/yl/", import.meta.url);
 const HEAD = "// Copy of site/lib/yl/ (YUI-325). Edit the original, then run node site/scripts/sync-canvas-yl.mjs.\n";
 const check = process.argv.includes("--check");

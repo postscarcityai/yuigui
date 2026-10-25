@@ -30,7 +30,7 @@ export function readInline(s) {
 
 // A label is a lead-in only when it is short and not a sentence, so "Note that: x" and times ("Meet at 9:30")
 // stay prose.
-function lead(line) {
+export function lead(line) {
   const mark = MARK.exec(line);
   const rest = mark ? line.slice(mark[0].length) : line;
   const m = KV.exec(rest);

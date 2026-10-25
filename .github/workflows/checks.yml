@@ -22,6 +22,8 @@ jobs:
         with: { node-version: 20 }
       - name: JavaScript parser
         run: cd spec/conformance && node run.mjs
+      - name: Beat builder
+        run: node site/lib/yl/beats.test.mjs
       - name: Python parser
         run: python3 parsers/python/conformance.py spec/conformance
       - name: Rust parser

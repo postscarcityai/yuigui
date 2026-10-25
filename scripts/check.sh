@@ -24,6 +24,7 @@ step() {
 trap 'rm -f /tmp/yuigui-check.$$' EXIT
 
 step "conformance (JS)"     bash -c 'cd spec/conformance && node run.mjs'
+step "beats (DLG-2)"         node site/lib/yl/beats.test.mjs
 step "conformance (Python)" python3 parsers/python/conformance.py spec/conformance
 if command -v cargo >/dev/null 2>&1; then
   step "conformance (Rust)" parsers/rust/run.sh spec/conformance

@@ -57,6 +57,8 @@ One file per area, `NN-area.json`:
 
 - `menu`: `{review, backlog, shortcut}`, the drawer's items after the whole input, each newest first (YL.md section 5, The drawer): an item is `{id, label, sub?, say?, show?, url?}`, labels cut at 60 characters. Checked against `menuOf` in JS and `YuiLines.menu` in Swift; the Python, Kotlin and Rust parsers pass the parse side of these vectors.
 
+- `beats.json` (not an `NN-` file, so only the JS runner reads it): the beat builder, `site/lib/yl/beats.mjs` (docs/plans/dialogue-stage.md section 4, DLG-2). Each vector is a reply (`input`, plain text, Yui Lines or both; `yl: true` reads it as Yui Lines), the earlier replies of the same conversation (`prev`, read first so ids, marks and anchors carry over) and `known` ids; `expected` is `beatsView` of the result: per beat its `line`, `anchor`, `pic` (`preset@id`), `patch` (target ids) and `wait`, then the `anchors` after the reply, a gathered `plan` and loose `questions`. The app mirrors it in DLG-7.
+
 - `route`: `{answers, path, open, event}`, a flow's runtime (FLOWS.md, section 4): for these answers, `flowPath` of the input's first flow gives `{path, open}` and `flowEvent` gives `event`. Checked against `flowPath`/`flowEvent` in JS and Kotlin and `flow_path`/`flow_event` in Python and Rust.
 
 - `variant`: `{base, graph, route?}`, a flow variant (FLOWS.md, section 9). `base` is a flow as YL lines; its patch, resolved, is the base graph. `flowVariant(base, changes)` with the changes from the input's first patch must give `graph`, `{start, nodes, edges}` (missing arrays as `[]`), and `route` (as above) is checked on that graph. Checked against `flowVariant` in JS and Kotlin and `flow_variant` in Python and Rust.

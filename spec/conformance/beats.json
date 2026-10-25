@@ -1,0 +1,1051 @@
+{
+ "version": "YL v0",
+ "area": "beats",
+ "spec": "docs/plans/dialogue-stage.md section 4",
+ "vectors": [
+  {
+   "name": "plain: one sentence is one beat, no anchor",
+   "input": "Build 160 is on TestFlight.",
+   "expected": {
+    "beats": [
+     {
+      "line": "Build 160 is on TestFlight."
+     }
+    ],
+    "anchors": []
+   }
+  },
+  {
+   "name": "plain: a short second sentence pairs into the first beat",
+   "input": "The heart is two pumps. Each one has two rooms.",
+   "expected": {
+    "beats": [
+     {
+      "line": "The heart is two pumps. Each one has two rooms.",
+      "anchor": "The heart is two pumps"
+     }
+    ],
+    "anchors": [
+     "The heart is two pumps"
+    ]
+   }
+  },
+  {
+   "name": "plain: a second sentence of 12 words or more is its own beat",
+   "input": "The heart is two pumps. The right one sends the blood that comes back from your body to the lungs.",
+   "expected": {
+    "beats": [
+     {
+      "line": "The heart is two pumps.",
+      "anchor": "The heart is two pumps"
+     },
+     {
+      "line": "The right one sends the blood that comes back from your body to the lungs."
+     }
+    ],
+    "anchors": [
+     "The heart is two pumps"
+    ]
+   }
+  },
+  {
+   "name": "plain: a paragraph of 2 or more sentences pins its first clause",
+   "input": "The heart is two pumps, side by side. The right side sends blood to the lungs. The left side sends it to the body, which needs more pressure.\n\nThat is why the left wall is thicker.",
+   "expected": {
+    "beats": [
+     {
+      "line": "The heart is two pumps, side by side. The right side sends blood to the lungs.",
+      "anchor": "The heart is two pumps"
+     },
+     {
+      "line": "The left side sends it to the body, which needs more pressure."
+     },
+     {
+      "line": "That is why the left wall is thicker."
+     }
+    ],
+    "anchors": [
+     "The heart is two pumps"
+    ]
+   }
+  },
+  {
+   "name": "plain: a first clause over 8 words pins nothing",
+   "input": "The heart is a muscle about the size of your fist and it never rests. It beats about a hundred thousand times a day.",
+   "expected": {
+    "beats": [
+     {
+      "line": "The heart is a muscle about the size of your fist and it never rests. It beats about a hundred thousand times a day."
+     }
+    ],
+    "anchors": []
+   }
+  },
+  {
+   "name": "plain: Label: value lines are anchors",
+   "input": "Build 160 is on TestFlight.\n\nStatus: green\nBuild: 160\n\n- Memory: green\n- Barge-in: in test",
+   "expected": {
+    "beats": [
+     {
+      "line": "Build 160 is on TestFlight."
+     },
+     {
+      "line": "Status: green",
+      "anchor": "Status: green"
+     },
+     {
+      "line": "Build: 160",
+      "anchor": "Build: 160"
+     },
+     {
+      "line": "Memory: green",
+      "anchor": "Memory: green"
+     },
+     {
+      "line": "Barge-in: in test",
+      "anchor": "Barge-in: in test"
+     }
+    ],
+    "anchors": [
+     "Status: green",
+     "Build: 160",
+     "Memory: green",
+     "Barge-in: in test"
+    ]
+   }
+  },
+  {
+   "name": "plain: a heading is an anchor for the beat after it",
+   "input": "## How the heart works\nIt has four rooms. Two on each side.",
+   "expected": {
+    "beats": [
+     {
+      "line": "It has four rooms. Two on each side.",
+      "anchor": "How the heart works"
+     }
+    ],
+    "anchors": [
+     "How the heart works"
+    ]
+   }
+  },
+  {
+   "name": "plain: periods in versions and e.g. do not end a sentence",
+   "input": "Yui 0.6.0 ships today, e.g. keys and chords. Try it tonight.",
+   "expected": {
+    "beats": [
+     {
+      "line": "Yui 0.6.0 ships today, e.g. keys and chords. Try it tonight.",
+      "anchor": "Yui 0.6.0 ships today"
+     }
+    ],
+    "anchors": [
+     "Yui 0.6.0 ships today"
+    ]
+   }
+  },
+  {
+   "name": "say: 8 words or fewer is an anchor",
+   "input": "say \"Three cards left.\"\nsay \"The memory check is green and it found no leaks across five agents.\"",
+   "expected": {
+    "beats": [
+     {
+      "line": "Three cards left.",
+      "anchor": "Three cards left"
+     },
+     {
+      "line": "The memory check is green and it found no leaks across five agents."
+     }
+    ],
+    "anchors": [
+     "Three cards left"
+    ]
+   }
+  },
+  {
+   "name": "say: a question or two sentences is not an anchor",
+   "input": "say \"Thursday works. Which slot?\"\nsay \"Want the left side?\"",
+   "expected": {
+    "beats": [
+     {
+      "line": "Thursday works. Which slot?"
+     },
+     {
+      "line": "Want the left side?"
+     }
+    ],
+    "anchors": []
+   }
+  },
+  {
+   "name": "page: the title is an anchor, the body the spoken lines",
+   "input": "deck \"The heart\"\npage \"Two pumps\" body=\"The right side sends blood to the lungs. The left side sends it to the body, all the way to your toes.\"\npage \"Thicker on the left\"\nend",
+   "expected": {
+    "beats": [
+     {
+      "line": "The right side sends blood to the lungs.",
+      "anchor": "Two pumps"
+     },
+     {
+      "line": "The left side sends it to the body, all the way to your toes."
+     },
+     {
+      "line": "Thicker on the left",
+      "anchor": "Thicker on the left"
+     }
+    ],
+    "anchors": [
+     "Two pumps",
+     "Thicker on the left"
+    ]
+   }
+  },
+  {
+   "name": "picture: attaches to the beat before it",
+   "input": "say \"Your heart, two pumps.\"\nshapes \"Heart\"\nshape@ra box \"right atrium\"\nshape@la box \"left atrium\"",
+   "expected": {
+    "beats": [
+     {
+      "line": "Your heart, two pumps.",
+      "anchor": "Your heart, two pumps",
+      "pic": "shapes@n2"
+     }
+    ],
+    "anchors": [
+     "Your heart, two pumps"
+    ]
+   }
+  },
+  {
+   "name": "picture: a beat that has one gives the next its own beat",
+   "input": "say \"Two pictures.\"\nstat 3 Sets\nchart bar \"Pressure\" x=Lungs|Body y=25|120",
+   "expected": {
+    "beats": [
+     {
+      "line": "Two pictures.",
+      "anchor": "Two pictures",
+      "pic": "stat@n2"
+     },
+     {
+      "pic": "chart@n3"
+     }
+    ],
+    "anchors": [
+     "Two pictures"
+    ]
+   }
+  },
+  {
+   "name": "patch: plays with the beat before it",
+   "input": "say \"The right side lights up.\"\n~ra tone=accent\n~rv tone=accent\nsay \"Then the left.\"\n~la tone=accent",
+   "known": {
+    "ra": "shape",
+    "rv": "shape",
+    "la": "shape"
+   },
+   "expected": {
+    "beats": [
+     {
+      "line": "The right side lights up.",
+      "anchor": "The right side lights up",
+      "patch": [
+       "ra",
+       "rv"
+      ]
+     },
+     {
+      "line": "Then the left.",
+      "anchor": "Then the left",
+      "patch": [
+       "la"
+      ]
+     }
+    ],
+    "anchors": [
+     "The right side lights up",
+     "Then the left"
+    ]
+   }
+  },
+  {
+   "name": "waypoint: a choose waits where it stands, not at the end",
+   "input": "say \"Two ways to go.\"\nchoose@way \"Which first?\" Left|Right\nsay \"Either is fine.\"",
+   "expected": {
+    "beats": [
+     {
+      "line": "Two ways to go.",
+      "anchor": "Two ways to go",
+      "wait": {
+       "id": "way",
+       "q": "Which first?",
+       "options": [
+        "Left",
+        "Right"
+       ]
+      }
+     },
+     {
+      "line": "Either is fine.",
+      "anchor": "Either is fine"
+     }
+    ],
+    "anchors": [
+     "Two ways to go",
+     "Either is fine"
+    ]
+   }
+  },
+  {
+   "name": "waypoint: a choose with no line before it is a beat of its own",
+   "input": "choose \"What are we training today?\" Push|Pull|Legs",
+   "expected": {
+    "beats": [
+     {
+      "wait": {
+       "id": "n1",
+       "q": "What are we training today?",
+       "options": [
+        "Push",
+        "Pull",
+        "Legs"
+       ]
+      }
+     }
+    ],
+    "anchors": []
+   }
+  },
+  {
+   "name": "plan: questions still gather to one screen",
+   "input": "say \"Before I go.\"\nplan@before \"Before I go\"\nchoose@ping \"Ping you?\" Yes|No\nask@note \"Anything else?\"\nend",
+   "expected": {
+    "beats": [
+     {
+      "line": "Before I go.",
+      "anchor": "Before I go"
+     }
+    ],
+    "anchors": [
+     "Before I go"
+    ],
+    "plan": {
+     "id": "before",
+     "questions": [
+      "ping",
+      "note"
+     ]
+    }
+   }
+  },
+  {
+   "name": "form: gathers, a slide is a waypoint",
+   "input": "say \"A couple of quick ones.\"\nform name:text! submit=\"Next\"\nslide \"How much do you know about AI?\" 1-5",
+   "expected": {
+    "beats": [
+     {
+      "line": "A couple of quick ones.",
+      "anchor": "A couple of quick ones",
+      "wait": {
+       "id": "n3",
+       "q": "How much do you know about AI?"
+      }
+     }
+    ],
+    "anchors": [
+     "A couple of quick ones"
+    ],
+    "questions": [
+     "n2"
+    ]
+   }
+  },
+  {
+   "name": "motion: the film is a beat, its api.say cues the spoken lines",
+   "input": "say \"Here is how it pumps.\"\nmotion \"the heart\"\n=== 0 4 pump\napi.say(\"Two pumps.\");\napi.say(\"Right to the lungs.\");\nend",
+   "expected": {
+    "beats": [
+     {
+      "line": "Here is how it pumps.",
+      "anchor": "Here is how it pumps"
+     },
+     {
+      "line": "Two pumps. Right to the lungs.",
+      "pic": "motion@n2"
+     }
+    ],
+    "anchors": [
+     "Here is how it pumps"
+    ]
+   }
+  },
+  {
+   "name": "marked: a reply with an anchor line pins only what it marks",
+   "input": "say \"Three cards are left.\"\nanchor \"3 cards left\"\nsay \"Done.\"\nsay \"Guide next.\"",
+   "expected": {
+    "beats": [
+     {
+      "line": "Three cards are left.",
+      "anchor": "3 cards left"
+     },
+     {
+      "line": "Done."
+     },
+     {
+      "line": "Guide next."
+     }
+    ],
+    "anchors": [
+     "3 cards left"
+    ]
+   }
+  },
+  {
+   "name": "marked: anchor sub= and to=",
+   "input": "say \"The right side goes to the lungs.\"\nanchor \"Right side: body to lungs\" sub=\"low pressure\" to=ra",
+   "expected": {
+    "beats": [
+     {
+      "line": "The right side goes to the lungs.",
+      "anchor": {
+       "text": "Right side: body to lungs",
+       "sub": "low pressure",
+       "to": "ra"
+      }
+     }
+    ],
+    "anchors": [
+     "Right side: body to lungs"
+    ]
+   }
+  },
+  {
+   "name": "wait: alone, the flow goes on after 6 s",
+   "input": "say \"That is the right side.\"\nwait",
+   "expected": {
+    "beats": [
+     {
+      "line": "That is the right side.",
+      "anchor": "That is the right side",
+      "wait": {
+       "bare": true
+      }
+     }
+    ],
+    "anchors": [
+     "That is the right side"
+    ]
+   }
+  },
+  {
+   "name": "wait +in: options that name a mark are drawn in, the rest are chips",
+   "input": "say \"Pick a side.\"\nshapes \"Heart\"\nshape@left box \"Left side\"\nshape@right box \"Right side\"\nwait@go \"Which side?\" \"Left side\"|\"Ask something\" +in",
+   "expected": {
+    "beats": [
+     {
+      "line": "Pick a side.",
+      "anchor": "Pick a side",
+      "pic": "shapes@n2",
+      "wait": {
+       "id": "go",
+       "q": "Which side?",
+       "options": [
+        "Left side",
+        "Ask something"
+       ],
+       "into": true,
+       "marks": {
+        "Left side": "left"
+       },
+       "chips": [
+        "Ask something"
+       ]
+      }
+     }
+    ],
+    "anchors": [
+     "Pick a side"
+    ]
+   }
+  },
+  {
+   "name": "mixed: text and a yui block keep their order",
+   "input": "Here is the plan.\n```yui\nshapes \"Heart\"\nshape@ra box \"right atrium\"\nchoose@c \"Which side?\" Left|Right\nsay \"Pick one and I go on.\"\n```\nAnything else?",
+   "expected": {
+    "beats": [
+     {
+      "line": "Here is the plan.",
+      "pic": "shapes@n1",
+      "wait": {
+       "id": "c",
+       "q": "Which side?",
+       "options": [
+        "Left",
+        "Right"
+       ]
+      }
+     },
+     {
+      "line": "Pick one and I go on.",
+      "anchor": "Pick one and I go on"
+     },
+     {
+      "line": "Anything else?"
+     }
+    ],
+    "anchors": [
+     "Pick one and I go on"
+    ]
+   }
+  },
+  {
+   "name": "follow-up: an earlier anchor is never pinned again, and an earlier mark is drawn in",
+   "input": "say \"Two pumps.\"\nanchor \"Two pumps\"\nsay \"Carry on?\"\nwait@go \"Carry on with the left side?\" \"Left side\"|\"Ask something\" +in",
+   "prev": [
+    "say \"The heart is two pumps.\"\nanchor \"Two pumps\"\nshapes \"Heart\"\nshape@left bracket from=8,1 to=8,6 label=\"Left side\""
+   ],
+   "expected": {
+    "beats": [
+     {
+      "line": "Two pumps."
+     },
+     {
+      "line": "Carry on?",
+      "wait": {
+       "id": "go",
+       "q": "Carry on with the left side?",
+       "options": [
+        "Left side",
+        "Ask something"
+       ],
+       "into": true,
+       "marks": {
+        "Left side": "left"
+       },
+       "chips": [
+        "Ask something"
+       ]
+      }
+     }
+    ],
+    "anchors": [
+     "Two pumps"
+    ]
+   }
+  },
+  {
+   "name": "auto wait: twelve beats with nothing to answer get a bare wait",
+   "input": "Point 1 is here and it is long enough to stand alone as a beat.\n\nPoint 2 is here and it is long enough to stand alone as a beat.\n\nPoint 3 is here and it is long enough to stand alone as a beat.\n\nPoint 4 is here and it is long enough to stand alone as a beat.\n\nPoint 5 is here and it is long enough to stand alone as a beat.\n\nPoint 6 is here and it is long enough to stand alone as a beat.\n\nPoint 7 is here and it is long enough to stand alone as a beat.\n\nPoint 8 is here and it is long enough to stand alone as a beat.\n\nPoint 9 is here and it is long enough to stand alone as a beat.\n\nPoint 10 is here and it is long enough to stand alone as a beat.\n\nPoint 11 is here and it is long enough to stand alone as a beat.\n\nPoint 12 is here and it is long enough to stand alone as a beat.\n\nPoint 13 is here and it is long enough to stand alone as a beat.",
+   "expected": {
+    "beats": [
+     {
+      "line": "Point 1 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 2 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 3 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 4 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 5 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 6 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 7 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 8 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 9 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 10 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 11 is here and it is long enough to stand alone as a beat."
+     },
+     {
+      "line": "Point 12 is here and it is long enough to stand alone as a beat.",
+      "wait": {
+       "bare": true,
+       "auto": true
+      }
+     },
+     {
+      "line": "Point 13 is here and it is long enough to stand alone as a beat."
+     }
+    ],
+    "anchors": []
+   }
+  },
+  {
+   "name": "script heart, reply 1",
+   "input": "say \"The heart is two pumps, side by side.\"\nanchor \"Two pumps\"\nshapes w=10 h=7 \"Your heart\" caption=\"Two pumps, side by side.\"\nshape@aorta pill aorta at=5.6,0.9 size=1.6,0.7 tone=mute\nshape@ra blob \"right atrium\" at=3.5,2.4 size=2.4,1.7 tone=mute +draw\nshape@la blob \"left atrium\" at=6.5,2.4 size=2.4,1.7 tone=mute +draw\nshape@rv blob \"right ventricle\" at=3.7,4.8 size=2.6,2.2 tone=mute +draw\nshape@lv blob \"left ventricle\" at=6.3,4.8 size=2.6,2.2 tone=mute +draw\nshape@left bracket from=8.4,1.6 to=8.4,6 label=\"Left side\" tone=mute\nshape@blue arrow from=ra to=rv tone=mute +dash\nshape@red arrow from=lv to=aorta tone=mute +dash\nsay \"The right side takes blood from the body and sends it to the lungs.\"\nanchor \"Right side: body to lungs\" sub=\"low pressure\"\n~ra tone=lavender +fill\n~rv tone=lavender +fill\n~blue tone=lavender",
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "The heart is two pumps, side by side.",
+      "anchor": "Two pumps",
+      "pic": "shapes@n2"
+     },
+     {
+      "line": "The right side takes blood from the body and sends it to the lungs.",
+      "anchor": {
+       "text": "Right side: body to lungs",
+       "sub": "low pressure"
+      },
+      "patch": [
+       "ra",
+       "rv",
+       "blue"
+      ]
+     }
+    ],
+    "anchors": [
+     "Two pumps",
+     "Right side: body to lungs"
+    ]
+   }
+  },
+  {
+   "name": "script heart, reply 2",
+   "input": "say \"Because the lungs need low pressure and the body needs high pressure.\"\nanchor \"Two pressures: lungs low, body high\"\nchart bar \"Pressure\" x=Lungs|Body y=25|120 unit=mmHg\nsay \"Want me to carry on with the left side?\"\n~left tone=accent +pulse\nwait@go \"Carry on with the left side?\" \"Left side\"|\"Ask something\" +in",
+   "prev": [
+    "say \"The heart is two pumps, side by side.\"\nanchor \"Two pumps\"\nshapes w=10 h=7 \"Your heart\" caption=\"Two pumps, side by side.\"\nshape@aorta pill aorta at=5.6,0.9 size=1.6,0.7 tone=mute\nshape@ra blob \"right atrium\" at=3.5,2.4 size=2.4,1.7 tone=mute +draw\nshape@la blob \"left atrium\" at=6.5,2.4 size=2.4,1.7 tone=mute +draw\nshape@rv blob \"right ventricle\" at=3.7,4.8 size=2.6,2.2 tone=mute +draw\nshape@lv blob \"left ventricle\" at=6.3,4.8 size=2.6,2.2 tone=mute +draw\nshape@left bracket from=8.4,1.6 to=8.4,6 label=\"Left side\" tone=mute\nshape@blue arrow from=ra to=rv tone=mute +dash\nshape@red arrow from=lv to=aorta tone=mute +dash\nsay \"The right side takes blood from the body and sends it to the lungs.\"\nanchor \"Right side: body to lungs\" sub=\"low pressure\"\n~ra tone=lavender +fill\n~rv tone=lavender +fill\n~blue tone=lavender"
+   ],
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Because the lungs need low pressure and the body needs high pressure.",
+      "anchor": "Two pressures: lungs low, body high",
+      "pic": "chart@n2"
+     },
+     {
+      "line": "Want me to carry on with the left side?",
+      "patch": [
+       "left"
+      ],
+      "wait": {
+       "id": "go",
+       "q": "Carry on with the left side?",
+       "options": [
+        "Left side",
+        "Ask something"
+       ],
+       "into": true,
+       "marks": {
+        "Left side": "left"
+       },
+       "chips": [
+        "Ask something"
+       ]
+      }
+     }
+    ],
+    "anchors": [
+     "Two pumps",
+     "Right side: body to lungs",
+     "Two pressures: lungs low, body high"
+    ]
+   }
+  },
+  {
+   "name": "script heart, reply 3",
+   "input": "say \"The left side takes the fresh blood back and pushes it out to the whole body.\"\nanchor \"Left side: lungs to body\"\n~la tone=accent +fill\n~lv tone=accent +fill\n~red tone=accent\nsay \"That is why the left wall is thicker: it pushes all the way to your toes.\"\n~lv size=2.9,2.4",
+   "prev": [
+    "say \"The heart is two pumps, side by side.\"\nanchor \"Two pumps\"\nshapes w=10 h=7 \"Your heart\" caption=\"Two pumps, side by side.\"\nshape@aorta pill aorta at=5.6,0.9 size=1.6,0.7 tone=mute\nshape@ra blob \"right atrium\" at=3.5,2.4 size=2.4,1.7 tone=mute +draw\nshape@la blob \"left atrium\" at=6.5,2.4 size=2.4,1.7 tone=mute +draw\nshape@rv blob \"right ventricle\" at=3.7,4.8 size=2.6,2.2 tone=mute +draw\nshape@lv blob \"left ventricle\" at=6.3,4.8 size=2.6,2.2 tone=mute +draw\nshape@left bracket from=8.4,1.6 to=8.4,6 label=\"Left side\" tone=mute\nshape@blue arrow from=ra to=rv tone=mute +dash\nshape@red arrow from=lv to=aorta tone=mute +dash\nsay \"The right side takes blood from the body and sends it to the lungs.\"\nanchor \"Right side: body to lungs\" sub=\"low pressure\"\n~ra tone=lavender +fill\n~rv tone=lavender +fill\n~blue tone=lavender",
+    "say \"Because the lungs need low pressure and the body needs high pressure.\"\nanchor \"Two pressures: lungs low, body high\"\nchart bar \"Pressure\" x=Lungs|Body y=25|120 unit=mmHg\nsay \"Want me to carry on with the left side?\"\n~left tone=accent +pulse\nwait@go \"Carry on with the left side?\" \"Left side\"|\"Ask something\" +in"
+   ],
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "The left side takes the fresh blood back and pushes it out to the whole body.",
+      "anchor": "Left side: lungs to body",
+      "patch": [
+       "la",
+       "lv",
+       "red"
+      ]
+     },
+     {
+      "line": "That is why the left wall is thicker: it pushes all the way to your toes.",
+      "patch": [
+       "lv"
+      ]
+     }
+    ],
+    "anchors": [
+     "Two pumps",
+     "Right side: body to lungs",
+     "Two pressures: lungs low, body high",
+     "Left side: lungs to body"
+    ]
+   }
+  },
+  {
+   "name": "script launch, reply 1",
+   "input": "say \"Three cards are left before launch.\"\nanchor \"3 cards left\"\ntimeline@launch \"Before launch\"\nnext@memory \"Memory check\"\nnext@barge \"Barge-in\"\nnext@guide \"Guide rewrite\"\nsay \"The memory check is green, no leaks across five agents.\"\nanchor \"Memory check: green\"\n~memory kind=done sub=\"no leaks\"\nsay \"Barge-in is in test, but only on the simulator so far.\"\nanchor \"Barge-in: in test\"\n~barge kind=now sub=\"in test, sim only\"",
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Three cards are left before launch.",
+      "anchor": "3 cards left",
+      "pic": "timeline@launch"
+     },
+     {
+      "line": "The memory check is green, no leaks across five agents.",
+      "anchor": "Memory check: green",
+      "patch": [
+       "memory"
+      ]
+     },
+     {
+      "line": "Barge-in is in test, but only on the simulator so far.",
+      "anchor": "Barge-in: in test",
+      "patch": [
+       "barge"
+      ]
+     }
+    ],
+    "anchors": [
+     "3 cards left",
+     "Memory check: green",
+     "Barge-in: in test"
+    ]
+   }
+  },
+  {
+   "name": "script launch, reply 2",
+   "input": "say \"Yes. The phone can hear its own voice, so it needs a test at full volume.\"\n~barge sub=\"echo test at full volume next\"\nsay \"The guide rewrite has not started yet.\"\nanchor \"Guide rewrite: not started\"\n~guide sub=\"not started\"\nsay \"Which one should go first?\"\nwait@first \"Which one first?\" \"Barge-in\"|\"Guide rewrite\" +in",
+   "prev": [
+    "say \"Three cards are left before launch.\"\nanchor \"3 cards left\"\ntimeline@launch \"Before launch\"\nnext@memory \"Memory check\"\nnext@barge \"Barge-in\"\nnext@guide \"Guide rewrite\"\nsay \"The memory check is green, no leaks across five agents.\"\nanchor \"Memory check: green\"\n~memory kind=done sub=\"no leaks\"\nsay \"Barge-in is in test, but only on the simulator so far.\"\nanchor \"Barge-in: in test\"\n~barge kind=now sub=\"in test, sim only\""
+   ],
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Yes. The phone can hear its own voice, so it needs a test at full volume.",
+      "patch": [
+       "barge"
+      ]
+     },
+     {
+      "line": "The guide rewrite has not started yet.",
+      "anchor": "Guide rewrite: not started",
+      "patch": [
+       "guide"
+      ]
+     },
+     {
+      "line": "Which one should go first?",
+      "wait": {
+       "id": "first",
+       "q": "Which one first?",
+       "options": [
+        "Barge-in",
+        "Guide rewrite"
+       ],
+       "into": true,
+       "marks": {
+        "Barge-in": "barge",
+        "Guide rewrite": "guide"
+       },
+       "chips": []
+      }
+     }
+    ],
+    "anchors": [
+     "3 cards left",
+     "Memory check: green",
+     "Barge-in: in test",
+     "Guide rewrite: not started"
+    ]
+   }
+  },
+  {
+   "name": "script launch, reply 3",
+   "input": "say \"Guide rewrite goes first. It moves to now, and I start it today.\"\nanchor \"Now: guide rewrite\"\n~guide kind=now sub=\"starts today\"",
+   "prev": [
+    "say \"Three cards are left before launch.\"\nanchor \"3 cards left\"\ntimeline@launch \"Before launch\"\nnext@memory \"Memory check\"\nnext@barge \"Barge-in\"\nnext@guide \"Guide rewrite\"\nsay \"The memory check is green, no leaks across five agents.\"\nanchor \"Memory check: green\"\n~memory kind=done sub=\"no leaks\"\nsay \"Barge-in is in test, but only on the simulator so far.\"\nanchor \"Barge-in: in test\"\n~barge kind=now sub=\"in test, sim only\"",
+    "say \"Yes. The phone can hear its own voice, so it needs a test at full volume.\"\n~barge sub=\"echo test at full volume next\"\nsay \"The guide rewrite has not started yet.\"\nanchor \"Guide rewrite: not started\"\n~guide sub=\"not started\"\nsay \"Which one should go first?\"\nwait@first \"Which one first?\" \"Barge-in\"|\"Guide rewrite\" +in"
+   ],
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Guide rewrite goes first. It moves to now, and I start it today.",
+      "anchor": "Now: guide rewrite",
+      "patch": [
+       "guide"
+      ]
+     }
+    ],
+    "anchors": [
+     "3 cards left",
+     "Memory check: green",
+     "Barge-in: in test",
+     "Guide rewrite: not started",
+     "Now: guide rewrite"
+    ]
+   }
+  },
+  {
+   "name": "script chicken, reply 1",
+   "input": "say \"Lemon garlic chicken takes about ninety minutes, and most of it is waiting.\"\nanchor \"About 90 minutes, mostly waiting\"\nshapes w=10 h=4 \"Roast chicken\" caption=\"Heat, prep, roast, rest.\"\nshape@oven circle \"Oven 220°C\" tone=mute\nshape arrow\nshape@prep box \"Prep 15 min\" tone=mute\nshape arrow\nshape@roast pill \"Roast 60 min\" tone=mute\nshape arrow\nshape@rest circle \"Rest 15 min\" tone=mute\nsay \"First, heat the oven to 220 degrees, so it is hot when the bird goes in.\"\nanchor \"Oven first: 220°C\"\n~oven tone=accent +pulse\nsay \"While it heats, rub the bird with butter, garlic and lemon zest, then put the lemon inside.\"\nanchor \"Butter, garlic, lemon\"\n~prep tone=accent",
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Lemon garlic chicken takes about ninety minutes, and most of it is waiting.",
+      "anchor": "About 90 minutes, mostly waiting",
+      "pic": "shapes@n2"
+     },
+     {
+      "line": "First, heat the oven to 220 degrees, so it is hot when the bird goes in.",
+      "anchor": "Oven first: 220°C",
+      "patch": [
+       "oven"
+      ]
+     },
+     {
+      "line": "While it heats, rub the bird with butter, garlic and lemon zest, then put the lemon inside.",
+      "anchor": "Butter, garlic, lemon",
+      "patch": [
+       "prep"
+      ]
+     }
+    ],
+    "anchors": [
+     "About 90 minutes, mostly waiting",
+     "Oven first: 220°C",
+     "Butter, garlic, lemon"
+    ]
+   }
+  },
+  {
+   "name": "script chicken, reply 2",
+   "input": "say \"Lime works. Use one lime, not two, because it is sharper.\"\nanchor \"Lime works: use one\"\n~shapes caption=\"Lime instead of lemon: one is enough.\"\nsay \"Tell me when the oven is hot, and I will start the roast timer.\"\nwait@hot \"Is the oven hot?\" \"It's hot\"|\"Not yet\"",
+   "prev": [
+    "say \"Lemon garlic chicken takes about ninety minutes, and most of it is waiting.\"\nanchor \"About 90 minutes, mostly waiting\"\nshapes w=10 h=4 \"Roast chicken\" caption=\"Heat, prep, roast, rest.\"\nshape@oven circle \"Oven 220°C\" tone=mute\nshape arrow\nshape@prep box \"Prep 15 min\" tone=mute\nshape arrow\nshape@roast pill \"Roast 60 min\" tone=mute\nshape arrow\nshape@rest circle \"Rest 15 min\" tone=mute\nsay \"First, heat the oven to 220 degrees, so it is hot when the bird goes in.\"\nanchor \"Oven first: 220°C\"\n~oven tone=accent +pulse\nsay \"While it heats, rub the bird with butter, garlic and lemon zest, then put the lemon inside.\"\nanchor \"Butter, garlic, lemon\"\n~prep tone=accent"
+   ],
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Lime works. Use one lime, not two, because it is sharper.",
+      "anchor": "Lime works: use one",
+      "patch": [
+       "shapes"
+      ]
+     },
+     {
+      "line": "Tell me when the oven is hot, and I will start the roast timer.",
+      "wait": {
+       "id": "hot",
+       "q": "Is the oven hot?",
+       "options": [
+        "It's hot",
+        "Not yet"
+       ]
+      }
+     }
+    ],
+    "anchors": [
+     "About 90 minutes, mostly waiting",
+     "Oven first: 220°C",
+     "Butter, garlic, lemon",
+     "Lime works: use one"
+    ]
+   }
+  },
+  {
+   "name": "script chicken, reply 3",
+   "input": "say \"In it goes. Sixty minutes, then check that the thigh reads 75 degrees.\"\nanchor \"Roast 60 min, thigh 75°C\"\n~roast tone=accent +pulse\ntimer@clock 60m \"Roast\" +inline +auto\nsay \"Then let it rest fifteen minutes before you carve.\"\nanchor \"Rest 15 min, then carve\"\n~rest tone=accent",
+   "prev": [
+    "say \"Lemon garlic chicken takes about ninety minutes, and most of it is waiting.\"\nanchor \"About 90 minutes, mostly waiting\"\nshapes w=10 h=4 \"Roast chicken\" caption=\"Heat, prep, roast, rest.\"\nshape@oven circle \"Oven 220°C\" tone=mute\nshape arrow\nshape@prep box \"Prep 15 min\" tone=mute\nshape arrow\nshape@roast pill \"Roast 60 min\" tone=mute\nshape arrow\nshape@rest circle \"Rest 15 min\" tone=mute\nsay \"First, heat the oven to 220 degrees, so it is hot when the bird goes in.\"\nanchor \"Oven first: 220°C\"\n~oven tone=accent +pulse\nsay \"While it heats, rub the bird with butter, garlic and lemon zest, then put the lemon inside.\"\nanchor \"Butter, garlic, lemon\"\n~prep tone=accent",
+    "say \"Lime works. Use one lime, not two, because it is sharper.\"\nanchor \"Lime works: use one\"\n~shapes caption=\"Lime instead of lemon: one is enough.\"\nsay \"Tell me when the oven is hot, and I will start the roast timer.\"\nwait@hot \"Is the oven hot?\" \"It's hot\"|\"Not yet\""
+   ],
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "In it goes. Sixty minutes, then check that the thigh reads 75 degrees.",
+      "anchor": "Roast 60 min, thigh 75°C",
+      "pic": "timer@clock",
+      "patch": [
+       "roast"
+      ]
+     },
+     {
+      "line": "Then let it rest fifteen minutes before you carve.",
+      "anchor": "Rest 15 min, then carve",
+      "patch": [
+       "rest"
+      ]
+     }
+    ],
+    "anchors": [
+     "About 90 minutes, mostly waiting",
+     "Oven first: 220°C",
+     "Butter, garlic, lemon",
+     "Lime works: use one",
+     "Roast 60 min, thigh 75°C",
+     "Rest 15 min, then carve"
+    ]
+   }
+  },
+  {
+   "name": "sample: Log a set",
+   "input": "say \"Set 3 done. 225 x 5, bar speed looked good.\"\nask \"Log this set?\"",
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Set 3 done. 225 x 5, bar speed looked good.",
+      "wait": {
+       "id": "n2",
+       "q": "Log this set?"
+      }
+     }
+    ],
+    "anchors": []
+   }
+  },
+  {
+   "name": "sample: Onboarding",
+   "input": "say \"Nice to meet you. A couple of quick ones.\"\nform name:text! goal:voice submit=\"Next\"\nslide \"How much do you know about AI?\" 1-5 \"Brand new\"|\"I run agents\"",
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Nice to meet you. A couple of quick ones.",
+      "wait": {
+       "id": "n3",
+       "q": "How much do you know about AI?"
+      }
+     }
+    ],
+    "anchors": [],
+    "questions": [
+     "n2"
+    ]
+   }
+  },
+  {
+   "name": "sample: Book a client call",
+   "input": "say \"Thursday works. Which slot?\"\nchoose \"Client call, Thursday\" \"3:00 pm\"|\"4:00 pm\" +other\nask \"Send the invite now?\" \"Yes, send\"|\"Not yet\"",
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Thursday works. Which slot?",
+      "wait": {
+       "id": "n2",
+       "q": "Client call, Thursday",
+       "options": [
+        "3:00 pm",
+        "4:00 pm"
+       ]
+      }
+     },
+     {
+      "wait": {
+       "id": "n3",
+       "q": "Send the invite now?",
+       "options": [
+        "Yes, send",
+        "Not yet"
+       ]
+      }
+     }
+    ],
+    "anchors": []
+   }
+  },
+  {
+   "name": "sample: Stage first: the reply plays full screen, the chat is the record",
+   "input": "doing \"Starting the 0.3.2 release\" 1/2\ndoing \"Checking what is ready\" 2/2\nsay \"0.3.2 is building. On TestFlight in about 40 minutes.\"\nshapes w=12 h=6 caption=\"Build, checks, TestFlight. You get a ping when it lands.\"\nshape@b box Build at=2,3 +fill +pulse\nshape arrow from=b to=c\nshape@c box Checks at=6,3 +dash\nshape arrow from=c to=t\nshape@t pill TestFlight at=10,3 size=3.2,1.4 tone=mint +dash\nsay \"Keys and chords ride along.\"\nshapes w=12 h=7 caption=\"A scale to play, a loop of chords to strum.\"\nshape box A at=1.5,2.6 size=1.3,3.6 +fill\nshape box B at=3,2.6 size=1.3,3.6 tone=mute\nshape box C at=4.5,2.6 size=1.3,3.6 +fill\nshape box D at=6,2.6 size=1.3,3.6 +fill\nshape box E at=7.5,2.6 size=1.3,3.6 +fill\nshape box F at=9,2.6 size=1.3,3.6 tone=mute\nshape box G at=10.5,2.6 size=1.3,3.6 +fill\nshape pill \"I V vi IV\" at=6,6 size=5,1.2 tone=mint +fill +grow\nsay \"The faster Send tap waits for 0.3.3.\"\nsketch \"In 0.3.2\" frame=window\nrow \"Keys and chords\" +hi\nrow \"Real drum sounds\" +hi\nrow \"Faster Send tap\" +x note=\"not done yet\"\nplan@before \"Before I go\" submit=Send\nchoose@ping \"Ping you when it lands?\" \"Yes, ping me\"|\"Only if it breaks\"\nchoose@try \"What do you want to try first?\" Keys|Chords|Drums\nend",
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "0.3.2 is building. On TestFlight in about 40 minutes.",
+      "pic": "shapes@n2"
+     },
+     {
+      "line": "Keys and chords ride along.",
+      "anchor": "Keys and chords ride along",
+      "pic": "shapes@n6"
+     },
+     {
+      "line": "The faster Send tap waits for 0.3.3.",
+      "anchor": "The faster Send tap waits for 0.3.3",
+      "pic": "sketch@n16"
+     }
+    ],
+    "anchors": [
+     "Keys and chords ride along",
+     "The faster Send tap waits for 0.3.3"
+    ],
+    "plan": {
+     "id": "before",
+     "questions": [
+      "ping",
+      "try"
+     ]
+    }
+   }
+  },
+  {
+   "name": "sample: Stage motion: the stage moves with the agent",
+   "input": "doing \"Reading your calendar\" 1/3\ndoing \"Checking the weather\" 2/3\ndoing \"Found a dry window\" 3/3\nsay \"Three runs this week, all dry.\"\nshapes w=9 h=3 caption=\"Tue, Thu, Sat. Rain on Wed.\"\nshape circle Tue at=1.2,1.5 size=1.9 tone=mint +fill +grow\nshape circle Wed at=3.4,1.5 size=1.4 tone=mute +dash\nshape circle Thu at=5.6,1.5 size=1.9 tone=mint +fill +grow\nshape circle Sat at=7.8,1.5 size=1.9 tone=mint +fill +grow\nsay \"Saturday is the long one.\"\nstat 8km \"Saturday\" sub=\"easy pace\"\nchoose \"Morning or evening?\" Morning|Evening\nchoose \"Ping you before each run?\" Yes|No",
+   "yl": true,
+   "expected": {
+    "beats": [
+     {
+      "line": "Three runs this week, all dry.",
+      "anchor": "Three runs this week, all dry",
+      "pic": "shapes@n2"
+     },
+     {
+      "line": "Saturday is the long one.",
+      "anchor": "Saturday is the long one",
+      "pic": "stat@n8",
+      "wait": {
+       "id": "n9",
+       "q": "Morning or evening?",
+       "options": [
+        "Morning",
+        "Evening"
+       ]
+      }
+     },
+     {
+      "wait": {
+       "id": "n10",
+       "q": "Ping you before each run?",
+       "options": [
+        "Yes",
+        "No"
+       ]
+      }
+     }
+    ],
+    "anchors": [
+     "Three runs this week, all dry",
+     "Saturday is the long one"
+    ]
+   }
+  }
+ ]
+}
