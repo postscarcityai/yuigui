@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T13:35:46.218Z",
+  "updated": "2026-10-25T13:50:39.570Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5331,13 +5331,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#the-chat-never-gets-stuck-shrunk",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f8"
-        },
-        {
-          "key": "INT-9",
-          "title": "Gemini adapter, as a model or an A2A agent",
-          "summary": "Gemini in Yui, two ways",
-          "shipped": "2026-09-25",
-          "progress": "/progress#gemini-in-yui-two-ways"
         }
       ]
     }
