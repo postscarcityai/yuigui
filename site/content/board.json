@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T08:30:40.045Z",
+  "updated": "2026-10-25T08:40:39.750Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5424,13 +5424,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#add-yui-to-claude-or-chatgpt-by-pasting-one-url",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4cb9c8e3"
-        },
-        {
-          "key": "YUI-67",
-          "title": "Card cta with url= sends a tap instead of opening Safari",
-          "summary": "Links in a card open Safari",
-          "shipped": "2026-09-25",
-          "progress": "/progress#links-in-a-card-open-safari"
         }
       ]
     }
