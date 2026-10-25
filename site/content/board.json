@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T09:05:46.449Z",
+  "updated": "2026-10-25T09:25:39.947Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5408,14 +5408,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#another-agent-from-any-thread",
           "commit": "https://github.com/postscarcityai/yui/commit/1783873"
-        },
-        {
-          "key": "YUI-61",
-          "title": "Slash commands in the composer",
-          "summary": "Type / to see what your agent can do",
-          "shipped": "2026-09-25",
-          "progress": "/progress#type-to-see-what-your-agent-can-do",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/881bbc2d"
         }
       ]
     }
