@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T03:50:26.840Z",
+  "updated": "2026-10-25T05:10:39.526Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5531,14 +5531,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a903fbed"
-        },
-        {
-          "key": "YUI-70",
-          "title": "Chat gestures",
-          "summary": "Swipe a bubble left to reply, hold for reactions + copy, drag the background to switch screens",
-          "shipped": "2026-09-25",
-          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b6"
         }
       ]
     }
