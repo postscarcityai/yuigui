@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T06:25:40.932Z",
+  "updated": "2026-10-25T06:40:39.679Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5461,14 +5461,6 @@
           "summary": "Polish and depth: every page checked, See it catches up",
           "shipped": "2026-09-25",
           "progress": "/progress#polish-and-depth-every-page-checked-see-it-catches-up"
-        },
-        {
-          "key": "YUI-59",
-          "title": "Game presets",
-          "summary": "Games: tic-tac-toe, snake and memory",
-          "shipped": "2026-09-25",
-          "progress": "/progress#games-tic-tac-toe-snake-and-memory",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/10d063df"
         }
       ]
     }
