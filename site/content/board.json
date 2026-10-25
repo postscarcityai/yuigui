@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T11:35:46.547Z",
+  "updated": "2026-10-25T12:05:46.770Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5369,14 +5369,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#the-chat-stays-on-your-newest-message",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f8"
-        },
-        {
-          "key": "INT-18",
-          "title": "A2A client, add any agent by its Agent Card",
-          "summary": "Add any A2A agent by its Agent Card",
-          "shipped": "2026-09-25",
-          "progress": "/progress#add-any-a2a-agent-by-its-agent-card",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/7d2cb663"
         }
       ]
     }
