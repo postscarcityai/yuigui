@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T19:10:11.330Z",
+  "updated": "2026-10-25T19:20:09.956Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5185,14 +5185,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#flows-written-in-mermaid",
           "commit": "https://github.com/postscarcityai/yui/commit/deec1f8"
-        },
-        {
-          "key": "YUI-56",
-          "title": "Invites end to end",
-          "summary": "Invites: ask, get approved, Apple emails you, sign in and you're in",
-          "shipped": "2026-09-25",
-          "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/146d5bf1"
         }
       ]
     }
