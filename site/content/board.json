@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T01:45:25.683Z",
+  "updated": "2026-10-25T02:05:26.936Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5564,15 +5564,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#build-57-every-fix-you-sent-is-on-your-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9d0b0235"
-        },
-        {
-          "key": "YUI-50",
-          "title": "Chat polish: composer clears, send animation, jump to bottom",
-          "summary": "Scroll up, and one arrow brings you back",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#scroll-up-and-one-arrow-brings-you-back",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/35b7021c"
         }
       ]
     }
