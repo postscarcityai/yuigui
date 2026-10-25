@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T00:15:25.355Z",
+  "updated": "2026-10-25T01:15:25.908Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5589,14 +5589,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#the-timer-keeps-counting-on-the-lock-screen",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e0b71323"
-        },
-        {
-          "key": "SITE-26",
-          "title": "'Request an invite' replaces the waitlist",
-          "summary": "Request an invite: the waitlist is now the way into the beta",
-          "shipped": "2026-09-24",
-          "progress": "/progress#request-an-invite-the-waitlist-is-now-the-way-into-the-beta",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b79e4356"
         }
       ]
     }
