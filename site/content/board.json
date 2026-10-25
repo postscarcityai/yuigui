@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T22:10:10.017Z",
+  "updated": "2026-10-25T22:20:10.224Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5150,13 +5150,6 @@
           "summary": "Settings says exactly which Yui is on your phone",
           "shipped": "2026-09-25",
           "progress": "/progress#settings-says-exactly-which-yui-is-on-your-phone"
-        },
-        {
-          "key": "YUI-39",
-          "title": "Connector library",
-          "summary": "Connect your tools: the plan, and a flow you can try",
-          "shipped": "2026-09-25",
-          "progress": "/progress#connect-your-tools-the-plan-and-a-flow-you-can-try"
         }
       ]
     }
