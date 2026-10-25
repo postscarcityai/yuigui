@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T22:05:18.092Z",
+  "updated": "2026-10-25T22:10:10.017Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -319,11 +319,6 @@
           "summary": "Beats, the dialogue stage. Talk, anchors, waypoints, barge-in"
         },
         {
-          "key": "YUI-351",
-          "title": "DLG-2 (WEB, now, Chris)",
-          "summary": "beats.mjs, plain text and YL in, beats and anchors out"
-        },
-        {
           "key": "YUI-352",
           "title": "DLG-3 (WEB, now, Chris)",
           "summary": "The dialogue prototype on the canvas, spoken beats, anchors, waypoints, talk over it"
@@ -402,10 +397,9 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-350",
-          "title": "DLG-1 (WEB, now, Chris)",
-          "summary": "Beats, step one: three conversations written as beats",
-          "progress": "/progress#beats-step-one-three-conversations-written-as-beats",
+          "key": "YUI-351",
+          "title": "DLG-2 (WEB, now, Chris)",
+          "summary": "beats.mjs, plain text and YL in, beats and anchors out",
           "owner": "CJohnDesign"
         },
         {
@@ -420,6 +414,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-350",
+          "title": "DLG-1 (WEB, now, Chris)",
+          "summary": "Beats, step one: three conversations written as beats",
+          "shipped": "2026-10-25",
+          "progress": "/progress#beats-step-one-three-conversations-written-as-beats",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c9ccc5d7"
+        },
         {
           "key": "SITE-271",
           "title": "Thought on YUI-339, music you can touch",
