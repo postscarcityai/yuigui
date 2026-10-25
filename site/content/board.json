@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T22:50:12.131Z",
+  "updated": "2026-10-25T23:10:12.529Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5122,20 +5122,6 @@
           "summary": "Invite a client and their agents are already there, on paper and in the playground",
           "shipped": "2026-09-25",
           "progress": "/progress#invite-a-client-and-their-agents-are-already-there-on-paper-and-in-the-playgroun"
-        },
-        {
-          "key": "SITE-36",
-          "title": "The site catches up to Yui 0.2.0 the moment build 118 is VALID",
-          "summary": "See it catches up with 0.2.0",
-          "shipped": "2026-09-25",
-          "progress": "/progress#see-it-catches-up-with-0-2-0"
-        },
-        {
-          "key": "YUI-93",
-          "title": "Group threads in the app, step 2 of YUI-77 (migration, plugin, native)",
-          "summary": "Group threads: the plumbing is live",
-          "shipped": "2026-09-25",
-          "progress": "/progress#group-threads-the-plumbing-is-live"
         }
       ]
     }
