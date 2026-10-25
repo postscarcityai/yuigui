@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T16:10:10.417Z",
+  "updated": "2026-10-25T16:40:11.197Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5275,13 +5275,6 @@
           "summary": "The build-ready message reads like a changelog for people",
           "shipped": "2026-09-25",
           "progress": "/progress#the-build-ready-message-reads-like-a-changelog-for-people"
-        },
-        {
-          "key": "INT-15",
-          "title": "CrewAI adapter",
-          "summary": "CrewAI agents in Yui",
-          "shipped": "2026-09-25",
-          "progress": "/progress#crewai-agents-in-yui"
         }
       ]
     }
