@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T09:25:39.947Z",
+  "updated": "2026-10-25T10:20:40.077Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5400,14 +5400,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#one-working-row-instead-of-dots-plus-a-timer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/273622ad"
-        },
-        {
-          "key": "YUI-44",
-          "title": "@mention an agent, then group threads",
-          "summary": "@ another agent from any thread",
-          "shipped": "2026-09-25",
-          "progress": "/progress#another-agent-from-any-thread",
-          "commit": "https://github.com/postscarcityai/yui/commit/1783873"
         }
       ]
     }
