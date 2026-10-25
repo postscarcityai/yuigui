@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T05:10:39.526Z",
+  "updated": "2026-10-25T05:30:38.707Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5507,30 +5507,6 @@
           "summary": "Build to earn, the proposal",
           "shipped": "2026-09-25",
           "progress": "/progress#build-to-earn-the-proposal"
-        },
-        {
-          "key": "YUI-51",
-          "title": "Multi-step screens that fold back into chat as your own messages",
-          "summary": "Read, answer, send once: a plan is now one full-screen flow",
-          "shipped": "2026-09-25",
-          "progress": "/progress#read-answer-send-once-a-plan-is-now-one-full-screen-flow",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9c83f860"
-        },
-        {
-          "key": "YUI-32",
-          "title": "Named screens",
-          "summary": "Save a screen, bring it back with two tokens: every agent gets a shelf",
-          "shipped": "2026-09-25",
-          "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/169cc774"
-        },
-        {
-          "key": "YUI-31",
-          "title": "Three screens per agent with animated transitions",
-          "summary": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
-          "shipped": "2026-09-25",
-          "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a903fbed"
         }
       ]
     }
