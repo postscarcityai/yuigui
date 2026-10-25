@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T18:00:12.493Z",
+  "updated": "2026-10-25T18:10:11.208Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5241,13 +5241,6 @@
           "summary": "Agents can draw now",
           "shipped": "2026-09-25",
           "progress": "/progress#agents-can-draw-now"
-        },
-        {
-          "key": "SITE-33",
-          "title": "Yui's core values page, from Chris's feedback",
-          "summary": "Yui's values, written down",
-          "shipped": "2026-09-25",
-          "progress": "/progress#yui-s-values-written-down"
         }
       ]
     }
