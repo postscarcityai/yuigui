@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T23:20:16.788Z",
+  "updated": "2026-10-25T23:40:11.437Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5108,13 +5108,6 @@
           "summary": "Make Yui feel like autumn: restyle the app by asking, on paper and in the playground",
           "shipped": "2026-09-25",
           "progress": "/progress#make-yui-feel-like-autumn-restyle-the-app-by-asking-on-paper-and-in-the-playgrou"
-        },
-        {
-          "key": "SITE-37",
-          "title": "0.2.0 catch-up",
-          "summary": "See it catches up with 0.2.0",
-          "shipped": "2026-09-25",
-          "progress": "/progress#see-it-catches-up-with-0-2-0"
         }
       ]
     }
