@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T18:50:11.278Z",
+  "updated": "2026-10-25T18:55:11.444Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5207,13 +5207,6 @@
           "summary": "The app draws",
           "shipped": "2026-09-25",
           "progress": "/progress#the-app-draws"
-        },
-        {
-          "key": "OSS-4",
-          "title": "Yui Lines parser in Rust",
-          "summary": "Yui Lines in Rust",
-          "shipped": "2026-09-25",
-          "progress": "/progress#yui-lines-in-rust"
         }
       ]
     }
