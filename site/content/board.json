@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T05:30:38.707Z",
+  "updated": "2026-10-25T05:40:40.945Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5493,20 +5493,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#a-timeline-for-the-war-room",
           "commit": "https://github.com/postscarcityai/yuigui/commit/77f9f166"
-        },
-        {
-          "key": "SITE-31",
-          "title": "yuigui.com freshness sweep",
-          "summary": "The site catches up, again",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-site-catches-up-again"
-        },
-        {
-          "key": "SITE-29",
-          "title": "Build to earn proposal",
-          "summary": "Build to earn, the proposal",
-          "shipped": "2026-09-25",
-          "progress": "/progress#build-to-earn-the-proposal"
         }
       ]
     }
