@@ -1,6 +1,40 @@
 {
   "builds": [
     {
+      "build": 591,
+      "date": "2026-10-25",
+      "uploaded": "2026-10-25T07:24:06-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Yui 0.6.5: daily release, 2026-10-07 [YUI-SHIP]"
+        },
+        {
+          "text": "MOTION-25: a thing the film had to draw is drawn again in the background, checked, and kept; the second ask is a seed hit"
+        },
+        {
+          "text": "MOTION-25: the learner finds its judge in a clean yuigui checkout first"
+        },
+        {
+          "text": "MOTION-27: native agents make films; explainers ask for a motion line, not a deck"
+        },
+        {
+          "text": "health_probe: treat a non-list logs response as a probe failure, not a crash",
+          "card": "YUI-211"
+        },
+        {
+          "text": "health_probe: position() instead of LIKE for the logs query, LIKE '%yui-native%' now returns Backend error",
+          "card": "YUI-211"
+        },
+        {
+          "text": "Merge branch 'claude/immersive'"
+        },
+        {
+          "text": "Merge branch 'claude/crew-tools': an agent and Gouda tools work as intended"
+        }
+      ]
+    },
+    {
       "build": 576,
       "date": "2026-10-07",
       "uploaded": "2026-10-07T11:33:37-07:00",
@@ -2326,29 +2360,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Yui 0.6.5: daily release, 2026-10-07 [YUI-SHIP]"
-    },
-    {
-      "text": "MOTION-25: a thing the film had to draw is drawn again in the background, checked, and kept; the second ask is a seed hit"
-    },
-    {
-      "text": "MOTION-25: the learner finds its judge in a clean yuigui checkout first"
-    },
-    {
-      "text": "MOTION-27: native agents make films; explainers ask for a motion line, not a deck"
-    },
-    {
-      "text": "health_probe: treat a non-list logs response as a probe failure, not a crash",
-      "card": "YUI-211"
-    },
-    {
-      "text": "health_probe: position() instead of LIKE for the logs query, LIKE '%yui-native%' now returns Backend error",
-      "card": "YUI-211"
-    },
-    {
-      "text": "Merge branch 'claude/immersive'"
-    }
-  ]
+  "next": []
 }
