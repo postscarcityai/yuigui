@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T17:05:17.106Z",
+  "updated": "2026-10-25T17:15:10.562Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5261,13 +5261,6 @@
           "summary": "Flue agents in Yui",
           "shipped": "2026-09-25",
           "progress": "/progress#flue-agents-in-yui"
-        },
-        {
-          "key": "INT-16",
-          "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike",
-          "summary": "Microsoft Agent Framework agents in Yui",
-          "shipped": "2026-09-25",
-          "progress": "/progress#microsoft-agent-framework-agents-in-yui"
         }
       ]
     }
