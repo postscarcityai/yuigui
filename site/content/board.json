@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T18:55:11.444Z",
+  "updated": "2026-10-25T19:05:23.011Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5200,13 +5200,6 @@
           "summary": "The admin console, scoped",
           "shipped": "2026-09-25",
           "progress": "/progress#the-admin-console-scoped"
-        },
-        {
-          "key": "YUI-84",
-          "title": "The app draws sketch pictures on story pages (native port of YUI-83)",
-          "summary": "The app draws",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-app-draws"
         }
       ]
     }
