@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T05:40:40.945Z",
+  "updated": "2026-10-25T05:45:41.168Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5485,14 +5485,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#drag-the-war-room-queue-into-your-own-order",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4295a921"
-        },
-        {
-          "key": "YUI-65",
-          "title": "War room dashboard",
-          "summary": "A timeline for the war room",
-          "shipped": "2026-09-25",
-          "progress": "/progress#a-timeline-for-the-war-room",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/77f9f166"
         }
       ]
     }
