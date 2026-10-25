@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T06:05:46.166Z",
+  "updated": "2026-10-25T06:25:40.932Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5469,14 +5469,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#games-tic-tac-toe-snake-and-memory",
           "commit": "https://github.com/postscarcityai/yuigui/commit/10d063df"
-        },
-        {
-          "key": "SITE-30",
-          "title": "Thoughts, Yui's blog",
-          "summary": "Thoughts: Yui's own blog, pictures first",
-          "shipped": "2026-09-25",
-          "progress": "/progress#thoughts-yui-s-own-blog-pictures-first",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/40395e7d"
         }
       ]
     }
