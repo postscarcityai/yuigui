@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T14:45:20.038Z",
+  "updated": "2026-10-25T15:20:10.539Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5296,20 +5296,6 @@
           "summary": "The hold menu fits any message",
           "shipped": "2026-09-25",
           "progress": "/progress#the-hold-menu-fits-any-message"
-        },
-        {
-          "key": "YUI-76",
-          "title": "Agent bubbles render basic markdown (bold, code, lists)",
-          "summary": "Agent answers read clean",
-          "shipped": "2026-09-25",
-          "progress": "/progress#agent-answers-read-clean"
-        },
-        {
-          "key": "INT-14",
-          "title": "LangGraph adapter",
-          "summary": "LangGraph agents in Yui",
-          "shipped": "2026-09-25",
-          "progress": "/progress#langgraph-agents-in-yui"
         }
       ]
     }
