@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T13:15:39.534Z",
+  "updated": "2026-10-25T13:35:46.218Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5338,13 +5338,6 @@
           "summary": "Gemini in Yui, two ways",
           "shipped": "2026-09-25",
           "progress": "/progress#gemini-in-yui-two-ways"
-        },
-        {
-          "key": "INT-4",
-          "title": "Telegram fallback",
-          "summary": "Yui screens in Telegram",
-          "shipped": "2026-09-25",
-          "progress": "/progress#yui-screens-in-telegram"
         }
       ]
     }
