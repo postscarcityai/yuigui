@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T12:05:46.770Z",
+  "updated": "2026-10-25T12:55:40.240Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5361,14 +5361,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#your-own-model-in-yui",
           "commit": "https://github.com/postscarcityai/yui/commit/e015c15"
-        },
-        {
-          "key": "YUI-74",
-          "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)",
-          "summary": "The chat stays on your newest message",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-chat-stays-on-your-newest-message",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f8"
         }
       ]
     }
