@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T02:05:26.936Z",
+  "updated": "2026-10-25T02:25:25.795Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5547,23 +5547,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#build-to-earn-a-first-draft",
           "commit": "https://github.com/postscarcityai/yuigui/commit/69afe5be"
-        },
-        {
-          "key": "YUI-49",
-          "title": "React to a message (👍 build it, 👎, 🤔 ask me, ❤️, ⏳, 🔥)",
-          "summary": "React to a message: hold it, tap 👍, and your agent builds it",
-          "shipped": "2026-09-24",
-          "progress": "/progress#react-to-a-message-hold-it-tap-and-your-agent-builds-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a67e85ce"
-        },
-        {
-          "key": "YUI-52",
-          "title": "New TestFlight build with the feedback fixes",
-          "summary": "Build 57: every fix you sent is on your phone",
-          "mvp": true,
-          "shipped": "2026-09-24",
-          "progress": "/progress#build-57-every-fix-you-sent-is-on-your-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9d0b0235"
         }
       ]
     }
