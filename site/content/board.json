@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T19:55:10.361Z",
+  "updated": "2026-10-25T20:10:10.422Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5162,14 +5162,6 @@
           "summary": "Each agent gets a drawer",
           "shipped": "2026-09-25",
           "progress": "/progress#each-agent-gets-a-drawer"
-        },
-        {
-          "key": "YUI-71",
-          "title": "Yui in the browser",
-          "summary": "Yui in the browser has a brief, open for contributors",
-          "shipped": "2026-09-25",
-          "progress": "/progress#yui-in-the-browser-has-a-brief-open-for-contributors",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2fdd7016"
         }
       ]
     }
