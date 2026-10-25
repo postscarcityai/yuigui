@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T23:40:11.437Z",
+  "updated": "2026-10-25T23:50:13.006Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -319,6 +319,11 @@
           "summary": "Beats, the dialogue stage. Talk, anchors, waypoints, barge-in"
         },
         {
+          "key": "YUI-351",
+          "title": "DLG-2 (WEB, now, Chris)",
+          "summary": "beats.mjs, plain text and YL in, beats and anchors out"
+        },
+        {
           "key": "YUI-352",
           "title": "DLG-3 (WEB, now, Chris)",
           "summary": "The dialogue prototype on the canvas, spoken beats, anchors, waypoints, talk over it"
@@ -396,12 +401,6 @@
       "key": "building",
       "title": "Building",
       "cards": [
-        {
-          "key": "YUI-351",
-          "title": "DLG-2 (WEB, now, Chris)",
-          "summary": "beats.mjs, plain text and YL in, beats and anchors out",
-          "owner": "CJohnDesign"
-        },
         {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
@@ -5101,13 +5100,6 @@
           "summary": "Share an agent with a client, and take it back",
           "shipped": "2026-09-25",
           "progress": "/progress#share-an-agent-with-a-client-and-take-it-back"
-        },
-        {
-          "key": "YUI-43",
-          "title": "Restyle the app by asking",
-          "summary": "Make Yui feel like autumn: restyle the app by asking, on paper and in the playground",
-          "shipped": "2026-09-25",
-          "progress": "/progress#make-yui-feel-like-autumn-restyle-the-app-by-asking-on-paper-and-in-the-playgrou"
         }
       ]
     }
