@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T18:35:17.309Z",
+  "updated": "2026-10-25T18:40:11.788Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5221,13 +5221,6 @@
           "summary": "AG-UI agents in Yui",
           "shipped": "2026-09-25",
           "progress": "/progress#ag-ui-agents-in-yui"
-        },
-        {
-          "key": "YUI-60",
-          "title": "Yui Lines can describe a game, not just pick one",
-          "summary": "How an agent could make up a whole game",
-          "shipped": "2026-09-25",
-          "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
         }
       ]
     }
