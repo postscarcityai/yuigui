@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T07:05:45.658Z",
+  "updated": "2026-10-25T07:20:40.736Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5446,14 +5446,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#reply-to-one-message",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ba629f0e"
-        },
-        {
-          "key": "INT-3",
-          "title": "Yui MCP server",
-          "summary": "Claude Code can put a screen on your phone now",
-          "shipped": "2026-09-25",
-          "progress": "/progress#claude-code-can-put-a-screen-on-your-phone-now",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3e049443"
         }
       ]
     }
