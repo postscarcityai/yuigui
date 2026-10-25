@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T20:40:10.561Z",
+  "updated": "2026-10-25T20:45:10.355Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5131,14 +5131,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#cron-failures-go-to-yui-not-to-your-chat",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e19ff681"
-        },
-        {
-          "key": "YUI-58",
-          "title": "Yui for macOS, a matching desktop app",
-          "summary": "Yui for macOS has a brief, open for contributors",
-          "shipped": "2026-09-25",
-          "progress": "/progress#yui-for-macos-has-a-brief-open-for-contributors",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/69575593"
         }
       ]
     }
