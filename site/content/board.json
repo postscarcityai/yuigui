@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T07:55:40.000Z",
+  "updated": "2026-10-25T08:30:40.045Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5431,13 +5431,6 @@
           "summary": "Links in a card open Safari",
           "shipped": "2026-09-25",
           "progress": "/progress#links-in-a-card-open-safari"
-        },
-        {
-          "key": "YUI-73",
-          "title": "The war room, built out",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-war-room-built-out",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/0216ee8b"
         }
       ]
     }
