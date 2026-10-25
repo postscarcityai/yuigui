@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T20:20:11.118Z",
+  "updated": "2026-10-25T20:25:11.828Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5147,14 +5147,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#screens-update-in-place-instead-of-piling-up",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5d7739de"
-        },
-        {
-          "key": "FLOW-2",
-          "title": "Yui library/store on yuigui.com",
-          "summary": "The library: every screen and flow, live and searchable",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-library-every-screen-and-flow-live-and-searchable",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/37923ca1"
         }
       ]
     }
