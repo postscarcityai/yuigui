@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T13:50:39.570Z",
+  "updated": "2026-10-25T14:10:38.625Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5317,20 +5317,6 @@
           "summary": "Meta's Muse Spark in Yui",
           "shipped": "2026-09-25",
           "progress": "/progress#meta-s-muse-spark-in-yui"
-        },
-        {
-          "key": "INT-10",
-          "title": "Grok adapter, model connector or remote MCP",
-          "summary": "Grok in Yui, two ways",
-          "shipped": "2026-09-25",
-          "progress": "/progress#grok-in-yui-two-ways"
-        },
-        {
-          "key": "YUI-80",
-          "title": "The chat never gets stuck shrunk",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-chat-never-gets-stuck-shrunk",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f8"
         }
       ]
     }
