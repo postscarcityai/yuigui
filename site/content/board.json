@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T15:20:10.539Z",
+  "updated": "2026-10-25T16:05:16.407Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5289,13 +5289,6 @@
           "summary": "N8n workflows in Yui",
           "shipped": "2026-09-25",
           "progress": "/progress#n8n-workflows-in-yui"
-        },
-        {
-          "key": "YUI-78",
-          "title": "The hold menu fits on tall messages",
-          "summary": "The hold menu fits any message",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-hold-menu-fits-any-message"
         }
       ]
     }
