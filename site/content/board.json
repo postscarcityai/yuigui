@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T18:30:10.596Z",
+  "updated": "2026-10-25T18:35:17.309Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5228,12 +5228,6 @@
           "summary": "How an agent could make up a whole game",
           "shipped": "2026-09-25",
           "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
-        },
-        {
-          "key": "YUI-82",
-          "title": "Full-screen pages tell a story",
-          "shipped": "2026-09-25",
-          "progress": "/progress#full-screen-pages-tell-a-story"
         }
       ]
     }
