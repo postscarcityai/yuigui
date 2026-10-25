@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T01:15:25.908Z",
+  "updated": "2026-10-25T01:45:25.683Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5573,22 +5573,6 @@
           "shipped": "2026-09-24",
           "progress": "/progress#scroll-up-and-one-arrow-brings-you-back",
           "commit": "https://github.com/postscarcityai/yuigui/commit/35b7021c"
-        },
-        {
-          "key": "YUI-53",
-          "title": "No dead buttons",
-          "summary": "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'",
-          "shipped": "2026-09-24",
-          "progress": "/progress#no-dead-buttons-a-plan-ends-in-send-and-agents-stop-adding-got-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/65216e29"
-        },
-        {
-          "key": "YUI-30",
-          "title": "Timer on the lock screen",
-          "summary": "The timer keeps counting on the lock screen",
-          "shipped": "2026-09-24",
-          "progress": "/progress#the-timer-keeps-counting-on-the-lock-screen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e0b71323"
         }
       ]
     }
