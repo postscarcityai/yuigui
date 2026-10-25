@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T20:25:11.828Z",
+  "updated": "2026-10-25T20:40:10.561Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5139,14 +5139,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#yui-for-macos-has-a-brief-open-for-contributors",
           "commit": "https://github.com/postscarcityai/yuigui/commit/69575593"
-        },
-        {
-          "key": "YUI-75",
-          "title": "Ids on a page patch across replies, so the war room refreshes in place",
-          "summary": "Screens update in place instead of piling up",
-          "shipped": "2026-09-25",
-          "progress": "/progress#screens-update-in-place-instead-of-piling-up",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5d7739de"
         }
       ]
     }
