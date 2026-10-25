@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T21:50:11.608Z",
+  "updated": "2026-10-25T22:05:18.092Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -404,7 +404,8 @@
         {
           "key": "YUI-350",
           "title": "DLG-1 (WEB, now, Chris)",
-          "summary": "The script, three exchanges written as beats (heart, what's left before launch, roast chicken)",
+          "summary": "Beats, step one: three conversations written as beats",
+          "progress": "/progress#beats-step-one-three-conversations-written-as-beats",
           "owner": "CJohnDesign"
         },
         {
