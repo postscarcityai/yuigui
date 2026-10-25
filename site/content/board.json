@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T21:25:11.082Z",
+  "updated": "2026-10-25T21:30:11.827Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5168,14 +5168,6 @@
           "summary": "See it catches up with 0.2.0",
           "shipped": "2026-09-25",
           "progress": "/progress#see-it-catches-up-with-0-2-0"
-        },
-        {
-          "key": "YUI-33",
-          "title": "Agent tables on the phone",
-          "summary": "Agents keep data on your phone: tables",
-          "shipped": "2026-09-25",
-          "progress": "/progress#agents-keep-data-on-your-phone-tables",
-          "commit": "https://github.com/postscarcityai/yui/commit/6730547"
         }
       ]
     }
