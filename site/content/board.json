@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T16:05:16.407Z",
+  "updated": "2026-10-25T16:10:10.417Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5282,13 +5282,6 @@
           "summary": "CrewAI agents in Yui",
           "shipped": "2026-09-25",
           "progress": "/progress#crewai-agents-in-yui"
-        },
-        {
-          "key": "INT-17",
-          "title": "N8n adapter, MCP client plus a community node",
-          "summary": "N8n workflows in Yui",
-          "shipped": "2026-09-25",
-          "progress": "/progress#n8n-workflows-in-yui"
         }
       ]
     }
