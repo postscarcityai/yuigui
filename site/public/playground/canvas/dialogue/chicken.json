@@ -1,0 +1,63 @@
+{
+ "script": "chicken",
+ "ask": "Roast a lemon-garlic chicken: the steps and the timing.",
+ "pace": "spoken at about 0.38 s a word (the on-device voice), 0.3 s between beats; a reply's first word lands 1.2 s after the person goes quiet (0.7 s of quiet, then insert, Realtime and the first sentence)",
+ "events": [
+  {
+   "at": 0.0,
+   "you": "Roast a lemon-garlic chicken: the steps and the timing.",
+   "done": 2.7
+  },
+  {
+   "at": 3.9,
+   "beat": 1,
+   "ends": 8.8
+  },
+  {
+   "at": 9.1,
+   "beat": 2,
+   "ends": 15.2
+  },
+  {
+   "at": 15.5,
+   "beat": 3,
+   "ends": 22.0,
+   "cut": 19.6
+  },
+  {
+   "at": 19.6,
+   "you": "wait, I have no lemons. Can I use lime?",
+   "done": 22.3,
+   "cut": 3,
+   "sends": "[yui] c1 beat say \"wait, I have no lemons. Can I use lime?\" at=3 anchor=\"Butter, garlic, lemon\""
+  },
+  {
+   "at": 23.5,
+   "beat": 4,
+   "ends": 27.7
+  },
+  {
+   "at": 28.0,
+   "beat": 5,
+   "ends": 33.3
+  },
+  {
+   "at": 900.0,
+   "you": "It's hot",
+   "done": 900.8,
+   "answers": "hot",
+   "tap": true,
+   "sends": "[yui] hot wait choice=It's hot"
+  },
+  {
+   "at": 902.0,
+   "beat": 6,
+   "ends": 906.9
+  },
+  {
+   "at": 907.2,
+   "beat": 7,
+   "ends": 910.6
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+{
+ "script": "launch",
+ "ask": "What's left before launch?",
+ "pace": "spoken at about 0.38 s a word (the on-device voice), 0.3 s between beats; a reply's first word lands 1.2 s after the person goes quiet (0.7 s of quiet, then insert, Realtime and the first sentence)",
+ "events": [
+  {
+   "at": 0.0,
+   "you": "What's left before launch?",
+   "done": 1.2
+  },
+  {
+   "at": 2.4,
+   "beat": 1,
+   "ends": 4.7
+  },
+  {
+   "at": 5.0,
+   "beat": 2,
+   "ends": 8.8
+  },
+  {
+   "at": 9.1,
+   "beat": 3,
+   "ends": 13.3,
+   "cut": 10.6
+  },
+  {
+   "at": 10.6,
+   "you": "is that the echo problem?",
+   "done": 12.1,
+   "cut": 3,
+   "sends": "[yui] l1 beat say \"is that the echo problem?\" at=3 anchor=\"Barge-in: in test\""
+  },
+  {
+   "at": 13.3,
+   "beat": 4,
+   "ends": 19.4
+  },
+  {
+   "at": 19.7,
+   "beat": 5,
+   "ends": 22.4
+  },
+  {
+   "at": 22.7,
+   "beat": 6,
+   "ends": 24.6
+  },
+  {
+   "at": 25.6,
+   "you": "the guide",
+   "done": 26.4,
+   "answers": "first",
+   "touched": "Guide rewrite",
+   "sends": "[yui] first wait say \"the guide\" touched=Guide rewrite"
+  },
+  {
+   "at": 27.6,
+   "beat": 7,
+   "ends": 32.5
+  }
+ ]
+}

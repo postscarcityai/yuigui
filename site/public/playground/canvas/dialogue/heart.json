@@ -1,0 +1,57 @@
+{
+ "script": "heart",
+ "ask": "How does the heart pump blood?",
+ "pace": "spoken at about 0.38 s a word (the on-device voice), 0.3 s between beats; a reply's first word lands 1.2 s after the person goes quiet (0.7 s of quiet, then insert, Realtime and the first sentence)",
+ "events": [
+  {
+   "at": 0.0,
+   "you": "How does the heart pump blood?",
+   "done": 1.8
+  },
+  {
+   "at": 3.0,
+   "beat": 1,
+   "ends": 6.0
+  },
+  {
+   "at": 6.3,
+   "beat": 2,
+   "ends": 11.6,
+   "cut": 9.0
+  },
+  {
+   "at": 9.0,
+   "you": "hold on, why two pumps?",
+   "done": 10.5,
+   "cut": 2,
+   "sends": "[yui] h1 beat say \"hold on, why two pumps?\" at=2 anchor=\"Right side: body to lungs\""
+  },
+  {
+   "at": 11.7,
+   "beat": 3,
+   "ends": 16.3
+  },
+  {
+   "at": 16.6,
+   "beat": 4,
+   "ends": 20.0
+  },
+  {
+   "at": 21.0,
+   "you": "Yes.",
+   "done": 21.8,
+   "answers": "go",
+   "sends": "[yui] go wait say \"Yes.\""
+  },
+  {
+   "at": 23.0,
+   "beat": 5,
+   "ends": 29.1
+  },
+  {
+   "at": 29.4,
+   "beat": 6,
+   "ends": 35.5
+  }
+ ]
+}

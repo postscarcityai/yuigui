@@ -1,0 +1,51 @@
+# Beats script: the heart (DLG-1, docs/plans/dialogue-stage.md section 3). Seconds: heart.json.
+# Read it top to bottom as the conversation. "# you" lines are the person; every other line is what the agent sends.
+# A reply is one flow (meta.flow, one row per beat). A beat opens with its spoken line (say) and holds what that line
+# changes on screen: an anchor, the picture or a patch to it, a waypoint. "# beat N" is for the reader and the sidecar.
+# The picture is the heart4 from the canvas (YUI-321): the same five parts, drawn as shapes.
+
+# you: How does the heart pump blood?
+
+# reply 1, flow h1
+# beat 1
+say "The heart is two pumps, side by side."
+anchor "Two pumps"
+shapes w=10 h=7 "Your heart" caption="Two pumps, side by side."
+shape@aorta pill aorta at=5.6,0.9 size=1.6,0.7 tone=mute
+shape@ra blob "right atrium" at=3.5,2.4 size=2.4,1.7 tone=mute +draw
+shape@la blob "left atrium" at=6.5,2.4 size=2.4,1.7 tone=mute +draw
+shape@rv blob "right ventricle" at=3.7,4.8 size=2.6,2.2 tone=mute +draw
+shape@lv blob "left ventricle" at=6.3,4.8 size=2.6,2.2 tone=mute +draw
+shape@left bracket from=8.4,1.6 to=8.4,6 label="Left side" tone=mute
+shape@blue arrow from=ra to=rv tone=mute +dash
+shape@red arrow from=lv to=aorta tone=mute +dash
+# beat 2
+say "The right side takes blood from the body and sends it to the lungs."
+anchor "Right side: body to lungs" sub="low pressure"
+~ra tone=lavender +fill
+~rv tone=lavender +fill
+~blue tone=lavender
+# you cut in during beat 2: hold on, why two pumps?
+# the voice stops, the right side stays lit, Stop goes for the rest of reply 1
+
+# reply 2, flow h2
+# beat 3
+say "Because the lungs need low pressure and the body needs high pressure."
+anchor "Two pressures: lungs low, body high"
+chart bar "Pressure" x=Lungs|Body y=25|120 unit=mmHg
+# beat 4
+say "Want me to carry on with the left side?"
+~left tone=accent +pulse
+wait@go "Carry on with the left side?" "Left side"|"Ask something" +in
+# you: Yes.
+
+# reply 3, flow h3
+# beat 5
+say "The left side takes the fresh blood back and pushes it out to the whole body."
+anchor "Left side: lungs to body"
+~la tone=accent +fill
+~lv tone=accent +fill
+~red tone=accent
+# beat 6
+say "That is why the left wall is thicker: it pushes all the way to your toes."
+~lv size=2.9,2.4

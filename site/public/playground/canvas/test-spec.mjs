@@ -8,6 +8,8 @@ import * as C from "./yl-canvas.mjs";
 import * as MV from "./yl-move.mjs";
 import * as SY from "./yl-say.mjs";
 import * as UN from "./yl-undo.mjs";
+import * as YL from "../../../lib/yl/yl.mjs";
+import { checkScript, readScript } from "./dialogue/script.mjs";
 
 const here = (p) => new URL(p, import.meta.url);
 const list = JSON.parse(fs.readFileSync(here("./yl-samples.json")));
@@ -68,6 +70,17 @@ const math = fs.readFileSync(here("./yl-math.mjs"), "utf8");
 /canvas drag mark=\$\{id\} value=/.test(math) ? ok("yl-math.mjs still builds the slider drag line") : no("yl-math.mjs no longer builds `canvas drag mark=<id> value=<n>`: update the test and the spec");
 const lits = [...page.matchAll(/"\[yui\] "/g)].length;
 lits === 7 ? ok("canvas.html has the 7 known [yui] line builders (move, choose, check, moment, 3 ask)") : no(`canvas.html has ${lits} "[yui] " builders, the spec knows 7: a new event line must be written into MOTION.md 0b and this test`);
+
+// ---- DLG-1: the Beats scripts (dialogue/*.yl and their *.json clocks) parse, read as a conversation and keep time
+const dlg = fs.readdirSync(here("./dialogue/")).filter((f) => f.endsWith(".yl")).sort();
+dlg.length === 3 ? ok(`dialogue has the 3 scripts: ${dlg.join(", ")}`) : no(`dialogue has ${dlg.length} scripts (${dlg.join(", ")}), the plan writes 3`);
+for (const f of dlg) {
+  const name = f.replace(/\.yl$/, ""), text = fs.readFileSync(here("./dialogue/" + f), "utf8");
+  let timing = null; try { timing = JSON.parse(fs.readFileSync(here(`./dialogue/${name}.json`), "utf8")); } catch (e) { no(`dialogue/${name}.json: ${e.message}`); continue; }
+  const probs = checkScript(name, text, timing, YL), s = readScript(text, YL);
+  if (probs.length) probs.forEach(no);
+  else ok(`dialogue ${name}: ${s.replies.length} replies, ${s.beats.length} beats, ${s.beats.reduce((a, b) => a + b.anchors.length, 0)} anchors, one interruption, one waypoint`);
+}
 
 console.log(out.join("\n"));
 console.log(bad ? `\n${bad} bad` : `\nall ${rows.length} spec lines match the canvas`);

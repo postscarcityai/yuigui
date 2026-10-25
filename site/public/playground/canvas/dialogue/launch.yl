@@ -1,0 +1,43 @@
+# Beats script: what's left before launch (DLG-1, docs/plans/dialogue-stage.md section 3). Seconds: launch.json.
+# Read it top to bottom as the conversation. "# you" lines are the person; every other line is what the agent sends.
+# A reply is one flow (meta.flow, one row per beat). A beat opens with its spoken line (say) and holds what that line
+# changes on screen. The timeline is sent whole in beat 1; each later beat moves the row it names.
+
+# you: What's left before launch?
+
+# reply 1, flow l1
+# beat 1
+say "Three cards are left before launch."
+anchor "3 cards left"
+timeline@launch "Before launch"
+next@memory "Memory check"
+next@barge "Barge-in"
+next@guide "Guide rewrite"
+# beat 2
+say "The memory check is green, no leaks across five agents."
+anchor "Memory check: green"
+~memory kind=done sub="no leaks"
+# beat 3
+say "Barge-in is in test, but only on the simulator so far."
+anchor "Barge-in: in test"
+~barge kind=now sub="in test, sim only"
+# you cut in during beat 3: is that the echo problem?
+
+# reply 2, flow l2
+# beat 4
+say "Yes. The phone can hear its own voice, so it needs a test at full volume."
+~barge sub="echo test at full volume next"
+# beat 5
+say "The guide rewrite has not started yet."
+anchor "Guide rewrite: not started"
+~guide sub="not started"
+# beat 6
+say "Which one should go first?"
+wait@first "Which one first?" "Barge-in"|"Guide rewrite" +in
+# you, touching the Guide rewrite row: the guide
+
+# reply 3, flow l3
+# beat 7
+say "Guide rewrite goes first. It moves to now, and I start it today."
+anchor "Now: guide rewrite"
+~guide kind=now sub="starts today"

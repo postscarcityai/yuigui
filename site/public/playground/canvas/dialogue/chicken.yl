@@ -1,0 +1,49 @@
+# Beats script: roast chicken (DLG-1, docs/plans/dialogue-stage.md section 8; the ask is films.json "chicken"). Seconds: chicken.json.
+# Read it top to bottom as the conversation. "# you" lines are the person; every other line is what the agent sends.
+# A reply is one flow (meta.flow, one row per beat). A beat opens with its spoken line (say) and holds what that line
+# changes on screen. The waypoint here is a real wait: the oven takes its time, and the flow holds until it is hot.
+
+# you: Roast a lemon-garlic chicken: the steps and the timing.
+
+# reply 1, flow c1
+# beat 1
+say "Lemon garlic chicken takes about ninety minutes, and most of it is waiting."
+anchor "About 90 minutes, mostly waiting"
+shapes w=10 h=4 "Roast chicken" caption="Heat, prep, roast, rest."
+shape@oven circle "Oven 220°C" tone=mute
+shape arrow
+shape@prep box "Prep 15 min" tone=mute
+shape arrow
+shape@roast pill "Roast 60 min" tone=mute
+shape arrow
+shape@rest circle "Rest 15 min" tone=mute
+# beat 2
+say "First, heat the oven to 220 degrees, so it is hot when the bird goes in."
+anchor "Oven first: 220°C"
+~oven tone=accent +pulse
+# beat 3
+say "While it heats, rub the bird with butter, garlic and lemon zest, then put the lemon inside."
+anchor "Butter, garlic, lemon"
+~prep tone=accent
+# you cut in during beat 3: wait, I have no lemons. Can I use lime?
+
+# reply 2, flow c2
+# beat 4
+say "Lime works. Use one lime, not two, because it is sharper."
+anchor "Lime works: use one"
+~shapes caption="Lime instead of lemon: one is enough."
+# beat 5
+say "Tell me when the oven is hot, and I will start the roast timer."
+wait@hot "Is the oven hot?" "It's hot"|"Not yet"
+# you, fifteen minutes later when the oven is hot, tap: It's hot
+
+# reply 3, flow c3
+# beat 6
+say "In it goes. Sixty minutes, then check that the thigh reads 75 degrees."
+anchor "Roast 60 min, thigh 75°C"
+~roast tone=accent +pulse
+timer@clock 60m "Roast" +inline +auto
+# beat 7
+say "Then let it rest fifteen minutes before you carve."
+anchor "Rest 15 min, then carve"
+~rest tone=accent

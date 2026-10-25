@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Beats: three scripts</title>
+<meta name="description" content="Three conversations written as beats: the heart, what's left before launch, roast chicken. Each with one interruption and one waypoint.">
+<style>
+/* DLG-1: read a Beats script as the conversation it is. The prototype that plays them is DLG-3. */
+:root{--ink:#0b0813;--fg:#f6eef7;--dim:#a095b8;--line:#3d3460;--accent:#ff6b4a;--panel:#18132b;--you:#2a2246}
+:root.light{--ink:#fbf6f1;--fg:#2b2233;--dim:#7d7290;--line:#e3d9e8;--accent:#ff5a7a;--panel:#ffffff;--you:#f1e8f3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--fg);font:16px/1.45 ui-rounded,system-ui,-apple-system,sans-serif}
+main{max-width:560px;margin:0 auto;padding:18px 16px 60px}
+h1{font-size:15px;font-weight:800;letter-spacing:.02em;color:var(--accent);margin:0 0 2px}
+.lede{color:var(--dim);font-size:14px;margin:0 0 14px}
+nav{display:flex;gap:8px;margin:0 0 18px}
+nav a{flex:1;text-align:center;padding:8px 0;border:2px solid var(--line);border-radius:999px;color:var(--fg);text-decoration:none;font-weight:700;font-size:15px}
+nav a.on{border-color:var(--accent);color:var(--accent)}
+ol{list-style:none;margin:0;padding:0}
+li{display:grid;grid-template-columns:48px 1fr;gap:10px;margin:0 0 12px}
+.t{color:var(--dim);font:600 12px ui-monospace,Menlo,monospace;padding-top:9px;text-align:right}
+.you .b{justify-self:end;background:var(--you);border-radius:18px 18px 4px 18px;padding:9px 14px;max-width:85%;font-weight:600}
+.you .how{display:block;color:var(--dim);font-size:12px;font-weight:600;margin-top:2px}
+.beat .b{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px 14px}
+.n{color:var(--dim);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.spoken{margin:2px 0 0;font-size:17px}
+.spoken::before{content:"\201C"}.spoken::after{content:"\201D"}
+.pin{margin:8px 0 0;font-weight:800;color:var(--accent);font-size:15px}
+.pin small{font-weight:600;color:var(--dim)}
+.cut{margin:8px 0 0;font-size:13px;font-weight:700;color:var(--accent)}
+.cut span{color:var(--dim);font-weight:500}
+.wait{margin:10px 0 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.wait b{width:100%;font-size:14px}
+.wait span{border:2px solid var(--accent);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:700;color:var(--accent)}
+.wait em{font-size:12px;color:var(--dim);font-style:normal;width:100%}
+details{margin:8px 0 0}
+summary{cursor:pointer;color:var(--dim);font-size:12px;font-weight:700}
+pre{margin:6px 0 0;white-space:pre-wrap;font:12px/1.5 ui-monospace,Menlo,monospace;color:var(--dim)}
+.sends{font:11px/1.4 ui-monospace,Menlo,monospace;color:var(--dim);margin-top:4px;word-break:break-word}
+.ledger{margin:22px 0 0;padding:14px 16px;border-radius:16px;border:2px dashed var(--line)}
+.ledger h2{margin:0 0 8px;font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.ledger p{margin:0 0 4px;font-weight:800;color:var(--accent)}
+.ledger p:nth-last-child(n+3){opacity:.55}.ledger p:nth-last-child(2){opacity:.8}
+.err{color:var(--accent);font-weight:700}
+.raw{margin-top:14px;font-size:13px;color:var(--dim)}.raw a{color:var(--dim)}
+</style>
+</head>
+<body>
+<main>
+<h1>Beats, the script</h1>
+<p class="lede">Three conversations written as beats. The voice says the line, the screen pins the main point. One interruption and one waypoint each.</p>
+<nav id="nav"></nav>
+<ol id="talk"></ol>
+<div id="ledger" class="ledger" hidden><h2>Anchors left on screen</h2></div>
+<p class="raw" id="raw"></p>
+</main>
+<script type="module">
+import * as Y from "../yl/yl.mjs";
+import { readScript } from "./script.mjs";
+const Q = new URLSearchParams(location.search);
+if (Q.get("theme") === "light" || (!Q.get("theme") && matchMedia("(prefers-color-scheme: light)").matches)) document.documentElement.classList.add("light");
+const NAMES = { heart: "Heart", launch: "Launch", chicken: "Chicken" };
+const id = NAMES[Q.get("script")] ? Q.get("script") : "heart";
+const keep = Q.get("theme") ? "&theme=" + Q.get("theme") : "";
+const nav = document.getElementById("nav");
+for (const k in NAMES) { const a = document.createElement("a"); a.href = "?script=" + k + keep; a.textContent = NAMES[k]; if (k === id) { a.className = "on"; a.setAttribute("aria-current", "page"); } nav.append(a); }
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+const clock = (s) => (s >= 60 ? Math.floor(s / 60) + ":" + (s % 60).toFixed(1).padStart(4, "0") : s.toFixed(1) + "s");
+const [text, timing] = await Promise.all([fetch(id + ".yl").then((r) => r.text()), fetch(id + ".json").then((r) => r.json())]);
+const s = readScript(text, Y), talk = document.getElementById("talk"), pinned = [];
+document.getElementById("raw").innerHTML = `The files: <a href="${id}.yl">${id}.yl</a> (the lines) and <a href="${id}.json">${id}.json</a> (the seconds).`;
+for (const e of timing.events) {
+  const li = el("li"), b = el("div", "b");
+  li.append(el("div", "t", clock(e.at)));
+  if (e.you !== undefined) {
+    li.className = "you"; b.textContent = e.you;
+    const how = e.cut ? `cuts in during beat ${e.cut}` : e.answers ? (e.tap ? "taps" : e.touched ? `says it, touching ${e.touched}` : "answers") : "asks";
+    b.append(el("span", "how", how));
+    if (e.sends && e.sends.startsWith("[yui]")) b.append(el("div", "sends", e.sends));
+  } else {
+    const beat = s.beats.find((x) => x.n === e.beat);
+    li.className = "beat";
+    b.append(el("div", "n", `Beat ${e.beat} · reply ${beat.reply}`), el("p", "spoken", beat.say));
+    for (const a of beat.anchors) { const p = el("p", "pin", a.words); if (a.sub) p.append(" ", el("small", "", a.sub)); b.append(p); pinned.push(a); }
+    if (e.cut !== undefined) { const c = el("p", "cut", `Cut at ${clock(e.cut)}. The voice stops, the picture holds. `); c.append(el("span", "", "Stop takes the rest of this reply.")); b.append(c); }
+    if (beat.wait) {
+      const w = el("div", "wait"); w.append(el("b", "", "Waits: " + (beat.wait.q || "Go on?")));
+      for (const o of beat.wait.options) w.append(el("span", "", o));
+      w.append(el("em", "", beat.wait.into ? "Options that name a part of the picture are that part: tap it, or say it." : beat.wait.q ? "A question waits as long as it takes." : "A bare wait goes on after 6 s."));
+      b.append(w);
+    }
+    const pic = beat.lines.slice(1).filter((l) => !/^(anchor|wait)(\s|@)/.test(l));
+    if (pic.length) { const d = el("details"); d.append(el("summary", "", pic.length === 1 ? "1 line on the picture" : pic.length + " lines on the picture"), el("pre", "", pic.join("\n"))); b.append(d); }
+  }
+  li.append(b); talk.append(li);
+}
+const led = document.getElementById("ledger");
+if (pinned.length) { led.hidden = false; for (const a of pinned) led.append(el("p", "", a.words)); }
+window.__dialogue = { id, beats: s.beats.length, anchors: pinned.length };
+</script>
+</body>
+</html>
