@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T17:25:59.853Z",
+  "updated": "2026-10-26T17:50:59.782Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4723,13 +4723,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#your-agent-says-what-it-is-doing",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3ccea6bb"
-        },
-        {
-          "key": "NOTE-56419",
-          "title": "A quiet dot on the menu button",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-quiet-dot-on-the-menu-button",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a716f922"
         }
       ]
     }
