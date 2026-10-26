@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T01:10:59.749Z",
+  "updated": "2026-10-26T01:15:59.109Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5056,14 +5056,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#typing-keeps-up-even-on-a-long-thread",
           "commit": "https://github.com/postscarcityai/yuigui/commit/088a7007"
-        },
-        {
-          "key": "INT-22",
-          "title": "Yui-mcp and Telegram read Yui Lines like the app again (their parser copies are stale since tables)",
-          "summary": "The MCP server and Telegram read Yui Lines like the app again",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-mcp-server-and-telegram-read-yui-lines-like-the-app-again",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c8f25d9c"
         }
       ]
     }
