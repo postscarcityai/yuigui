@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T16:55:58.839Z",
+  "updated": "2026-10-26T17:06:00.091Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4745,14 +4745,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#yui-0-3-1-on-the-site-the-release-post-and-see-it",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9062d7a4"
-        },
-        {
-          "key": "YUI-113",
-          "title": "Publish channel guide v26 to non-Hermes agents once build 158+ is VALID",
-          "step": "Step 2",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-lesson-is-one-deck",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/babe06b0"
         }
       ]
     }
