@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T00:55:58.495Z",
+  "updated": "2026-10-26T01:05:58.850Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5063,13 +5063,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#the-mcp-server-and-telegram-read-yui-lines-like-the-app-again",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c8f25d9c"
-        },
-        {
-          "key": "YUI-97",
-          "title": "Shared agents, step 3 of YUI-57 (native invite plan, Shared by sheet, cleanup)",
-          "summary": "Shared agents in the app: Hi Maya, Shared by Sam, and a clean goodbye",
-          "shipped": "2026-09-25",
-          "progress": "/progress#shared-agents-in-the-app-hi-maya-shared-by-sam-and-a-clean-goodbye"
         }
       ]
     }
