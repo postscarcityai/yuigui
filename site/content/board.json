@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T01:31:13.187Z",
+  "updated": "2026-10-26T05:15:57.464Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5040,14 +5040,6 @@
           "title": "Shapes that move",
           "shipped": "2026-09-26",
           "progress": "/progress#shapes-that-move"
-        },
-        {
-          "key": "YUI-101",
-          "title": "Telegram-smooth",
-          "summary": "Taps answer at once, and a long thread scrolls smooth",
-          "shipped": "2026-09-26",
-          "progress": "/progress#taps-answer-at-once-and-a-long-thread-scrolls-smooth",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ac398ba1"
         }
       ]
     }
