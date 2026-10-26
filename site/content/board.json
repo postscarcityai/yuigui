@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T17:56:00.021Z",
+  "updated": "2026-10-26T18:01:29.323Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4706,14 +4706,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#help-catches-up-with-the-app",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1276e84b"
-        },
-        {
-          "key": "SITE-46",
-          "title": "Get Yui catches up",
-          "summary": "Get Yui shows the app and every way in",
-          "shipped": "2026-09-26",
-          "progress": "/progress#get-yui-shows-the-app-and-every-way-in",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ac3d6cdd"
         }
       ]
     }
