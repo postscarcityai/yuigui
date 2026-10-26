@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T20:50:58.928Z",
+  "updated": "2026-10-26T21:01:07.162Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4607,13 +4607,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#music-screens-agents-can-find",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e1bb09fa"
-        },
-        {
-          "key": "NOTE-54650",
-          "title": "Working row shows how long the agent usually takes",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-working-row-says-how-long-it-usually-takes",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2d124713"
         }
       ]
     }
