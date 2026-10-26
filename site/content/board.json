@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T13:50:59.568Z",
+  "updated": "2026-10-26T14:20:58.741Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4825,15 +4825,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#faster-pages-and-every-one-clears-90",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1bb9e675"
-        },
-        {
-          "key": "YUI-41",
-          "title": "On-device model spec + playground mock (suggested replies, routing, offline drafts)",
-          "step": "Step 1",
-          "summary": "The model on the phone, planned",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-model-on-the-phone-planned",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/daf16c71"
         }
       ]
     }
