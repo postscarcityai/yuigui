@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T00:05:17.416Z",
+  "updated": "2026-10-26T00:17:58.357Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -405,8 +405,9 @@
         {
           "key": "YUI-351",
           "title": "DLG-2 (WEB, now, Chris)",
-          "summary": "beats.mjs, plain text and YL in, beats and anchors out",
+          "summary": "Beats, step two: any reply cut into beats",
           "blocked": "other",
+          "progress": "/progress#beats-step-two-any-reply-cut-into-beats",
           "owner": "CJohnDesign"
         }
       ]
@@ -5080,14 +5081,6 @@
           "summary": "Meal photo to macros, in the playground",
           "shipped": "2026-09-25",
           "progress": "/progress#meal-photo-to-macros-in-the-playground"
-        },
-        {
-          "key": "YUI-98",
-          "title": "Speed reporting",
-          "summary": "What fast means for Yui, in milliseconds",
-          "shipped": "2026-09-25",
-          "progress": "/progress#what-fast-means-for-yui-in-milliseconds",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6008cfba"
         }
       ]
     }
