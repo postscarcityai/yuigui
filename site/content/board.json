@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T22:20:58.864Z",
+  "updated": "2026-10-26T22:35:57.864Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4520,22 +4520,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#help-why-a-beat-is-silent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ea742ec0"
-        },
-        {
-          "key": "YUI-126",
-          "title": "The war room moves into Yui's left drawer (Chris, feedback AGhvH8tM)",
-          "summary": "The war room moves into Yui's left drawer",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-war-room-moves-into-yui-s-left-drawer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9266fffd"
-        },
-        {
-          "key": "YUI-127",
-          "title": "Every drum name plays a real drum, not a tick",
-          "summary": "Every drum name plays a real drum",
-          "shipped": "2026-09-26",
-          "progress": "/progress#every-drum-name-plays-a-real-drum",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1c96bd74"
         }
       ]
     }
