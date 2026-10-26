@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-25T23:55:10.364Z",
+  "updated": "2026-10-26T00:05:17.416Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5088,13 +5088,6 @@
           "shipped": "2026-09-25",
           "progress": "/progress#what-fast-means-for-yui-in-milliseconds",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6008cfba"
-        },
-        {
-          "key": "YUI-96",
-          "title": "Restyle the app by asking, step 2 (native)",
-          "summary": "Ask any agent to restyle Yui, in the app",
-          "shipped": "2026-09-25",
-          "progress": "/progress#ask-any-agent-to-restyle-yui-in-the-app"
         }
       ]
     }
