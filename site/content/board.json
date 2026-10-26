@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T17:06:00.091Z",
+  "updated": "2026-10-26T17:15:59.796Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4737,14 +4737,6 @@
           "summary": "The store listing is named Yui Gui",
           "shipped": "2026-09-26",
           "progress": "/progress#the-store-listing-is-named-yui-gui"
-        },
-        {
-          "key": "SITE-45",
-          "title": "Yui 0.3.1 lands on the site",
-          "summary": "Yui 0.3.1 on the site: the release post and See it",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-0-3-1-on-the-site-the-release-post-and-see-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9062d7a4"
         }
       ]
     }
