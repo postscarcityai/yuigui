@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T18:31:31.320Z",
+  "updated": "2026-10-26T18:55:59.264Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4673,22 +4673,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#agents-can-look-up-the-library",
           "commit": "https://github.com/postscarcityai/yuigui/commit/37923ca1"
-        },
-        {
-          "key": "YUI-107",
-          "title": "Speed rows send once",
-          "summary": "Speed numbers are stored once",
-          "shipped": "2026-09-26",
-          "progress": "/progress#speed-numbers-are-stored-once",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/98c78fe5"
-        },
-        {
-          "key": "SITE-48",
-          "title": "Every share link shows its real screen, the 49 missing previews go live and a check stops the drift",
-          "summary": "Every share link shows its real screen",
-          "shipped": "2026-09-26",
-          "progress": "/progress#every-share-link-shows-its-real-screen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3dd15ecd"
         }
       ]
     }
