@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T01:05:58.850Z",
+  "updated": "2026-10-26T01:10:59.749Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -387,15 +387,16 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-352",
-          "title": "DLG-3 (WEB, now, Chris)",
-          "summary": "The dialogue prototype on the canvas, spoken beats, anchors, waypoints, talk over it",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-321",
           "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-352",
+          "title": "DLG-3 (WEB, now, Chris)",
+          "summary": "The dialogue prototype on the canvas, spoken beats, anchors, waypoints, talk over it",
+          "blocked": "other",
           "owner": "CJohnDesign"
         },
         {
