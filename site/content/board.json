@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T23:41:00.530Z",
+  "updated": "2026-10-26T23:55:57.982Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4467,14 +4467,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#the-full-screen-stage-drawn",
           "commit": "https://github.com/postscarcityai/yuigui/commit/198233b7"
-        },
-        {
-          "key": "YUI-108",
-          "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)",
-          "summary": "Send answers in about 70 ms",
-          "shipped": "2026-09-26",
-          "progress": "/progress#send-answers-in-about-70-ms",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/dd48e437"
         }
       ]
     }
