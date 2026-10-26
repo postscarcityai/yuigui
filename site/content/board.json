@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T22:01:06.192Z",
+  "updated": "2026-10-26T22:05:58.172Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4560,36 +4560,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#yui-in-claude-and-yui-screens-inside-the-chat",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6726e49d"
-        },
-        {
-          "key": "YUI-116",
-          "title": "The channel guide teaches loop and drums (backlog)",
-          "summary": "Agents send a beat",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agents-send-a-beat",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/85bbee1b"
-        },
-        {
-          "key": "SITE-52",
-          "title": "Yui 0.3.2 on the site, a release Thought and a See it group",
-          "summary": "Yui 0.3.2 on the site: the release post and See it",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-0-3-2-on-the-site-the-release-post-and-see-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8f4d7036"
-        },
-        {
-          "key": "YUI-118",
-          "title": "Short answers first, a status question gets one line, decks capped at 4 pages",
-          "summary": "Short answers first",
-          "shipped": "2026-09-26",
-          "progress": "/progress#short-answers-first",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9a5b4810"
-        },
-        {
-          "key": "NOTE-46346",
-          "title": "Show it, don't say it",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-full-screen-stage-drawn"
         }
       ]
     }
