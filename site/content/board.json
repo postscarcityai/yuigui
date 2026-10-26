@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T05:15:57.464Z",
+  "updated": "2026-10-26T06:31:04.498Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5026,20 +5026,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#send-and-the-menu-drawer-answer-faster",
           "commit": "https://github.com/postscarcityai/yuigui/commit/29ee8a5b"
-        },
-        {
-          "key": "YUI-102",
-          "title": "Speed reporting, step 2 (native)",
-          "summary": "Yui now times itself: speed numbers from real phones, every day",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-now-times-itself-speed-numbers-from-real-phones-every-day",
-          "commit": "https://github.com/postscarcityai/yui/commit/9385fc2"
-        },
-        {
-          "key": "YUI-104",
-          "title": "Shapes that move",
-          "shipped": "2026-09-26",
-          "progress": "/progress#shapes-that-move"
         }
       ]
     }
