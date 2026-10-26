@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T19:15:58.845Z",
+  "updated": "2026-10-26T19:25:59.155Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4648,14 +4648,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#yui-is-in-alpha-a-thought-on-how-the-mvp-got-done",
           "commit": "https://github.com/postscarcityai/yuigui/commit/91cd2271"
-        },
-        {
-          "key": "SITE-49",
-          "title": "A Thought on flows and the library, screens any agent can run and look up",
-          "summary": "Flows and the library: a Thought on screens any agent can run",
-          "shipped": "2026-09-26",
-          "progress": "/progress#flows-and-the-library-a-thought-on-screens-any-agent-can-run",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/297601a5"
         }
       ]
     }
