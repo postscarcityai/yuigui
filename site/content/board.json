@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T20:40:59.027Z",
+  "updated": "2026-10-26T20:50:58.928Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4614,14 +4614,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#the-working-row-says-how-long-it-usually-takes",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2d124713"
-        },
-        {
-          "key": "SITE-51",
-          "title": "Music on the site, See it + a Thought once the playground plays",
-          "summary": "Music on the site: See it, and a Thought",
-          "shipped": "2026-09-26",
-          "progress": "/progress#music-on-the-site-see-it-and-a-thought",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/143fe083"
         }
       ]
     }
