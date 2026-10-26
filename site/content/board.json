@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T18:01:29.323Z",
+  "updated": "2026-10-26T18:15:59.253Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4698,14 +4698,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look",
           "commit": "https://github.com/postscarcityai/yuigui/commit/910a144f"
-        },
-        {
-          "key": "SITE-47",
-          "title": "Help and Developers catch up to 0.3.1 and today's main",
-          "summary": "Help catches up with the app",
-          "shipped": "2026-09-26",
-          "progress": "/progress#help-catches-up-with-the-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1276e84b"
         }
       ]
     }
