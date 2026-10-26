@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T09:15:57.766Z",
+  "updated": "2026-10-26T12:05:59.104Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4900,22 +4900,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#yui-holds-less-in-memory-and-a-test-checks-it-before-every-release",
           "commit": "https://github.com/postscarcityai/yuigui/commit/35b4eb27"
-        },
-        {
-          "key": "YUI-69",
-          "title": "Talk about a setting",
-          "summary": "Bring it into the chat, the agent proposes the edit",
-          "shipped": "2026-09-26",
-          "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ed465a24"
-        },
-        {
-          "key": "YUI-70",
-          "title": "Agent controls in the drawer",
-          "summary": "Basic CRUD over soul, memory, skills, schedules",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b6"
         }
       ]
     }
