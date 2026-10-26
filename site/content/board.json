@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T22:35:57.864Z",
+  "updated": "2026-10-26T22:40:58.859Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4512,14 +4512,6 @@
           "title": "About and Controls, one tab",
           "shipped": "2026-09-26",
           "progress": "/progress#about-and-controls-in-one-drawer-tab-planned"
-        },
-        {
-          "key": "SITE-53",
-          "title": "Help answers music",
-          "summary": "Help: why a beat is silent",
-          "shipped": "2026-09-26",
-          "progress": "/progress#help-why-a-beat-is-silent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ea742ec0"
         }
       ]
     }
