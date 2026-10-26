@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T08:25:59.034Z",
+  "updated": "2026-10-26T08:40:58.253Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4941,15 +4941,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#every-agent-can-put-a-picture-on-a-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c84d9c15"
-        },
-        {
-          "key": "YUI-69",
-          "title": "Talk about a setting, native",
-          "step": "Step 2",
-          "summary": "Talk about a setting, built: change your agent by talking",
-          "shipped": "2026-09-26",
-          "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/83350fdd"
         }
       ]
     }
