@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T19:01:07.301Z",
+  "updated": "2026-10-26T19:15:58.845Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4656,14 +4656,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#flows-and-the-library-a-thought-on-screens-any-agent-can-run",
           "commit": "https://github.com/postscarcityai/yuigui/commit/297601a5"
-        },
-        {
-          "key": "INT-3",
-          "title": "Fix",
-          "summary": "Outside agents draw like the app",
-          "shipped": "2026-09-26",
-          "progress": "/progress#outside-agents-draw-like-the-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3e049443"
         }
       ]
     }
