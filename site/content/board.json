@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T21:01:07.162Z",
+  "updated": "2026-10-26T21:10:59.529Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4599,14 +4599,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#agents-send-a-tuner-and-a-metronome",
           "commit": "https://github.com/postscarcityai/yui/commit/56b38a3"
-        },
-        {
-          "key": "YUI-117",
-          "title": "Music in the library, and the channel guide lines ready for step 2's build",
-          "summary": "Music screens agents can find",
-          "shipped": "2026-09-26",
-          "progress": "/progress#music-screens-agents-can-find",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e1bb09fa"
         }
       ]
     }
