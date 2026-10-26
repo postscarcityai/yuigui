@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T07:45:58.188Z",
+  "updated": "2026-10-26T08:05:58.294Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4967,15 +4967,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-timeline-row-can-move-without-resending-the-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79c"
-        },
-        {
-          "key": "YUI-70",
-          "title": "Agent controls native in the drawer",
-          "step": "Step 2",
-          "summary": "Agent controls, built: your agent's settings in the drawer",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b6"
         }
       ]
     }
