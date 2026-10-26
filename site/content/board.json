@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T08:40:58.253Z",
+  "updated": "2026-10-26T08:45:57.875Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4933,14 +4933,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f8d381df"
-        },
-        {
-          "key": "YUI-85",
-          "title": "The channel guide teaches a sketch under a page",
-          "summary": "Every agent can put a picture on a page",
-          "shipped": "2026-09-26",
-          "progress": "/progress#every-agent-can-put-a-picture-on-a-page",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c84d9c15"
         }
       ]
     }
