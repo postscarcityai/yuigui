@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T18:15:59.253Z",
+  "updated": "2026-10-26T18:31:31.320Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4689,15 +4689,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#every-share-link-shows-its-real-screen",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3dd15ecd"
-        },
-        {
-          "key": "FLOW-1",
-          "title": "Flows get the shared test suite, every hub parser and a My flows mock",
-          "step": "Step 2",
-          "summary": "Flows run the same in every parser, and My flows has a first look",
-          "shipped": "2026-09-26",
-          "progress": "/progress#flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/910a144f"
         }
       ]
     }
