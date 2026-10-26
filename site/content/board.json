@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T14:45:58.888Z",
+  "updated": "2026-10-26T15:20:58.913Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4808,15 +4808,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#every-link-on-the-site-resolves",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6e175f55"
-        },
-        {
-          "key": "YUI-34",
-          "title": "Key vault spec + playground mock",
-          "step": "Step 1",
-          "summary": "A key vault, planned",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-key-vault-planned",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9f650e5e"
         }
       ]
     }
