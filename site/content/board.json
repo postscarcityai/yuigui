@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T15:55:58.853Z",
+  "updated": "2026-10-26T16:15:59.565Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4760,30 +4760,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#hold-to-reply-no-more-swipe",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f4f7aa5e"
-        },
-        {
-          "key": "YUI-36",
-          "title": "Encrypted sync decision, spec + playground mock",
-          "step": "Step 1",
-          "summary": "Sync, decided: not in v1",
-          "shipped": "2026-09-26",
-          "progress": "/progress#sync-decided-not-in-v1",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/0b2d64ca"
-        },
-        {
-          "key": "NOTE-25876",
-          "title": "The war room, stripped down",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-war-room-stripped-down",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ae257458"
-        },
-        {
-          "key": "SITE-44",
-          "title": "Thoughts post, designed in the open (vault, widgets, on-device, starter agent)",
-          "summary": "Designed in the open: a Thought on how Yui designs in public",
-          "shipped": "2026-09-26",
-          "progress": "/progress#designed-in-the-open-a-thought-on-how-yui-designs-in-public",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/141025b4"
         }
       ]
     }
