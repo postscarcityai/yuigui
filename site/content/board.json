@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T17:50:59.782Z",
+  "updated": "2026-10-26T17:56:00.021Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4714,15 +4714,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#get-yui-shows-the-app-and-every-way-in",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ac3d6cdd"
-        },
-        {
-          "key": "YUI-63",
-          "title": "The agent says what it is doing, a doing line with a small bar",
-          "step": "Step 2",
-          "summary": "Your agent says what it is doing",
-          "shipped": "2026-09-26",
-          "progress": "/progress#your-agent-says-what-it-is-doing",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3ccea6bb"
         }
       ]
     }
