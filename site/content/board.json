@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T06:45:57.361Z",
+  "updated": "2026-10-26T07:15:57.992Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4992,15 +4992,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#the-release-panel-tops-the-war-room-live-from-the-board",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d296b6e6"
-        },
-        {
-          "key": "YUI-69",
-          "title": "Talk about a setting, spec and playground mock",
-          "step": "Step 1",
-          "summary": "Talk about a setting, designed: change your agent by talking",
-          "shipped": "2026-09-26",
-          "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b1a21e35"
         }
       ]
     }
