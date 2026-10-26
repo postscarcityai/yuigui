@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T12:25:57.886Z",
+  "updated": "2026-10-26T12:45:59.022Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4877,21 +4877,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#talk-to-your-agents-hands-free-read-the-answers",
           "commit": "https://github.com/postscarcityai/yuigui/commit/bb0f0962"
-        },
-        {
-          "key": "SITE-39",
-          "title": "Thought draft for Yui 0.3.0, the smooth release",
-          "summary": "Yui 0.3.0 on the site: the release and a Thought",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-0-3-0-on-the-site-the-release-and-a-thought",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/efe9a521"
-        },
-        {
-          "key": "YUI-91",
-          "title": "Test builds get their own bundle ID so they install beside TestFlight Yui",
-          "summary": "Test builds install beside the TestFlight Yui",
-          "shipped": "2026-09-26",
-          "progress": "/progress#test-builds-install-beside-the-testflight-yui"
         }
       ]
     }
