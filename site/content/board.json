@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T08:45:57.875Z",
+  "updated": "2026-10-26T09:15:57.766Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4916,23 +4916,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of",
           "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b6"
-        },
-        {
-          "key": "YUI-112",
-          "title": "A timeline opened alone on the stage stretches its rows to fill the screen",
-          "summary": "A timeline opened on its own sits at the top",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-timeline-opened-on-its-own-sits-at-the-top",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c943df6a"
-        },
-        {
-          "key": "YUI-89",
-          "title": "Agent tables in the Python, Kotlin and Rust parsers (web half)",
-          "step": "Step 1",
-          "summary": "Agent tables in the Python, Kotlin and Rust parsers",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f8d381df"
         }
       ]
     }
