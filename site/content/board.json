@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T06:35:57.863Z",
+  "updated": "2026-10-26T06:45:57.361Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5001,23 +5001,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b1a21e35"
-        },
-        {
-          "key": "YUI-70",
-          "title": "Agent controls spec, host protocol and playground mock",
-          "step": "Step 1",
-          "summary": "Agent controls, designed: change what your agent is made of",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f9f5c585"
-        },
-        {
-          "key": "SITE-38",
-          "title": "The site catches up to Yui 0.3.0 (build 138 VALID)",
-          "summary": "Yui 0.3.0 on the site: the release and a Thought",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-0-3-0-on-the-site-the-release-and-a-thought",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d182c801"
         }
       ]
     }
