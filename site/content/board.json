@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T08:05:58.294Z",
+  "updated": "2026-10-26T08:15:57.955Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4958,14 +4958,6 @@
           "summary": "The app moves timeline rows in place",
           "shipped": "2026-09-26",
           "progress": "/progress#the-app-moves-timeline-rows-in-place",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79c"
-        },
-        {
-          "key": "YUI-111",
-          "title": "A patch can move a timeline row (next to now to done), so the release panel updates in place",
-          "summary": "A timeline row can move without resending the page",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-timeline-row-can-move-without-resending-the-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79c"
         }
       ]
