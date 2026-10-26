@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T19:40:58.329Z",
+  "updated": "2026-10-26T20:02:09.239Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4631,15 +4631,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#yui-for-musicians-the-plan-and-a-mock-that-plays",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5414ba37"
-        },
-        {
-          "key": "FLOW-1",
-          "title": "Agents make their own flow variants",
-          "step": "Step 3",
-          "summary": "Agents make their own flows: variants",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agents-make-their-own-flows-variants",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/cbf1e7aa"
         }
       ]
     }
