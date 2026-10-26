@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T12:55:58.736Z",
+  "updated": "2026-10-26T13:20:58.536Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4851,24 +4851,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#see-it-catches-up-to-build-148",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f209930e"
-        },
-        {
-          "key": "OSS-6",
-          "title": "Yui@home routine prompts per platform, review policy, first end-to-end run",
-          "step": "Step 2",
-          "summary": "Yui@home runs every week: a routine for each agent",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-home-runs-every-week-a-routine-for-each-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/35c9b588"
-        },
-        {
-          "key": "YUI-37",
-          "title": "Starter agent spec, cost model and playground mock (no spend)",
-          "step": "Step 1",
-          "summary": "A starter agent, planned and priced",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-starter-agent-planned-and-priced",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/66498ed7"
         }
       ]
     }
