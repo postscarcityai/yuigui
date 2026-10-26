@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T15:20:58.913Z",
+  "updated": "2026-10-26T15:31:05.818Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4800,14 +4800,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-lesson-is-one-deck",
           "commit": "https://github.com/postscarcityai/yuigui/commit/babe06b0"
-        },
-        {
-          "key": "SITE-42",
-          "title": "Link and image integrity sweep, every page resolves",
-          "summary": "Every link on the site resolves",
-          "shipped": "2026-09-26",
-          "progress": "/progress#every-link-on-the-site-resolves",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6e175f55"
         }
       ]
     }
