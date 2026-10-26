@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T08:15:57.955Z",
+  "updated": "2026-10-26T08:25:59.034Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4950,15 +4950,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking",
           "commit": "https://github.com/postscarcityai/yuigui/commit/83350fdd"
-        },
-        {
-          "key": "YUI-111",
-          "title": "Timeline rows move in place in the app (kind= patch), then the war room uses it",
-          "step": "Step 2",
-          "summary": "The app moves timeline rows in place",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-app-moves-timeline-rows-in-place",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79c"
         }
       ]
     }
