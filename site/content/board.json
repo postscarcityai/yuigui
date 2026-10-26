@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T14:20:58.741Z",
+  "updated": "2026-10-26T14:45:58.888Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4817,14 +4817,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-key-vault-planned",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9f650e5e"
-        },
-        {
-          "key": "SITE-41",
-          "title": "Speed and accessibility pass, top pages to 90+ on Lighthouse",
-          "summary": "Faster pages, and every one clears 90",
-          "shipped": "2026-09-26",
-          "progress": "/progress#faster-pages-and-every-one-clears-90",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1bb9e675"
         }
       ]
     }
