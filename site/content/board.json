@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T22:05:58.172Z",
+  "updated": "2026-10-26T22:10:58.395Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4543,23 +4543,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#help-why-a-beat-is-silent",
           "commit": "https://github.com/postscarcityai/yui/commit/43c4126"
-        },
-        {
-          "key": "YUI-63",
-          "title": "The working row shows what the agent is doing, with a bar",
-          "step": "Step 2",
-          "summary": "It says what it is doing",
-          "shipped": "2026-09-26",
-          "progress": "/progress#it-says-what-it-is-doing",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3ccea6bb"
-        },
-        {
-          "key": "INT-7",
-          "title": "Claude adapter, MCP connector plus Yui screens as an MCP App",
-          "summary": "Yui in Claude, and Yui screens inside the chat",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-in-claude-and-yui-screens-inside-the-chat",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6726e49d"
         }
       ]
     }
