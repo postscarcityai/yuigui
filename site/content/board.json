@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T00:17:58.357Z",
+  "updated": "2026-10-26T00:25:57.558Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -319,16 +319,6 @@
           "summary": "Beats, the dialogue stage. Talk, anchors, waypoints, barge-in"
         },
         {
-          "key": "YUI-352",
-          "title": "DLG-3 (WEB, now, Chris)",
-          "summary": "The dialogue prototype on the canvas, spoken beats, anchors, waypoints, talk over it"
-        },
-        {
-          "key": "YUI-353",
-          "title": "DLG-4 (SPEC, now, Chris)",
-          "summary": "The words, YL 5b The dialogue, anchor and wait lines, RELAY flows, MOTION 0c, CHANNEL update"
-        },
-        {
           "key": "YUI-354",
           "title": "DLG-5 (PLUGIN)",
           "summary": "Hermes streams beat rows, send_draft as flow rows, shim forwards real deltas (backlog)"
@@ -397,17 +387,21 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-321",
-          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
-          "blocked": "chris",
+          "key": "YUI-352",
+          "title": "DLG-3 (WEB, now, Chris)",
+          "summary": "The dialogue prototype on the canvas, spoken beats, anchors, waypoints, talk over it",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-351",
-          "title": "DLG-2 (WEB, now, Chris)",
-          "summary": "Beats, step two: any reply cut into beats",
-          "blocked": "other",
-          "progress": "/progress#beats-step-two-any-reply-cut-into-beats",
+          "key": "YUI-353",
+          "title": "DLG-4 (SPEC, now, Chris)",
+          "summary": "The words, YL 5b The dialogue, anchor and wait lines, RELAY flows, MOTION 0c, CHANNEL update",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-321",
+          "title": "The living canvas, the film draws on the stage and every mark can be touched, scrubbed and asked about",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
@@ -416,6 +410,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-351",
+          "title": "DLG-2 (WEB, now, Chris)",
+          "summary": "Beats, step two: any reply cut into beats",
+          "shipped": "2026-10-25",
+          "progress": "/progress#beats-step-two-any-reply-cut-into-beats",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/02c98a4f"
+        },
         {
           "key": "YUI-350",
           "title": "DLG-1 (WEB, now, Chris)",
@@ -5074,13 +5076,6 @@
           "summary": "The release timeline, live from the board",
           "shipped": "2026-09-25",
           "progress": "/progress#the-release-timeline-live-from-the-board"
-        },
-        {
-          "key": "YUI-35",
-          "title": "Meal photo to macros",
-          "summary": "Meal photo to macros, in the playground",
-          "shipped": "2026-09-25",
-          "progress": "/progress#meal-photo-to-macros-in-the-playground"
         }
       ]
     }
