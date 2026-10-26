@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T12:45:59.022Z",
+  "updated": "2026-10-26T12:55:58.736Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4869,14 +4869,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-starter-agent-planned-and-priced",
           "commit": "https://github.com/postscarcityai/yuigui/commit/66498ed7"
-        },
-        {
-          "key": "YUI-14",
-          "title": "Voice in, text out, smooth and fast",
-          "summary": "Talk to your agents hands-free, read the answers",
-          "shipped": "2026-09-26",
-          "progress": "/progress#talk-to-your-agents-hands-free-read-the-answers",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/bb0f0962"
         }
       ]
     }
