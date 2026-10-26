@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T18:55:59.264Z",
+  "updated": "2026-10-26T19:01:07.301Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4664,15 +4664,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#outside-agents-draw-like-the-app",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3e049443"
-        },
-        {
-          "key": "FLOW-2",
-          "title": "Agents look up screens and flows in the library, a search endpoint and an MCP tool",
-          "step": "Step 2",
-          "summary": "Agents can look up the library",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agents-can-look-up-the-library",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/37923ca1"
         }
       ]
     }
