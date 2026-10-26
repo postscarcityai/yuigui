@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T06:31:04.498Z",
+  "updated": "2026-10-26T06:35:57.863Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5018,14 +5018,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#yui-0-3-0-on-the-site-the-release-and-a-thought",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d182c801"
-        },
-        {
-          "key": "YUI-106",
-          "title": "Send and drawer taps under 100 ms (YUI-101 follow-up)",
-          "summary": "Send and the menu drawer answer faster",
-          "shipped": "2026-09-26",
-          "progress": "/progress#send-and-the-menu-drawer-answer-faster",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/29ee8a5b"
         }
       ]
     }
