@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T16:15:59.565Z",
+  "updated": "2026-10-26T16:55:58.839Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4753,13 +4753,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-lesson-is-one-deck",
           "commit": "https://github.com/postscarcityai/yuigui/commit/babe06b0"
-        },
-        {
-          "key": "NOTE-25814",
-          "title": "Hold to reply, no more swipe",
-          "shipped": "2026-09-26",
-          "progress": "/progress#hold-to-reply-no-more-swipe",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f4f7aa5e"
         }
       ]
     }
