@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T00:25:57.558Z",
+  "updated": "2026-10-26T00:50:58.078Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5069,13 +5069,6 @@
           "summary": "Shared agents in the app: Hi Maya, Shared by Sam, and a clean goodbye",
           "shipped": "2026-09-25",
           "progress": "/progress#shared-agents-in-the-app-hi-maya-shared-by-sam-and-a-clean-goodbye"
-        },
-        {
-          "key": "YUI-90",
-          "title": "The release timeline is live in the war room",
-          "summary": "The release timeline, live from the board",
-          "shipped": "2026-09-25",
-          "progress": "/progress#the-release-timeline-live-from-the-board"
         }
       ]
     }
