@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T07:15:57.992Z",
+  "updated": "2026-10-26T07:45:58.188Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4976,22 +4976,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b6"
-        },
-        {
-          "key": "OSS-6",
-          "title": "Yui@home",
-          "summary": "Yui@home: the agent-ready backlog is live",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-home-the-agent-ready-backlog-is-live",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3444235d"
-        },
-        {
-          "key": "YUI-105",
-          "title": "The release panel on the phone, step 2 of YUI-90",
-          "summary": "The release panel tops the war room, live from the board",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-release-panel-tops-the-war-room-live-from-the-board",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d296b6e6"
         }
       ]
     }
