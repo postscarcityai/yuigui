@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T23:05:57.911Z",
+  "updated": "2026-10-26T23:41:00.530Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4475,37 +4475,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#send-answers-in-about-70-ms",
           "commit": "https://github.com/postscarcityai/yuigui/commit/dd48e437"
-        },
-        {
-          "key": "YUI-37",
-          "title": "A starter agent for people with no agent",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-starter-agent-planned-and-priced",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/66498ed7"
-        },
-        {
-          "key": "YUI-37",
-          "title": "The hosted starter agent on Cloudflare",
-          "step": "Step 2",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-starter-agent-planned-and-priced",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/66498ed7"
-        },
-        {
-          "key": "YUI-149",
-          "title": "Hermes for everyone spec",
-          "summary": "Hermes for everyone: the spec",
-          "shipped": "2026-09-26",
-          "progress": "/progress#hermes-for-everyone-the-spec",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/dd75a087"
-        },
-        {
-          "key": "YUI-129",
-          "title": "Native Yui spec",
-          "summary": "Native Yui: the spec",
-          "shipped": "2026-09-26",
-          "progress": "/progress#native-yui-the-spec",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/dd75a087"
         }
       ]
     }
