@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T20:02:09.239Z",
+  "updated": "2026-10-26T20:40:59.027Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4622,15 +4622,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#music-on-the-site-see-it-and-a-thought",
           "commit": "https://github.com/postscarcityai/yuigui/commit/143fe083"
-        },
-        {
-          "key": "YUI-116",
-          "title": "Music tools for Yui",
-          "step": "Step 1",
-          "summary": "Yui for musicians: the plan, and a mock that plays",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-for-musicians-the-plan-and-a-mock-that-plays",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5414ba37"
         }
       ]
     }
