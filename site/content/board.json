@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T01:15:59.109Z",
+  "updated": "2026-10-26T01:31:13.187Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -5048,14 +5048,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#taps-answer-at-once-and-a-long-thread-scrolls-smooth",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ac398ba1"
-        },
-        {
-          "key": "YUI-99",
-          "title": "Typing keeps up",
-          "summary": "Typing keeps up, even on a long thread",
-          "shipped": "2026-09-25",
-          "progress": "/progress#typing-keeps-up-even-on-a-long-thread",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/088a7007"
         }
       ]
     }
