@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T13:45:58.452Z",
+  "updated": "2026-10-26T13:50:59.568Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4834,15 +4834,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#the-model-on-the-phone-planned",
           "commit": "https://github.com/postscarcityai/yuigui/commit/daf16c71"
-        },
-        {
-          "key": "YUI-40",
-          "title": "Widgets and Siri spec + playground mock (home screen, lock screen, Siri sheet)",
-          "step": "Step 1",
-          "summary": "Widgets and Siri, planned",
-          "shipped": "2026-09-26",
-          "progress": "/progress#widgets-and-siri-planned",
-          "commit": "https://github.com/postscarcityai/yui/commit/cfd7e49"
         }
       ]
     }
