@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T13:20:58.536Z",
+  "updated": "2026-10-26T13:45:58.452Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4843,14 +4843,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#widgets-and-siri-planned",
           "commit": "https://github.com/postscarcityai/yui/commit/cfd7e49"
-        },
-        {
-          "key": "SITE-40",
-          "title": "See it catches up to build 148 (agent controls, talk about a setting, timeline rows that move)",
-          "summary": "See it catches up to build 148",
-          "shipped": "2026-09-26",
-          "progress": "/progress#see-it-catches-up-to-build-148",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f209930e"
         }
       ]
     }
