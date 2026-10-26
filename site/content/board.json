@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T17:15:59.796Z",
+  "updated": "2026-10-26T17:25:59.853Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4730,13 +4730,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-quiet-dot-on-the-menu-button",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a716f922"
-        },
-        {
-          "key": "YUI-114",
-          "title": "Rename the App Store listing from Yui Bot to Yui (fallback",
-          "summary": "The store listing is named Yui Gui",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-store-listing-is-named-yui-gui"
         }
       ]
     }
