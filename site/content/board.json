@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T12:05:59.104Z",
+  "updated": "2026-10-26T12:25:57.886Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4892,14 +4892,6 @@
           "summary": "Test builds install beside the TestFlight Yui",
           "shipped": "2026-09-26",
           "progress": "/progress#test-builds-install-beside-the-testflight-yui"
-        },
-        {
-          "key": "YUI-100",
-          "title": "Memory audit",
-          "summary": "Yui holds less in memory, and a test checks it before every release",
-          "shipped": "2026-09-26",
-          "progress": "/progress#yui-holds-less-in-memory-and-a-test-checks-it-before-every-release",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/35b4eb27"
         }
       ]
     }
