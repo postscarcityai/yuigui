@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T15:36:07.404Z",
+  "updated": "2026-10-26T15:55:58.853Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4784,14 +4784,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#designed-in-the-open-a-thought-on-how-yui-designs-in-public",
           "commit": "https://github.com/postscarcityai/yuigui/commit/141025b4"
-        },
-        {
-          "key": "SITE-43",
-          "title": "See it catches up to build 155 (hands-free voice, keyboard, centered questions, memory)",
-          "summary": "See it catches up to build 155",
-          "shipped": "2026-09-26",
-          "progress": "/progress#see-it-catches-up-to-build-155",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1e2615c7"
         }
       ]
     }
