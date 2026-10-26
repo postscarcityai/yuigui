@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T15:31:05.818Z",
+  "updated": "2026-10-26T15:36:07.404Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4792,14 +4792,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#see-it-catches-up-to-build-155",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1e2615c7"
-        },
-        {
-          "key": "YUI-113",
-          "title": "One reply, one experience in the app",
-          "summary": "A lesson is one deck",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-lesson-is-one-deck",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/babe06b0"
         }
       ]
     }
