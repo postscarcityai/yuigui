@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T21:10:59.529Z",
+  "updated": "2026-10-26T22:01:06.192Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4590,15 +4590,6 @@
           "title": "Show it, don't say it",
           "shipped": "2026-09-26",
           "progress": "/progress#the-full-screen-stage-drawn"
-        },
-        {
-          "key": "YUI-116",
-          "title": "Native sound engine + loop + drums in the app",
-          "step": "Step 2",
-          "summary": "Agents send a tuner and a metronome",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agents-send-a-tuner-and-a-metronome",
-          "commit": "https://github.com/postscarcityai/yui/commit/56b38a3"
         }
       ]
     }
