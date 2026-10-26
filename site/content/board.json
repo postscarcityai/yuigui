@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T22:10:58.395Z",
+  "updated": "2026-10-26T22:20:58.864Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4536,13 +4536,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#every-drum-name-plays-a-real-drum",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1c96bd74"
-        },
-        {
-          "key": "NOTE-62835",
-          "title": "Beats that play on silent, and page 2 cleared",
-          "shipped": "2026-09-26",
-          "progress": "/progress#help-why-a-beat-is-silent",
-          "commit": "https://github.com/postscarcityai/yui/commit/43c4126"
         }
       ]
     }
