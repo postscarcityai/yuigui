@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T22:40:58.859Z",
+  "updated": "2026-10-26T23:05:57.911Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4506,12 +4506,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#native-yui-the-spec",
           "commit": "https://github.com/postscarcityai/yuigui/commit/dd75a087"
-        },
-        {
-          "key": "NOTE-64712",
-          "title": "About and Controls, one tab",
-          "shipped": "2026-09-26",
-          "progress": "/progress#about-and-controls-in-one-drawer-tab-planned"
         }
       ]
     }
