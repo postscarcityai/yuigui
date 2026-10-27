@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T00:10:58.650Z",
+  "updated": "2026-10-27T00:16:03.848Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4450,14 +4450,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-yui-of-your-own-explained",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ca26e0ec"
-        },
-        {
-          "key": "SITE-54",
-          "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)",
-          "summary": "The full screen stage on the site",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-full-screen-stage-on-the-site",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/808e1fd7"
         }
       ]
     }
