@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T13:10:58.742Z",
+  "updated": "2026-10-27T13:15:59.642Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4235,19 +4235,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#explainers-draw-every-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/8f0b5b3a"
-        },
-        {
-          "key": "NOTE-38321",
-          "title": "Places get a map",
-          "shipped": "2026-09-27",
-          "progress": "/progress#maps-in-the-app",
-          "commit": "https://github.com/postscarcityai/yui/commit/63fdc90"
-        },
-        {
-          "key": "NOTE-4592",
-          "title": "Feedback receipts look better, off the stage",
-          "shipped": "2026-09-27",
-          "progress": "/progress#feedback-receipts-sit-in-the-drawer-off-the-stage"
         }
       ]
     }
