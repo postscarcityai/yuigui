@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-26T23:55:57.982Z",
+  "updated": "2026-10-27T00:10:58.650Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4458,15 +4458,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#the-full-screen-stage-on-the-site",
           "commit": "https://github.com/postscarcityai/yuigui/commit/808e1fd7"
-        },
-        {
-          "key": "YUI-119",
-          "title": "Full screen first, the chat is the record",
-          "step": "Step 1",
-          "summary": "The full screen stage, drawn",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-full-screen-stage-drawn",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/198233b7"
         }
       ]
     }
