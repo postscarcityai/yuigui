@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T18:25:59.407Z",
+  "updated": "2026-10-27T18:35:59.741Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4106,14 +4106,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#your-agents-check-in-on-their-own",
           "commit": "https://github.com/postscarcityai/yuigui/commit/78a54d91"
-        },
-        {
-          "key": "YUI-158",
-          "title": "Follow-up (backlog)",
-          "summary": "Map labels stop overlapping",
-          "shipped": "2026-09-27",
-          "progress": "/progress#map-labels-stop-overlapping",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/441ccbd9"
         }
       ]
     }
