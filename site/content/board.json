@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T20:55:58.858Z",
+  "updated": "2026-10-27T21:15:58.057Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4043,14 +4043,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#a-new-install-opens-with-yui-and-the-crew-already-there",
           "commit": "https://github.com/postscarcityai/yui/commit/802b510"
-        },
-        {
-          "key": "YUI-161",
-          "title": "Native agents write \\n inside quoted YL strings, the app shows 'nn'",
-          "summary": "Line breaks read as lines",
-          "shipped": "2026-09-27",
-          "progress": "/progress#line-breaks-read-as-lines",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9bf5119b"
         }
       ]
     }
