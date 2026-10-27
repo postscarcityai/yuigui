@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T01:31:06.663Z",
+  "updated": "2026-10-27T02:10:57.407Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4401,14 +4401,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-bigger-mic-bottom-right",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1b86acdc"
-        },
-        {
-          "key": "YUI-63",
-          "title": "Claude-shim agents send what they are doing to Yui mid-turn",
-          "step": "Step 3",
-          "shipped": "2026-09-26",
-          "progress": "/progress#your-agent-says-what-it-is-doing",
-          "commit": "https://github.com/postscarcityai/yui/commit/6fb9174"
         }
       ]
     }
