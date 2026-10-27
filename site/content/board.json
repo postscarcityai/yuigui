@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T21:45:59.529Z",
+  "updated": "2026-10-27T22:20:58.293Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4028,13 +4028,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#the-starter-crew-stays-in-character",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6a79ce48"
-        },
-        {
-          "key": "NOTE-65452",
-          "title": "Signed-in header before sign-in",
-          "shipped": "2026-09-27",
-          "progress": "/progress#a-new-install-starts-at-sign-in",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2a2ed453"
         }
       ]
     }
