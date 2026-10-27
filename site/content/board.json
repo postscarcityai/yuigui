@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T07:20:57.812Z",
+  "updated": "2026-10-27T08:15:58.089Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4312,14 +4312,6 @@
           "summary": "A tuner and a metronome in the app",
           "shipped": "2026-09-27",
           "progress": "/progress#a-tuner-and-a-metronome-in-the-app"
-        },
-        {
-          "key": "SITE-60",
-          "title": "See it",
-          "summary": "See a take recorded and a keyboard played",
-          "shipped": "2026-09-27",
-          "progress": "/progress#see-a-take-recorded-and-a-keyboard-played",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8e9a9df3"
         }
       ]
     }
