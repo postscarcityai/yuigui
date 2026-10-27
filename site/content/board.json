@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T13:51:00.127Z",
+  "updated": "2026-10-27T14:05:59.371Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4204,12 +4204,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#one-send-per-screen-forms-too",
           "commit": "https://github.com/postscarcityai/yuigui/commit/94d704bd"
-        },
-        {
-          "key": "NOTE-22448",
-          "title": "Add the crew to my account",
-          "shipped": "2026-09-27",
-          "progress": "/progress#everyone-gets-a-yui-at-sign-in"
         }
       ]
     }
