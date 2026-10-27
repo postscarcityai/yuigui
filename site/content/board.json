@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T01:10:58.877Z",
+  "updated": "2026-10-27T01:31:06.663Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4409,14 +4409,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#your-agent-says-what-it-is-doing",
           "commit": "https://github.com/postscarcityai/yui/commit/6fb9174"
-        },
-        {
-          "key": "YUI-123",
-          "title": "Describe how each agent moves, in words, and the agent turns it into a motion look",
-          "summary": "Say how each agent moves",
-          "shipped": "2026-09-26",
-          "progress": "/progress#say-how-each-agent-moves",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/03a0a05d"
         }
       ]
     }
