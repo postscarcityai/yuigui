@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T02:10:57.407Z",
+  "updated": "2026-10-27T02:20:59.446Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4393,14 +4393,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#a-live-picture-behind-the-words",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3aa0cb3a"
-        },
-        {
-          "key": "YUI-121",
-          "title": "The bottom bar",
-          "summary": "A bigger mic, bottom right",
-          "shipped": "2026-09-26",
-          "progress": "/progress#a-bigger-mic-bottom-right",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1b86acdc"
         }
       ]
     }
