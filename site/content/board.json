@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T13:40:59.606Z",
+  "updated": "2026-10-27T13:51:00.127Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4210,14 +4210,6 @@
           "title": "Add the crew to my account",
           "shipped": "2026-09-27",
           "progress": "/progress#everyone-gets-a-yui-at-sign-in"
-        },
-        {
-          "key": "YUI-155",
-          "title": "A flow the phone can't run turns into a plan, never a dead end",
-          "summary": "Flows never dead-end",
-          "shipped": "2026-09-27",
-          "progress": "/progress#flows-never-dead-end",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8b96ad45"
         }
       ]
     }
