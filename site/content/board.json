@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T11:10:59.234Z",
+  "updated": "2026-10-27T11:15:59.057Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4274,13 +4274,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#a-film-for-yui-0-4-1-tune-up-keep-time-send-a-take",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7e1d1935"
-        },
-        {
-          "key": "SOC-5",
-          "title": "Finish brag videos 08 hands full, 09 afford it, 10 homework",
-          "shipped": "2026-09-27",
-          "progress": "/progress#three-films-dinner-a-car-homework",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1162037e"
         }
       ]
     }
