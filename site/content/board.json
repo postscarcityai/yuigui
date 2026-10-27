@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T08:40:58.719Z",
+  "updated": "2026-10-27T08:45:57.798Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4289,14 +4289,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#the-films-are-on-the-site-and-0-4-1-reads-as-the-newest",
           "commit": "https://github.com/postscarcityai/yuigui/commit/dc2d1d6c"
-        },
-        {
-          "key": "YUI-116",
-          "title": "The channel guide teaches keys, chords, tuner and metronome",
-          "summary": "Agents send keys and chords",
-          "shipped": "2026-09-27",
-          "progress": "/progress#agents-send-keys-and-chords",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/85bbee1b"
         }
       ]
     }
