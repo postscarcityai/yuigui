@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T13:05:58.244Z",
+  "updated": "2026-10-27T13:10:58.742Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4248,19 +4248,6 @@
           "title": "Feedback receipts look better, off the stage",
           "shipped": "2026-09-27",
           "progress": "/progress#feedback-receipts-sit-in-the-drawer-off-the-stage"
-        },
-        {
-          "key": "SOC-6",
-          "title": "Brag video of the new layout as shipped in 0.4.0/0.4.1, on the home page hero",
-          "shipped": "2026-09-27",
-          "progress": "/progress#the-new-face-filmed-in-the-app-on-the-home-page",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f23ae62d"
-        },
-        {
-          "key": "NOTE-13279",
-          "title": "No send button in About you",
-          "shipped": "2026-09-27",
-          "progress": "/progress#one-send-per-screen-forms-too"
         }
       ]
     }
