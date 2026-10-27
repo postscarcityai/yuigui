@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T05:40:58.425Z",
+  "updated": "2026-10-27T06:20:51.421Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4344,14 +4344,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#keys-and-chords-you-can-play-in-the-app",
           "commit": "https://github.com/postscarcityai/yuigui/commit/bedb5c62"
-        },
-        {
-          "key": "SITE-57",
-          "title": "Yui 0.4.0 on the site, a release Thought and a See it group",
-          "summary": "Yui 0.4.0 on the site: the release post and See it",
-          "shipped": "2026-09-27",
-          "progress": "/progress#yui-0-4-0-on-the-site-the-release-post-and-see-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/198ff0f3"
         }
       ]
     }
