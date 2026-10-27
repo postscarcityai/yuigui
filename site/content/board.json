@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T20:10:59.806Z",
+  "updated": "2026-10-27T20:55:58.858Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4051,14 +4051,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#line-breaks-read-as-lines",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9bf5119b"
-        },
-        {
-          "key": "YUI-162",
-          "title": "Native GLM 5.2 turns can think through all 2000 tokens and answer nothing",
-          "summary": "Long asks always get an answer",
-          "shipped": "2026-09-27",
-          "progress": "/progress#long-asks-always-get-an-answer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d3182929"
         }
       ]
     }
