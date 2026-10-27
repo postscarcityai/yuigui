@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T06:40:51.693Z",
+  "updated": "2026-10-27T07:20:57.812Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4320,14 +4320,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#see-a-take-recorded-and-a-keyboard-played",
           "commit": "https://github.com/postscarcityai/yuigui/commit/8e9a9df3"
-        },
-        {
-          "key": "SITE-59",
-          "title": "The site after 0.4.0",
-          "summary": "A clean sweep after Yui 0.4.0",
-          "shipped": "2026-09-27",
-          "progress": "/progress#a-clean-sweep-after-yui-0-4-0",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9d8db746"
         }
       ]
     }
