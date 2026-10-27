@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T02:35:57.849Z",
+  "updated": "2026-10-27T03:10:58.124Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4376,14 +4376,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#the-stage-moves-with-the-agent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5420a80f"
-        },
-        {
-          "key": "YUI-122",
-          "title": "The top bar",
-          "summary": "The top bar: agents left, the record right",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-top-bar-agents-left-the-record-right",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f90901b8"
         }
       ]
     }
