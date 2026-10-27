@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T17:26:00.695Z",
+  "updated": "2026-10-27T17:46:01.156Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4156,22 +4156,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#maps-in-the-app",
           "commit": "https://github.com/postscarcityai/yui/commit/63fdc90"
-        },
-        {
-          "key": "YUI-133",
-          "title": "Native profiles",
-          "summary": "Yui's own soul and first screen",
-          "shipped": "2026-09-27",
-          "progress": "/progress#yui-s-own-soul-and-first-screen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/04e2c8d9"
-        },
-        {
-          "key": "YUI-131",
-          "title": "Native models",
-          "summary": "Pick the model per turn",
-          "shipped": "2026-09-27",
-          "progress": "/progress#pick-the-model-per-turn",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/fe8d66c7"
         }
       ]
     }
