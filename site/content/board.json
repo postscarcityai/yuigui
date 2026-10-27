@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T13:20:59.895Z",
+  "updated": "2026-10-27T13:40:59.606Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4218,15 +4218,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#flows-never-dead-end",
           "commit": "https://github.com/postscarcityai/yuigui/commit/8b96ad45"
-        },
-        {
-          "key": "YUI-158",
-          "title": "Maps on the web, a map preset in the spec, parsers and playground (Chris, feedback AL2nKEYo)",
-          "step": "Step 1",
-          "summary": "Maps: answer where with the place",
-          "shipped": "2026-09-27",
-          "progress": "/progress#maps-answer-where-with-the-place",
-          "commit": "https://github.com/postscarcityai/yui/commit/bf2d657"
         }
       ]
     }
