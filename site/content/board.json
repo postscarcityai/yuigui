@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T22:20:58.293Z",
+  "updated": "2026-10-27T22:25:59.212Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4020,14 +4020,6 @@
           "title": "Swipe for drawer and screens again",
           "shipped": "2026-09-27",
           "progress": "/progress#swipe-sideways-on-the-full-screen-again"
-        },
-        {
-          "key": "YUI-135",
-          "title": "The starter crew",
-          "summary": "The starter crew stays in character",
-          "shipped": "2026-09-27",
-          "progress": "/progress#the-starter-crew-stays-in-character",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6a79ce48"
         }
       ]
     }
