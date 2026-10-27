@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27T00:45:58.823Z",
+  "updated": "2026-10-27T01:01:06.410Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -4424,15 +4424,6 @@
           "shipped": "2026-09-26",
           "progress": "/progress#pictures-show-whole-never-cropped",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a7f66508"
-        },
-        {
-          "key": "YUI-120",
-          "title": "The stage moves with the agent, context animations",
-          "step": "Step 1",
-          "summary": "The stage moves with the agent",
-          "shipped": "2026-09-26",
-          "progress": "/progress#the-stage-moves-with-the-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5420a80f"
         }
       ]
     }
