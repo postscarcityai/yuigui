@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T13:35:35.104Z",
+  "updated": "2026-10-28T13:45:34.894Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3719,14 +3719,6 @@
           "title": "The switch-agents crash, already fixed",
           "shipped": "2026-09-28",
           "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
-        },
-        {
-          "key": "YUI-185b",
-          "title": "Quiet ticks reach native runtimes in the spec; Save order redraws This week",
-          "summary": "Ticks and your week, on every device",
-          "shipped": "2026-09-28",
-          "progress": "/progress#ticks-and-your-week-on-every-device",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5cce24c0"
         }
       ]
     }
