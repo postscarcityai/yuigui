@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T13:25:35.975Z",
+  "updated": "2026-10-28T13:35:35.104Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3727,18 +3727,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#ticks-and-your-week-on-every-device",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5cce24c0"
-        },
-        {
-          "key": "NOTE-51249",
-          "title": "Agents keep their own tables",
-          "shipped": "2026-09-28",
-          "progress": "/progress#basil-s-grocery-list-just-works"
-        },
-        {
-          "key": "NOTE-29968",
-          "title": "Basil's error was a wall of text",
-          "shipped": "2026-09-28",
-          "progress": "/progress#basil-s-grocery-list-just-works"
         }
       ]
     }
