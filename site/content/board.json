@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T22:35:32.837Z",
+  "updated": "2026-10-28T22:40:33.114Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3638,13 +3638,6 @@
           "summary": "Checks go green on main and run before every push",
           "shipped": "2026-09-28",
           "progress": "/progress#checks-go-green-on-main-and-run-before-every-push"
-        },
-        {
-          "key": "SITE-92",
-          "title": "Where Jev fits in Yui, every decision point in a turn and which ones a Jev call should make",
-          "summary": "Where Jev fits in Yui: every decision in a turn",
-          "shipped": "2026-09-28",
-          "progress": "/progress#where-jev-fits-in-yui-every-decision-in-a-turn"
         }
       ]
     }
