@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T14:25:34.876Z",
+  "updated": "2026-10-28T14:50:39.774Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3697,14 +3697,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#every-page-shares-as-itself",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b083284b"
-        },
-        {
-          "key": "SITE-84",
-          "title": "Stop a turn in the site chat, the send button turns into a stop square",
-          "summary": "Stop a reply in the site chat",
-          "shipped": "2026-09-28",
-          "progress": "/progress#stop-a-reply-in-the-site-chat",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/270fa523"
         }
       ]
     }
