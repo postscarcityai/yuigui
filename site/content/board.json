@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T22:20:39.482Z",
+  "updated": "2026-10-28T22:25:33.502Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3652,13 +3652,6 @@
           "summary": "Jev research: what the decision model is, what it costs",
           "shipped": "2026-09-28",
           "progress": "/progress#jev-research-what-the-decision-model-is-what-it-costs"
-        },
-        {
-          "key": "SITE-89",
-          "title": "Vote on proposals",
-          "summary": "Vote on a proposal",
-          "shipped": "2026-09-28",
-          "progress": "/progress#vote-on-a-proposal"
         }
       ]
     }
