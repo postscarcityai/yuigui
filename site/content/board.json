@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T10:55:32.643Z",
+  "updated": "2026-10-28T11:30:33.410Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3782,14 +3782,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#basil-s-week-on-the-web-a-day-a-page-a-swap-on-one-tap",
           "commit": "https://github.com/postscarcityai/yuigui/commit/20512026"
-        },
-        {
-          "key": "SITE-69",
-          "title": "Meet the crew in the site chat, each member with a flow to try",
-          "summary": "Meet the crew in the site chat, each with a flow to try",
-          "shipped": "2026-09-28",
-          "progress": "/progress#meet-the-crew-in-the-site-chat-each-with-a-flow-to-try",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/fea1d0dd"
         }
       ]
     }
