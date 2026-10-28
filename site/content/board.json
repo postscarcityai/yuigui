@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T11:30:33.410Z",
+  "updated": "2026-10-28T11:50:39.723Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3774,14 +3774,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#see-it-s-live-only-entries-shot-on-real-test-runs",
           "commit": "https://github.com/postscarcityai/yuigui/commit/eb036892"
-        },
-        {
-          "key": "SITE-81",
-          "title": "The stage plays a deck's titled questions as pages, and a redraw beside an answer keeps you on the answer (app parity for YUI-183)",
-          "summary": "Basil's week on the web: a day a page, a swap on one tap",
-          "shipped": "2026-09-28",
-          "progress": "/progress#basil-s-week-on-the-web-a-day-a-page-a-swap-on-one-tap",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/20512026"
         }
       ]
     }
