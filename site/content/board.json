@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T07:20:39.124Z",
+  "updated": "2026-10-28T08:00:33.396Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3830,14 +3830,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#see-it-shows-the-rest-of-the-app-as-it-is-now",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d5df7c91"
-        },
-        {
-          "key": "SITE-76",
-          "title": "See it's 'Yui on your phone' group still shows the old chat composer",
-          "summary": "See it shows the app as it is now",
-          "shipped": "2026-09-28",
-          "progress": "/progress#see-it-shows-the-app-as-it-is-now",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/486e8fa9"
         }
       ]
     }
