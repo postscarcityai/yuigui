@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T04:15:33.277Z",
+  "updated": "2026-10-28T04:55:33.193Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3894,14 +3894,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#hand-this-page-to-your-agent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a19eee39"
-        },
-        {
-          "key": "SITE-66",
-          "title": "The site chat opens full screen first, like the Yui app, with the mic",
-          "summary": "The chat on this site opens full screen, like the app",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-chat-on-this-site-opens-full-screen-like-the-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f3b98d90"
         }
       ]
     }
