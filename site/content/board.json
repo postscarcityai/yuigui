@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T05:45:36.061Z",
+  "updated": "2026-10-28T05:55:34.986Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3870,14 +3870,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-site-chat-plays-a-whole-flow",
           "commit": "https://github.com/postscarcityai/yuigui/commit/bc830e90"
-        },
-        {
-          "key": "SITE-67",
-          "title": "The site chat asks for feedback first",
-          "summary": "The site chat asks what you think",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-site-chat-asks-what-you-think",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ce387c2c"
         }
       ]
     }
