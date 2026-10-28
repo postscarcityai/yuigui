@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T13:45:34.894Z",
+  "updated": "2026-10-28T14:05:34.782Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3713,12 +3713,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-site-chat-gets-pages-a-swipe-away",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c10eb5f8"
-        },
-        {
-          "key": "NOTE-23261",
-          "title": "The switch-agents crash, already fixed",
-          "shipped": "2026-09-28",
-          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
         }
       ]
     }
