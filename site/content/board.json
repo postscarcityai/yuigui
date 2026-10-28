@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T11:50:39.723Z",
+  "updated": "2026-10-28T12:55:35.058Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3766,14 +3766,6 @@
           "title": "The switch-agents crash",
           "shipped": "2026-09-28",
           "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
-        },
-        {
-          "key": "SITE-80",
-          "title": "See it's live-only app entries, shot on the live test runs",
-          "summary": "See it's live-only entries, shot on real test runs",
-          "shipped": "2026-09-28",
-          "progress": "/progress#see-it-s-live-only-entries-shot-on-real-test-runs",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/eb036892"
         }
       ]
     }
