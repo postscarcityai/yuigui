@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T05:15:34.410Z",
+  "updated": "2026-10-28T05:45:36.061Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3878,14 +3878,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-site-chat-asks-what-you-think",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ce387c2c"
-        },
-        {
-          "key": "YUI-181",
-          "title": "Ship Yui 0.5.1, the switch-agents and launch crash fix",
-          "summary": "Yui 0.5.1 is on TestFlight: switching agents no longer crashes",
-          "shipped": "2026-09-28",
-          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4f77e336"
         }
       ]
     }
