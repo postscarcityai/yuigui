@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T13:05:34.185Z",
+  "updated": "2026-10-28T13:20:43.297Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3746,14 +3746,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#basil-s-grocery-list-just-works",
           "commit": "https://github.com/postscarcityai/yuigui/commit/48617551"
-        },
-        {
-          "key": "SITE-82",
-          "title": "Meet the crew on yuigui.com/crew",
-          "summary": "Meet the crew: one page for Yui and the five starter agents",
-          "shipped": "2026-09-28",
-          "progress": "/progress#meet-the-crew-one-page-for-yui-and-the-five-starter-agents",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8dbadcdf"
         }
       ]
     }
