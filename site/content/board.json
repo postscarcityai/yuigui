@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T12:55:35.058Z",
+  "updated": "2026-10-28T13:05:34.185Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3754,18 +3754,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#meet-the-crew-one-page-for-yui-and-the-five-starter-agents",
           "commit": "https://github.com/postscarcityai/yuigui/commit/8dbadcdf"
-        },
-        {
-          "key": "NOTE-24431",
-          "title": "The switch-agents crash",
-          "shipped": "2026-09-28",
-          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
-        },
-        {
-          "key": "NOTE-8480",
-          "title": "The switch-agents crash",
-          "shipped": "2026-09-28",
-          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
         }
       ]
     }
