@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T05:55:34.986Z",
+  "updated": "2026-10-28T06:20:39.181Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3862,14 +3862,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#yui-0-5-2-the-dots-are-back-and-slide-with-you",
           "commit": "https://github.com/postscarcityai/yuigui/commit/63841b3d"
-        },
-        {
-          "key": "SITE-68",
-          "title": "The site chat demos whole flows, several screens in a row, not one screen",
-          "summary": "The site chat plays a whole flow",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-site-chat-plays-a-whole-flow",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/bc830e90"
         }
       ]
     }
