@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T18:45:33.553Z",
+  "updated": "2026-10-28T18:55:33.407Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3682,14 +3682,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#proposals-big-ideas-shown-before-they-are-built",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a6d3fdbd"
-        },
-        {
-          "key": "SITE-86",
-          "title": "Fresh og on every major update",
-          "summary": "The home page shares the latest release",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-home-page-shares-the-latest-release",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b20f89cc"
         }
       ]
     }
