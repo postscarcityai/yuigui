@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T04:55:33.193Z",
+  "updated": "2026-10-28T05:15:34.410Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3886,14 +3886,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4f77e336"
-        },
-        {
-          "key": "SITE-77",
-          "title": "Hand this to your agent",
-          "summary": "Hand this page to your agent",
-          "shipped": "2026-09-28",
-          "progress": "/progress#hand-this-page-to-your-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a19eee39"
         }
       ]
     }
