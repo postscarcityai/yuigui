@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T13:20:43.297Z",
+  "updated": "2026-10-28T13:25:35.975Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3739,13 +3739,6 @@
           "title": "Basil's error was a wall of text",
           "shipped": "2026-09-28",
           "progress": "/progress#basil-s-grocery-list-just-works"
-        },
-        {
-          "key": "YUI-188",
-          "title": "Basil's grocery list just works",
-          "shipped": "2026-09-28",
-          "progress": "/progress#basil-s-grocery-list-just-works",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/48617551"
         }
       ]
     }
