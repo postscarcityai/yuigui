@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T02:50:38.706Z",
+  "updated": "2026-10-28T03:55:34.007Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3910,15 +3910,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#see-it-shows-hold-to-talk-the-way-0-5-0-does-it",
           "commit": "https://github.com/postscarcityai/yuigui/commit/148273ab"
-        },
-        {
-          "key": "YUI-171",
-          "title": "Tables in any agent's reply, A2A and webhook, the app side (Controls > Tables, Give to...) (backlog)",
-          "step": "Step 3",
-          "summary": "Your tables work with any agent",
-          "shipped": "2026-09-27",
-          "progress": "/progress#your-tables-work-with-any-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1b7b24da"
         }
       ]
     }
