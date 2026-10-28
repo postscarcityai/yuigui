@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T02:25:33.460Z",
+  "updated": "2026-10-28T02:50:38.706Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3919,23 +3919,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#your-tables-work-with-any-agent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1b7b24da"
-        },
-        {
-          "key": "YUI-171",
-          "title": "Tables for any agent, the plugin and MCP tools",
-          "step": "Step 2",
-          "summary": "Switch agents, keep your tables",
-          "shipped": "2026-09-27",
-          "progress": "/progress#switch-agents-keep-your-tables",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1b7b24da"
-        },
-        {
-          "key": "YUI-168",
-          "title": "Every agent's home",
-          "summary": "Every agent has a home",
-          "shipped": "2026-09-27",
-          "progress": "/progress#every-agent-has-a-home",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/71053618"
         }
       ]
     }
