@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T08:45:32.801Z",
+  "updated": "2026-10-28T09:20:39.248Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3814,14 +3814,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-musician-s-flow-a-vibe-to-a-beat",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d1820c8e"
-        },
-        {
-          "key": "SITE-71",
-          "title": "The nutritionist's flow for the site chat, from a plate to macros",
-          "summary": "The nutritionist's flow: a plate to macros",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-nutritionist-s-flow-a-plate-to-macros",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4c401c51"
         }
       ]
     }
