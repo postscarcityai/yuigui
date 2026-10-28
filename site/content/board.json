@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T06:45:32.472Z",
+  "updated": "2026-10-28T07:00:33.563Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3846,14 +3846,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-timer-reads-in-light-mode",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5fc2cee1"
-        },
-        {
-          "key": "SITE-70",
-          "title": "The trainer's flow for the site chat, from a check-in to the timer",
-          "summary": "The trainer's flow: a check-in that ends on the timer",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-trainer-s-flow-a-check-in-that-ends-on-the-timer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/64936f7f"
         }
       ]
     }
