@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T03:55:34.007Z",
+  "updated": "2026-10-28T04:15:33.277Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3902,14 +3902,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-chat-on-this-site-opens-full-screen-like-the-app",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f3b98d90"
-        },
-        {
-          "key": "SITE-75",
-          "title": "Hold to talk on /mockups shows the 0.5.0 app, not the old chat composer",
-          "summary": "See it shows hold to talk the way 0.5.0 does it",
-          "shipped": "2026-09-28",
-          "progress": "/progress#see-it-shows-hold-to-talk-the-way-0-5-0-does-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/148273ab"
         }
       ]
     }
