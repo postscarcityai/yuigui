@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T22:00:34.208Z",
+  "updated": "2026-10-28T22:20:39.482Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3659,21 +3659,6 @@
           "summary": "Vote on a proposal",
           "shipped": "2026-09-28",
           "progress": "/progress#vote-on-a-proposal"
-        },
-        {
-          "key": "SITE-88",
-          "title": "PROP-1 hero, the first-run flow in a phone",
-          "summary": "Pick your crew, in a phone you can use",
-          "shipped": "2026-09-28",
-          "progress": "/progress#pick-your-crew-in-a-phone-you-can-use",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b1bf9bdd"
-        },
-        {
-          "key": "SITE-90",
-          "title": "The token has a name, $U",
-          "summary": "The token has a name: $U",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-token-has-a-name-u"
         }
       ]
     }
