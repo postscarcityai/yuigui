@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T01:55:33.856Z",
+  "updated": "2026-10-28T02:00:33.237Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3944,13 +3944,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#one-agent-opens-another",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2a2d5ad0"
-        },
-        {
-          "key": "YUI-103",
-          "title": "Log a meal without weighing",
-          "shipped": "2026-09-27",
-          "progress": "/progress#log-a-meal-without-weighing",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f927da8b"
         }
       ]
     }
