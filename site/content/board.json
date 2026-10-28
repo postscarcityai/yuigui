@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T09:20:39.248Z",
+  "updated": "2026-10-28T09:50:39.483Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3806,14 +3806,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-planner-s-flow-a-busy-week-to-a-plan",
           "commit": "https://github.com/postscarcityai/yuigui/commit/8014448e"
-        },
-        {
-          "key": "SITE-72",
-          "title": "The musician's flow for the site chat, from a vibe to a beat",
-          "summary": "The musician's flow: a vibe to a beat",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-musician-s-flow-a-vibe-to-a-beat",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d1820c8e"
         }
       ]
     }
