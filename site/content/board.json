@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T08:00:33.396Z",
+  "updated": "2026-10-28T08:45:32.801Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3822,14 +3822,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-nutritionist-s-flow-a-plate-to-macros",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4c401c51"
-        },
-        {
-          "key": "SITE-79",
-          "title": "See it's app group, the rest of the old-composer shots",
-          "summary": "See it shows the rest of the app as it is now",
-          "shipped": "2026-09-28",
-          "progress": "/progress#see-it-shows-the-rest-of-the-app-as-it-is-now",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d5df7c91"
         }
       ]
     }
