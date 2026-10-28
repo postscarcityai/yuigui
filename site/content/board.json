@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T18:55:33.407Z",
+  "updated": "2026-10-28T22:00:34.208Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3674,14 +3674,6 @@
           "summary": "The token has a name: $U",
           "shipped": "2026-09-28",
           "progress": "/progress#the-token-has-a-name-u"
-        },
-        {
-          "key": "SITE-87",
-          "title": "/proposals, a page for big ideas",
-          "summary": "Proposals: big ideas, shown before they are built",
-          "shipped": "2026-09-28",
-          "progress": "/progress#proposals-big-ideas-shown-before-they-are-built",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a6d3fdbd"
         }
       ]
     }
