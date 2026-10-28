@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T01:30:35.246Z",
+  "updated": "2026-10-28T01:50:42.817Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3959,14 +3959,6 @@
           "shipped": "2026-09-27",
           "progress": "/progress#meet-each-agent-when-you-open-it",
           "commit": "https://github.com/postscarcityai/yuigui/commit/13c3976f"
-        },
-        {
-          "key": "YUI-171",
-          "title": "The same tables for any agent",
-          "summary": "Tables right in the reply, for any agent",
-          "shipped": "2026-09-27",
-          "progress": "/progress#tables-right-in-the-reply-for-any-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1b7b24da"
         }
       ]
     }
