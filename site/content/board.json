@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T22:40:33.114Z",
+  "updated": "2026-10-28T22:45:33.602Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3631,13 +3631,6 @@
           "summary": "PROP-2: the Jev layer",
           "shipped": "2026-09-28",
           "progress": "/progress#prop-2-the-jev-layer"
-        },
-        {
-          "key": "SITE-95",
-          "title": "Checks go green on yuigui main and run before every push, no more failure emails every hour",
-          "summary": "Checks go green on main and run before every push",
-          "shipped": "2026-09-28",
-          "progress": "/progress#checks-go-green-on-main-and-run-before-every-push"
         }
       ]
     }
