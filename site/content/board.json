@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T14:05:34.782Z",
+  "updated": "2026-10-28T14:25:34.876Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3705,14 +3705,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#stop-a-reply-in-the-site-chat",
           "commit": "https://github.com/postscarcityai/yuigui/commit/270fa523"
-        },
-        {
-          "key": "SITE-83",
-          "title": "The site chat gets the app's screens",
-          "summary": "The site chat gets pages, a swipe away",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-site-chat-gets-pages-a-swipe-away",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c10eb5f8"
         }
       ]
     }
