@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T06:20:39.181Z",
+  "updated": "2026-10-28T06:45:32.472Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3854,14 +3854,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-trainer-s-flow-a-check-in-that-ends-on-the-timer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/64936f7f"
-        },
-        {
-          "key": "YUI-187",
-          "title": "The screen dots come back and animate, and screens slide instead of fading",
-          "summary": "Yui 0.5.2: the dots are back and slide with you",
-          "shipped": "2026-09-28",
-          "progress": "/progress#yui-0-5-2-the-dots-are-back-and-slide-with-you",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/63841b3d"
         }
       ]
     }
