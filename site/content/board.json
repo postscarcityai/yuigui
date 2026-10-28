@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T07:00:33.563Z",
+  "updated": "2026-10-28T07:20:39.124Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3838,14 +3838,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#see-it-shows-the-app-as-it-is-now",
           "commit": "https://github.com/postscarcityai/yuigui/commit/486e8fa9"
-        },
-        {
-          "key": "SITE-78",
-          "title": "The interval timer's digits vanish in light mode (dark text on the dark dial)",
-          "summary": "The timer reads in light mode",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-timer-reads-in-light-mode",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5fc2cee1"
         }
       ]
     }
