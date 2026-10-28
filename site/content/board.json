@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T22:25:33.502Z",
+  "updated": "2026-10-28T22:35:32.837Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3645,13 +3645,6 @@
           "summary": "Where Jev fits in Yui: every decision in a turn",
           "shipped": "2026-09-28",
           "progress": "/progress#where-jev-fits-in-yui-every-decision-in-a-turn"
-        },
-        {
-          "key": "SITE-91",
-          "title": "Jev research, what TypeSafe's new decision model is, what it returns, how fast, what it costs",
-          "summary": "Jev research: what the decision model is, what it costs",
-          "shipped": "2026-09-28",
-          "progress": "/progress#jev-research-what-the-decision-model-is-what-it-costs"
         }
       ]
     }
