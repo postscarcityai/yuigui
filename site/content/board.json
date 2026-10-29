@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T05:55:32.981Z",
+  "updated": "2026-10-29T07:20:40.201Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3545,14 +3545,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-version-number-no-longer-splits-a-sentence",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b3462a96"
-        },
-        {
-          "key": "YUI-205",
-          "title": "A chart on the full-screen stage draws edge to edge, the whole page is wider than the phone",
-          "summary": "A chart page stays inside the phone",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-chart-page-stays-inside-the-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f8c02e3f"
         }
       ]
     }
