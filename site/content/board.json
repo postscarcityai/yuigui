@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T10:15:32.993Z",
+  "updated": "2026-10-29T11:20:34.240Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3465,23 +3465,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-screen-dots-move-into-the-bottom-bar",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ee6962ae"
-        },
-        {
-          "key": "YUI-116",
-          "title": "Recording, export, MIDI and Ableton Link",
-          "step": "Step 5",
-          "summary": "Record a take, plug in a keyboard",
-          "shipped": "2026-09-29",
-          "progress": "/progress#record-a-take-plug-in-a-keyboard",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/34c02344"
-        },
-        {
-          "key": "YUI-111",
-          "title": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
-          "step": "Step 3",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-app-moves-timeline-rows-in-place",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79c"
         }
       ]
     }
