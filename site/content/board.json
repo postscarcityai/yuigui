@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T19:05:33.729Z",
+  "updated": "2026-10-29T19:50:34.187Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3348,13 +3348,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#your-own-key-at-every-stop",
           "commit": "https://github.com/postscarcityai/yuigui/commit/8d0dc771"
-        },
-        {
-          "key": "NOTE-31134",
-          "title": "Agent picker only in the drawer",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-chat-top-bar-is-quiet-the-drawer-is-the-one-agent-picker",
-          "commit": "https://github.com/postscarcityai/yui/commit/8935804"
         }
       ]
     }
