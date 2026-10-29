@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T20:10:35.169Z",
+  "updated": "2026-10-29T20:20:35.068Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3315,14 +3315,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#pick-which-key-each-agent-runs-on",
           "commit": "https://github.com/postscarcityai/yui/commit/9adb9d9"
-        },
-        {
-          "key": "YUI-139",
-          "title": "Key sheet in the app, every place to add one",
-          "step": "Step 2e",
-          "shipped": "2026-09-29",
-          "progress": "/progress#your-own-key-at-every-stop",
-          "commit": "https://github.com/postscarcityai/yui/commit/be451a8"
         }
       ]
     }
