@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T14:15:34.027Z",
+  "updated": "2026-10-29T15:10:34.409Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3417,14 +3417,6 @@
           "summary": "The Yui icon in browser tabs and Google",
           "shipped": "2026-09-29",
           "progress": "/progress#the-yui-icon-in-browser-tabs-and-google"
-        },
-        {
-          "key": "YUI-199b",
-          "title": "A notification opens its message on the first page, not the last",
-          "summary": "A notification opens on page one of what came",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-notification-opens-on-page-one-of-what-came",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/611ba123"
         }
       ]
     }
