@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T08:35:32.962Z",
+  "updated": "2026-10-29T09:55:33.038Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3489,14 +3489,6 @@
           "summary": "The crew's visualizers move on /crew",
           "shipped": "2026-09-29",
           "progress": "/progress#the-crew-s-visualizers-move-on-crew"
-        },
-        {
-          "key": "YUI-180",
-          "title": "Every agent has its own quiet visualizer by default",
-          "summary": "Every agent has its own quiet visualizer",
-          "shipped": "2026-09-29",
-          "progress": "/progress#every-agent-has-its-own-quiet-visualizer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c0c192e6"
         }
       ]
     }
