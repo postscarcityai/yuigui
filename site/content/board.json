@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T04:35:32.715Z",
+  "updated": "2026-10-29T04:45:33.054Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3577,14 +3577,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-way-home-from-every-full-screen",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6be690d4"
-        },
-        {
-          "key": "SITE-97",
-          "title": "Body text and a markdown reader on the site stage, the web half of YUI-196",
-          "summary": "Text you can read: body type and a small markdown reader",
-          "shipped": "2026-09-29",
-          "progress": "/progress#text-you-can-read-body-type-and-a-small-markdown-reader",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/915ec696"
         }
       ]
     }
