@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T05:30:33.723Z",
+  "updated": "2026-10-29T05:55:32.981Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3553,14 +3553,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-chart-page-stays-inside-the-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f8c02e3f"
-        },
-        {
-          "key": "SITE-100",
-          "title": "Loops keep playing across screens and layer; a saved-screen shortcut opens with no model call",
-          "summary": "Loops keep playing when you swipe to another screen",
-          "shipped": "2026-09-29",
-          "progress": "/progress#loops-keep-playing-when-you-swipe-to-another-screen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/240efd42"
         }
       ]
     }
