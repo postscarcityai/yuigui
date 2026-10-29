@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T23:30:33.706Z",
+  "updated": "2026-10-29T23:40:37.039Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3209,41 +3209,6 @@
           "summary": "The site stage matches the app: more of your question, the mic stays, a roomy Type your own",
           "shipped": "2026-09-29",
           "progress": "/progress#the-site-stage-matches-the-app-more-of-your-question-the-mic-stays-a-roomy-type-"
-        },
-        {
-          "key": "SITE-107",
-          "title": "Every story shipped Sep 27-29 shows a demo a visitor can see on yuigui.com",
-          "summary": "Shorter answers, drawn not typed",
-          "shipped": "2026-09-29",
-          "progress": "/progress#shorter-answers-drawn-not-typed",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ac050ccf"
-        },
-        {
-          "key": "YUI-34",
-          "title": "Key vault native in the app, tool keys at every stop",
-          "step": "Step 2",
-          "summary": "Your keys, on your phone: fal, Replicate, ElevenLabs, Anthropic, OpenAI",
-          "shipped": "2026-09-29",
-          "progress": "/progress#your-keys-on-your-phone-fal-replicate-elevenlabs-anthropic-openai",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8d0dc771"
-        },
-        {
-          "key": "NOTE-48845",
-          "title": "Draw the X, show the worker",
-          "shipped": "2026-09-29",
-          "progress": "/progress#shorter-answers-drawn-not-typed"
-        },
-        {
-          "key": "NOTE-43932",
-          "title": "Shorter answers, drawn not typed",
-          "shipped": "2026-09-29",
-          "progress": "/progress#shorter-answers-drawn-not-typed"
-        },
-        {
-          "key": "NOTE-18568",
-          "title": "Say 'Invite: Declined', nothing more",
-          "shipped": "2026-09-29",
-          "progress": "/progress#shorter-answers-drawn-not-typed"
         }
       ]
     }
