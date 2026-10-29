@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T21:10:39.736Z",
+  "updated": "2026-10-29T21:40:35.958Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3283,13 +3283,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-sleek-sans-for-the-whole-app",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a2d0291d"
-        },
-        {
-          "key": "SITE-103",
-          "title": "The home page shares as \"Yui",
-          "summary": "The home page shares as Yui: The GUI for You",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-home-page-shares-as-yui-the-gui-for-you"
         }
       ]
     }
