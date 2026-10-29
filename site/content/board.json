@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T20:45:34.989Z",
+  "updated": "2026-10-29T21:10:39.736Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3290,14 +3290,6 @@
           "summary": "The home page shares as Yui: The GUI for You",
           "shipped": "2026-09-29",
           "progress": "/progress#the-home-page-shares-as-yui-the-gui-for-you"
-        },
-        {
-          "key": "SITE-105",
-          "title": "A Thought on your own key at every stop, why Yui never sells you a model",
-          "summary": "Thought: Your own key at every stop",
-          "shipped": "2026-09-29",
-          "progress": "/progress#thought-your-own-key-at-every-stop",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/17b970b9"
         }
       ]
     }
