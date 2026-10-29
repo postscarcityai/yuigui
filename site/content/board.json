@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T15:10:34.409Z",
+  "updated": "2026-10-29T17:40:33.799Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3410,13 +3410,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-thread-lets-go-of-what-you-scrolled-past",
           "commit": "https://github.com/postscarcityai/yuigui/commit/0351ced3"
-        },
-        {
-          "key": "SITE-102",
-          "title": "Serve /favicon.ico on yuigui.com so Google swaps the gray globe for the Yui icon",
-          "summary": "The Yui icon in browser tabs and Google",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-yui-icon-in-browser-tabs-and-google"
         }
       ]
     }
