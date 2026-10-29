@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T08:25:33.257Z",
+  "updated": "2026-10-29T08:35:32.962Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3497,22 +3497,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#every-agent-has-its-own-quiet-visualizer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c0c192e6"
-        },
-        {
-          "key": "YUI-196",
-          "title": "A real body text style",
-          "summary": "Long answers read as body text, and markdown is drawn",
-          "shipped": "2026-09-29",
-          "progress": "/progress#long-answers-read-as-body-text-and-markdown-is-drawn",
-          "commit": "https://github.com/postscarcityai/yui/commit/efd340f"
-        },
-        {
-          "key": "YUI-195",
-          "title": "Every full-screen step has a way out",
-          "summary": "A way home from every full-screen answer",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-way-home-from-every-full-screen-answer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/430c020b"
         }
       ]
     }
