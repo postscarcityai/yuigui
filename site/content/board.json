@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T07:40:32.438Z",
+  "updated": "2026-10-29T08:00:34.677Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3529,14 +3529,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#gouda-s-music-keeps-playing-and-tune-up-just-opens-the-tuner",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5156a621"
-        },
-        {
-          "key": "YUI-199",
-          "title": "A notification opens the agent that sent it, not the home screen",
-          "summary": "A notification opens what it is about",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-notification-opens-what-it-is-about",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a7b633d1"
         }
       ]
     }
