@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T11:20:34.240Z",
+  "updated": "2026-10-29T11:35:32.883Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3441,30 +3441,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#hold-the-mic-slide-to-cancel-or-lock",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2450c2db"
-        },
-        {
-          "key": "YUI-193",
-          "title": "Screen pills replace the dots, like browser tabs, and the active one follows your swipe",
-          "summary": "Screens get pills, like browser tabs",
-          "shipped": "2026-09-29",
-          "progress": "/progress#screens-get-pills-like-browser-tabs",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/cd6139f0"
-        },
-        {
-          "key": "YUI-190",
-          "title": "Stop a turn from the main screen",
-          "summary": "Stop a reply from the main screen",
-          "shipped": "2026-09-29",
-          "progress": "/progress#stop-a-reply-from-the-main-screen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/90bcde05"
-        },
-        {
-          "key": "YUI-189",
-          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show",
-          "summary": "The screen dots move into the bottom bar",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-screen-dots-move-into-the-bottom-bar",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ee6962ae"
         }
       ]
     }
