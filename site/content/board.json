@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T18:05:33.819Z",
+  "updated": "2026-10-29T19:00:34.259Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3394,14 +3394,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-workout-runner-in-the-app-rest-starts-on-its-own-say-done",
           "commit": "https://github.com/postscarcityai/yuigui/commit/148a8535"
-        },
-        {
-          "key": "YUI-209",
-          "title": "Hold to talk keeps every word; a long prompt with pauses no longer comes through as only the last few words",
-          "summary": "Hold to talk keeps every word",
-          "shipped": "2026-09-29",
-          "progress": "/progress#hold-to-talk-keeps-every-word",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/34246272"
         }
       ]
     }
