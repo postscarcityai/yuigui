@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T08:20:39.386Z",
+  "updated": "2026-10-29T08:25:33.257Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3513,14 +3513,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-way-home-from-every-full-screen-answer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/430c020b"
-        },
-        {
-          "key": "YUI-202",
-          "title": "Every message shows when it was sent, grouped by day",
-          "summary": "Every message shows when it was sent",
-          "shipped": "2026-09-29",
-          "progress": "/progress#every-message-shows-when-it-was-sent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/82b29160"
         }
       ]
     }
