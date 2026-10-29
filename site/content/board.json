@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T20:20:35.068Z",
+  "updated": "2026-10-29T20:40:35.319Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3307,14 +3307,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#pick-which-key-each-agent-runs-on",
           "commit": "https://github.com/postscarcityai/yui/commit/b212548"
-        },
-        {
-          "key": "YUI-139",
-          "title": "Key spec and demo on www.yuigui.com",
-          "step": "Step 2f",
-          "shipped": "2026-09-29",
-          "progress": "/progress#pick-which-key-each-agent-runs-on",
-          "commit": "https://github.com/postscarcityai/yui/commit/9adb9d9"
         }
       ]
     }
