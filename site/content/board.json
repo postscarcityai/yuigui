@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T23:25:39.351Z",
+  "updated": "2026-10-29T23:30:33.706Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3244,21 +3244,6 @@
           "title": "Say 'Invite: Declined', nothing more",
           "shipped": "2026-09-29",
           "progress": "/progress#shorter-answers-drawn-not-typed"
-        },
-        {
-          "key": "YUI-191",
-          "title": "Hold the app icon for your agents' shortcuts",
-          "summary": "Hold the Yui icon, get your agents' shortcuts",
-          "shipped": "2026-09-29",
-          "progress": "/progress#hold-the-yui-icon-get-your-agents-shortcuts",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b50b220b"
-        },
-        {
-          "key": "SITE-106",
-          "title": "Proposals carry credits and a trail",
-          "summary": "Every proposal now shows who proposed it and where it went",
-          "shipped": "2026-09-29",
-          "progress": "/progress#every-proposal-now-shows-who-proposed-it-and-where-it-went"
         }
       ]
     }
