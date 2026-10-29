@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T03:45:32.767Z",
+  "updated": "2026-10-29T04:10:33.110Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3593,14 +3593,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#agents-show-it-in-context-a-phone-a-timeline-a-next-step",
           "commit": "https://github.com/postscarcityai/yuigui/commit/968c66cf"
-        },
-        {
-          "key": "YUI-204",
-          "title": "Proposal",
-          "summary": "PROP-4: a first plan in every agent",
-          "shipped": "2026-09-29",
-          "progress": "/progress#prop-4-a-first-plan-in-every-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/7f665051"
         }
       ]
     }
