@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T19:50:34.187Z",
+  "updated": "2026-10-29T20:05:38.172Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3339,15 +3339,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#pick-which-key-each-agent-runs-on",
           "commit": "https://github.com/postscarcityai/yui/commit/b2a9aef"
-        },
-        {
-          "key": "YUI-139",
-          "title": "Your own key at every stop",
-          "step": "Step 2",
-          "summary": "Your own key, at every stop",
-          "shipped": "2026-09-29",
-          "progress": "/progress#your-own-key-at-every-stop",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8d0dc771"
         }
       ]
     }
