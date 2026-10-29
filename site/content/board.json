@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T09:55:33.038Z",
+  "updated": "2026-10-29T10:15:32.993Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3482,13 +3482,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-app-moves-timeline-rows-in-place",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79c"
-        },
-        {
-          "key": "SITE-101",
-          "title": "Meet the crew with their own quiet visualizers moving on /crew",
-          "summary": "The crew's visualizers move on /crew",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-crew-s-visualizers-move-on-crew"
         }
       ]
     }
