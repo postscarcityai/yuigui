@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T11:35:32.883Z",
+  "updated": "2026-10-29T12:15:33.860Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3433,14 +3433,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5077ee31"
-        },
-        {
-          "key": "YUI-201",
-          "title": "Hold to talk",
-          "summary": "Hold the mic, slide to cancel or lock",
-          "shipped": "2026-09-29",
-          "progress": "/progress#hold-the-mic-slide-to-cancel-or-lock",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2450c2db"
         }
       ]
     }
