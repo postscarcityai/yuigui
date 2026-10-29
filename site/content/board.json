@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T07:20:40.201Z",
+  "updated": "2026-10-29T07:40:32.438Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3537,14 +3537,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-notification-opens-what-it-is-about",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a7b633d1"
-        },
-        {
-          "key": "YUI-198",
-          "title": "The stage splits a sentence at a version number, '0.6.0' becomes '0' on its own screen",
-          "summary": "A version number no longer splits a sentence",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-version-number-no-longer-splits-a-sentence",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b3462a96"
         }
       ]
     }
