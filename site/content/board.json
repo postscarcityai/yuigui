@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T20:40:35.319Z",
+  "updated": "2026-10-29T20:45:34.989Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3298,15 +3298,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#thought-your-own-key-at-every-stop",
           "commit": "https://github.com/postscarcityai/yuigui/commit/17b970b9"
-        },
-        {
-          "key": "YUI-139",
-          "title": "Controls > Model per-agent key pick in the app (Yui's key / Claude / ChatGPT)",
-          "step": "Step 2g",
-          "summary": "Pick which key each agent runs on",
-          "shipped": "2026-09-29",
-          "progress": "/progress#pick-which-key-each-agent-runs-on",
-          "commit": "https://github.com/postscarcityai/yui/commit/b212548"
         }
       ]
     }
