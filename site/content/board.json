@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T21:40:35.958Z",
+  "updated": "2026-10-29T21:50:34.610Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3275,14 +3275,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-404-that-is-never-the-same-twice",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7774bfba"
-        },
-        {
-          "key": "YUI-211",
-          "title": "Better typography, a sleek sans serif as the base Yui look",
-          "summary": "A sleek sans for the whole app",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-sleek-sans-for-the-whole-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a2d0291d"
         }
       ]
     }
