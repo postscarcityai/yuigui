@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T12:15:33.860Z",
+  "updated": "2026-10-29T14:15:34.027Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3425,14 +3425,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-notification-opens-on-page-one-of-what-came",
           "commit": "https://github.com/postscarcityai/yuigui/commit/611ba123"
-        },
-        {
-          "key": "YUI-186",
-          "title": "Quill's tools",
-          "summary": "Quill's tools in the app: learn a topic, rate your cards, a problem one step at a time",
-          "shipped": "2026-09-29",
-          "progress": "/progress#quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5077ee31"
         }
       ]
     }
