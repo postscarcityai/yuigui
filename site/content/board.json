@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28T22:55:32.533Z",
+  "updated": "2026-10-29T03:30:34.027Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3609,14 +3609,6 @@
           "shipped": "2026-09-28",
           "progress": "/progress#the-site-stage-no-longer-splits-a-sentence-inside-a-version-number",
           "commit": "https://github.com/postscarcityai/yuigui/commit/16bc5b97"
-        },
-        {
-          "key": "YUI-197",
-          "title": "The guide teaches agents to draw board cards, not describe them",
-          "summary": "Agents draw what is waiting, they don't count it",
-          "shipped": "2026-09-28",
-          "progress": "/progress#agents-draw-what-is-waiting-they-don-t-count-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/73e7f9d8"
         }
       ]
     }
