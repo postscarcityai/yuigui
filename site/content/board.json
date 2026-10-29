@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T21:50:34.610Z",
+  "updated": "2026-10-29T22:40:33.560Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3267,14 +3267,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-deploy-can-no-longer-run-ahead-of-its-database-changes",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a2d0291d"
-        },
-        {
-          "key": "SITE-104",
-          "title": "A procedural 404",
-          "summary": "A 404 that is never the same twice",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-404-that-is-never-the-same-twice",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/7774bfba"
         }
       ]
     }
