@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T04:10:33.110Z",
+  "updated": "2026-10-29T04:35:32.715Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3585,14 +3585,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#text-you-can-read-body-type-and-a-small-markdown-reader",
           "commit": "https://github.com/postscarcityai/yuigui/commit/915ec696"
-        },
-        {
-          "key": "YUI-203",
-          "title": "The guide teaches show, don't tell",
-          "summary": "Agents show it in context: a phone, a timeline, a next step",
-          "shipped": "2026-09-29",
-          "progress": "/progress#agents-show-it-in-context-a-phone-a-timeline-a-next-step",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/968c66cf"
         }
       ]
     }
