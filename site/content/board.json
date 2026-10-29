@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T22:40:33.560Z",
+  "updated": "2026-10-29T23:25:39.351Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3259,14 +3259,6 @@
           "summary": "Every proposal now shows who proposed it and where it went",
           "shipped": "2026-09-29",
           "progress": "/progress#every-proposal-now-shows-who-proposed-it-and-where-it-went"
-        },
-        {
-          "key": "YUI-211",
-          "title": "A function deploy can never run ahead of its migrations",
-          "summary": "A deploy can no longer run ahead of its database changes",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-deploy-can-no-longer-run-ahead-of-its-database-changes",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a2d0291d"
         }
       ]
     }
