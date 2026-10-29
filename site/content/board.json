@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T20:05:38.172Z",
+  "updated": "2026-10-29T20:10:35.169Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3323,22 +3323,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#your-own-key-at-every-stop",
           "commit": "https://github.com/postscarcityai/yui/commit/be451a8"
-        },
-        {
-          "key": "YUI-139",
-          "title": "OpenRouter sign-in with no paste, and My computer",
-          "step": "Step 2b",
-          "shipped": "2026-09-29",
-          "progress": "/progress#your-own-key-at-every-stop",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5f6c1255"
-        },
-        {
-          "key": "YUI-139",
-          "title": "Own key at every stop, tests per stop",
-          "step": "Step 2c",
-          "shipped": "2026-09-29",
-          "progress": "/progress#pick-which-key-each-agent-runs-on",
-          "commit": "https://github.com/postscarcityai/yui/commit/b2a9aef"
         }
       ]
     }
