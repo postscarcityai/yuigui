@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T08:00:34.677Z",
+  "updated": "2026-10-29T08:20:39.386Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3521,14 +3521,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#every-message-shows-when-it-was-sent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/82b29160"
-        },
-        {
-          "key": "YUI-200",
-          "title": "Gouda's music keeps playing across screens, and the tuner button opens the tuner with no model call",
-          "summary": "Gouda's music keeps playing, and Tune up just opens the tuner",
-          "shipped": "2026-09-29",
-          "progress": "/progress#gouda-s-music-keeps-playing-and-tune-up-just-opens-the-tuner",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5156a621"
         }
       ]
     }
