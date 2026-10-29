@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T04:45:33.054Z",
+  "updated": "2026-10-29T05:20:40.283Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3569,14 +3569,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-chat-says-when-things-were-sent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/48b4663e"
-        },
-        {
-          "key": "SITE-98",
-          "title": "Every full-screen answer in the site chat and playground has a way home",
-          "summary": "A way home from every full screen",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-way-home-from-every-full-screen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6be690d4"
         }
       ]
     }
