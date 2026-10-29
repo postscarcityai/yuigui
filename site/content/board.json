@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T05:20:40.283Z",
+  "updated": "2026-10-29T05:30:33.723Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3561,14 +3561,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#loops-keep-playing-when-you-swipe-to-another-screen",
           "commit": "https://github.com/postscarcityai/yuigui/commit/240efd42"
-        },
-        {
-          "key": "SITE-99",
-          "title": "The site chat shows when each message was sent, grouped by day",
-          "summary": "The chat says when things were sent",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-chat-says-when-things-were-sent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/48b4663e"
         }
       ]
     }
