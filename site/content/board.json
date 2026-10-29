@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-29T03:30:34.027Z",
+  "updated": "2026-10-29T03:45:32.767Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3601,14 +3601,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#prop-4-a-first-plan-in-every-agent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7f665051"
-        },
-        {
-          "key": "SITE-96",
-          "title": "The site stage never splits a sentence inside a version number, decimal or URL",
-          "summary": "The site stage no longer splits a sentence inside a version number",
-          "shipped": "2026-09-28",
-          "progress": "/progress#the-site-stage-no-longer-splits-a-sentence-inside-a-version-number",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/16bc5b97"
         }
       ]
     }
