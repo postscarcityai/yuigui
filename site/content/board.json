@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T12:45:38.728Z",
+  "updated": "2026-10-30T13:25:54.348Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2837,20 +2837,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#open-on-yui-s-card-lands-on-the-first-question",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e46b0f51"
-        },
-        {
-          "key": "SITE-132",
-          "title": "The first plan's link row on /crew has uneven baselines and weights",
-          "summary": "The chat bubble steps off the crew phones",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-chat-bubble-steps-off-the-crew-phones"
-        },
-        {
-          "key": "SITE-131",
-          "title": "The chat bubble covers the crew demo phone's Start button on a phone",
-          "summary": "The chat bubble steps off the crew phones",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-chat-bubble-steps-off-the-crew-phones"
         }
       ]
     }
