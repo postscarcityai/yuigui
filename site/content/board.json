@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T20:50:39.652Z",
+  "updated": "2026-10-30T21:20:40.051Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2687,14 +2687,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-widgets-and-siri-page-shows-what-is-built",
           "commit": "https://github.com/postscarcityai/yuigui/commit/21107977"
-        },
-        {
-          "key": "YUI-40",
-          "title": "Steps 2-4",
-          "summary": "Siri intents, widget buttons, widget push relay",
-          "shipped": "2026-09-30",
-          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/90ab4219"
         }
       ]
     }
