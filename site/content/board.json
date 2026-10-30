@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T10:00:34.307Z",
+  "updated": "2026-10-30T10:05:33.456Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2928,28 +2928,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#a-logged-meal-lands-on-today-s-calories",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a4123f31"
-        },
-        {
-          "key": "NOTE-45919",
-          "title": "Typing, trash and looper fixes",
-          "shipped": "2026-09-30",
-          "progress": "/progress#typing-trash-and-looper-fixes"
-        },
-        {
-          "key": "YUI-217",
-          "title": "A first plan in every agent",
-          "summary": "A first plan from Coach",
-          "shipped": "2026-09-30",
-          "progress": "/progress#a-first-plan-from-coach",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4de14aed"
-        },
-        {
-          "key": "YUI-216",
-          "title": "Pick your crew, the first-run picker",
-          "summary": "Pick your crew",
-          "shipped": "2026-09-30",
-          "progress": "/progress#pick-your-crew",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1949f441"
         }
       ]
     }
