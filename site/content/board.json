@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T10:15:33.350Z",
+  "updated": "2026-10-30T10:25:39.125Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2905,13 +2905,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#on-the-site-open-on-a-crew-card-lands-on-the-first-question",
           "commit": "https://github.com/postscarcityai/yuigui/commit/0743da8e"
-        },
-        {
-          "key": "YUI-225",
-          "title": "Open on a crew card lands on the first question",
-          "shipped": "2026-09-30",
-          "progress": "/progress#open-on-a-crew-card-lands-on-the-first-question",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/47c8ee9f"
         }
       ]
     }
