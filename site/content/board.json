@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T15:50:33.805Z",
+  "updated": "2026-10-30T16:40:33.496Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2765,14 +2765,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-last-page-keeps-the-mic",
           "commit": "https://github.com/postscarcityai/yuigui/commit/68dc50f8"
-        },
-        {
-          "key": "SITE-129",
-          "title": "Thought + See it for Yui 0.6.2, the first minute fixed",
-          "summary": "Yui 0.6.2: the first minute, fixed, in one post",
-          "shipped": "2026-09-30",
-          "progress": "/progress#yui-0-6-2-the-first-minute-fixed-in-one-post",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/25ca16cd"
         }
       ]
     }
