@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T21:25:33.343Z",
+  "updated": "2026-10-30T22:30:35.718Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2671,14 +2671,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#watch-the-trainer-s-workout-run-on-the-site",
           "commit": "https://github.com/postscarcityai/yuigui/commit/74dca9b7"
-        },
-        {
-          "key": "YUI-220",
-          "title": "Start to finish",
-          "summary": "Start a workout and it runs on its own clock",
-          "shipped": "2026-09-30",
-          "progress": "/progress#start-a-workout-and-it-runs-on-its-own-clock",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c7ae519e"
         }
       ]
     }
