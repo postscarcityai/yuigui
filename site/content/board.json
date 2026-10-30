@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T16:40:33.496Z",
+  "updated": "2026-10-30T17:35:34.263Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2757,14 +2757,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-changelog-says-when-the-next-build-lands",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2dec411a"
-        },
-        {
-          "key": "YUI-208",
-          "title": "Last page keeps the mic; Back home and New chat move onto the page, and a spoken note goes in with the picks as one answer",
-          "summary": "The last page keeps the mic",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-last-page-keeps-the-mic",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/68dc50f8"
         }
       ]
     }
