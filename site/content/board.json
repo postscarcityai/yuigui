@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T01:05:35.262Z",
+  "updated": "2026-10-30T01:40:33.862Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3133,12 +3133,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#shipped-tiles-now-link-their-demos",
           "commit": "https://github.com/postscarcityai/yuigui/commit/504aebb6"
-        },
-        {
-          "key": "NOTE-62105",
-          "title": "Show it here, don't link out",
-          "shipped": "2026-09-29",
-          "progress": "/progress#show-it-here-don-t-link-out"
         }
       ]
     }
