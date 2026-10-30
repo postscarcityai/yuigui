@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T07:35:33.684Z",
+  "updated": "2026-10-30T07:50:34.232Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2986,14 +2986,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#thought-your-first-minute-with-yui",
           "commit": "https://github.com/postscarcityai/yuigui/commit/70c02856"
-        },
-        {
-          "key": "YUI-218",
-          "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
-          "summary": "A stranger runs Yui cold: about 6 minutes, five snags",
-          "shipped": "2026-09-30",
-          "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b65456a3"
         }
       ]
     }
