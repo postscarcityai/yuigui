@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T09:10:33.743Z",
+  "updated": "2026-10-30T09:15:33.743Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2964,13 +2964,6 @@
           "summary": "A first plan for Basil, Gouda, Penny and Quill",
           "shipped": "2026-09-30",
           "progress": "/progress#a-first-plan-for-basil-gouda-penny-and-quill"
-        },
-        {
-          "key": "SITE-123",
-          "title": "The site's first-plan demo asks the same five questions as the app",
-          "summary": "The site's first plan asks the same five questions",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-site-s-first-plan-asks-the-same-five-questions"
         }
       ]
     }
