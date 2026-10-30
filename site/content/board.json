@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T00:45:35.259Z",
+  "updated": "2026-10-30T00:55:41.190Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3147,23 +3147,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-board-says-who-has-each-card-and-done-means-linked",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4cf7a6a4"
-        },
-        {
-          "key": "YUI-169",
-          "title": "Relay + DB threads per chat, Hermes plugin thread ids",
-          "step": "Step 2a",
-          "shipped": "2026-09-29",
-          "progress": "/progress#several-chats-on-your-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b4"
-        },
-        {
-          "key": "YUI-169",
-          "title": "Spec + playground mock for multiple chats per agent (yuigui)",
-          "step": "Step 1",
-          "summary": "Several chats with one agent: the spec and a mock",
-          "shipped": "2026-09-29",
-          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b4"
         }
       ]
     }
