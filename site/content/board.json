@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T11:10:33.246Z",
+  "updated": "2026-10-30T11:25:39.397Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2875,14 +2875,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-start-page-shows-one-pairing-command",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2a29a115"
-        },
-        {
-          "key": "YUI-229",
-          "title": "Add an agent hides behind the agent bar, and the pairing sheet is three commands, not one",
-          "summary": "Add an agent is in the drawer, and pairing is one command",
-          "shipped": "2026-09-30",
-          "progress": "/progress#add-an-agent-is-in-the-drawer-and-pairing-is-one-command",
-          "commit": "https://github.com/postscarcityai/yui/commit/d8b1792"
         }
       ]
     }
