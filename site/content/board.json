@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T17:40:34.661Z",
+  "updated": "2026-10-30T18:20:34.531Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2741,14 +2741,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-roadmap-top-is-up-to-date",
           "commit": "https://github.com/postscarcityai/yuigui/commit/bbee5f22"
-        },
-        {
-          "key": "SITE-135",
-          "title": "A Thought, show don't tell",
-          "summary": "A Thought on drawn replies",
-          "shipped": "2026-09-30",
-          "progress": "/progress#a-thought-on-drawn-replies",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d29849e0"
         }
       ]
     }
