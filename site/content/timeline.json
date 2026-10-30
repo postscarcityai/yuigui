@@ -1,33 +1,3070 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 545,
-    "site": 1987,
-    "builds": 59,
-    "shipped": 803,
-    "screenshots": 2068
+    "app": 544,
+    "site": 2394,
+    "builds": 60,
+    "shipped": 807,
+    "screenshots": 2081
   },
   "days": [
+    {
+      "date": "2026-10-30",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-10-30T21:02:02.442Z",
+          "title": "Week of Oct 26: build 591, then Beats waits on a test",
+          "card": null,
+          "anchor": "week-of-oct-26-build-591-then-beats-waits-on-a-test",
+          "images": [
+            {
+              "src": "/progress/yui342-week.webp",
+              "alt": "yuicss gallery: a week view drawn from one stylesheet, plain elements already styled the Yui way."
+            },
+            {
+              "src": "/progress/yui350-heart-dark.webp",
+              "alt": "The heart script, dark: two beats with the anchors Two pumps and Right side: body to lungs, and the person cutting in at 9 seconds."
+            },
+            {
+              "src": "/progress/yui351-text-dark.webp",
+              "alt": "The beat builder, dark: a plain text answer about the heart cut into three beats, the first pinning The heart is two pumps."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 544,
+            "site": 2394,
+            "builds": 60,
+            "shipped": 807
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "d7164fee",
+          "at": "2026-10-30T20:50:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d7164fee"
+        },
+        {
+          "repo": "site",
+          "sha": "d40b73a2",
+          "at": "2026-10-30T20:31:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d40b73a2"
+        },
+        {
+          "repo": "site",
+          "sha": "46da8a6a",
+          "at": "2026-10-30T19:50:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/46da8a6a"
+        },
+        {
+          "repo": "site",
+          "sha": "e0f3b630",
+          "at": "2026-10-30T19:35:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e0f3b630"
+        },
+        {
+          "repo": "site",
+          "sha": "bf519a5b",
+          "at": "2026-10-30T19:25:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bf519a5b"
+        },
+        {
+          "repo": "site",
+          "sha": "71bf3042",
+          "at": "2026-10-30T18:45:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/71bf3042"
+        },
+        {
+          "repo": "site",
+          "sha": "2e0768cd",
+          "at": "2026-10-30T18:20:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2e0768cd"
+        },
+        {
+          "repo": "site",
+          "sha": "af13a921",
+          "at": "2026-10-30T17:40:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/af13a921"
+        },
+        {
+          "repo": "site",
+          "sha": "9f88cb64",
+          "at": "2026-10-30T17:35:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9f88cb64"
+        },
+        {
+          "repo": "site",
+          "sha": "3d40c24f",
+          "at": "2026-10-30T16:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3d40c24f"
+        },
+        {
+          "repo": "site",
+          "sha": "64aa95f0",
+          "at": "2026-10-30T15:50:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/64aa95f0"
+        },
+        {
+          "repo": "site",
+          "sha": "78b5b146",
+          "at": "2026-10-30T15:35:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/78b5b146"
+        },
+        {
+          "repo": "site",
+          "sha": "12e4e594",
+          "at": "2026-10-30T15:25:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/12e4e594"
+        },
+        {
+          "repo": "site",
+          "sha": "2a98d15a",
+          "at": "2026-10-30T14:26:10.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2a98d15a"
+        },
+        {
+          "repo": "site",
+          "sha": "7417acec",
+          "at": "2026-10-30T13:40:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7417acec"
+        },
+        {
+          "repo": "site",
+          "sha": "af741491",
+          "at": "2026-10-30T13:35:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/af741491"
+        },
+        {
+          "repo": "site",
+          "sha": "aa88beba",
+          "at": "2026-10-30T13:30:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/aa88beba"
+        },
+        {
+          "repo": "site",
+          "sha": "31d8914c",
+          "at": "2026-10-30T13:25:55.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31d8914c"
+        },
+        {
+          "repo": "site",
+          "sha": "506cdc2d",
+          "at": "2026-10-30T12:45:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/506cdc2d"
+        },
+        {
+          "repo": "site",
+          "sha": "73061134",
+          "at": "2026-10-30T12:05:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/73061134"
+        },
+        {
+          "repo": "site",
+          "sha": "444c470f",
+          "at": "2026-10-30T11:45:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/444c470f"
+        },
+        {
+          "repo": "site",
+          "sha": "d6122507",
+          "at": "2026-10-30T11:25:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d6122507"
+        },
+        {
+          "repo": "site",
+          "sha": "f006061e",
+          "at": "2026-10-30T11:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f006061e"
+        },
+        {
+          "repo": "site",
+          "sha": "327696b4",
+          "at": "2026-10-30T11:00:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/327696b4"
+        },
+        {
+          "repo": "site",
+          "sha": "5b7f9eb5",
+          "at": "2026-10-30T10:45:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5b7f9eb5"
+        },
+        {
+          "repo": "site",
+          "sha": "2750cef6",
+          "at": "2026-10-30T10:25:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2750cef6"
+        },
+        {
+          "repo": "site",
+          "sha": "c80a8dd9",
+          "at": "2026-10-30T10:15:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c80a8dd9"
+        },
+        {
+          "repo": "site",
+          "sha": "e271a00a",
+          "at": "2026-10-30T10:05:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e271a00a"
+        },
+        {
+          "repo": "site",
+          "sha": "ed7c0a2d",
+          "at": "2026-10-30T10:00:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ed7c0a2d"
+        },
+        {
+          "repo": "site",
+          "sha": "89946456",
+          "at": "2026-10-30T09:50:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/89946456"
+        },
+        {
+          "repo": "site",
+          "sha": "478e3a44",
+          "at": "2026-10-30T09:15:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/478e3a44"
+        },
+        {
+          "repo": "site",
+          "sha": "12a0daee",
+          "at": "2026-10-30T09:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/12a0daee"
+        },
+        {
+          "repo": "site",
+          "sha": "51e355d6",
+          "at": "2026-10-30T09:00:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/51e355d6"
+        },
+        {
+          "repo": "site",
+          "sha": "688eb8f4",
+          "at": "2026-10-30T07:50:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/688eb8f4"
+        },
+        {
+          "repo": "site",
+          "sha": "32318aa9",
+          "at": "2026-10-30T07:35:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/32318aa9"
+        },
+        {
+          "repo": "site",
+          "sha": "9aa13e02",
+          "at": "2026-10-30T06:55:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9aa13e02"
+        },
+        {
+          "repo": "site",
+          "sha": "d6389498",
+          "at": "2026-10-30T05:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d6389498"
+        },
+        {
+          "repo": "site",
+          "sha": "b425105d",
+          "at": "2026-10-30T05:20:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b425105d"
+        },
+        {
+          "repo": "site",
+          "sha": "47ac1ba7",
+          "at": "2026-10-30T04:50:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/47ac1ba7"
+        },
+        {
+          "repo": "site",
+          "sha": "91ddaf92",
+          "at": "2026-10-30T04:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/91ddaf92"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-29",
+      "moments": [],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "19d46bb7",
+          "at": "2026-10-30T03:50:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/19d46bb7"
+        },
+        {
+          "repo": "site",
+          "sha": "abf435cf",
+          "at": "2026-10-30T03:15:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/abf435cf"
+        },
+        {
+          "repo": "site",
+          "sha": "191200e1",
+          "at": "2026-10-30T03:05:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/191200e1"
+        },
+        {
+          "repo": "site",
+          "sha": "6ccce4d9",
+          "at": "2026-10-30T02:50:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6ccce4d9"
+        },
+        {
+          "repo": "site",
+          "sha": "5e1c3bed",
+          "at": "2026-10-30T02:45:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5e1c3bed"
+        },
+        {
+          "repo": "site",
+          "sha": "a6c27861",
+          "at": "2026-10-30T02:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a6c27861"
+        },
+        {
+          "repo": "site",
+          "sha": "86e710ed",
+          "at": "2026-10-30T02:25:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/86e710ed"
+        },
+        {
+          "repo": "site",
+          "sha": "c522ab49",
+          "at": "2026-10-30T02:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c522ab49"
+        },
+        {
+          "repo": "site",
+          "sha": "92815620",
+          "at": "2026-10-30T02:05:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/92815620"
+        },
+        {
+          "repo": "site",
+          "sha": "f9e0d167",
+          "at": "2026-10-30T01:50:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f9e0d167"
+        },
+        {
+          "repo": "site",
+          "sha": "5c9891b4",
+          "at": "2026-10-30T01:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5c9891b4"
+        },
+        {
+          "repo": "site",
+          "sha": "ca7046a8",
+          "at": "2026-10-30T01:05:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ca7046a8"
+        },
+        {
+          "repo": "site",
+          "sha": "c27a4cdf",
+          "at": "2026-10-30T00:55:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c27a4cdf"
+        },
+        {
+          "repo": "site",
+          "sha": "3e69eb60",
+          "at": "2026-10-30T00:45:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3e69eb60"
+        },
+        {
+          "repo": "site",
+          "sha": "5d662146",
+          "at": "2026-10-30T00:40:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5d662146"
+        },
+        {
+          "repo": "site",
+          "sha": "06c0fcea",
+          "at": "2026-10-30T00:30:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/06c0fcea"
+        },
+        {
+          "repo": "site",
+          "sha": "623ddcb1",
+          "at": "2026-10-30T00:20:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/623ddcb1"
+        },
+        {
+          "repo": "site",
+          "sha": "a97c36ac",
+          "at": "2026-10-29T23:40:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a97c36ac"
+        },
+        {
+          "repo": "site",
+          "sha": "7ccf0829",
+          "at": "2026-10-29T23:30:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7ccf0829"
+        },
+        {
+          "repo": "site",
+          "sha": "70c67aaa",
+          "at": "2026-10-29T23:25:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/70c67aaa"
+        },
+        {
+          "repo": "site",
+          "sha": "6abf56f0",
+          "at": "2026-10-29T22:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6abf56f0"
+        },
+        {
+          "repo": "site",
+          "sha": "0835e728",
+          "at": "2026-10-29T21:50:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0835e728"
+        },
+        {
+          "repo": "site",
+          "sha": "874be571",
+          "at": "2026-10-29T21:40:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/874be571"
+        },
+        {
+          "repo": "site",
+          "sha": "09a56ab3",
+          "at": "2026-10-29T21:10:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/09a56ab3"
+        },
+        {
+          "repo": "site",
+          "sha": "54021ed0",
+          "at": "2026-10-29T20:45:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/54021ed0"
+        },
+        {
+          "repo": "site",
+          "sha": "cd3d32b4",
+          "at": "2026-10-29T20:40:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cd3d32b4"
+        },
+        {
+          "repo": "site",
+          "sha": "9b89d1b1",
+          "at": "2026-10-29T20:20:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9b89d1b1"
+        },
+        {
+          "repo": "site",
+          "sha": "26aacf92",
+          "at": "2026-10-29T20:10:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/26aacf92"
+        },
+        {
+          "repo": "site",
+          "sha": "de55d93c",
+          "at": "2026-10-29T20:05:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/de55d93c"
+        },
+        {
+          "repo": "site",
+          "sha": "f935398c",
+          "at": "2026-10-29T19:50:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f935398c"
+        },
+        {
+          "repo": "site",
+          "sha": "a387acc8",
+          "at": "2026-10-29T19:05:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a387acc8"
+        },
+        {
+          "repo": "site",
+          "sha": "6772abfe",
+          "at": "2026-10-29T19:00:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6772abfe"
+        },
+        {
+          "repo": "site",
+          "sha": "6b2ad0df",
+          "at": "2026-10-29T18:05:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6b2ad0df"
+        },
+        {
+          "repo": "site",
+          "sha": "0aaea4fb",
+          "at": "2026-10-29T17:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0aaea4fb"
+        },
+        {
+          "repo": "site",
+          "sha": "c2015f46",
+          "at": "2026-10-29T15:10:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c2015f46"
+        },
+        {
+          "repo": "site",
+          "sha": "8ab1fccd",
+          "at": "2026-10-29T14:15:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8ab1fccd"
+        },
+        {
+          "repo": "site",
+          "sha": "02a65e09",
+          "at": "2026-10-29T12:15:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/02a65e09"
+        },
+        {
+          "repo": "site",
+          "sha": "f0c937a4",
+          "at": "2026-10-29T11:35:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f0c937a4"
+        },
+        {
+          "repo": "site",
+          "sha": "d252b79f",
+          "at": "2026-10-29T11:20:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d252b79f"
+        },
+        {
+          "repo": "site",
+          "sha": "74d70c02",
+          "at": "2026-10-29T10:15:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/74d70c02"
+        },
+        {
+          "repo": "site",
+          "sha": "b85728fa",
+          "at": "2026-10-29T09:55:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b85728fa"
+        },
+        {
+          "repo": "site",
+          "sha": "b61365b1",
+          "at": "2026-10-29T08:35:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b61365b1"
+        },
+        {
+          "repo": "site",
+          "sha": "df2adf26",
+          "at": "2026-10-29T08:25:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/df2adf26"
+        },
+        {
+          "repo": "site",
+          "sha": "d4baaff4",
+          "at": "2026-10-29T08:20:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d4baaff4"
+        },
+        {
+          "repo": "site",
+          "sha": "5e63880d",
+          "at": "2026-10-29T08:00:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5e63880d"
+        },
+        {
+          "repo": "site",
+          "sha": "e4eff648",
+          "at": "2026-10-29T07:40:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e4eff648"
+        },
+        {
+          "repo": "site",
+          "sha": "ddb9ae8b",
+          "at": "2026-10-29T07:20:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ddb9ae8b"
+        },
+        {
+          "repo": "site",
+          "sha": "b2db55a5",
+          "at": "2026-10-29T05:55:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b2db55a5"
+        },
+        {
+          "repo": "site",
+          "sha": "8b245654",
+          "at": "2026-10-29T05:30:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8b245654"
+        },
+        {
+          "repo": "site",
+          "sha": "92cfddb9",
+          "at": "2026-10-29T05:20:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/92cfddb9"
+        },
+        {
+          "repo": "site",
+          "sha": "7c6c41ea",
+          "at": "2026-10-29T04:45:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7c6c41ea"
+        },
+        {
+          "repo": "site",
+          "sha": "cfcc8a78",
+          "at": "2026-10-29T04:35:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cfcc8a78"
+        },
+        {
+          "repo": "site",
+          "sha": "0c069963",
+          "at": "2026-10-29T04:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0c069963"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-28",
+      "moments": [],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "208a90fb",
+          "at": "2026-10-29T03:45:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/208a90fb"
+        },
+        {
+          "repo": "site",
+          "sha": "9a27e08c",
+          "at": "2026-10-29T03:30:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9a27e08c"
+        },
+        {
+          "repo": "site",
+          "sha": "9ca5479c",
+          "at": "2026-10-28T22:55:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9ca5479c"
+        },
+        {
+          "repo": "site",
+          "sha": "2205b8d5",
+          "at": "2026-10-28T22:50:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2205b8d5"
+        },
+        {
+          "repo": "site",
+          "sha": "a2c3eb9b",
+          "at": "2026-10-28T22:45:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a2c3eb9b"
+        },
+        {
+          "repo": "site",
+          "sha": "e4265dc7",
+          "at": "2026-10-28T22:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e4265dc7"
+        },
+        {
+          "repo": "site",
+          "sha": "2fd6d33e",
+          "at": "2026-10-28T22:35:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2fd6d33e"
+        },
+        {
+          "repo": "site",
+          "sha": "4e77b760",
+          "at": "2026-10-28T22:25:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4e77b760"
+        },
+        {
+          "repo": "site",
+          "sha": "60d987bf",
+          "at": "2026-10-28T22:20:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/60d987bf"
+        },
+        {
+          "repo": "site",
+          "sha": "96b12107",
+          "at": "2026-10-28T22:00:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/96b12107"
+        },
+        {
+          "repo": "site",
+          "sha": "96ed7022",
+          "at": "2026-10-28T18:55:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/96ed7022"
+        },
+        {
+          "repo": "site",
+          "sha": "c6485008",
+          "at": "2026-10-28T18:45:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c6485008"
+        },
+        {
+          "repo": "site",
+          "sha": "2ca4b21f",
+          "at": "2026-10-28T14:50:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2ca4b21f"
+        },
+        {
+          "repo": "site",
+          "sha": "f0865719",
+          "at": "2026-10-28T14:25:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f0865719"
+        },
+        {
+          "repo": "site",
+          "sha": "8725fa60",
+          "at": "2026-10-28T14:05:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8725fa60"
+        },
+        {
+          "repo": "site",
+          "sha": "97a92f50",
+          "at": "2026-10-28T13:45:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/97a92f50"
+        },
+        {
+          "repo": "site",
+          "sha": "38f74afb",
+          "at": "2026-10-28T13:35:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/38f74afb"
+        },
+        {
+          "repo": "site",
+          "sha": "fff954d1",
+          "at": "2026-10-28T13:25:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fff954d1"
+        },
+        {
+          "repo": "site",
+          "sha": "660c141f",
+          "at": "2026-10-28T13:20:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/660c141f"
+        },
+        {
+          "repo": "site",
+          "sha": "6c55db6f",
+          "at": "2026-10-28T13:05:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6c55db6f"
+        },
+        {
+          "repo": "site",
+          "sha": "49de268b",
+          "at": "2026-10-28T12:55:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/49de268b"
+        },
+        {
+          "repo": "site",
+          "sha": "95a0b6f0",
+          "at": "2026-10-28T11:50:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/95a0b6f0"
+        },
+        {
+          "repo": "site",
+          "sha": "d6c34e57",
+          "at": "2026-10-28T11:30:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d6c34e57"
+        },
+        {
+          "repo": "site",
+          "sha": "8191c065",
+          "at": "2026-10-28T10:55:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8191c065"
+        },
+        {
+          "repo": "site",
+          "sha": "68526ffc",
+          "at": "2026-10-28T10:30:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/68526ffc"
+        },
+        {
+          "repo": "site",
+          "sha": "b33bc838",
+          "at": "2026-10-28T09:50:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b33bc838"
+        },
+        {
+          "repo": "site",
+          "sha": "e1219a0e",
+          "at": "2026-10-28T09:20:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e1219a0e"
+        },
+        {
+          "repo": "site",
+          "sha": "247a90b5",
+          "at": "2026-10-28T08:45:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/247a90b5"
+        },
+        {
+          "repo": "site",
+          "sha": "61450219",
+          "at": "2026-10-28T08:00:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/61450219"
+        },
+        {
+          "repo": "site",
+          "sha": "365af44f",
+          "at": "2026-10-28T07:20:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/365af44f"
+        },
+        {
+          "repo": "site",
+          "sha": "1b696186",
+          "at": "2026-10-28T07:00:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1b696186"
+        },
+        {
+          "repo": "site",
+          "sha": "c848e457",
+          "at": "2026-10-28T06:45:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c848e457"
+        },
+        {
+          "repo": "site",
+          "sha": "7e8e502b",
+          "at": "2026-10-28T06:20:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e8e502b"
+        },
+        {
+          "repo": "site",
+          "sha": "140773dd",
+          "at": "2026-10-28T05:55:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/140773dd"
+        },
+        {
+          "repo": "site",
+          "sha": "4efbd9ed",
+          "at": "2026-10-28T05:45:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4efbd9ed"
+        },
+        {
+          "repo": "site",
+          "sha": "cd3d71d7",
+          "at": "2026-10-28T05:15:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cd3d71d7"
+        },
+        {
+          "repo": "site",
+          "sha": "042801be",
+          "at": "2026-10-28T04:55:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/042801be"
+        },
+        {
+          "repo": "site",
+          "sha": "b7c286c5",
+          "at": "2026-10-28T04:15:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b7c286c5"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-27",
+      "moments": [],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "14227c7e",
+          "at": "2026-10-28T03:55:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/14227c7e"
+        },
+        {
+          "repo": "site",
+          "sha": "e5f04822",
+          "at": "2026-10-28T02:50:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e5f04822"
+        },
+        {
+          "repo": "site",
+          "sha": "bfbc6956",
+          "at": "2026-10-28T02:25:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bfbc6956"
+        },
+        {
+          "repo": "site",
+          "sha": "17d9e3de",
+          "at": "2026-10-28T02:00:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/17d9e3de"
+        },
+        {
+          "repo": "site",
+          "sha": "61928441",
+          "at": "2026-10-28T01:55:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/61928441"
+        },
+        {
+          "repo": "site",
+          "sha": "6116af8d",
+          "at": "2026-10-28T01:50:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6116af8d"
+        },
+        {
+          "repo": "site",
+          "sha": "385cd70d",
+          "at": "2026-10-28T01:30:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/385cd70d"
+        },
+        {
+          "repo": "site",
+          "sha": "114337cd",
+          "at": "2026-10-28T01:23:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/114337cd"
+        },
+        {
+          "repo": "site",
+          "sha": "88bf9ec9",
+          "at": "2026-10-28T01:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/88bf9ec9"
+        },
+        {
+          "repo": "site",
+          "sha": "d4d738fb",
+          "at": "2026-10-28T00:21:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d4d738fb"
+        },
+        {
+          "repo": "site",
+          "sha": "27878f34",
+          "at": "2026-10-28T00:06:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/27878f34"
+        },
+        {
+          "repo": "site",
+          "sha": "5f5e76f5",
+          "at": "2026-10-27T23:40:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5f5e76f5"
+        },
+        {
+          "repo": "site",
+          "sha": "e6599eb2",
+          "at": "2026-10-27T23:35:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e6599eb2"
+        },
+        {
+          "repo": "site",
+          "sha": "a92d77d4",
+          "at": "2026-10-27T22:26:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a92d77d4"
+        },
+        {
+          "repo": "site",
+          "sha": "1a63a818",
+          "at": "2026-10-27T22:20:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1a63a818"
+        },
+        {
+          "repo": "site",
+          "sha": "62233a00",
+          "at": "2026-10-27T21:46:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/62233a00"
+        },
+        {
+          "repo": "site",
+          "sha": "f3f98344",
+          "at": "2026-10-27T21:15:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f3f98344"
+        },
+        {
+          "repo": "site",
+          "sha": "034470e2",
+          "at": "2026-10-27T20:55:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/034470e2"
+        },
+        {
+          "repo": "site",
+          "sha": "ad4e8176",
+          "at": "2026-10-27T20:11:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ad4e8176"
+        },
+        {
+          "repo": "site",
+          "sha": "420da658",
+          "at": "2026-10-27T20:06:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/420da658"
+        },
+        {
+          "repo": "site",
+          "sha": "20506c56",
+          "at": "2026-10-27T19:46:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/20506c56"
+        },
+        {
+          "repo": "site",
+          "sha": "2ada269d",
+          "at": "2026-10-27T19:16:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2ada269d"
+        },
+        {
+          "repo": "site",
+          "sha": "59530d6c",
+          "at": "2026-10-27T19:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/59530d6c"
+        },
+        {
+          "repo": "site",
+          "sha": "c63288e2",
+          "at": "2026-10-27T18:56:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c63288e2"
+        },
+        {
+          "repo": "site",
+          "sha": "bf3205ac",
+          "at": "2026-10-27T18:36:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bf3205ac"
+        },
+        {
+          "repo": "site",
+          "sha": "edbbcabd",
+          "at": "2026-10-27T18:26:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/edbbcabd"
+        },
+        {
+          "repo": "site",
+          "sha": "91a9127c",
+          "at": "2026-10-27T18:21:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/91a9127c"
+        },
+        {
+          "repo": "site",
+          "sha": "43eca2bc",
+          "at": "2026-10-27T18:16:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/43eca2bc"
+        },
+        {
+          "repo": "site",
+          "sha": "f2e00aa9",
+          "at": "2026-10-27T18:06:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f2e00aa9"
+        },
+        {
+          "repo": "site",
+          "sha": "1a1e07aa",
+          "at": "2026-10-27T17:51:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1a1e07aa"
+        },
+        {
+          "repo": "site",
+          "sha": "1a81a622",
+          "at": "2026-10-27T17:46:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1a81a622"
+        },
+        {
+          "repo": "site",
+          "sha": "e73bd773",
+          "at": "2026-10-27T17:26:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e73bd773"
+        },
+        {
+          "repo": "site",
+          "sha": "fa09b43c",
+          "at": "2026-10-27T15:46:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fa09b43c"
+        },
+        {
+          "repo": "site",
+          "sha": "5a30b5f8",
+          "at": "2026-10-27T14:51:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5a30b5f8"
+        },
+        {
+          "repo": "site",
+          "sha": "a4714d27",
+          "at": "2026-10-27T14:16:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a4714d27"
+        },
+        {
+          "repo": "site",
+          "sha": "d7c68872",
+          "at": "2026-10-27T14:06:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d7c68872"
+        },
+        {
+          "repo": "site",
+          "sha": "d57ca2c1",
+          "at": "2026-10-27T13:51:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d57ca2c1"
+        },
+        {
+          "repo": "site",
+          "sha": "4206f7ca",
+          "at": "2026-10-27T13:41:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4206f7ca"
+        },
+        {
+          "repo": "site",
+          "sha": "d7b29ad4",
+          "at": "2026-10-27T13:21:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d7b29ad4"
+        },
+        {
+          "repo": "site",
+          "sha": "a2c58989",
+          "at": "2026-10-27T13:16:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a2c58989"
+        },
+        {
+          "repo": "site",
+          "sha": "39c5e31b",
+          "at": "2026-10-27T13:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/39c5e31b"
+        },
+        {
+          "repo": "site",
+          "sha": "e67a8e4b",
+          "at": "2026-10-27T13:05:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e67a8e4b"
+        },
+        {
+          "repo": "site",
+          "sha": "204b27ea",
+          "at": "2026-10-27T11:21:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/204b27ea"
+        },
+        {
+          "repo": "site",
+          "sha": "efb47607",
+          "at": "2026-10-27T11:16:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/efb47607"
+        },
+        {
+          "repo": "site",
+          "sha": "dac90c2b",
+          "at": "2026-10-27T11:11:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dac90c2b"
+        },
+        {
+          "repo": "site",
+          "sha": "00d3c156",
+          "at": "2026-10-27T08:45:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/00d3c156"
+        },
+        {
+          "repo": "site",
+          "sha": "1abd484b",
+          "at": "2026-10-27T08:40:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1abd484b"
+        },
+        {
+          "repo": "site",
+          "sha": "cc5aa5b9",
+          "at": "2026-10-27T08:36:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cc5aa5b9"
+        },
+        {
+          "repo": "site",
+          "sha": "c0ad8f5f",
+          "at": "2026-10-27T08:15:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c0ad8f5f"
+        },
+        {
+          "repo": "site",
+          "sha": "99409a4a",
+          "at": "2026-10-27T07:20:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/99409a4a"
+        },
+        {
+          "repo": "site",
+          "sha": "955edd94",
+          "at": "2026-10-27T06:40:51.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/955edd94"
+        },
+        {
+          "repo": "site",
+          "sha": "6c8aefd9",
+          "at": "2026-10-27T06:35:51.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6c8aefd9"
+        },
+        {
+          "repo": "site",
+          "sha": "6091c84c",
+          "at": "2026-10-27T06:20:51.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6091c84c"
+        },
+        {
+          "repo": "site",
+          "sha": "71b513e0",
+          "at": "2026-10-27T05:40:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/71b513e0"
+        },
+        {
+          "repo": "site",
+          "sha": "1b277df7",
+          "at": "2026-10-27T04:45:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1b277df7"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-26",
+      "moments": [],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "a5f00681",
+          "at": "2026-10-27T03:55:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a5f00681"
+        },
+        {
+          "repo": "site",
+          "sha": "159d4a21",
+          "at": "2026-10-27T03:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/159d4a21"
+        },
+        {
+          "repo": "site",
+          "sha": "1c6c541d",
+          "at": "2026-10-27T02:35:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1c6c541d"
+        },
+        {
+          "repo": "site",
+          "sha": "026d0667",
+          "at": "2026-10-27T02:21:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/026d0667"
+        },
+        {
+          "repo": "site",
+          "sha": "25ff947e",
+          "at": "2026-10-27T02:10:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/25ff947e"
+        },
+        {
+          "repo": "site",
+          "sha": "71db512f",
+          "at": "2026-10-27T01:31:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/71db512f"
+        },
+        {
+          "repo": "site",
+          "sha": "f0084457",
+          "at": "2026-10-27T01:11:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f0084457"
+        },
+        {
+          "repo": "site",
+          "sha": "dceaaffb",
+          "at": "2026-10-27T01:01:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dceaaffb"
+        },
+        {
+          "repo": "site",
+          "sha": "9fb62252",
+          "at": "2026-10-27T00:46:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9fb62252"
+        },
+        {
+          "repo": "site",
+          "sha": "1bcfd320",
+          "at": "2026-10-27T00:16:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1bcfd320"
+        },
+        {
+          "repo": "site",
+          "sha": "c1c82e93",
+          "at": "2026-10-27T00:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c1c82e93"
+        },
+        {
+          "repo": "site",
+          "sha": "a1e3736f",
+          "at": "2026-10-26T23:55:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a1e3736f"
+        },
+        {
+          "repo": "site",
+          "sha": "c580f244",
+          "at": "2026-10-26T23:41:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c580f244"
+        },
+        {
+          "repo": "site",
+          "sha": "ab3c21ca",
+          "at": "2026-10-26T23:05:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ab3c21ca"
+        },
+        {
+          "repo": "site",
+          "sha": "6796f1c1",
+          "at": "2026-10-26T22:41:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6796f1c1"
+        },
+        {
+          "repo": "site",
+          "sha": "0df1866e",
+          "at": "2026-10-26T22:35:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0df1866e"
+        },
+        {
+          "repo": "site",
+          "sha": "31a0e0e4",
+          "at": "2026-10-26T22:31:07.000Z",
+          "text": "Social drafts: 1 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31a0e0e4"
+        },
+        {
+          "repo": "site",
+          "sha": "520daf48",
+          "at": "2026-10-26T22:20:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/520daf48"
+        },
+        {
+          "repo": "site",
+          "sha": "31ec3b21",
+          "at": "2026-10-26T22:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31ec3b21"
+        },
+        {
+          "repo": "site",
+          "sha": "ebc1bd80",
+          "at": "2026-10-26T22:05:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ebc1bd80"
+        },
+        {
+          "repo": "site",
+          "sha": "492c014d",
+          "at": "2026-10-26T22:01:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/492c014d"
+        },
+        {
+          "repo": "site",
+          "sha": "7542f7ff",
+          "at": "2026-10-26T21:11:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7542f7ff"
+        },
+        {
+          "repo": "site",
+          "sha": "9042ffed",
+          "at": "2026-10-26T21:01:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9042ffed"
+        },
+        {
+          "repo": "site",
+          "sha": "62638ed3",
+          "at": "2026-10-26T20:51:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/62638ed3"
+        },
+        {
+          "repo": "site",
+          "sha": "a3d2aaf9",
+          "at": "2026-10-26T20:41:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a3d2aaf9"
+        },
+        {
+          "repo": "site",
+          "sha": "9a1dbcdc",
+          "at": "2026-10-26T20:02:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9a1dbcdc"
+        },
+        {
+          "repo": "site",
+          "sha": "976a0b26",
+          "at": "2026-10-26T19:40:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/976a0b26"
+        },
+        {
+          "repo": "site",
+          "sha": "2c65f5da",
+          "at": "2026-10-26T19:26:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2c65f5da"
+        },
+        {
+          "repo": "site",
+          "sha": "8389150e",
+          "at": "2026-10-26T19:15:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8389150e"
+        },
+        {
+          "repo": "site",
+          "sha": "c774d646",
+          "at": "2026-10-26T19:01:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c774d646"
+        },
+        {
+          "repo": "site",
+          "sha": "2f5527a4",
+          "at": "2026-10-26T18:56:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2f5527a4"
+        },
+        {
+          "repo": "site",
+          "sha": "95103f34",
+          "at": "2026-10-26T18:31:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/95103f34"
+        },
+        {
+          "repo": "site",
+          "sha": "0da613a0",
+          "at": "2026-10-26T18:16:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0da613a0"
+        },
+        {
+          "repo": "site",
+          "sha": "05feb7d4",
+          "at": "2026-10-26T18:01:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/05feb7d4"
+        },
+        {
+          "repo": "site",
+          "sha": "c46ea760",
+          "at": "2026-10-26T17:56:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c46ea760"
+        },
+        {
+          "repo": "site",
+          "sha": "17bb2c40",
+          "at": "2026-10-26T17:51:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/17bb2c40"
+        },
+        {
+          "repo": "site",
+          "sha": "b6f6a8fd",
+          "at": "2026-10-26T17:26:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b6f6a8fd"
+        },
+        {
+          "repo": "site",
+          "sha": "31aa7857",
+          "at": "2026-10-26T17:16:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31aa7857"
+        },
+        {
+          "repo": "site",
+          "sha": "a437f2f3",
+          "at": "2026-10-26T17:06:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a437f2f3"
+        },
+        {
+          "repo": "site",
+          "sha": "a3986e15",
+          "at": "2026-10-26T16:56:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a3986e15"
+        },
+        {
+          "repo": "site",
+          "sha": "73e4decc",
+          "at": "2026-10-26T16:16:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/73e4decc"
+        },
+        {
+          "repo": "site",
+          "sha": "c1ad4a3a",
+          "at": "2026-10-26T15:55:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c1ad4a3a"
+        },
+        {
+          "repo": "site",
+          "sha": "9fd35c36",
+          "at": "2026-10-26T15:36:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9fd35c36"
+        },
+        {
+          "repo": "site",
+          "sha": "b3b1de9e",
+          "at": "2026-10-26T15:31:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b3b1de9e"
+        },
+        {
+          "repo": "site",
+          "sha": "849d742b",
+          "at": "2026-10-26T15:21:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/849d742b"
+        },
+        {
+          "repo": "site",
+          "sha": "bcb86507",
+          "at": "2026-10-26T14:46:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bcb86507"
+        },
+        {
+          "repo": "site",
+          "sha": "8941dad5",
+          "at": "2026-10-26T14:20:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8941dad5"
+        },
+        {
+          "repo": "site",
+          "sha": "04b6cc10",
+          "at": "2026-10-26T13:51:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/04b6cc10"
+        },
+        {
+          "repo": "site",
+          "sha": "b8aa9932",
+          "at": "2026-10-26T13:45:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b8aa9932"
+        },
+        {
+          "repo": "site",
+          "sha": "6aec96ad",
+          "at": "2026-10-26T13:20:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6aec96ad"
+        },
+        {
+          "repo": "site",
+          "sha": "2fe1ec4b",
+          "at": "2026-10-26T12:55:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2fe1ec4b"
+        },
+        {
+          "repo": "site",
+          "sha": "6f5d4cd5",
+          "at": "2026-10-26T12:46:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6f5d4cd5"
+        },
+        {
+          "repo": "site",
+          "sha": "05dcd018",
+          "at": "2026-10-26T12:25:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/05dcd018"
+        },
+        {
+          "repo": "site",
+          "sha": "fe818b68",
+          "at": "2026-10-26T12:06:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fe818b68"
+        },
+        {
+          "repo": "site",
+          "sha": "ba43421a",
+          "at": "2026-10-26T09:15:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ba43421a"
+        },
+        {
+          "repo": "site",
+          "sha": "0b00669a",
+          "at": "2026-10-26T08:45:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0b00669a"
+        },
+        {
+          "repo": "site",
+          "sha": "f7703e0f",
+          "at": "2026-10-26T08:40:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f7703e0f"
+        },
+        {
+          "repo": "site",
+          "sha": "688fb83b",
+          "at": "2026-10-26T08:26:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/688fb83b"
+        },
+        {
+          "repo": "site",
+          "sha": "59d81744",
+          "at": "2026-10-26T08:15:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/59d81744"
+        },
+        {
+          "repo": "site",
+          "sha": "6b86afd2",
+          "at": "2026-10-26T08:05:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6b86afd2"
+        },
+        {
+          "repo": "site",
+          "sha": "fc2c86a2",
+          "at": "2026-10-26T07:45:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fc2c86a2"
+        },
+        {
+          "repo": "site",
+          "sha": "be0be741",
+          "at": "2026-10-26T07:15:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/be0be741"
+        },
+        {
+          "repo": "site",
+          "sha": "3c2570a7",
+          "at": "2026-10-26T06:45:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3c2570a7"
+        },
+        {
+          "repo": "site",
+          "sha": "6a59c6c4",
+          "at": "2026-10-26T06:35:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6a59c6c4"
+        },
+        {
+          "repo": "site",
+          "sha": "d6f1601f",
+          "at": "2026-10-26T06:31:05.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d6f1601f"
+        },
+        {
+          "repo": "site",
+          "sha": "0060e41e",
+          "at": "2026-10-26T05:15:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0060e41e"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-10-25T22:14:59.000Z",
+          "title": "Beats, step two: any reply cut into beats",
+          "card": "YUI-351",
+          "anchor": "beats-step-two-any-reply-cut-into-beats",
+          "images": [
+            {
+              "src": "/progress/yui351-text-dark.webp",
+              "alt": "The beat builder, dark: a plain text answer about the heart cut into three beats, the first pinning The heart is two pumps."
+            },
+            {
+              "src": "/progress/yui351-status-light.webp",
+              "alt": "The beat builder, light: a status reply where each Label: value line is a beat and pins, Status: green, Memory: no leaks, Barge-in: in test, Guide rewrite: not started."
+            },
+            {
+              "src": "/progress/yui351-follow-dark.webp",
+              "alt": "The beat builder, dark: a heart follow-up, the anchors from before dimmed above a new one, and a waypoint whose Left side option is a part of the picture."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 544,
+            "site": 2124,
+            "builds": 60,
+            "shipped": 806
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-25T21:32:17.000Z",
+          "title": "Beats, step one: three conversations written as beats",
+          "card": "YUI-350",
+          "anchor": "beats-step-one-three-conversations-written-as-beats",
+          "images": [
+            {
+              "src": "/progress/yui350-heart-dark.webp",
+              "alt": "The heart script, dark: the ask, two beats with the anchors Two pumps and Right side: body to lungs, the person cutting in at 9 seconds with hold on, why two pumps, and the next reply pinning Two pressures."
+            },
+            {
+              "src": "/progress/yui350-launch-light.webp",
+              "alt": "The launch script, light: three cards left, memory check green, barge-in cut into with is that the echo problem, then a waypoint Which one first with Barge-in and Guide rewrite as the options."
+            },
+            {
+              "src": "/progress/yui350-chicken-dark.webp",
+              "alt": "The roast chicken script, dark: about 90 minutes, oven first at 220 degrees, then butter, garlic and lemon, cut into with no lemons, can I use lime."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 544,
+            "site": 2119,
+            "builds": 60,
+            "shipped": 805
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-10-25T14:24:06.000Z",
+          "build": 591,
+          "changes": 8,
+          "totals": {
+            "app": 544,
+            "site": 2089,
+            "builds": 60,
+            "shipped": 804
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "3a2bf9fe",
+          "at": "2026-10-26T01:31:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3a2bf9fe"
+        },
+        {
+          "repo": "site",
+          "sha": "281b34a9",
+          "at": "2026-10-26T01:16:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/281b34a9"
+        },
+        {
+          "repo": "site",
+          "sha": "c147d181",
+          "at": "2026-10-26T01:11:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c147d181"
+        },
+        {
+          "repo": "site",
+          "sha": "fc1cf500",
+          "at": "2026-10-26T01:05:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fc1cf500"
+        },
+        {
+          "repo": "site",
+          "sha": "9c79729b",
+          "at": "2026-10-26T00:55:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9c79729b"
+        },
+        {
+          "repo": "site",
+          "sha": "104ca317",
+          "at": "2026-10-26T00:50:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/104ca317"
+        },
+        {
+          "repo": "site",
+          "sha": "15aba27a",
+          "at": "2026-10-26T00:25:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/15aba27a"
+        },
+        {
+          "repo": "site",
+          "sha": "ca16e378",
+          "at": "2026-10-26T00:17:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ca16e378"
+        },
+        {
+          "repo": "site",
+          "sha": "4de81c01",
+          "at": "2026-10-26T00:05:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4de81c01"
+        },
+        {
+          "repo": "site",
+          "sha": "a94d0652",
+          "at": "2026-10-25T23:55:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a94d0652"
+        },
+        {
+          "repo": "site",
+          "sha": "b26fb17f",
+          "at": "2026-10-25T23:50:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b26fb17f"
+        },
+        {
+          "repo": "site",
+          "sha": "05c247b7",
+          "at": "2026-10-25T23:40:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/05c247b7"
+        },
+        {
+          "repo": "site",
+          "sha": "4927c6b4",
+          "at": "2026-10-25T23:20:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4927c6b4"
+        },
+        {
+          "repo": "site",
+          "sha": "9d11c357",
+          "at": "2026-10-25T23:10:13.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9d11c357"
+        },
+        {
+          "repo": "site",
+          "sha": "0dd3ff37",
+          "at": "2026-10-25T22:50:13.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0dd3ff37"
+        },
+        {
+          "repo": "site",
+          "sha": "92947a74",
+          "at": "2026-10-25T22:35:20.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/92947a74"
+        },
+        {
+          "repo": "site",
+          "sha": "f53eec7c",
+          "at": "2026-10-25T22:30:31.000Z",
+          "text": "Social drafts: 2 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f53eec7c"
+        },
+        {
+          "repo": "site",
+          "sha": "57db1957",
+          "at": "2026-10-25T22:20:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/57db1957"
+        },
+        {
+          "repo": "site",
+          "sha": "02c98a4f",
+          "at": "2026-10-25T22:14:59.000Z",
+          "text": "Beats builder: any reply in, beats and anchors out (YUI-351)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/02c98a4f"
+        },
+        {
+          "repo": "site",
+          "sha": "333e5e6a",
+          "at": "2026-10-25T22:10:10.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/333e5e6a"
+        },
+        {
+          "repo": "site",
+          "sha": "42c5ae81",
+          "at": "2026-10-25T22:05:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/42c5ae81"
+        },
+        {
+          "repo": "site",
+          "sha": "648d8cf6",
+          "at": "2026-10-25T21:50:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/648d8cf6"
+        },
+        {
+          "repo": "site",
+          "sha": "616789aa",
+          "at": "2026-10-25T21:45:13.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/616789aa"
+        },
+        {
+          "repo": "site",
+          "sha": "c9ccc5d7",
+          "at": "2026-10-25T21:32:17.000Z",
+          "text": "Beats script: three conversations as beats with a clock, checked by test-spec (YUI-350)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c9ccc5d7"
+        },
+        {
+          "repo": "site",
+          "sha": "2922f4f1",
+          "at": "2026-10-25T21:30:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2922f4f1"
+        },
+        {
+          "repo": "site",
+          "sha": "c26c85f5",
+          "at": "2026-10-25T21:25:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c26c85f5"
+        },
+        {
+          "repo": "site",
+          "sha": "47e59f24",
+          "at": "2026-10-25T21:20:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/47e59f24"
+        },
+        {
+          "repo": "site",
+          "sha": "4c8160a3",
+          "at": "2026-10-25T21:10:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4c8160a3"
+        },
+        {
+          "repo": "site",
+          "sha": "b2a94b3b",
+          "at": "2026-10-25T20:45:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b2a94b3b"
+        },
+        {
+          "repo": "site",
+          "sha": "0dafc93b",
+          "at": "2026-10-25T20:40:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0dafc93b"
+        },
+        {
+          "repo": "site",
+          "sha": "7a9e8609",
+          "at": "2026-10-25T20:25:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7a9e8609"
+        },
+        {
+          "repo": "site",
+          "sha": "1c70599d",
+          "at": "2026-10-25T20:20:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1c70599d"
+        },
+        {
+          "repo": "site",
+          "sha": "96a6a530",
+          "at": "2026-10-25T20:10:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/96a6a530"
+        },
+        {
+          "repo": "site",
+          "sha": "37f52be6",
+          "at": "2026-10-25T19:55:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/37f52be6"
+        },
+        {
+          "repo": "site",
+          "sha": "25c72668",
+          "at": "2026-10-25T19:35:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/25c72668"
+        },
+        {
+          "repo": "site",
+          "sha": "1ac3eceb",
+          "at": "2026-10-25T19:20:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1ac3eceb"
+        },
+        {
+          "repo": "site",
+          "sha": "f9ea5231",
+          "at": "2026-10-25T19:10:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f9ea5231"
+        },
+        {
+          "repo": "site",
+          "sha": "476f7186",
+          "at": "2026-10-25T19:05:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/476f7186"
+        },
+        {
+          "repo": "site",
+          "sha": "54cf2182",
+          "at": "2026-10-25T18:55:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/54cf2182"
+        },
+        {
+          "repo": "site",
+          "sha": "ddd58c14",
+          "at": "2026-10-25T18:50:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ddd58c14"
+        },
+        {
+          "repo": "site",
+          "sha": "a36eb383",
+          "at": "2026-10-25T18:40:13.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a36eb383"
+        },
+        {
+          "repo": "site",
+          "sha": "6ad5684e",
+          "at": "2026-10-25T18:35:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6ad5684e"
+        },
+        {
+          "repo": "site",
+          "sha": "deefc8f0",
+          "at": "2026-10-25T18:30:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/deefc8f0"
+        },
+        {
+          "repo": "site",
+          "sha": "181af1f9",
+          "at": "2026-10-25T18:10:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/181af1f9"
+        },
+        {
+          "repo": "site",
+          "sha": "e40cf436",
+          "at": "2026-10-25T18:00:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e40cf436"
+        },
+        {
+          "repo": "site",
+          "sha": "aa29f520",
+          "at": "2026-10-25T17:15:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/aa29f520"
+        },
+        {
+          "repo": "site",
+          "sha": "2c002c13",
+          "at": "2026-10-25T17:05:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2c002c13"
+        },
+        {
+          "repo": "site",
+          "sha": "8510859d",
+          "at": "2026-10-25T16:40:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8510859d"
+        },
+        {
+          "repo": "site",
+          "sha": "7dee0920",
+          "at": "2026-10-25T16:10:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7dee0920"
+        },
+        {
+          "repo": "site",
+          "sha": "73873d4d",
+          "at": "2026-10-25T16:05:17.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/73873d4d"
+        },
+        {
+          "repo": "site",
+          "sha": "d1c27225",
+          "at": "2026-10-25T15:20:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d1c27225"
+        },
+        {
+          "repo": "site",
+          "sha": "1c02d077",
+          "at": "2026-10-25T14:45:21.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1c02d077"
+        },
+        {
+          "repo": "site",
+          "sha": "87e89edf",
+          "at": "2026-10-25T14:35:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/87e89edf"
+        },
+        {
+          "repo": "app",
+          "sha": "6a83fe7",
+          "at": "2026-10-25T14:18:41.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/6a83fe7"
+        },
+        {
+          "repo": "site",
+          "sha": "944ccfcc",
+          "at": "2026-10-25T14:10:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/944ccfcc"
+        },
+        {
+          "repo": "site",
+          "sha": "2a2b5463",
+          "at": "2026-10-25T13:50:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2a2b5463"
+        },
+        {
+          "repo": "site",
+          "sha": "41c35983",
+          "at": "2026-10-25T13:35:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/41c35983"
+        },
+        {
+          "repo": "site",
+          "sha": "1bc1b193",
+          "at": "2026-10-25T13:15:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1bc1b193"
+        },
+        {
+          "repo": "site",
+          "sha": "7c78c53e",
+          "at": "2026-10-25T13:00:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7c78c53e"
+        },
+        {
+          "repo": "site",
+          "sha": "72496cba",
+          "at": "2026-10-25T12:55:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/72496cba"
+        },
+        {
+          "repo": "site",
+          "sha": "10717ff8",
+          "at": "2026-10-25T12:05:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/10717ff8"
+        },
+        {
+          "repo": "site",
+          "sha": "226aef29",
+          "at": "2026-10-25T11:35:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/226aef29"
+        },
+        {
+          "repo": "site",
+          "sha": "b63548c5",
+          "at": "2026-10-25T11:10:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b63548c5"
+        },
+        {
+          "repo": "site",
+          "sha": "3871ea26",
+          "at": "2026-10-25T10:50:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3871ea26"
+        },
+        {
+          "repo": "site",
+          "sha": "292c3043",
+          "at": "2026-10-25T10:20:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/292c3043"
+        },
+        {
+          "repo": "site",
+          "sha": "0850c69a",
+          "at": "2026-10-25T09:25:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0850c69a"
+        },
+        {
+          "repo": "site",
+          "sha": "762011d0",
+          "at": "2026-10-25T09:05:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/762011d0"
+        },
+        {
+          "repo": "site",
+          "sha": "1f07d026",
+          "at": "2026-10-25T08:40:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1f07d026"
+        },
+        {
+          "repo": "site",
+          "sha": "ec45c381",
+          "at": "2026-10-25T08:30:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ec45c381"
+        },
+        {
+          "repo": "site",
+          "sha": "3b526704",
+          "at": "2026-10-25T07:55:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3b526704"
+        },
+        {
+          "repo": "site",
+          "sha": "d0705845",
+          "at": "2026-10-25T07:20:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d0705845"
+        },
+        {
+          "repo": "site",
+          "sha": "8be0d983",
+          "at": "2026-10-25T07:05:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8be0d983"
+        },
+        {
+          "repo": "site",
+          "sha": "e986df03",
+          "at": "2026-10-25T06:40:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e986df03"
+        },
+        {
+          "repo": "site",
+          "sha": "fe147872",
+          "at": "2026-10-25T06:25:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fe147872"
+        },
+        {
+          "repo": "site",
+          "sha": "599760b7",
+          "at": "2026-10-25T06:05:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/599760b7"
+        },
+        {
+          "repo": "site",
+          "sha": "a44ce942",
+          "at": "2026-10-25T05:45:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a44ce942"
+        },
+        {
+          "repo": "site",
+          "sha": "b3aae434",
+          "at": "2026-10-25T05:40:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b3aae434"
+        },
+        {
+          "repo": "site",
+          "sha": "a81a63c7",
+          "at": "2026-10-25T05:30:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a81a63c7"
+        },
+        {
+          "repo": "site",
+          "sha": "5cc8ec4c",
+          "at": "2026-10-25T05:10:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5cc8ec4c"
+        }
+      ]
+    },
+    {
+      "date": "2026-10-24",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-10-24T22:11:58.000Z",
+          "title": "yuicss: how Yui looks, as one stylesheet",
+          "card": "YUI-342",
+          "anchor": "yuicss-how-yui-looks-as-one-stylesheet",
+          "images": [
+            {
+              "src": "/progress/yui342-week.webp",
+              "alt": "The plan's example screen, Your week, drawn with no classes in Yui's look: a heading, seven bars, a line of muted text and one coral button, light beside dark."
+            },
+            {
+              "src": "/progress/yui342-coach-timer.webp",
+              "alt": "The timer as a component in the Coach look, light and dark: an orange ring at 62 percent, 0:24 WORK, round dots and Pause and Skip buttons with square corners."
+            },
+            {
+              "src": "/progress/yui342-zen-cards.webp",
+              "alt": "Hero and cards in the Zen look, serif type and round corners: Rest, then a long walk, a Sunday plan card with a Start button, a green accent card and a soft card, light beside dark."
+            },
+            {
+              "src": "/progress/yui342-stat-chart.webp",
+              "alt": "Stat and chart components: a weight line chart with a filled area, a bar chart of the week's load with values above the bars, and a donut at 55 percent with a legend, light beside dark."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 543,
+            "site": 2052,
+            "builds": 59,
+            "shipped": 804
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "70fe1fff",
+          "at": "2026-10-25T03:50:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/70fe1fff"
+        },
+        {
+          "repo": "site",
+          "sha": "4b354020",
+          "at": "2026-10-25T02:25:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4b354020"
+        },
+        {
+          "repo": "site",
+          "sha": "e73b0f71",
+          "at": "2026-10-25T02:05:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e73b0f71"
+        },
+        {
+          "repo": "site",
+          "sha": "fbded4ff",
+          "at": "2026-10-25T01:45:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fbded4ff"
+        },
+        {
+          "repo": "site",
+          "sha": "43130c69",
+          "at": "2026-10-25T01:15:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/43130c69"
+        },
+        {
+          "repo": "site",
+          "sha": "5b07f578",
+          "at": "2026-10-25T00:15:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5b07f578"
+        },
+        {
+          "repo": "site",
+          "sha": "4c6138cd",
+          "at": "2026-10-24T23:45:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4c6138cd"
+        },
+        {
+          "repo": "site",
+          "sha": "802c943e",
+          "at": "2026-10-24T23:15:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/802c943e"
+        },
+        {
+          "repo": "site",
+          "sha": "33c129ba",
+          "at": "2026-10-24T22:50:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/33c129ba"
+        },
+        {
+          "repo": "site",
+          "sha": "e3825d27",
+          "at": "2026-10-24T22:40:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e3825d27"
+        },
+        {
+          "repo": "site",
+          "sha": "70629a0b",
+          "at": "2026-10-24T22:20:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/70629a0b"
+        },
+        {
+          "repo": "site",
+          "sha": "d28c7710",
+          "at": "2026-10-24T22:15:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d28c7710"
+        },
+        {
+          "repo": "site",
+          "sha": "7d846dbb",
+          "at": "2026-10-24T22:11:58.000Z",
+          "text": "yuicss: tokens, classless defaults, utilities, components and the /yuicss gallery (YUI-342)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7d846dbb"
+        },
+        {
+          "repo": "site",
+          "sha": "38d2c513",
+          "at": "2026-10-24T22:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/38d2c513"
+        },
+        {
+          "repo": "site",
+          "sha": "c8444bd1",
+          "at": "2026-10-24T22:05:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c8444bd1"
+        },
+        {
+          "repo": "site",
+          "sha": "b4f7a9a1",
+          "at": "2026-10-24T21:45:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b4f7a9a1"
+        },
+        {
+          "repo": "site",
+          "sha": "89454f2e",
+          "at": "2026-10-24T21:35:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/89454f2e"
+        },
+        {
+          "repo": "site",
+          "sha": "31a66b1d",
+          "at": "2026-10-24T21:30:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31a66b1d"
+        },
+        {
+          "repo": "site",
+          "sha": "c62bd123",
+          "at": "2026-10-24T21:10:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c62bd123"
+        },
+        {
+          "repo": "site",
+          "sha": "e78440f1",
+          "at": "2026-10-24T20:50:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e78440f1"
+        },
+        {
+          "repo": "site",
+          "sha": "6db39e28",
+          "at": "2026-10-24T20:35:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6db39e28"
+        },
+        {
+          "repo": "site",
+          "sha": "57f4ddbf",
+          "at": "2026-10-24T20:20:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/57f4ddbf"
+        },
+        {
+          "repo": "site",
+          "sha": "aa9282f1",
+          "at": "2026-10-24T19:45:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/aa9282f1"
+        },
+        {
+          "repo": "site",
+          "sha": "a732bc3a",
+          "at": "2026-10-24T19:40:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a732bc3a"
+        },
+        {
+          "repo": "site",
+          "sha": "2bdd6d04",
+          "at": "2026-10-24T18:55:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2bdd6d04"
+        },
+        {
+          "repo": "site",
+          "sha": "f6805436",
+          "at": "2026-10-24T18:52:09.000Z",
+          "text": "Plan: YL screens and yuicss, the reach of HTML in short lines, styled by default (YUI-341)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f6805436"
+        },
+        {
+          "repo": "site",
+          "sha": "12193083",
+          "at": "2026-10-24T18:45:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/12193083"
+        },
+        {
+          "repo": "site",
+          "sha": "9f412b36",
+          "at": "2026-10-24T18:10:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9f412b36"
+        },
+        {
+          "repo": "site",
+          "sha": "b712df1e",
+          "at": "2026-10-24T17:45:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b712df1e"
+        },
+        {
+          "repo": "site",
+          "sha": "f97a03f1",
+          "at": "2026-10-24T17:40:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f97a03f1"
+        },
+        {
+          "repo": "site",
+          "sha": "d3c6ae03",
+          "at": "2026-10-24T17:15:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d3c6ae03"
+        },
+        {
+          "repo": "site",
+          "sha": "6dfd6c1d",
+          "at": "2026-10-24T17:05:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6dfd6c1d"
+        },
+        {
+          "repo": "site",
+          "sha": "8e65fe49",
+          "at": "2026-10-24T16:15:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8e65fe49"
+        },
+        {
+          "repo": "site",
+          "sha": "a279e8ac",
+          "at": "2026-10-24T16:10:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a279e8ac"
+        },
+        {
+          "repo": "app",
+          "sha": "a84ef69",
+          "at": "2026-10-24T16:01:19.000Z",
+          "text": "Merge branch 'claude/immersive'",
+          "url": "https://github.com/postscarcityai/yui/commit/a84ef69"
+        },
+        {
+          "repo": "site",
+          "sha": "970ef394",
+          "at": "2026-10-24T15:40:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/970ef394"
+        },
+        {
+          "repo": "site",
+          "sha": "bc97f231",
+          "at": "2026-10-24T14:25:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bc97f231"
+        },
+        {
+          "repo": "site",
+          "sha": "7d69ea41",
+          "at": "2026-10-24T13:45:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7d69ea41"
+        },
+        {
+          "repo": "site",
+          "sha": "307e7454",
+          "at": "2026-10-24T13:30:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/307e7454"
+        },
+        {
+          "repo": "site",
+          "sha": "78af989f",
+          "at": "2026-10-24T13:10:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/78af989f"
+        },
+        {
+          "repo": "site",
+          "sha": "e4f2ba69",
+          "at": "2026-10-24T13:00:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e4f2ba69"
+        },
+        {
+          "repo": "site",
+          "sha": "d18b421c",
+          "at": "2026-10-24T12:20:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d18b421c"
+        },
+        {
+          "repo": "site",
+          "sha": "97b2bdf5",
+          "at": "2026-10-24T11:10:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/97b2bdf5"
+        },
+        {
+          "repo": "site",
+          "sha": "e8297a1b",
+          "at": "2026-10-24T10:25:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e8297a1b"
+        },
+        {
+          "repo": "site",
+          "sha": "6d4ccc20",
+          "at": "2026-10-24T09:50:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6d4ccc20"
+        },
+        {
+          "repo": "site",
+          "sha": "98305d48",
+          "at": "2026-10-24T09:25:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/98305d48"
+        },
+        {
+          "repo": "site",
+          "sha": "12cfb1de",
+          "at": "2026-10-24T08:50:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/12cfb1de"
+        },
+        {
+          "repo": "site",
+          "sha": "83f57574",
+          "at": "2026-10-24T07:50:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/83f57574"
+        },
+        {
+          "repo": "site",
+          "sha": "22828854",
+          "at": "2026-10-24T07:15:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/22828854"
+        },
+        {
+          "repo": "site",
+          "sha": "bf678e1e",
+          "at": "2026-10-24T06:25:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bf678e1e"
+        },
+        {
+          "repo": "site",
+          "sha": "2a573086",
+          "at": "2026-10-24T06:05:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2a573086"
+        },
+        {
+          "repo": "site",
+          "sha": "8810ac31",
+          "at": "2026-10-24T05:35:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8810ac31"
+        },
+        {
+          "repo": "site",
+          "sha": "da7236ea",
+          "at": "2026-10-24T05:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/da7236ea"
+        },
+        {
+          "repo": "site",
+          "sha": "4c7e99b0",
+          "at": "2026-10-24T05:04:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4c7e99b0"
+        },
+        {
+          "repo": "site",
+          "sha": "631065da",
+          "at": "2026-10-24T05:00:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/631065da"
+        },
+        {
+          "repo": "site",
+          "sha": "adc4a903",
+          "at": "2026-10-24T04:55:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/adc4a903"
+        },
+        {
+          "repo": "site",
+          "sha": "53da9c3b",
+          "at": "2026-10-24T04:50:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/53da9c3b"
+        },
+        {
+          "repo": "site",
+          "sha": "03a41826",
+          "at": "2026-10-24T04:40:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/03a41826"
+        },
+        {
+          "repo": "site",
+          "sha": "9bb36570",
+          "at": "2026-10-24T04:35:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9bb36570"
+        },
+        {
+          "repo": "site",
+          "sha": "64e06f16",
+          "at": "2026-10-24T04:25:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/64e06f16"
+        },
+        {
+          "repo": "site",
+          "sha": "16f0640e",
+          "at": "2026-10-24T04:20:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/16f0640e"
+        },
+        {
+          "repo": "site",
+          "sha": "038e7b95",
+          "at": "2026-10-24T04:05:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/038e7b95"
+        }
+      ]
+    },
     {
       "date": "2026-10-23",
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-23T21:01:34.867Z",
+          "at": "2026-10-23T21:02:44.000Z",
           "title": "Week of Oct 19: a second quiet week, one call still open",
           "card": null,
           "anchor": "week-of-oct-19-a-second-quiet-week-one-call-still-open",
           "images": [],
           "commits": 0,
           "totals": {
-            "app": 545,
-            "site": 1987,
+            "app": 542,
+            "site": 1989,
             "builds": 59,
             "shipped": 803
           }
         }
       ],
-      "commits": []
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "cf77896f",
+          "at": "2026-10-24T03:45:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cf77896f"
+        },
+        {
+          "repo": "site",
+          "sha": "22b0759d",
+          "at": "2026-10-24T03:40:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/22b0759d"
+        },
+        {
+          "repo": "site",
+          "sha": "889b506f",
+          "at": "2026-10-24T03:15:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/889b506f"
+        },
+        {
+          "repo": "site",
+          "sha": "28447ed3",
+          "at": "2026-10-24T03:10:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/28447ed3"
+        },
+        {
+          "repo": "site",
+          "sha": "5c6479a1",
+          "at": "2026-10-24T02:55:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5c6479a1"
+        },
+        {
+          "repo": "site",
+          "sha": "6b2fa7fe",
+          "at": "2026-10-24T02:45:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6b2fa7fe"
+        },
+        {
+          "repo": "site",
+          "sha": "47377acc",
+          "at": "2026-10-24T02:35:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/47377acc"
+        },
+        {
+          "repo": "site",
+          "sha": "036fa5e7",
+          "at": "2026-10-24T02:30:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/036fa5e7"
+        },
+        {
+          "repo": "site",
+          "sha": "7476fc2c",
+          "at": "2026-10-23T23:00:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7476fc2c"
+        },
+        {
+          "repo": "site",
+          "sha": "a1b6c1a2",
+          "at": "2026-10-23T22:45:29.000Z",
+          "text": "Social drafts: 0 new, 1 skipped (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a1b6c1a2"
+        },
+        {
+          "repo": "site",
+          "sha": "5bd9c997",
+          "at": "2026-10-23T22:30:32.000Z",
+          "text": "Social drafts: 0 new, 1 skipped (no media) (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5bd9c997"
+        },
+        {
+          "repo": "site",
+          "sha": "fe51b814",
+          "at": "2026-10-23T21:55:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fe51b814"
+        },
+        {
+          "repo": "site",
+          "sha": "e3389e18",
+          "at": "2026-10-23T21:40:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e3389e18"
+        },
+        {
+          "repo": "site",
+          "sha": "445f3d1b",
+          "at": "2026-10-23T21:20:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/445f3d1b"
+        },
+        {
+          "repo": "site",
+          "sha": "40395e7d",
+          "at": "2026-10-23T21:02:44.000Z",
+          "text": "Draft Thought: touch the canvas and tell us how it feels (SITE-30)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/40395e7d"
+        },
+        {
+          "repo": "site",
+          "sha": "132f5300",
+          "at": "2026-10-23T21:02:44.000Z",
+          "text": "Week of Oct 19: a second quiet week, one call still open",
+          "url": "https://github.com/postscarcityai/yuigui/commit/132f5300"
+        }
+      ]
     },
     {
       "date": "2026-10-16",
@@ -41,7 +3078,7 @@
           "images": [],
           "commits": 0,
           "totals": {
-            "app": 545,
+            "app": 542,
             "site": 1983,
             "builds": 59,
             "shipped": 802
@@ -118,7 +3155,7 @@
           ],
           "commits": 0,
           "totals": {
-            "app": 545,
+            "app": 542,
             "site": 1978,
             "builds": 59,
             "shipped": 801
@@ -198,7 +3235,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 545,
+            "app": 542,
             "site": 1968,
             "builds": 59,
             "shipped": 800
@@ -230,7 +3267,7 @@
           ],
           "commits": 2,
           "totals": {
-            "app": 545,
+            "app": 542,
             "site": 1964,
             "builds": 59,
             "shipped": 799
@@ -254,7 +3291,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 545,
+            "app": 542,
             "site": 1962,
             "builds": 59,
             "shipped": 798
@@ -286,7 +3323,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 545,
+            "app": 542,
             "site": 1959,
             "builds": 59,
             "shipped": 797
@@ -310,7 +3347,7 @@
           ],
           "commits": 2,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1949,
             "builds": 59,
             "shipped": 796
@@ -338,7 +3375,7 @@
           ],
           "commits": 2,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1947,
             "builds": 59,
             "shipped": 795
@@ -362,7 +3399,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1941,
             "builds": 59,
             "shipped": 794
@@ -394,7 +3431,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1938,
             "builds": 59,
             "shipped": 793
@@ -418,7 +3455,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1933,
             "builds": 59,
             "shipped": 792
@@ -442,7 +3479,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1931,
             "builds": 59,
             "shipped": 791
@@ -466,7 +3503,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1927,
             "builds": 59,
             "shipped": 790
@@ -506,7 +3543,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1925,
             "builds": 59,
             "shipped": 789
@@ -526,7 +3563,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1921,
             "builds": 59,
             "shipped": 788
@@ -558,7 +3595,7 @@
           ],
           "commits": 2,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1919,
             "builds": 59,
             "shipped": 787
@@ -578,7 +3615,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1914,
             "builds": 59,
             "shipped": 786
@@ -622,7 +3659,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1912,
             "builds": 59,
             "shipped": 785
@@ -642,7 +3679,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1908,
             "builds": 59,
             "shipped": 784
@@ -698,7 +3735,7 @@
           ],
           "commits": 2,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1904,
             "builds": 59,
             "shipped": 783
@@ -718,7 +3755,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1900,
             "builds": 59,
             "shipped": 782
@@ -758,7 +3795,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1898,
             "builds": 59,
             "shipped": 781
@@ -901,10 +3938,10 @@
         },
         {
           "repo": "app",
-          "sha": "f04bc53",
+          "sha": "fd02335",
           "at": "2026-10-08T14:33:45.000Z",
           "text": "health_probe: position() instead of LIKE for the logs query, LIKE '%yui-native%' now returns Backend error (YUI-211)",
-          "url": "https://github.com/postscarcityai/yui/commit/f04bc53"
+          "url": "https://github.com/postscarcityai/yui/commit/fd02335"
         },
         {
           "repo": "site",
@@ -1352,7 +4389,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1894,
             "builds": 59,
             "shipped": 780
@@ -1392,7 +4429,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1892,
             "builds": 59,
             "shipped": 779
@@ -1412,7 +4449,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1888,
             "builds": 59,
             "shipped": 778
@@ -1452,7 +4489,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1885,
             "builds": 59,
             "shipped": 777
@@ -1472,7 +4509,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1882,
             "builds": 59,
             "shipped": 776
@@ -1512,7 +4549,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1880,
             "builds": 59,
             "shipped": 775
@@ -1532,7 +4569,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1877,
             "builds": 59,
             "shipped": 774
@@ -1572,7 +4609,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1874,
             "builds": 59,
             "shipped": 773
@@ -1592,7 +4629,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1871,
             "builds": 59,
             "shipped": 772
@@ -1632,7 +4669,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1868,
             "builds": 59,
             "shipped": 771
@@ -1652,7 +4689,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1865,
             "builds": 59,
             "shipped": 770
@@ -1676,7 +4713,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1861,
             "builds": 59,
             "shipped": 769
@@ -1696,7 +4733,7 @@
           ],
           "commits": 2,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1858,
             "builds": 59,
             "shipped": 768
@@ -1720,7 +4757,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1854,
             "builds": 59,
             "shipped": 767
@@ -1740,7 +4777,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1852,
             "builds": 59,
             "shipped": 766
@@ -1762,9 +4799,9 @@
               "alt": "Light: the same resting screen"
             }
           ],
-          "commits": 3,
+          "commits": 2,
           "totals": {
-            "app": 544,
+            "app": 541,
             "site": 1849,
             "builds": 59,
             "shipped": 765
@@ -1784,7 +4821,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 543,
+            "app": 541,
             "site": 1846,
             "builds": 59,
             "shipped": 764
@@ -1808,7 +4845,7 @@
           ],
           "commits": 0,
           "totals": {
-            "app": 543,
+            "app": 541,
             "site": 1845,
             "builds": 59,
             "shipped": 763
@@ -1828,7 +4865,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 542,
+            "app": 541,
             "site": 1841,
             "builds": 59,
             "shipped": 762
@@ -1852,7 +4889,7 @@
           ],
           "commits": 0,
           "totals": {
-            "app": 542,
+            "app": 541,
             "site": 1839,
             "builds": 59,
             "shipped": 761
@@ -3146,13 +6183,6 @@
           "url": "https://github.com/postscarcityai/yuigui/commit/666e2ac9"
         },
         {
-          "repo": "app",
-          "sha": "a5d2bea",
-          "at": "2026-10-07T23:35:14.000Z",
-          "text": "Native: a dry house key shows a kind resting screen, films fail quiet, one house-key-dry log an hour (YUI-322)",
-          "url": "https://github.com/postscarcityai/yui/commit/a5d2bea"
-        },
-        {
           "repo": "site",
           "sha": "c1638231",
           "at": "2026-10-07T23:30:44.000Z",
@@ -3172,13 +6202,6 @@
           "at": "2026-10-07T23:19:11.000Z",
           "text": "progress: MOTION-30 native first films, 26% to 76% of frames, strong route is a switch (MOTION-30)",
           "url": "https://github.com/postscarcityai/yuigui/commit/6ba6b07e"
-        },
-        {
-          "repo": "app",
-          "sha": "522046b",
-          "at": "2026-10-07T23:17:12.000Z",
-          "text": "MOTION-30: native first films closer to the plugin's: guard against the agent's kit word, thin long outlines, split scene 1, draw the...",
-          "url": "https://github.com/postscarcityai/yui/commit/522046b"
         },
         {
           "repo": "site",
@@ -3235,13 +6258,6 @@
           "at": "2026-10-07T21:55:34.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/44c625a9"
-        },
-        {
-          "repo": "app",
-          "sha": "5c9935a",
-          "at": "2026-10-07T21:55:24.000Z",
-          "text": "MOTION-29: native agents draw a noun the kit lacks and learn it (MOTION-29)",
-          "url": "https://github.com/postscarcityai/yui/commit/5c9935a"
         },
         {
           "repo": "app",
@@ -20329,7 +23345,7 @@
           "card": "SOC-1",
           "anchor": "a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
           "images": [],
-          "commits": 18,
+          "commits": 22,
           "totals": {
             "app": 367,
             "site": 827,
@@ -33806,7 +36822,7 @@
               "alt": "Why presets, not generated code, in dark mode: generated Swift beside the one line timer 40/20x8 Tabata"
             }
           ],
-          "commits": 5,
+          "commits": 6,
           "totals": {
             "app": 70,
             "site": 182,
