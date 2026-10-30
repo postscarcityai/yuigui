@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T00:20:34.603Z",
+  "updated": "2026-10-30T00:30:37.155Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3196,12 +3196,6 @@
           "summary": "Show me, don't tell me: why Yui draws its answers",
           "shipped": "2026-09-29",
           "progress": "/progress#show-me-don-t-tell-me-why-yui-draws-its-answers"
-        },
-        {
-          "key": "NOTE-26401",
-          "title": "Answers that know what I asked",
-          "shipped": "2026-09-29",
-          "progress": "/progress#answers-that-know-what-i-asked"
         }
       ]
     }
