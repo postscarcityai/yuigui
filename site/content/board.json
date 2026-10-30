@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T15:25:39.055Z",
+  "updated": "2026-10-30T15:35:34.300Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2789,14 +2789,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-site-is-faster-again-and-the-newest-post-no-longer-jumps",
           "commit": "https://github.com/postscarcityai/yuigui/commit/982aadf7"
-        },
-        {
-          "key": "YUI-235",
-          "title": "The crew's default visual is the shader blob everywhere",
-          "summary": "Every crew agent is the shader blob, on the site too",
-          "shipped": "2026-09-30",
-          "progress": "/progress#every-crew-agent-is-the-shader-blob-on-the-site-too",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/dde9c052"
         }
       ]
     }
