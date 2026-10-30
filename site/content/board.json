@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T19:25:39.375Z",
+  "updated": "2026-10-30T19:35:34.001Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2718,13 +2718,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
           "commit": "https://github.com/postscarcityai/yuigui/commit/90ab4219"
-        },
-        {
-          "key": "SITE-137",
-          "title": "The site chat answers like the app, one line and a drawing",
-          "summary": "The site chat answers with one line and a drawing",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-site-chat-answers-with-one-line-and-a-drawing"
         }
       ]
     }
