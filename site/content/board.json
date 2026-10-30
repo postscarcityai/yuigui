@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T02:25:39.042Z",
+  "updated": "2026-10-30T02:40:33.311Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3079,12 +3079,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#a-lone-question-heads-itself",
           "commit": "https://github.com/postscarcityai/yui/commit/a7e3f9b"
-        },
-        {
-          "key": "NOTE-41795",
-          "title": "Asks that show what they mean",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-question-from-your-agent-now-reads-as-a-question"
         }
       ]
     }
