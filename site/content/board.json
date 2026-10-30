@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T02:50:33.188Z",
+  "updated": "2026-10-30T03:05:33.669Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3055,14 +3055,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-site-shows-one-agent-tab",
           "commit": "https://github.com/postscarcityai/yuigui/commit/cc292673"
-        },
-        {
-          "key": "YUI-139",
-          "title": "Score Claude, ChatGPT, Gemini, Grok, then turn them on",
-          "step": "Step 2d",
-          "shipped": "2026-09-29",
-          "progress": "/progress#your-own-key-at-every-stop",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d2966a5c"
         }
       ]
     }
