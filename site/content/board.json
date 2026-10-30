@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T10:45:33.410Z",
+  "updated": "2026-10-30T11:00:34.131Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2890,14 +2890,6 @@
           "summary": "Your first minute, now faster",
           "shipped": "2026-09-30",
           "progress": "/progress#your-first-minute-now-faster"
-        },
-        {
-          "key": "YUI-228",
-          "title": "The plan is built right after the intake, no second wizard",
-          "summary": "Your plan is built the moment you tap Send",
-          "shipped": "2026-09-30",
-          "progress": "/progress#your-plan-is-built-the-moment-you-tap-send",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/018390ab"
         }
       ]
     }
