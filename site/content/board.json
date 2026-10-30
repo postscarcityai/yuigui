@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T00:40:34.654Z",
+  "updated": "2026-10-30T00:45:35.259Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3164,24 +3164,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b4"
-        },
-        {
-          "key": "NOTE-45760",
-          "title": "Show more of my question",
-          "shipped": "2026-09-29",
-          "progress": "/progress#your-question-shows-in-full-the-mic-stays-type-your-own-has-room"
-        },
-        {
-          "key": "NOTE-14928",
-          "title": "A nicer Type your own",
-          "shipped": "2026-09-29",
-          "progress": "/progress#your-question-shows-in-full-the-mic-stays-type-your-own-has-room"
-        },
-        {
-          "key": "NOTE-55641",
-          "title": "Keep the mic, move Back home",
-          "shipped": "2026-09-29",
-          "progress": "/progress#your-question-shows-in-full-the-mic-stays-type-your-own-has-room"
         }
       ]
     }
