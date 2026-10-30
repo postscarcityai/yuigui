@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T03:15:33.245Z",
+  "updated": "2026-10-30T03:50:32.835Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3039,14 +3039,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#try-picking-your-crew-on-the-site",
           "commit": "https://github.com/postscarcityai/yuigui/commit/359f6846"
-        },
-        {
-          "key": "SITE-115",
-          "title": "Link YUI-219 and SITE-113 on the site, with a before/after of the lone ask",
-          "summary": "The lone ask, on the site",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-lone-ask-on-the-site",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3a324c44"
         }
       ]
     }
