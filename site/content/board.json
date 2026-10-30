@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T13:40:34.677Z",
+  "updated": "2026-10-30T14:26:08.672Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2805,13 +2805,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5561ffe2"
-        },
-        {
-          "key": "YUI-234",
-          "title": "The first question stays on screen",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-first-question-stays-on-screen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e8f0cc28"
         }
       ]
     }
