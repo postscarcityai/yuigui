@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T18:20:34.531Z",
+  "updated": "2026-10-30T18:45:33.522Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2733,14 +2733,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#delete-account-is-two-taps-from-the-drawer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f9b568fd"
-        },
-        {
-          "key": "SITE-136",
-          "title": "The roadmap's 'Where Yui is now' catches up to today",
-          "summary": "The roadmap top is up to date",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-roadmap-top-is-up-to-date",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/bbee5f22"
         }
       ]
     }
