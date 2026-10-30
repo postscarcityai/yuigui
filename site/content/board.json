@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T20:31:26.168Z",
+  "updated": "2026-10-30T20:50:39.652Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2695,13 +2695,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
           "commit": "https://github.com/postscarcityai/yuigui/commit/90ab4219"
-        },
-        {
-          "key": "SITE-139",
-          "title": "Diagrams fit a phone",
-          "summary": "Diagrams now fit a phone card",
-          "shipped": "2026-09-30",
-          "progress": "/progress#diagrams-now-fit-a-phone-card"
         }
       ]
     }
