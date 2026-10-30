@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T18:45:33.522Z",
+  "updated": "2026-10-30T19:25:39.375Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2725,14 +2725,6 @@
           "summary": "The site chat answers with one line and a drawing",
           "shipped": "2026-09-30",
           "progress": "/progress#the-site-chat-answers-with-one-line-and-a-drawing"
-        },
-        {
-          "key": "YUI-237",
-          "title": "Delete account in reach, a stranger gets there in a few seconds",
-          "summary": "Delete account is two taps from the drawer",
-          "shipped": "2026-09-30",
-          "progress": "/progress#delete-account-is-two-taps-from-the-drawer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f9b568fd"
         }
       ]
     }
