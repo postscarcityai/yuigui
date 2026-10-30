@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T04:50:33.459Z",
+  "updated": "2026-10-30T05:20:33.968Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3016,13 +3016,6 @@
           "summary": "A Thought on no empty chats",
           "shipped": "2026-09-30",
           "progress": "/progress#a-thought-on-no-empty-chats"
-        },
-        {
-          "key": "SITE-118",
-          "title": "Try the trainer's first plan on the site (PROP-4 web parity)",
-          "summary": "Try the trainer's first plan on the site",
-          "shipped": "2026-09-30",
-          "progress": "/progress#try-the-trainer-s-first-plan-on-the-site"
         }
       ]
     }
