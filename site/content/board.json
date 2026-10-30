@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T01:50:33.545Z",
+  "updated": "2026-10-30T02:05:33.409Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3101,22 +3101,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#thought-yui-0-6-0-build-370",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3de651d5"
-        },
-        {
-          "key": "YUI-169",
-          "title": "Several chats per agent, listed in the drawer",
-          "summary": "Several chats, on your phone",
-          "shipped": "2026-09-29",
-          "progress": "/progress#several-chats-on-your-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b4"
-        },
-        {
-          "key": "YUI-169",
-          "title": "Native app drawer chat list, New chat, runtime thread ids",
-          "step": "Step 2b",
-          "shipped": "2026-09-29",
-          "progress": "/progress#several-chats-on-your-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b4"
         }
       ]
     }
