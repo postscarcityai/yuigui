@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T12:05:33.899Z",
+  "updated": "2026-10-30T12:45:38.728Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2851,13 +2851,6 @@
           "summary": "The chat bubble steps off the crew phones",
           "shipped": "2026-09-30",
           "progress": "/progress#the-chat-bubble-steps-off-the-crew-phones"
-        },
-        {
-          "key": "SITE-130",
-          "title": "A stranger's first minute on the site, timed on a phone",
-          "summary": "A stranger's first minute on the site, timed",
-          "shipped": "2026-09-30",
-          "progress": "/progress#a-stranger-s-first-minute-on-the-site-timed"
         }
       ]
     }
