@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T02:05:33.409Z",
+  "updated": "2026-10-30T02:10:33.357Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3093,14 +3093,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-agent-tab-keys-model-and-your-chats",
           "commit": "https://github.com/postscarcityai/yuigui/commit/939fd40b"
-        },
-        {
-          "key": "SITE-112",
-          "title": "The release post for TestFlight build 370, several chats, your own keys, icon shortcuts",
-          "summary": "Thought: Yui 0.6.0, build 370",
-          "shipped": "2026-09-29",
-          "progress": "/progress#thought-yui-0-6-0-build-370",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3de651d5"
         }
       ]
     }
