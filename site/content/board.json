@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T22:55:35.403Z",
+  "updated": "2026-10-30T23:10:37.196Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2647,14 +2647,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-app-runs-flows",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d08ea8d3"
-        },
-        {
-          "key": "SITE-142",
-          "title": "/crew builds Basil's real week, the web twin of YUI-221",
-          "summary": "Try Basil's real week on /crew",
-          "shipped": "2026-09-30",
-          "progress": "/progress#try-basil-s-real-week-on-crew",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2d522bd5"
         }
       ]
     }
