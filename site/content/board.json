@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T13:25:54.348Z",
+  "updated": "2026-10-30T13:30:38.555Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -17,8 +17,7 @@
         "key": "YUI-233",
         "title": "On a real account",
         "status": "done",
-        "shipped": "2026-09-30",
-        "progress": "/progress#open-on-yui-s-card-lands-on-the-first-question"
+        "shipped": "2026-09-30"
       }
     ]
   },
@@ -2829,14 +2828,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#show-me-is-answered-in-the-app",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4f1c5fbf"
-        },
-        {
-          "key": "YUI-233",
-          "title": "On a real account",
-          "summary": "Open on Yui's card lands on the first question",
-          "shipped": "2026-09-30",
-          "progress": "/progress#open-on-yui-s-card-lands-on-the-first-question",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e46b0f51"
         }
       ]
     }
