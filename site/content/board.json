@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T21:20:40.051Z",
+  "updated": "2026-10-30T21:25:33.343Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2679,14 +2679,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#start-a-workout-and-it-runs-on-its-own-clock",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c7ae519e"
-        },
-        {
-          "key": "SITE-140",
-          "title": "Widgets and Siri page shows what YUI-40 really built",
-          "summary": "The Widgets and Siri page shows what is built",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-widgets-and-siri-page-shows-what-is-built",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/21107977"
         }
       ]
     }
