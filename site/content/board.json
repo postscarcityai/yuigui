@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T09:50:34.256Z",
+  "updated": "2026-10-30T10:00:34.307Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2950,13 +2950,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#pick-your-crew",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1949f441"
-        },
-        {
-          "key": "SITE-124",
-          "title": "Try every crew member's first plan on /crew",
-          "summary": "Try every crew member's first plan",
-          "shipped": "2026-09-30",
-          "progress": "/progress#try-every-crew-member-s-first-plan"
         }
       ]
     }
