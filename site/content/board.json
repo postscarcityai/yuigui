@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T09:00:32.990Z",
+  "updated": "2026-10-30T09:10:33.743Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2971,13 +2971,6 @@
           "summary": "The site's first plan asks the same five questions",
           "shipped": "2026-09-30",
           "progress": "/progress#the-site-s-first-plan-asks-the-same-five-questions"
-        },
-        {
-          "key": "YUI-226",
-          "title": "A saved first-plan flow any agent can send",
-          "summary": "A first plan any agent can send",
-          "shipped": "2026-09-30",
-          "progress": "/progress#a-first-plan-any-agent-can-send"
         }
       ]
     }
