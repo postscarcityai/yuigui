@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T13:35:38.064Z",
+  "updated": "2026-10-30T13:40:34.677Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2812,14 +2812,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-first-question-stays-on-screen",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e8f0cc28"
-        },
-        {
-          "key": "YUI-214",
-          "title": "Tapping Decline on an invite request does nothing; the row stays 'requested' and the ask comes back",
-          "summary": "Declining an invite request works",
-          "shipped": "2026-09-30",
-          "progress": "/progress#declining-an-invite-request-works",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/291010d3"
         }
       ]
     }
