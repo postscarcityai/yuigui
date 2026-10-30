@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T01:40:33.862Z",
+  "updated": "2026-10-30T01:50:33.545Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3117,22 +3117,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#several-chats-on-your-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b4"
-        },
-        {
-          "key": "YUI-169",
-          "title": "TestFlight build, progress.json entry, demo live on yuigui.com",
-          "step": "Ship",
-          "shipped": "2026-09-29",
-          "progress": "/progress#several-chats-on-your-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b4"
-        },
-        {
-          "key": "SITE-111",
-          "title": "Link the 36 shipped cards that still say Needs its demo",
-          "summary": "Shipped tiles now link their demos",
-          "shipped": "2026-09-29",
-          "progress": "/progress#shipped-tiles-now-link-their-demos",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/504aebb6"
         }
       ]
     }
