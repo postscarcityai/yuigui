@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T11:00:34.131Z",
+  "updated": "2026-10-30T11:10:33.246Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2883,13 +2883,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#add-an-agent-is-in-the-drawer-and-pairing-is-one-command",
           "commit": "https://github.com/postscarcityai/yui/commit/d8b1792"
-        },
-        {
-          "key": "SITE-127",
-          "title": "The first minute, before and after the fixes, and the meal demo tile linked",
-          "summary": "Your first minute, now faster",
-          "shipped": "2026-09-30",
-          "progress": "/progress#your-first-minute-now-faster"
         }
       ]
     }
