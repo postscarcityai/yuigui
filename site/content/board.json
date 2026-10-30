@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T05:40:33.842Z",
+  "updated": "2026-10-30T06:55:39.307Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3002,13 +3002,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-new-pages-on-a-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3507a94f"
-        },
-        {
-          "key": "SITE-120",
-          "title": "Every link, image and share card resolves after the Sep 29-30 pages",
-          "summary": "Every link and share card, checked again",
-          "shipped": "2026-09-30",
-          "progress": "/progress#every-link-and-share-card-checked-again"
         }
       ]
     }
