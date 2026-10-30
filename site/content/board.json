@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T22:30:35.718Z",
+  "updated": "2026-10-30T22:50:41.480Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2663,14 +2663,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#basil-builds-your-first-week-of-meals",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ffa2c6c3"
-        },
-        {
-          "key": "SITE-141",
-          "title": "The web twin of YUI-220",
-          "summary": "Watch the trainer's workout run on the site",
-          "shipped": "2026-09-30",
-          "progress": "/progress#watch-the-trainer-s-workout-run-on-the-site",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/74dca9b7"
         }
       ]
     }
