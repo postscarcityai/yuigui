@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T22:50:41.480Z",
+  "updated": "2026-10-30T22:55:35.403Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2655,14 +2655,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#try-basil-s-real-week-on-crew",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2d522bd5"
-        },
-        {
-          "key": "YUI-221",
-          "title": "Basil's first plan",
-          "summary": "Basil builds your first week of meals",
-          "shipped": "2026-09-30",
-          "progress": "/progress#basil-builds-your-first-week-of-meals",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ffa2c6c3"
         }
       ]
     }
