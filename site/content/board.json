@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T11:45:33.419Z",
+  "updated": "2026-10-30T12:05:33.899Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -11,8 +11,7 @@
         "key": "YUI-230",
         "title": "Allow notifications shows once, after the first plan",
         "status": "done",
-        "shipped": "2026-09-30",
-        "progress": "/progress#yui-asks-about-notifications-after-your-first-plan"
+        "shipped": "2026-09-30"
       },
       {
         "key": "YUI-233",
@@ -2859,14 +2858,6 @@
           "summary": "A stranger's first minute on the site, timed",
           "shipped": "2026-09-30",
           "progress": "/progress#a-stranger-s-first-minute-on-the-site-timed"
-        },
-        {
-          "key": "YUI-230",
-          "title": "Allow notifications shows once, after the first plan",
-          "summary": "Yui asks about notifications after your first plan",
-          "shipped": "2026-09-30",
-          "progress": "/progress#yui-asks-about-notifications-after-your-first-plan",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/31017361"
         }
       ]
     }
