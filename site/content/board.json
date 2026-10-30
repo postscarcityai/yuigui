@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T02:40:33.311Z",
+  "updated": "2026-10-30T02:45:33.401Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3071,14 +3071,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-board-links-its-demos-and-see-it-is-caught-up",
           "commit": "https://github.com/postscarcityai/yuigui/commit/63afd062"
-        },
-        {
-          "key": "YUI-219",
-          "title": "A lone ask heading reads the question, not 'One question'",
-          "summary": "A lone question heads itself",
-          "shipped": "2026-09-29",
-          "progress": "/progress#a-lone-question-heads-itself",
-          "commit": "https://github.com/postscarcityai/yui/commit/a7e3f9b"
         }
       ]
     }
