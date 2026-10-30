@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T00:30:37.155Z",
+  "updated": "2026-10-30T00:40:34.654Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3182,20 +3182,6 @@
           "title": "Keep the mic, move Back home",
           "shipped": "2026-09-29",
           "progress": "/progress#your-question-shows-in-full-the-mic-stays-type-your-own-has-room"
-        },
-        {
-          "key": "YUI-213",
-          "title": "Re-sync yui-mcp look.mjs so main checks go green",
-          "summary": "The Yui MCP look file is back in step, so main checks go green",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-yui-mcp-look-file-is-back-in-step-so-main-checks-go-green"
-        },
-        {
-          "key": "SITE-109",
-          "title": "A Thought, show me don't tell me",
-          "summary": "Show me, don't tell me: why Yui draws its answers",
-          "shipped": "2026-09-29",
-          "progress": "/progress#show-me-don-t-tell-me-why-yui-draws-its-answers"
         }
       ]
     }
