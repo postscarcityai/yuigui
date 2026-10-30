@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T03:50:32.835Z",
+  "updated": "2026-10-30T04:10:33.396Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3031,14 +3031,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-site-catches-up-on-typing",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3a324c44"
-        },
-        {
-          "key": "SITE-116",
-          "title": "Try Pick your crew on the site, web parity for YUI-216",
-          "summary": "Try picking your crew on the site",
-          "shipped": "2026-09-30",
-          "progress": "/progress#try-picking-your-crew-on-the-site",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/359f6846"
         }
       ]
     }
