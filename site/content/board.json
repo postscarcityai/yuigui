@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T06:55:39.307Z",
+  "updated": "2026-10-30T07:35:33.684Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2994,14 +2994,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b65456a3"
-        },
-        {
-          "key": "SITE-121",
-          "title": "The new pages look right on a phone (390px polish pass, Sep 28-30 pages)",
-          "summary": "The new pages, on a phone",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-new-pages-on-a-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3507a94f"
         }
       ]
     }
