@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T07:50:34.232Z",
+  "updated": "2026-10-30T09:00:32.990Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2978,14 +2978,6 @@
           "summary": "A first plan any agent can send",
           "shipped": "2026-09-30",
           "progress": "/progress#a-first-plan-any-agent-can-send"
-        },
-        {
-          "key": "SITE-122",
-          "title": "Thought 'Your first minute with Yui' after 0.6.1 is VALID",
-          "summary": "Thought: Your first minute with Yui",
-          "shipped": "2026-09-30",
-          "progress": "/progress#thought-your-first-minute-with-yui",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/70c02856"
         }
       ]
     }
