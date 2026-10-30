@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T23:10:37.196Z",
+  "updated": "2026-10-30T23:55:33.056Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2639,14 +2639,6 @@
           "summary": "Every link and image on the site checked",
           "shipped": "2026-09-30",
           "progress": "/progress#every-link-and-image-on-the-site-checked"
-        },
-        {
-          "key": "YUI-115",
-          "title": "The app runs flows, then My flows (FLOW-1 app half)",
-          "summary": "The app runs flows",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-app-runs-flows",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d08ea8d3"
         }
       ]
     }
