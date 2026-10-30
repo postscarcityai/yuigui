@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T17:35:34.263Z",
+  "updated": "2026-10-30T17:40:34.661Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2749,14 +2749,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#a-thought-on-drawn-replies",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d29849e0"
-        },
-        {
-          "key": "SITE-134",
-          "title": "The site says a new build lands every morning",
-          "summary": "The changelog says when the next build lands",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-changelog-says-when-the-next-build-lands",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2dec411a"
         }
       ]
     }
