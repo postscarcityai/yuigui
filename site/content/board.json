@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T02:10:33.357Z",
+  "updated": "2026-10-30T02:25:39.042Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3085,14 +3085,6 @@
           "title": "Asks that show what they mean",
           "shipped": "2026-09-29",
           "progress": "/progress#a-question-from-your-agent-now-reads-as-a-question"
-        },
-        {
-          "key": "YUI-128",
-          "title": "About and Controls become one drawer tab",
-          "summary": "The Agent tab: Keys, Model and your chats",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-agent-tab-keys-model-and-your-chats",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/939fd40b"
         }
       ]
     }
