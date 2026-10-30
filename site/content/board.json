@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T15:35:34.300Z",
+  "updated": "2026-10-30T15:50:33.805Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2773,22 +2773,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#yui-0-6-2-the-first-minute-fixed-in-one-post",
           "commit": "https://github.com/postscarcityai/yuigui/commit/25ca16cd"
-        },
-        {
-          "key": "YUI-236",
-          "title": "Restore stage header, X and drawer after plan build on a real account",
-          "summary": "A screen is never a dead end",
-          "shipped": "2026-09-30",
-          "progress": "/progress#a-screen-is-never-a-dead-end",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/18e306df"
-        },
-        {
-          "key": "SITE-133",
-          "title": "The speed check again after /crew, /thoughts and the chat bubble",
-          "summary": "The site is faster again, and the newest post no longer jumps",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-site-is-faster-again-and-the-newest-post-no-longer-jumps",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/982aadf7"
         }
       ]
     }
