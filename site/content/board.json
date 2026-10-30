@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T13:30:38.555Z",
+  "updated": "2026-10-30T13:35:38.064Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2820,14 +2820,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#declining-an-invite-request-works",
           "commit": "https://github.com/postscarcityai/yuigui/commit/291010d3"
-        },
-        {
-          "key": "YUI-231",
-          "title": "Show me means in the app",
-          "summary": "Show me is answered in the app",
-          "shipped": "2026-09-30",
-          "progress": "/progress#show-me-is-answered-in-the-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4f1c5fbf"
         }
       ]
     }
