@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: progress.json 2026-09-24 SITE-15 "Yui Lines back on the front page, and every spec on the site"
 media: [/progress/site15-home-band.webp]
-slot: 2026-11-01T09:00:00-05:00
+slot: 2026-11-05T09:00:00-05:00
 status: draft
 ---
 timer 40/20x8 Tabata

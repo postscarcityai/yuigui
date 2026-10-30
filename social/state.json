@@ -1,7 +1,7 @@
 {
   "floor": "2026-09-24",
-  "hwm": "2026-10-25",
-  "updated": "2026-10-26T22:31:07.475Z",
+  "hwm": "2026-10-30",
+  "updated": "2026-10-30T22:30:51.628Z",
   "done": [
     "2026-09-23|Apple Developer account active",
     "2026-09-23|First TestFlight build",
@@ -789,6 +789,7 @@
     "2026-10-23|Week of Oct 19: a second quiet week, one call still open",
     "2026-10-24|YUI-342",
     "2026-10-25|YUI-350",
-    "2026-10-25|YUI-351"
+    "2026-10-25|YUI-351",
+    "2026-10-30|Week of Oct 26: build 591, then Beats waits on a test"
   ]
 }
