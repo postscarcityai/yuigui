@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T03:05:33.669Z",
+  "updated": "2026-10-30T03:15:33.245Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3047,14 +3047,6 @@
           "shipped": "2026-09-29",
           "progress": "/progress#the-lone-ask-on-the-site",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3a324c44"
-        },
-        {
-          "key": "SITE-114",
-          "title": "The site catches up to one Agent tab (YUI-128 web parity)",
-          "summary": "The site shows one Agent tab",
-          "shipped": "2026-09-29",
-          "progress": "/progress#the-site-shows-one-agent-tab",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/cc292673"
         }
       ]
     }
