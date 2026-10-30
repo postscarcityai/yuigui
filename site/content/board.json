@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T11:25:39.397Z",
+  "updated": "2026-10-30T11:45:33.419Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2867,14 +2867,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#yui-asks-about-notifications-after-your-first-plan",
           "commit": "https://github.com/postscarcityai/yuigui/commit/31017361"
-        },
-        {
-          "key": "SITE-128",
-          "title": "The start page shows the one pairing command, like the app",
-          "summary": "The start page shows one pairing command",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-start-page-shows-one-pairing-command",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2a29a115"
         }
       ]
     }
