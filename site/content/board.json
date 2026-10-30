@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T14:26:08.672Z",
+  "updated": "2026-10-30T15:25:39.055Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2797,14 +2797,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#every-crew-agent-is-the-shader-blob-on-the-site-too",
           "commit": "https://github.com/postscarcityai/yuigui/commit/dde9c052"
-        },
-        {
-          "key": "YUI-232",
-          "title": "The blob, drawn by the shader, changes shape with what the agent does; the vector blob is removed",
-          "summary": "The blob changes shape with what your agent does",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5561ffe2"
         }
       ]
     }
