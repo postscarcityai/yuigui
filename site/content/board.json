@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T09:15:33.743Z",
+  "updated": "2026-10-30T09:50:34.256Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2957,13 +2957,6 @@
           "summary": "Try every crew member's first plan",
           "shipped": "2026-09-30",
           "progress": "/progress#try-every-crew-member-s-first-plan"
-        },
-        {
-          "key": "YUI-227",
-          "title": "First-plan flows for Basil, Gouda, Penny and Quill",
-          "summary": "A first plan for Basil, Gouda, Penny and Quill",
-          "shipped": "2026-09-30",
-          "progress": "/progress#a-first-plan-for-basil-gouda-penny-and-quill"
         }
       ]
     }
