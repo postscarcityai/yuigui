@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T19:50:34.339Z",
+  "updated": "2026-10-30T20:31:26.168Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2702,13 +2702,6 @@
           "summary": "Diagrams now fit a phone card",
           "shipped": "2026-09-30",
           "progress": "/progress#diagrams-now-fit-a-phone-card"
-        },
-        {
-          "key": "SITE-138",
-          "title": "Today's drawings at phone width and in dark mode",
-          "summary": "Today's drawings, checked on a phone in both themes",
-          "shipped": "2026-09-30",
-          "progress": "/progress#today-s-drawings-checked-on-a-phone-in-both-themes"
         }
       ]
     }
