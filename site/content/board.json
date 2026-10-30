@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T10:25:39.125Z",
+  "updated": "2026-10-30T10:45:33.410Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2898,13 +2898,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#your-plan-is-built-the-moment-you-tap-send",
           "commit": "https://github.com/postscarcityai/yuigui/commit/018390ab"
-        },
-        {
-          "key": "SITE-126",
-          "title": "On the site, Open on a crew card lands on the first question",
-          "shipped": "2026-09-30",
-          "progress": "/progress#on-the-site-open-on-a-crew-card-lands-on-the-first-question",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/0743da8e"
         }
       ]
     }
