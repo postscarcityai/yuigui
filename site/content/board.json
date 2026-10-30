@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T04:10:33.396Z",
+  "updated": "2026-10-30T04:50:33.459Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -3023,14 +3023,6 @@
           "summary": "Try the trainer's first plan on the site",
           "shipped": "2026-09-30",
           "progress": "/progress#try-the-trainer-s-first-plan-on-the-site"
-        },
-        {
-          "key": "SITE-117",
-          "title": "Link SITE-115, and the site composer catches up to the typing and trash fixes",
-          "summary": "The site catches up on typing",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-site-catches-up-on-typing",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3a324c44"
         }
       ]
     }
