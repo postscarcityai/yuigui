@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T14:45:18.742Z",
+  "updated": "2026-10-31T14:55:19.323Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2443,14 +2443,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#siri-logs-your-food-and-starts-your-workout",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c863219c"
-        },
-        {
-          "key": "YUI-244",
-          "title": "The composer on the web",
-          "summary": "Yui on the web: the composer",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-the-composer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2e7f277c"
         }
       ]
     }
