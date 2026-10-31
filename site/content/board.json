@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T16:10:20.294Z",
+  "updated": "2026-10-31T16:20:19.926Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2397,14 +2397,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#agent-tables-run-on-the-phone-the-coach-keeps-your-workouts",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f8d381df"
-        },
-        {
-          "key": "YUI-245",
-          "title": "Agents on the web",
-          "summary": "Yui on the web: your agents, the drawer, adding one",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-your-agents-the-drawer-adding-one",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/69fc6aa5"
         }
       ]
     }
