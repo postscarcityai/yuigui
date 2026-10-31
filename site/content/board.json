@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T16:25:19.883Z",
+  "updated": "2026-10-31T16:35:26.242Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2374,13 +2374,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#voice-on-the-web-says-what-it-hears-or-why-not",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1e936436"
-        },
-        {
-          "key": "YUI-34",
-          "title": "Key vault for bring-your-own keys",
-          "shipped": "2026-10-01",
-          "progress": "/progress#a-key-vault-planned",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9f650e5e"
         }
       ]
     }
