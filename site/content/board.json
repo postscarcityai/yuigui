@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T01:15:33.897Z",
+  "updated": "2026-10-31T01:40:33.669Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2569,14 +2569,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#my-flows-your-saved-flows-in-the-app",
           "commit": "https://github.com/postscarcityai/yuigui/commit/23da47a4"
-        },
-        {
-          "key": "SITE-147",
-          "title": "/crew builds Quill's real study week",
-          "summary": "Quill's first plan builds the real study week on the site",
-          "shipped": "2026-09-30",
-          "progress": "/progress#quill-s-first-plan-builds-the-real-study-week-on-the-site",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/7b4191f9"
         }
       ]
     }
