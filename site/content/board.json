@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T16:55:20.224Z",
+  "updated": "2026-10-31T17:00:21.880Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2337,13 +2337,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#the-u-ledger-is-on-and-the-formula-is-public",
           "commit": "https://github.com/postscarcityai/yuigui/commit/69afe5be"
-        },
-        {
-          "key": "YUI-257",
-          "title": "The shader on the web stage",
-          "summary": "The shader is the orb on the web stage",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-shader-is-the-orb-on-the-web-stage"
         }
       ]
     }
