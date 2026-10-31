@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T00:45:33.655Z",
+  "updated": "2026-10-31T00:50:39.992Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2592,14 +2592,6 @@
           "summary": "Penny's first plan builds the real week on the site",
           "shipped": "2026-09-30",
           "progress": "/progress#penny-s-first-plan-builds-the-real-week-on-the-site"
-        },
-        {
-          "key": "YUI-223",
-          "title": "Penny's first plan",
-          "summary": "Penny sets up your planning routine",
-          "shipped": "2026-09-30",
-          "progress": "/progress#penny-sets-up-your-planning-routine",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/06934bac"
         }
       ]
     }
