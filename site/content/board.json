@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T04:10:22.926Z",
+  "updated": "2026-10-31T04:45:22.178Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2539,21 +2539,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-the-parity-map",
           "commit": "https://github.com/postscarcityai/yuigui/commit/14c83334"
-        },
-        {
-          "key": "YUI-239",
-          "title": "Stay signed in. A lost refresh reply ends every session",
-          "summary": "You stay signed in",
-          "shipped": "2026-10-01",
-          "progress": "/progress#you-stay-signed-in",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/204f380f"
-        },
-        {
-          "key": "SITE-149",
-          "title": "My flows on the web matches the app",
-          "summary": "My flows on the web now works like the app",
-          "shipped": "2026-10-01",
-          "progress": "/progress#my-flows-on-the-web-now-works-like-the-app"
         }
       ]
     }
