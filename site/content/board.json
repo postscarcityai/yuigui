@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T17:30:23.331Z",
+  "updated": "2026-10-31T17:40:21.175Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2312,14 +2312,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-every-preset-works-like-the-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/50131bac"
-        },
-        {
-          "key": "INT-8",
-          "title": "Draft ChatGPT app directory listing package (do not submit)",
-          "summary": "Yui in ChatGPT, checked on the real thing",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-in-chatgpt-checked-on-the-real-thing",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/953f8eda"
         }
       ]
     }
