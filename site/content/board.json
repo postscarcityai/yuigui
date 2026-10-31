@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T00:30:33.586Z",
+  "updated": "2026-10-31T00:45:33.655Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2600,14 +2600,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#penny-sets-up-your-planning-routine",
           "commit": "https://github.com/postscarcityai/yuigui/commit/06934bac"
-        },
-        {
-          "key": "SITE-145",
-          "title": "/crew builds Gouda's real practice week",
-          "summary": "The site builds your practice week",
-          "shipped": "2026-09-30",
-          "progress": "/progress#the-site-builds-your-practice-week",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e0869bf0"
         }
       ]
     }
