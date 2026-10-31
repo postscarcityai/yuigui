@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T14:40:19.230Z",
+  "updated": "2026-10-31T14:45:18.742Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2451,13 +2451,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-the-composer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2e7f277c"
-        },
-        {
-          "key": "SITE-153",
-          "title": "The site chat keeps your past chats",
-          "summary": "The chat bubble keeps your past chats",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-chat-bubble-keeps-your-past-chats"
         }
       ]
     }
