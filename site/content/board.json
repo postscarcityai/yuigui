@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T17:25:19.660Z",
+  "updated": "2026-10-31T17:30:23.331Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2320,14 +2320,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-in-chatgpt-checked-on-the-real-thing",
           "commit": "https://github.com/postscarcityai/yuigui/commit/953f8eda"
-        },
-        {
-          "key": "YUI-138",
-          "title": "Start blank",
-          "summary": "Start blank: make an agent in five taps",
-          "shipped": "2026-10-01",
-          "progress": "/progress#start-blank-make-an-agent-in-five-taps",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d07181a2"
         }
       ]
     }
