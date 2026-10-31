@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T14:55:19.323Z",
+  "updated": "2026-10-31T15:15:19.134Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2428,21 +2428,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-the-stage",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ecc659e1"
-        },
-        {
-          "key": "SITE-154",
-          "title": "Every yuigui.com page works on a phone, and points to Yui on the web",
-          "summary": "The whole site works on a phone, and points to Yui on the web",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-whole-site-works-on-a-phone-and-points-to-yui-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/726a6054"
-        },
-        {
-          "key": "YUI-253",
-          "title": "Siri logs your food and starts your workout",
-          "shipped": "2026-10-01",
-          "progress": "/progress#siri-logs-your-food-and-starts-your-workout",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c863219c"
         }
       ]
     }
