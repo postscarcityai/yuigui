@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T05:20:19.117Z",
+  "updated": "2026-10-31T05:40:19.317Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2490,14 +2490,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#gouda-s-tuner-on-the-site",
           "commit": "https://github.com/postscarcityai/yuigui/commit/cc72bed4"
-        },
-        {
-          "key": "YUI-252",
-          "title": "The Tuner is Gouda's last screen, Tune goes straight there",
-          "summary": "Tune up goes straight to the tuner",
-          "shipped": "2026-10-01",
-          "progress": "/progress#tune-up-goes-straight-to-the-tuner",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/0137b8bc"
         }
       ]
     }
