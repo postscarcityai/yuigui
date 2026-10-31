@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T04:55:20.265Z",
+  "updated": "2026-10-31T05:15:18.719Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2506,13 +2506,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-the-thread",
           "commit": "https://github.com/postscarcityai/yuigui/commit/76c00f25"
-        },
-        {
-          "key": "SITE-150",
-          "title": "The site chat's trash sits flush left, mirroring the mic",
-          "summary": "The site chat's trash sits flush left",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-site-chat-s-trash-sits-flush-left"
         }
       ]
     }
