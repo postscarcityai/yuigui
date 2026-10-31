@@ -14,7 +14,12 @@ const RE = /\*\*Latest release: Yui ([\d.]+), build (\d+), ([^:]+): ([^*]+?)\.?\
 export function parseRelease(md) {
   const m = md.match(RE);
   if (!m) return null;
-  const [, version, build, date, name, rest] = m;
+  const [, version, build, date, whole, after] = m;
+  // The name is the bold part up to its first sentence. If the bold never closes after the name, the
+  // rest of the paragraph would become the name and print on the home page, so cut it there.
+  const cut = whole.search(/\.\s/);
+  const name = cut === -1 ? whole : whole.slice(0, cut);
+  const rest = cut === -1 ? after : whole.slice(cut) + after;
   const thought = rest.match(/\]\(\/thoughts\/([a-z0-9-]+)\)/)?.[1] || null;
   return { version, build, date: date.trim(), name: name.trim(), id: `release-${version.replace(/\./g, "")}`, thought };
 }
