@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T15:15:19.134Z",
+  "updated": "2026-10-31T15:25:18.584Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2420,14 +2420,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#the-coach-s-workout-tables-to-try-on-the-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d39d1396"
-        },
-        {
-          "key": "YUI-243",
-          "title": "The stage on the web",
-          "summary": "Yui on the web: the stage",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-the-stage",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ecc659e1"
         }
       ]
     }
