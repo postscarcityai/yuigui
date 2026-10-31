@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T18:40:22.356Z",
+  "updated": "2026-10-31T18:45:20.484Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2252,14 +2252,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-notifications-and-install",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d9c24de9"
-        },
-        {
-          "key": "SITE-160",
-          "title": "Every link and image on yuigui.com resolves after Oct 1's pages",
-          "summary": "Every link checked after the big October 1 push",
-          "shipped": "2026-10-01",
-          "progress": "/progress#every-link-checked-after-the-big-october-1-push",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9f6ca9ad"
         }
       ]
     }
