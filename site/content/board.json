@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T18:10:24.646Z",
+  "updated": "2026-10-31T18:25:22.226Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2268,13 +2268,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-settings-and-your-account",
           "commit": "https://github.com/postscarcityai/yuigui/commit/51f6530a"
-        },
-        {
-          "key": "INT-8",
-          "title": "Add live screenshots to listing draft, post 🔴 sign-off ask",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-in-chatgpt-checked-on-the-real-thing",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/953f8eda"
         }
       ]
     }
