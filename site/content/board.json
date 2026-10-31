@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T21:15:18.527Z",
+  "updated": "2026-10-31T21:20:19.056Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2190,13 +2190,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#a-stranger-s-first-five-minutes-on-yuigui-com",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c1d636ac"
-        },
-        {
-          "key": "YUI-259",
-          "title": "Tomorrow's 06:00 build ships green",
-          "summary": "Tomorrow's 6am build checks its disk first",
-          "shipped": "2026-10-01",
-          "progress": "/progress#tomorrow-s-6am-build-checks-its-disk-first"
         }
       ]
     }
