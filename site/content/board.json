@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T16:40:20.028Z",
+  "updated": "2026-10-31T16:50:19.465Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2352,13 +2352,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#the-board-follows-card-moves-within-five-minutes",
           "commit": "https://github.com/postscarcityai/yuigui/commit/72528017"
-        },
-        {
-          "key": "BIZ-8",
-          "title": "Tokenomics v1, supply, emissions, value",
-          "shipped": "2026-10-01",
-          "progress": "/progress#how-u-could-be-given-out-the-tokenomics-brief",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f1446c1a"
         }
       ]
     }
