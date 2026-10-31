@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T04:45:22.178Z",
+  "updated": "2026-10-31T04:55:20.265Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2513,32 +2513,6 @@
           "summary": "The site chat's trash sits flush left",
           "shipped": "2026-10-01",
           "progress": "/progress#the-site-chat-s-trash-sits-flush-left"
-        },
-        {
-          "key": "NOTE-49492",
-          "title": "About and Controls in one tab",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-agent-tab-keys-model-and-your-chats"
-        },
-        {
-          "key": "NOTE-5633",
-          "title": "Drop the looper's Send button",
-          "shipped": "2026-10-01",
-          "progress": "/progress#typing-trash-and-looper-fixes"
-        },
-        {
-          "key": "NOTE-4811",
-          "title": "Typed answers grow past the pill",
-          "shipped": "2026-10-01",
-          "progress": "/progress#typing-trash-and-looper-fixes"
-        },
-        {
-          "key": "YUI-240",
-          "title": "Yui on the web, the parity map",
-          "summary": "Yui on the web: the parity map",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-the-parity-map",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/14c83334"
         }
       ]
     }
