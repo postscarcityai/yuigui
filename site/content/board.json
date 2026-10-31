@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T21:20:19.056Z",
+  "updated": "2026-10-31T21:30:19.824Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2183,13 +2183,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#social-drafts-now-start-today-and-stay-within-two-weeks",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c307d06f"
-        },
-        {
-          "key": "SITE-164",
-          "title": "A stranger's first five minutes on yuigui.com",
-          "shipped": "2026-10-01",
-          "progress": "/progress#a-stranger-s-first-five-minutes-on-yuigui-com",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c1d636ac"
         }
       ]
     }
