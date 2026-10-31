@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T19:20:21.734Z",
+  "updated": "2026-10-31T19:50:19.621Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2220,14 +2220,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#group-chats-on-the-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d1b0bb22"
-        },
-        {
-          "key": "YUI-249",
-          "title": "One Yui across phone and web",
-          "summary": "One Yui across phone and web: your half-typed words follow you",
-          "shipped": "2026-10-01",
-          "progress": "/progress#one-yui-across-phone-and-web-your-half-typed-words-follow-you",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/205ff8a8"
         }
       ]
     }
