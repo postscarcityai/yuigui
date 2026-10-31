@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T19:50:19.621Z",
+  "updated": "2026-10-31T20:00:22.078Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2213,13 +2213,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#see-it-catches-up-what-landed-in-the-app-on-oct-1",
           "commit": "https://github.com/postscarcityai/yuigui/commit/257b8306"
-        },
-        {
-          "key": "SITE-162",
-          "title": "Group chats on the web",
-          "shipped": "2026-10-01",
-          "progress": "/progress#group-chats-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d1b0bb22"
         }
       ]
     }
