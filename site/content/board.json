@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T23:10:18.956Z",
+  "updated": "2026-10-31T23:15:18.680Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2153,14 +2153,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#a-new-apple-only-web-account-lands-on-the-crew-picker",
           "commit": "https://github.com/postscarcityai/yuigui/commit/590e7fcb"
-        },
-        {
-          "key": "YUI-261",
-          "title": "A stranger's first tap on /web works",
-          "summary": "A stranger's first tap on the web demo works",
-          "shipped": "2026-10-01",
-          "progress": "/progress#a-stranger-s-first-tap-on-the-web-demo-works",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/85cf6f03"
         }
       ]
     }
