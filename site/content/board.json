@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T00:15:32.866Z",
+  "updated": "2026-10-31T00:20:39.265Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2616,14 +2616,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#jev-is-on",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e7f8b53a"
-        },
-        {
-          "key": "YUI-222",
-          "title": "Gouda's first plan",
-          "summary": "Gouda builds your practice plan",
-          "shipped": "2026-09-30",
-          "progress": "/progress#gouda-builds-your-practice-plan",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/bb6f9184"
         }
       ]
     }
