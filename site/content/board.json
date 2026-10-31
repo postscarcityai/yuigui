@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T16:20:19.926Z",
+  "updated": "2026-10-31T16:25:19.883Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2381,22 +2381,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#a-key-vault-planned",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9f650e5e"
-        },
-        {
-          "key": "YUI-241",
-          "title": "Sign in with Apple on the web",
-          "summary": "Sign in with Apple, on the web",
-          "shipped": "2026-10-01",
-          "progress": "/progress#sign-in-with-apple-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/647d1f35"
-        },
-        {
-          "key": "YUI-89",
-          "title": "Agent tables in the app",
-          "summary": "Agent tables run on the phone: the coach keeps your workouts",
-          "shipped": "2026-10-01",
-          "progress": "/progress#agent-tables-run-on-the-phone-the-coach-keeps-your-workouts",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f8d381df"
         }
       ]
     }
