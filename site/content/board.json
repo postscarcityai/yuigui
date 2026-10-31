@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T01:40:33.669Z",
+  "updated": "2026-10-31T04:10:22.926Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2554,21 +2554,6 @@
           "summary": "My flows on the web now works like the app",
           "shipped": "2026-10-01",
           "progress": "/progress#my-flows-on-the-web-now-works-like-the-app"
-        },
-        {
-          "key": "SITE-148",
-          "title": "/crew after five first plans",
-          "summary": "The crew page, checked on a phone after five new first plans",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-crew-page-checked-on-a-phone-after-five-new-first-plans"
-        },
-        {
-          "key": "YUI-238",
-          "title": "My flows in the app",
-          "summary": "My flows: your saved flows, in the app",
-          "shipped": "2026-10-01",
-          "progress": "/progress#my-flows-your-saved-flows-in-the-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/23da47a4"
         }
       ]
     }
