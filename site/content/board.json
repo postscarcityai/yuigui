@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T17:40:21.175Z",
+  "updated": "2026-10-31T17:45:21.573Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2289,29 +2289,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#your-u-in-the-left-drawer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/00aded7a"
-        },
-        {
-          "key": "SITE-159",
-          "title": "Make your own on /crew (web twin of Start blank)",
-          "summary": "Make your own, on the crew page",
-          "shipped": "2026-10-01",
-          "progress": "/progress#make-your-own-on-the-crew-page"
-        },
-        {
-          "key": "YUI-40",
-          "title": "Widgets and Siri",
-          "summary": "Shortcuts, Spotlight and the Action button know every agent",
-          "shipped": "2026-10-01",
-          "progress": "/progress#shortcuts-spotlight-and-the-action-button-know-every-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/90ab4219"
-        },
-        {
-          "key": "YUI-246",
-          "title": "Every preset at parity on the web",
-          "summary": "Yui on the web: every preset works like the phone",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-every-preset-works-like-the-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/50131bac"
         }
       ]
     }
