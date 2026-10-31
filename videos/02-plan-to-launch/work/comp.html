@@ -35,7 +35,7 @@ html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; backgro
 .apphead { position: absolute; left: 0; right: 0; top: 54px; height: 60px; z-index: 4; background: linear-gradient(var(--background) 70%, rgba(255,249,240,0)); }
 .hbtn { position: absolute; top: 4px; width: 44px; height: 44px; border-radius: 50%; background: #F6EDE2; box-shadow: 0 1px 2px rgba(58,51,64,.08), inset 0 0 0 1px #EFE3D5; display: grid; place-items: center; }
 .hbtn svg { width: 22px; height: 22px; }
-#hwm { position: absolute; left: 50%; top: 13px; height: 25px; transform: translateX(-50%); }
+#hwm { position: absolute; left: 50%; top: 13px; height: 25px; transform: translateX(-55%); }
 .chat { position: absolute; left: 0; right: 0; top: 104px; bottom: 86px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent 0, #000 22px); }
 .log { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 14px 10px; }
 .msg > .in { transform-origin: 50% 100%; }
@@ -673,7 +673,7 @@ function render(t) {
   if (ov) {
     const w = back(prog(t, b(128), b(128) + 0.5));
     $("owm").style.opacity = clamp(prog(t, b(128), b(128) + 0.15));
-    $("owm").style.transform = `translateX(-50%) scale(${0.6 + 0.4 * w + prog(t, b(129), 60) * 0.035})`;
+    $("owm").style.transform = `translateX(-55%) scale(${0.6 + 0.4 * w + prog(t, b(129), 60) * 0.035})`;
     fadeIO($("otag"), t, b(129), 99);
     fadeIO($("ourl"), t, b(130), 99);
     fadeIO($("obeta"), t, b(131), 99, 20);
