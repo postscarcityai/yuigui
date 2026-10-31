@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T00:50:39.992Z",
+  "updated": "2026-10-31T01:15:33.897Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2577,21 +2577,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#quill-s-first-plan-builds-the-real-study-week-on-the-site",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7b4191f9"
-        },
-        {
-          "key": "YUI-224",
-          "title": "Quill's first plan",
-          "summary": "Quill builds your study plan",
-          "shipped": "2026-09-30",
-          "progress": "/progress#quill-builds-your-study-plan",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/76d8c288"
-        },
-        {
-          "key": "SITE-146",
-          "title": "/crew builds Penny's real planning week",
-          "summary": "Penny's first plan builds the real week on the site",
-          "shipped": "2026-09-30",
-          "progress": "/progress#penny-s-first-plan-builds-the-real-week-on-the-site"
         }
       ]
     }
