@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T13:50:19.207Z",
+  "updated": "2026-10-31T14:10:19.100Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2466,14 +2466,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#past-chats-show-in-the-drawer",
           "commit": "https://github.com/postscarcityai/yuigui/commit/72e93592"
-        },
-        {
-          "key": "SITE-152",
-          "title": "A Thought on the site, Yui comes to the web",
-          "summary": "Yui comes to the web: the story",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-comes-to-the-web-the-story",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1d91d319"
         }
       ]
     }
