@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T23:15:18.680Z",
+  "updated": "2026-10-31T23:40:20.580Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2145,14 +2145,6 @@
           "summary": "Scrolling back through a long chat stays light",
           "shipped": "2026-10-01",
           "progress": "/progress#scrolling-back-through-a-long-chat-stays-light"
-        },
-        {
-          "key": "YUI-262",
-          "title": "An Apple-only web account lands on the crew picker, not a silent empty screen",
-          "summary": "A new Apple-only web account lands on the crew picker",
-          "shipped": "2026-10-01",
-          "progress": "/progress#a-new-apple-only-web-account-lands-on-the-crew-picker",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/590e7fcb"
         }
       ]
     }
