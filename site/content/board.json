@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T18:05:27.120Z",
+  "updated": "2026-10-31T18:10:24.646Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2272,13 +2272,6 @@
         {
           "key": "INT-8",
           "title": "Add live screenshots to listing draft, post 🔴 sign-off ask",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-in-chatgpt-checked-on-the-real-thing",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/953f8eda"
-        },
-        {
-          "key": "INT-8",
-          "title": "Live-verify Yui MCP connector in chatgpt.com, update specs",
           "shipped": "2026-10-01",
           "progress": "/progress#yui-in-chatgpt-checked-on-the-real-thing",
           "commit": "https://github.com/postscarcityai/yuigui/commit/953f8eda"
