@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30T23:55:33.056Z",
+  "updated": "2026-10-31T00:00:34.390Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2632,13 +2632,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#site-flows-keep-your-place",
           "commit": "https://github.com/postscarcityai/yuigui/commit/26888b59"
-        },
-        {
-          "key": "SITE-143",
-          "title": "Every link and image on the site resolves after this week's pages",
-          "summary": "Every link and image on the site checked",
-          "shipped": "2026-09-30",
-          "progress": "/progress#every-link-and-image-on-the-site-checked"
         }
       ]
     }
