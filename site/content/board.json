@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T17:00:21.880Z",
+  "updated": "2026-10-31T17:25:19.660Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2328,15 +2328,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#start-blank-make-an-agent-in-five-taps",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d07181a2"
-        },
-        {
-          "key": "OSS-7",
-          "title": "The ledger on, and $U balances from formula v0",
-          "step": "Step 2",
-          "summary": "The $U ledger is on, and the formula is public",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-u-ledger-is-on-and-the-formula-is-public",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/69afe5be"
         }
       ]
     }
