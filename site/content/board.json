@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T18:45:20.484Z",
+  "updated": "2026-10-31T19:20:21.734Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2228,30 +2228,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#one-yui-across-phone-and-web-your-half-typed-words-follow-you",
           "commit": "https://github.com/postscarcityai/yuigui/commit/205ff8a8"
-        },
-        {
-          "key": "SITE-161",
-          "title": "Your $U in the web drawer",
-          "summary": "Your coin on the web",
-          "shipped": "2026-10-01",
-          "progress": "/progress#your-coin-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/21646f4e"
-        },
-        {
-          "key": "YUI-94",
-          "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
-          "summary": "Group chats in the app",
-          "shipped": "2026-10-01",
-          "progress": "/progress#group-chats-in-the-app",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9549413c"
-        },
-        {
-          "key": "YUI-248",
-          "title": "Notifications on the web",
-          "summary": "Yui on the web: notifications and install",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-notifications-and-install",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/d9c24de9"
         }
       ]
     }
