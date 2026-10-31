@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T16:35:26.242Z",
+  "updated": "2026-10-31T16:40:20.028Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2359,21 +2359,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#how-u-could-be-given-out-the-tokenomics-brief",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f1446c1a"
-        },
-        {
-          "key": "SITE-157",
-          "title": "The roadmap says what shipped",
-          "summary": "The roadmap stops calling shipped work backlog",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-roadmap-stops-calling-shipped-work-backlog"
-        },
-        {
-          "key": "YUI-256",
-          "title": "Voice on the web hears nothing",
-          "summary": "Voice on the web says what it hears, or why not",
-          "shipped": "2026-10-01",
-          "progress": "/progress#voice-on-the-web-says-what-it-hears-or-why-not",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1e936436"
         }
       ]
     }
