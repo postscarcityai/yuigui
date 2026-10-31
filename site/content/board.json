@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T20:00:22.078Z",
+  "updated": "2026-10-31T20:20:20.777Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2205,14 +2205,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-ships-every-row-of-the-parity-map-closed",
           "commit": "https://github.com/postscarcityai/yuigui/commit/a60aade5"
-        },
-        {
-          "key": "SITE-163",
-          "title": "What landed in the app on Oct 1, in See it",
-          "summary": "See it catches up: what landed in the app on Oct 1",
-          "shipped": "2026-10-01",
-          "progress": "/progress#see-it-catches-up-what-landed-in-the-app-on-oct-1",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/257b8306"
         }
       ]
     }
