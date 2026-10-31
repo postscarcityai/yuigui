@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T21:30:19.824Z",
+  "updated": "2026-10-31T22:55:24.426Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2169,20 +2169,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#social-drafts-now-start-today-and-stay-within-two-weeks",
           "commit": "https://github.com/postscarcityai/yuigui/commit/818788b0"
-        },
-        {
-          "key": "SITE-165",
-          "title": "Home page trimmed to what a stranger needs",
-          "summary": "The home page is under ten screens",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-home-page-is-under-ten-screens"
-        },
-        {
-          "key": "SOC-7",
-          "title": "Social drafts slot from today, never months out",
-          "shipped": "2026-10-01",
-          "progress": "/progress#social-drafts-now-start-today-and-stay-within-two-weeks",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c307d06f"
         }
       ]
     }
