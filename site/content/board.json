@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T00:00:34.390Z",
+  "updated": "2026-10-31T00:15:32.866Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2624,14 +2624,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#gouda-builds-your-practice-plan",
           "commit": "https://github.com/postscarcityai/yuigui/commit/bb6f9184"
-        },
-        {
-          "key": "SITE-144",
-          "title": "The playground flow player resumes after a reload and never dead-ends on an unknown name",
-          "summary": "Site flows keep your place",
-          "shipped": "2026-09-30",
-          "progress": "/progress#site-flows-keep-your-place",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/26888b59"
         }
       ]
     }
