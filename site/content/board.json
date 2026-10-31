@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T18:25:22.226Z",
+  "updated": "2026-10-31T18:40:22.356Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2260,14 +2260,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#every-link-checked-after-the-big-october-1-push",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9f6ca9ad"
-        },
-        {
-          "key": "YUI-247",
-          "title": "Settings and account on the web",
-          "summary": "Yui on the web: Settings and your account",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-settings-and-your-account",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/51f6530a"
         }
       ]
     }
