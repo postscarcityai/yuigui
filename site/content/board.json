@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T00:20:39.265Z",
+  "updated": "2026-10-31T00:30:33.586Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2608,14 +2608,6 @@
           "shipped": "2026-09-30",
           "progress": "/progress#the-site-builds-your-practice-week",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e0869bf0"
-        },
-        {
-          "key": "YUI-215",
-          "title": "Jev at our first two decision points, measured against today",
-          "summary": "Jev is on",
-          "shipped": "2026-09-30",
-          "progress": "/progress#jev-is-on",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e7f8b53a"
         }
       ]
     }
