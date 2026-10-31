@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T16:50:19.465Z",
+  "updated": "2026-10-31T16:55:20.224Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2344,14 +2344,6 @@
           "summary": "The shader is the orb on the web stage",
           "shipped": "2026-10-01",
           "progress": "/progress#the-shader-is-the-orb-on-the-web-stage"
-        },
-        {
-          "key": "SITE-158",
-          "title": "The board on the site never goes stale",
-          "summary": "The board follows card moves within five minutes",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-board-follows-card-moves-within-five-minutes",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/72528017"
         }
       ]
     }
