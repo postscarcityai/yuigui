@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T14:10:19.100Z",
+  "updated": "2026-10-31T14:40:19.230Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2458,14 +2458,6 @@
           "summary": "The chat bubble keeps your past chats",
           "shipped": "2026-10-01",
           "progress": "/progress#the-chat-bubble-keeps-your-past-chats"
-        },
-        {
-          "key": "YUI-254",
-          "title": "Past chats show in the drawer on a real account",
-          "summary": "Past chats show in the drawer",
-          "shipped": "2026-10-01",
-          "progress": "/progress#past-chats-show-in-the-drawer",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/72e93592"
         }
       ]
     }
