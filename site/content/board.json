@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T05:15:18.719Z",
+  "updated": "2026-10-31T05:20:19.117Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2498,14 +2498,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#tune-up-goes-straight-to-the-tuner",
           "commit": "https://github.com/postscarcityai/yuigui/commit/0137b8bc"
-        },
-        {
-          "key": "YUI-242",
-          "title": "The thread, live in the browser",
-          "summary": "Yui on the web: the thread",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-the-thread",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/76c00f25"
         }
       ]
     }
