@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T15:45:19.239Z",
+  "updated": "2026-10-31T16:10:20.294Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2405,13 +2405,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#yui-on-the-web-your-agents-the-drawer-adding-one",
           "commit": "https://github.com/postscarcityai/yuigui/commit/69fc6aa5"
-        },
-        {
-          "key": "SITE-156",
-          "title": "/web shows what works so far, phone and browser side by side",
-          "shipped": "2026-10-01",
-          "progress": "/progress#web-shows-what-works-so-far-phone-and-browser-side-by-side",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/0b424a7e"
         }
       ]
     }
