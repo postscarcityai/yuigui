@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T22:55:24.426Z",
+  "updated": "2026-10-31T23:10:18.956Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2161,14 +2161,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#a-stranger-s-first-tap-on-the-web-demo-works",
           "commit": "https://github.com/postscarcityai/yuigui/commit/85cf6f03"
-        },
-        {
-          "key": "SITE-166",
-          "title": "SOC-7 gets its site entry",
-          "summary": "Social drafts now start today and stay within two weeks",
-          "shipped": "2026-10-01",
-          "progress": "/progress#social-drafts-now-start-today-and-stay-within-two-weeks",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/818788b0"
         }
       ]
     }
