@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T20:20:20.777Z",
+  "updated": "2026-10-31T21:15:18.527Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2197,14 +2197,6 @@
           "summary": "Tomorrow's 6am build checks its disk first",
           "shipped": "2026-10-01",
           "progress": "/progress#tomorrow-s-6am-build-checks-its-disk-first"
-        },
-        {
-          "key": "YUI-250",
-          "title": "Yui on the web ships",
-          "summary": "Yui on the web ships: every row of the parity map closed",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-ships-every-row-of-the-parity-map-closed",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a60aade5"
         }
       ]
     }
