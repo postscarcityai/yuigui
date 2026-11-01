@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T13:45:19.125Z",
+  "updated": "2026-11-01T14:15:18.951Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1982,12 +1982,6 @@
           "summary": "Group chats open already drawn on web",
           "shipped": "2026-10-02",
           "progress": "/progress#group-chats-open-already-drawn-on-web"
-        },
-        {
-          "key": "SITE-171",
-          "title": "Every page shares with its own picture and title",
-          "shipped": "2026-10-02",
-          "progress": "/progress#every-page-shares-with-its-own-picture-and-title"
         }
       ]
     }
