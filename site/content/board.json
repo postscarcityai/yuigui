@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T17:53:25.655Z",
+  "updated": "2026-11-01T18:10:25.946Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1909,12 +1909,6 @@
           "summary": "Pushes no longer fail on one network blip",
           "shipped": "2026-10-04",
           "progress": "/progress#pushes-no-longer-fail-on-one-network-blip"
-        },
-        {
-          "key": "NOTE-19357",
-          "title": "Forms keep your answers",
-          "shipped": "2026-10-02",
-          "progress": "/progress#your-answers-stay-put-until-you-send"
         }
       ]
     }
