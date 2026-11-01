@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T01:10:19.138Z",
+  "updated": "2026-11-01T01:25:21.031Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2097,13 +2097,6 @@
           "title": "Status replies, a new look. Guide rule pushed (yuigui 1fa9402d) and published; screen sent to Chris.",
           "shipped": "2026-10-01",
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "SITE-168",
-          "title": "See it gets a Yui on the web group",
-          "summary": "See it has a Yui on the web group",
-          "shipped": "2026-10-01",
-          "progress": "/progress#see-it-has-a-yui-on-the-web-group"
         }
       ]
     }
