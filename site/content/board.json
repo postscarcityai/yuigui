@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T01:05:18.460Z",
+  "updated": "2026-11-01T01:10:19.138Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2104,18 +2104,6 @@
           "summary": "See it has a Yui on the web group",
           "shipped": "2026-10-01",
           "progress": "/progress#see-it-has-a-yui-on-the-web-group"
-        },
-        {
-          "key": "NOTE-30524",
-          "title": "New answers open full screen",
-          "shipped": "2026-10-01",
-          "progress": "/progress#a-new-reply-comes-up-full-screen-no-tap"
-        },
-        {
-          "key": "NOTE-6865",
-          "title": "Push tap opens the new answer",
-          "shipped": "2026-10-01",
-          "progress": "/progress#a-push-tap-opens-the-reply-full-screen"
         }
       ]
     }
