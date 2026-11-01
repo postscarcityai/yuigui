@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T01:25:21.031Z",
+  "updated": "2026-11-01T01:40:19.899Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2091,12 +2091,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#on-the-web-the-menu-button-names-your-agent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3f9a69a1"
-        },
-        {
-          "key": "NOTE-35030",
-          "title": "Status replies, a new look. Guide rule pushed (yuigui 1fa9402d) and published; screen sent to Chris.",
-          "shipped": "2026-10-01",
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
         }
       ]
     }
