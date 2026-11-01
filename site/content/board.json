@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T07:50:20.391Z",
+  "updated": "2026-11-01T08:05:18.502Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2049,14 +2049,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#an-ask-you-dismiss-never-comes-back",
           "commit": "https://github.com/postscarcityai/yuigui/commit/8c3013c9"
-        },
-        {
-          "key": "YUI-269",
-          "title": "/web scrolls back past the newest 100 rows, fetching older ones from the server",
-          "summary": "Web chats scroll back to the first message",
-          "shipped": "2026-10-02",
-          "progress": "/progress#web-chats-scroll-back-to-the-first-message",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/baafc31d"
         }
       ]
     }
