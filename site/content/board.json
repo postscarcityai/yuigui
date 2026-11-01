@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T17:30:28.614Z",
+  "updated": "2026-11-01T17:40:20.713Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1923,14 +1923,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#tap-the-left-side-to-go-back",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ecbd0267"
-        },
-        {
-          "key": "SITE-177",
-          "title": "Thought for build 450, the stage redrawn, in pictures",
-          "summary": "Release Thought for build 450: the stage, redrawn",
-          "shipped": "2026-10-02",
-          "progress": "/progress#release-thought-for-build-450-the-stage-redrawn",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c942ed5b"
         }
       ]
     }
