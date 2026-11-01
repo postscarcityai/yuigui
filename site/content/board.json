@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T14:15:18.951Z",
+  "updated": "2026-11-01T14:40:18.619Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1975,13 +1975,6 @@
           "summary": "The web film, re-shot with today's faster /web",
           "shipped": "2026-10-02",
           "progress": "/progress#the-web-film-re-shot-with-today-s-faster-web"
-        },
-        {
-          "key": "YUI-275",
-          "title": "/web opens a group chat already drawn, like a one-agent chat",
-          "summary": "Group chats open already drawn on web",
-          "shipped": "2026-10-02",
-          "progress": "/progress#group-chats-open-already-drawn-on-web"
         }
       ]
     }
