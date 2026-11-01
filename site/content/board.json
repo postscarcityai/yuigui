@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T01:40:19.899Z",
+  "updated": "2026-11-01T02:50:21.646Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2083,14 +2083,6 @@
           "title": "Hide raw cron errors",
           "shipped": "2026-10-01",
           "progress": "/progress#system-failure-lines-stay-out-of-the-chat"
-        },
-        {
-          "key": "YUI-266",
-          "title": "/web shows the agent's name on the menu button, and no end screen while a reply is still coming",
-          "summary": "On the web, the menu button names your agent",
-          "shipped": "2026-10-01",
-          "progress": "/progress#on-the-web-the-menu-button-names-your-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3f9a69a1"
         }
       ]
     }
