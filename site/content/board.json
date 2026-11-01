@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T17:40:20.713Z",
+  "updated": "2026-11-01T17:53:25.655Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1915,14 +1915,6 @@
           "title": "Forms keep your answers",
           "shipped": "2026-10-02",
           "progress": "/progress#your-answers-stay-put-until-you-send"
-        },
-        {
-          "key": "YUI-278",
-          "title": "/web, tap the left side to go back a page",
-          "summary": "Tap the left side to go back",
-          "shipped": "2026-10-02",
-          "progress": "/progress#tap-the-left-side-to-go-back",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ecbd0267"
         }
       ]
     }
