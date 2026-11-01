@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T07:00:25.964Z",
+  "updated": "2026-11-01T07:15:18.655Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2063,14 +2063,6 @@
           "title": "No end screen while still working",
           "shipped": "2026-10-02",
           "progress": "/progress#no-end-screen-while-the-agent-is-still-working"
-        },
-        {
-          "key": "YUI-268",
-          "title": "/web catches up to Oct 1's app fixes",
-          "summary": "The web catches up to the phone's Oct 1 fixes",
-          "shipped": "2026-10-02",
-          "progress": "/progress#the-web-catches-up-to-the-phone-s-oct-1-fixes",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4ee5ed03"
         }
       ]
     }
