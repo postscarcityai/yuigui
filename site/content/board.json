@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T09:20:19.384Z",
+  "updated": "2026-11-01T10:15:18.882Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2026,14 +2026,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#the-web-app-shows-a-chat-sooner",
           "commit": "https://github.com/postscarcityai/yuigui/commit/16822c62"
-        },
-        {
-          "key": "YUI-271",
-          "title": "/web timed on a phone after the night's stories, the worst numbers fixed",
-          "summary": "The web app, made faster",
-          "shipped": "2026-10-02",
-          "progress": "/progress#the-web-app-made-faster",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/10945b01"
         }
       ]
     }
