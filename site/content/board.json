@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T11:30:25.168Z",
+  "updated": "2026-11-01T12:20:19.470Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2010,14 +2010,6 @@
           "summary": "Web opens a second faster the first time",
           "shipped": "2026-10-02",
           "progress": "/progress#web-opens-a-second-faster-the-first-time"
-        },
-        {
-          "key": "YUI-273",
-          "title": "/web opens with your last chat already drawn",
-          "summary": "Web opens on your last chat",
-          "shipped": "2026-10-02",
-          "progress": "/progress#web-opens-on-your-last-chat",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/16add230"
         }
       ]
     }
