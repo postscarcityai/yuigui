@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T23:40:20.580Z",
+  "updated": "2026-11-01T00:10:18.998Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2131,20 +2131,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#the-site-chat-opens-ready-to-talk-and-its-next-arrow-can-be-tapped",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c8eb9040"
-        },
-        {
-          "key": "YUI-263",
-          "title": "Group settings on the web",
-          "shipped": "2026-10-01",
-          "progress": "/progress#group-settings-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/58d71859"
-        },
-        {
-          "key": "YUI-260",
-          "title": "Scroll back through a long chat without the 310 MB spike",
-          "summary": "Scrolling back through a long chat stays light",
-          "shipped": "2026-10-01",
-          "progress": "/progress#scrolling-back-through-a-long-chat-stays-light"
         }
       ]
     }
