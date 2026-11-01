@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T14:40:18.619Z",
+  "updated": "2026-11-01T14:50:26.999Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1968,13 +1968,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#one-decision-one-screen",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4901027f"
-        },
-        {
-          "key": "SITE-172",
-          "title": "The Yui on the web film re-cut with today's faster /web",
-          "summary": "The web film, re-shot with today's faster /web",
-          "shipped": "2026-10-02",
-          "progress": "/progress#the-web-film-re-shot-with-today-s-faster-web"
         }
       ]
     }
