@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T08:55:18.581Z",
+  "updated": "2026-11-01T09:20:19.384Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2034,14 +2034,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#the-web-app-made-faster",
           "commit": "https://github.com/postscarcityai/yuigui/commit/10945b01"
-        },
-        {
-          "key": "YUI-270",
-          "title": "/web review rows get Dismiss and Not yet, like the app (YUI-265 twin)",
-          "summary": "Dismiss and Not yet on the web",
-          "shipped": "2026-10-02",
-          "progress": "/progress#dismiss-and-not-yet-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/6c255c14"
         }
       ]
     }
