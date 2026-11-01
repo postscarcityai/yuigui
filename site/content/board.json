@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T07:15:18.655Z",
+  "updated": "2026-11-01T07:50:20.391Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2057,12 +2057,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#web-chats-scroll-back-to-the-first-message",
           "commit": "https://github.com/postscarcityai/yuigui/commit/baafc31d"
-        },
-        {
-          "key": "NOTE-35762",
-          "title": "No end screen while still working",
-          "shipped": "2026-10-02",
-          "progress": "/progress#no-end-screen-while-the-agent-is-still-working"
         }
       ]
     }
