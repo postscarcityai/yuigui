@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T00:35:18.797Z",
+  "updated": "2026-11-01T01:05:18.460Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2116,13 +2116,6 @@
           "title": "Push tap opens the new answer",
           "shipped": "2026-10-01",
           "progress": "/progress#a-push-tap-opens-the-reply-full-screen"
-        },
-        {
-          "key": "YUI-264",
-          "title": "/web scripts locked to a nonce, no inline loophole",
-          "summary": "Web page scripts are locked to a one-time code",
-          "shipped": "2026-10-01",
-          "progress": "/progress#web-page-scripts-are-locked-to-a-one-time-code"
         }
       ]
     }
