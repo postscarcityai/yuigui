@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T16:20:18.709Z",
+  "updated": "2026-11-01T16:45:19.047Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1946,13 +1946,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#a-question-now-sits-on-the-page-it-asks-about-on-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/eec744c5"
-        },
-        {
-          "key": "SITE-175",
-          "title": "/developers/draw, edit any example's Yui Lines and the drawing redraws in place",
-          "summary": "Edit any drawing and watch it change",
-          "shipped": "2026-10-02",
-          "progress": "/progress#edit-any-drawing-and-watch-it-change"
         }
       ]
     }
