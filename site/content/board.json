@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T10:15:18.882Z",
+  "updated": "2026-11-01T11:30:25.168Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2018,14 +2018,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#web-opens-on-your-last-chat",
           "commit": "https://github.com/postscarcityai/yuigui/commit/16add230"
-        },
-        {
-          "key": "YUI-272",
-          "title": "/web draws the first row sooner",
-          "summary": "The web app shows a chat sooner",
-          "shipped": "2026-10-02",
-          "progress": "/progress#the-web-app-shows-a-chat-sooner",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/16822c62"
         }
       ]
     }
