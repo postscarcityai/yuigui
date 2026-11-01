@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T13:10:19.103Z",
+  "updated": "2026-11-01T13:45:19.125Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1988,14 +1988,6 @@
           "title": "Every page shares with its own picture and title",
           "shipped": "2026-10-02",
           "progress": "/progress#every-page-shares-with-its-own-picture-and-title"
-        },
-        {
-          "key": "SITE-170",
-          "title": "How the web app got fast, told in pictures",
-          "summary": "How the web app got fast, in pictures",
-          "shipped": "2026-10-02",
-          "progress": "/progress#how-the-web-app-got-fast-in-pictures",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/19ba675b"
         }
       ]
     }
