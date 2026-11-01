@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T12:20:19.470Z",
+  "updated": "2026-11-01T13:10:19.103Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1996,20 +1996,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#how-the-web-app-got-fast-in-pictures",
           "commit": "https://github.com/postscarcityai/yuigui/commit/19ba675b"
-        },
-        {
-          "key": "SITE-169",
-          "title": "The /web page shows how fast it opens, before and after",
-          "summary": "How fast /web opens, in two charts",
-          "shipped": "2026-10-02",
-          "progress": "/progress#how-fast-web-opens-in-two-charts"
-        },
-        {
-          "key": "YUI-274",
-          "title": "/web cold visit starts its reads before the session renewal ends",
-          "summary": "Web opens a second faster the first time",
-          "shipped": "2026-10-02",
-          "progress": "/progress#web-opens-a-second-faster-the-first-time"
         }
       ]
     }
