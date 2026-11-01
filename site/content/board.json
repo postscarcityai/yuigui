@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T02:50:21.646Z",
+  "updated": "2026-11-01T03:15:21.313Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2077,12 +2077,6 @@
           "title": "Agent name on the menu button",
           "shipped": "2026-10-02",
           "progress": "/progress#the-menu-button-names-your-agent"
-        },
-        {
-          "key": "NOTE-27775",
-          "title": "Hide raw cron errors",
-          "shipped": "2026-10-01",
-          "progress": "/progress#system-failure-lines-stay-out-of-the-chat"
         }
       ]
     }
