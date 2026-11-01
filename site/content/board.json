@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T08:05:18.502Z",
+  "updated": "2026-11-01T08:55:18.581Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2042,13 +2042,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#dismiss-and-not-yet-on-the-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6c255c14"
-        },
-        {
-          "key": "YUI-265",
-          "title": "An ask you dismiss never comes back",
-          "shipped": "2026-10-02",
-          "progress": "/progress#an-ask-you-dismiss-never-comes-back",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8c3013c9"
         }
       ]
     }
