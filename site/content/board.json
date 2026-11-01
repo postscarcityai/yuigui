@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T00:10:18.998Z",
+  "updated": "2026-11-01T00:35:18.797Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2123,14 +2123,6 @@
           "summary": "Web page scripts are locked to a one-time code",
           "shipped": "2026-10-01",
           "progress": "/progress#web-page-scripts-are-locked-to-a-one-time-code"
-        },
-        {
-          "key": "SITE-167",
-          "title": "A stranger's first chat with the site bubble works on a phone",
-          "summary": "The site chat opens ready to talk, and its next arrow can be tapped",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-site-chat-opens-ready-to-talk-and-its-next-arrow-can-be-tapped",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c8eb9040"
         }
       ]
     }
