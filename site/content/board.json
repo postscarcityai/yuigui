@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T03:15:21.313Z",
+  "updated": "2026-11-01T07:00:25.964Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -2071,12 +2071,6 @@
           "shipped": "2026-10-02",
           "progress": "/progress#the-web-catches-up-to-the-phone-s-oct-1-fixes",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4ee5ed03"
-        },
-        {
-          "key": "NOTE-50620",
-          "title": "Agent name on the menu button",
-          "shipped": "2026-10-02",
-          "progress": "/progress#the-menu-button-names-your-agent"
         }
       ]
     }
