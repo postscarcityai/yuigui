@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T15:15:19.422Z",
+  "updated": "2026-11-01T16:20:18.709Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1953,13 +1953,6 @@
           "summary": "Edit any drawing and watch it change",
           "shipped": "2026-10-02",
           "progress": "/progress#edit-any-drawing-and-watch-it-change"
-        },
-        {
-          "key": "SITE-174",
-          "title": "/developers/draw, every drawing part Yui has, live, with its Yui Lines",
-          "summary": "Everything Yui can draw, on one page",
-          "shipped": "2026-10-02",
-          "progress": "/progress#everything-yui-can-draw-on-one-page"
         }
       ]
     }
