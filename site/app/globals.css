@@ -1305,3 +1305,15 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
 @keyframes vf-pop { from { transform: scale(.9); opacity: 0; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .vf-talk.live .vf-mic, .vf-heardmark, .vf-input.on { animation: none; } }
 @media (max-width: 860px) { .vf { grid-template-columns: 1fr; } .vf-phone { order: -1; } }
+
+/* Web credits: one centered screen, no scroll. The page is a 100dvh column: nav, main fills the rest, footer. The Get Yui band is hidden here. */
+body:has(.wc-root) { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+body:has(.wc-root) main.wrap { flex: 1; min-height: 0; width: 100%; display: flex; }
+body:has(.wc-root) .getyui { display: none; }
+body:has(.wc-root) main.wrap { padding-top: 0; padding-bottom: 0; }
+.wc-root { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; }
+.wc-root h1 { margin: 6px 0 0; font-size: 28px; }
+.wc-root p { margin: 0; max-width: 34ch; color: var(--muted); }
+.wc-mark { display: block; width: min(240px, 80vw); color: var(--ink); border-radius: 1px; clip-path: inset(0 round 1px); }
+.wc-mark svg { display: block; width: 100%; height: auto; }
+.wc-links a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 6px; }

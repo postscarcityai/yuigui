@@ -174,6 +174,10 @@ say Hand it to another agent. Same rows.`,
     yl: `list Kept "Your account" "Your agents" "Your threads" +check
 ask "Delete my data?" Delete|Cancel`,
   },
+  "/web-credits": {
+    eyebrow: "WEB CREDITS",
+    yl: `ask "Who built Yui?" "PostScarcity AI"`,
+  },
   "/connect": {
     eyebrow: "CONNECT",
     yl: `ask "Let this app put screens on your phone?" Allow|"Not now"`,
