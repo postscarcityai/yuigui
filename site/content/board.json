@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T17:45:26.497Z",
+  "updated": "2026-11-03T17:50:32.620Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1851,13 +1851,6 @@
           "title": "No X, just arrows",
           "shipped": "2026-10-04",
           "progress": "/progress#no-x-in-the-bottom-left"
-        },
-        {
-          "key": "SITE-180",
-          "title": "The web speed chart adds the bare /web visit",
-          "summary": "The speed chart adds the bare /web visit",
-          "shipped": "2026-10-04",
-          "progress": "/progress#the-speed-chart-adds-the-bare-web-visit"
         }
       ]
     }
