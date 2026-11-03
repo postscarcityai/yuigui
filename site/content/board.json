@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T16:15:27.057Z",
+  "updated": "2026-11-03T16:30:27.439Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1888,14 +1888,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#the-web-says-when-no-answer-came-back",
           "commit": "https://github.com/postscarcityai/yuigui/commit/39bb7869"
-        },
-        {
-          "key": "YUI-279",
-          "title": "/web, a flow or plan keeps what you typed until you send",
-          "summary": "The web keeps your answers until you send",
-          "shipped": "2026-10-04",
-          "progress": "/progress#the-web-keeps-your-answers-until-you-send",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/fa6b75a3"
         }
       ]
     }
