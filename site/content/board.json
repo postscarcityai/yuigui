@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T22:35:43.787Z",
+  "updated": "2026-11-03T22:46:33.929Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1764,13 +1764,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#voice-first-shown-on-the-web-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/23f7c9eb"
-        },
-        {
-          "key": "SITE-185",
-          "title": "The Yui on the web film shows talking to it",
-          "summary": "The web film now shows you talking to Yui",
-          "shipped": "2026-10-04",
-          "progress": "/progress#the-web-film-now-shows-you-talking-to-yui"
         }
       ]
     }
