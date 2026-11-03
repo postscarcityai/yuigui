@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-01T18:10:25.946Z",
+  "updated": "2026-11-03T16:10:26.514Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1902,13 +1902,6 @@
           "title": "Calories reset each day",
           "shipped": "2026-10-04",
           "progress": "/progress#basil-counts-calories-by-day"
-        },
-        {
-          "key": "SITE-178",
-          "title": "The push check retries a page that fails to load once, so one blip never blocks a push",
-          "summary": "Pushes no longer fail on one network blip",
-          "shipped": "2026-10-04",
-          "progress": "/progress#pushes-no-longer-fail-on-one-network-blip"
         }
       ]
     }
