@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T17:50:32.620Z",
+  "updated": "2026-11-03T18:00:26.903Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1845,12 +1845,6 @@
           "summary": "Switching screens got instant, in pictures",
           "shipped": "2026-10-04",
           "progress": "/progress#switching-screens-got-instant-in-pictures"
-        },
-        {
-          "key": "NOTE-24156",
-          "title": "No X, just arrows",
-          "shipped": "2026-10-04",
-          "progress": "/progress#no-x-in-the-bottom-left"
         }
       ]
     }
