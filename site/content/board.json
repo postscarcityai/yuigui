@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T20:56:10.832Z",
+  "updated": "2026-11-03T22:35:43.787Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1771,14 +1771,6 @@
           "summary": "The web film now shows you talking to Yui",
           "shipped": "2026-10-04",
           "progress": "/progress#the-web-film-now-shows-you-talking-to-yui"
-        },
-        {
-          "key": "YUI-285",
-          "title": "/web name and search fields get a small mic, like the phone",
-          "summary": "Say the name, say the search, on the web",
-          "shipped": "2026-10-04",
-          "progress": "/progress#say-the-name-say-the-search-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9ec7ca11"
         }
       ]
     }
