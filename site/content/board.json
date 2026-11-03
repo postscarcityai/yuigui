@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T22:46:33.929Z",
+  "updated": "2026-11-03T23:26:06.203Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1756,14 +1756,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#say-your-feedback-on-the-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/077dc7dc"
-        },
-        {
-          "key": "SITE-186",
-          "title": "The /web page shows voice first, one strip of fields you can say",
-          "summary": "Voice first, shown on the web page",
-          "shipped": "2026-10-04",
-          "progress": "/progress#voice-first-shown-on-the-web-page",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/23f7c9eb"
         }
       ]
     }
