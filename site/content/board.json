@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T16:30:27.439Z",
+  "updated": "2026-11-03T16:55:27.425Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1880,14 +1880,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#the-web-caught-up-with-the-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/601fad66"
-        },
-        {
-          "key": "YUI-280",
-          "title": "/web says when no answer came back, with Try again",
-          "summary": "The web says when no answer came back",
-          "shipped": "2026-10-04",
-          "progress": "/progress#the-web-says-when-no-answer-came-back",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/39bb7869"
         }
       ]
     }
