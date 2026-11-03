@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T23:36:05.777Z",
+  "updated": "2026-11-03T23:56:08.172Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1741,13 +1741,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#a-quieter-drawer-on-the-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b5280563"
-        },
-        {
-          "key": "SITE-187",
-          "title": "Values page gets value 10, say it, don't type it",
-          "summary": "Value 10: say it, don't type it",
-          "shipped": "2026-10-04",
-          "progress": "/progress#value-10-say-it-don-t-type-it"
         }
       ]
     }
