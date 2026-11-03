@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T18:55:27.992Z",
+  "updated": "2026-11-03T19:36:23.668Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1803,14 +1803,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#web-forms-and-plan-pages-fill-by-voice",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f3b7aa5a"
-        },
-        {
-          "key": "SITE-183",
-          "title": "Developers docs, people can say their answers",
-          "summary": "Docs: people can say their answers",
-          "shipped": "2026-10-04",
-          "progress": "/progress#docs-people-can-say-their-answers",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9e03430a"
         }
       ]
     }
