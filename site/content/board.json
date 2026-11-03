@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T23:26:06.203Z",
+  "updated": "2026-11-03T23:36:05.777Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1748,14 +1748,6 @@
           "summary": "Value 10: say it, don't type it",
           "shipped": "2026-10-04",
           "progress": "/progress#value-10-say-it-don-t-type-it"
-        },
-        {
-          "key": "YUI-286",
-          "title": "/web feedback box gets the mic, plus a check that every field has one",
-          "summary": "Say your feedback on the web",
-          "shipped": "2026-10-04",
-          "progress": "/progress#say-your-feedback-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/077dc7dc"
         }
       ]
     }
