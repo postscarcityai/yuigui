@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T18:30:28.040Z",
+  "updated": "2026-11-03T18:45:27.115Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1819,13 +1819,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#web-screens-switch-at-once",
           "commit": "https://github.com/postscarcityai/yuigui/commit/21630b8b"
-        },
-        {
-          "key": "SITE-182",
-          "title": "Thought, say it and the form fills, in pictures",
-          "summary": "Say it and the form fills, in pictures",
-          "shipped": "2026-10-04",
-          "progress": "/progress#say-it-and-the-form-fills-in-pictures"
         }
       ]
     }
