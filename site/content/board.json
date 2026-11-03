@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T16:10:26.514Z",
+  "updated": "2026-11-03T16:15:27.057Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1896,12 +1896,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#the-web-keeps-your-answers-until-you-send",
           "commit": "https://github.com/postscarcityai/yuigui/commit/fa6b75a3"
-        },
-        {
-          "key": "NOTE-18275",
-          "title": "Calories reset each day",
-          "shipped": "2026-10-04",
-          "progress": "/progress#basil-counts-calories-by-day"
         }
       ]
     }
