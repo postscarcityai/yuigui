@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T19:36:23.668Z",
+  "updated": "2026-11-03T20:01:11.102Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1795,14 +1795,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#the-web-fills-forms-by-voice-too-in-pictures",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7bcf59e4"
-        },
-        {
-          "key": "YUI-283",
-          "title": "/web forms and plan pages fill by voice, like the phone",
-          "summary": "Web forms and plan pages fill by voice",
-          "shipped": "2026-10-04",
-          "progress": "/progress#web-forms-and-plan-pages-fill-by-voice",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f3b7aa5a"
         }
       ]
     }
