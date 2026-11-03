@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T17:40:26.331Z",
+  "updated": "2026-11-03T17:45:26.497Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1858,12 +1858,6 @@
           "summary": "The speed chart adds the bare /web visit",
           "shipped": "2026-10-04",
           "progress": "/progress#the-speed-chart-adds-the-bare-web-visit"
-        },
-        {
-          "key": "NOTE-15980",
-          "title": "Faster screen switching",
-          "shipped": "2026-10-04",
-          "progress": "/progress#switching-screens-feels-instant"
         }
       ]
     }
