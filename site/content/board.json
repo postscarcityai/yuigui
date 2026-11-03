@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T18:00:26.903Z",
+  "updated": "2026-11-03T18:15:26.713Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1838,13 +1838,6 @@
           "title": "Speak to fill a form",
           "shipped": "2026-10-04",
           "progress": "/progress#speak-to-fill-a-form"
-        },
-        {
-          "key": "SITE-181",
-          "title": "Thought, switching screens got instant, in pictures",
-          "summary": "Switching screens got instant, in pictures",
-          "shipped": "2026-10-04",
-          "progress": "/progress#switching-screens-got-instant-in-pictures"
         }
       ]
     }
