@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T17:00:28.278Z",
+  "updated": "2026-11-03T17:40:26.331Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1864,14 +1864,6 @@
           "title": "Faster screen switching",
           "shipped": "2026-10-04",
           "progress": "/progress#switching-screens-feels-instant"
-        },
-        {
-          "key": "YUI-281",
-          "title": "A bare /web opens your last agent at once",
-          "summary": "Web opens your last agent",
-          "shipped": "2026-10-04",
-          "progress": "/progress#web-opens-your-last-agent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ec699f48"
         }
       ]
     }
