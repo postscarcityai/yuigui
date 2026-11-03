@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T20:36:08.998Z",
+  "updated": "2026-11-03T20:56:10.832Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1779,14 +1779,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#say-the-name-say-the-search-on-the-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9ec7ca11"
-        },
-        {
-          "key": "YUI-284",
-          "title": "/web group chats get the mic, T and +, like the phone",
-          "summary": "Talk in group chats on the web",
-          "shipped": "2026-10-04",
-          "progress": "/progress#talk-in-group-chats-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1a83b326"
         }
       ]
     }
