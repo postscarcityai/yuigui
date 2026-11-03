@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T20:01:11.102Z",
+  "updated": "2026-11-03T20:36:08.998Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1787,14 +1787,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#talk-in-group-chats-on-the-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1a83b326"
-        },
-        {
-          "key": "SITE-184",
-          "title": "Thought, the web fills forms by voice too",
-          "summary": "The web fills forms by voice too, in pictures",
-          "shipped": "2026-10-04",
-          "progress": "/progress#the-web-fills-forms-by-voice-too-in-pictures",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/7bcf59e4"
         }
       ]
     }
