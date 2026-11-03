@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-03T16:55:27.425Z",
+  "updated": "2026-11-03T17:00:28.278Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1872,14 +1872,6 @@
           "shipped": "2026-10-04",
           "progress": "/progress#web-opens-your-last-agent",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ec699f48"
-        },
-        {
-          "key": "SITE-179",
-          "title": "Thought, the web caught up with the phone, in pictures",
-          "summary": "The web caught up with the phone",
-          "shipped": "2026-10-04",
-          "progress": "/progress#the-web-caught-up-with-the-phone",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/601fad66"
         }
       ]
     }
