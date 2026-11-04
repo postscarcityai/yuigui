@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T02:51:07.591Z",
+  "updated": "2026-11-04T03:26:30.826Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1718,13 +1718,6 @@
           "summary": "A half-filled plan survives a reload on the web",
           "shipped": "2026-10-04",
           "progress": "/progress#a-half-filled-plan-survives-a-reload-on-the-web"
-        },
-        {
-          "key": "SITE-188",
-          "title": "Thought",
-          "summary": "Voice first, the wrap-up in pictures",
-          "shipped": "2026-10-04",
-          "progress": "/progress#voice-first-the-wrap-up-in-pictures"
         }
       ]
     }
