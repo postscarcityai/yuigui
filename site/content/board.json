@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T12:50:53.730Z",
+  "updated": "2026-11-04T13:11:50.626Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1496,20 +1496,6 @@
           "title": "Workouts never start in the drawer",
           "shipped": "2026-10-05",
           "progress": "/progress#start-opens-the-workout-full-screen"
-        },
-        {
-          "key": "SITE-197",
-          "title": "Thought, every drawing checked on both screens",
-          "summary": "A Thought on checking every drawing twice",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-on-checking-every-drawing-twice",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1ed37fa3"
-        },
-        {
-          "key": "NOTE-37260",
-          "title": "Fewer buttons on the stage",
-          "shipped": "2026-10-05",
-          "progress": "/progress#fewer-buttons-on-the-stage"
         }
       ]
     }
