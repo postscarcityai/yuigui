@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T15:06:29.584Z",
+  "updated": "2026-11-04T15:36:24.637Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1475,14 +1475,6 @@
           "summary": "Start opens the workout on the web too, one set at a time",
           "shipped": "2026-10-05",
           "progress": "/progress#start-opens-the-workout-on-the-web-too-one-set-at-a-time"
-        },
-        {
-          "key": "SITE-198",
-          "title": "Thought, a workout you do, not a list you read",
-          "summary": "A Thought: a workout is something you do",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-a-workout-is-something-you-do",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/11fd7d13"
         }
       ]
     }
