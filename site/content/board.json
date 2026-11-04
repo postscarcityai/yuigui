@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T09:53:08.927Z",
+  "updated": "2026-11-04T12:05:25.480Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1539,24 +1539,6 @@
           "summary": "Link sweep: nothing broken",
           "shipped": "2026-10-05",
           "progress": "/progress#link-sweep-nothing-broken"
-        },
-        {
-          "key": "NOTE-42080",
-          "title": "Ask and answer on one screen",
-          "shipped": "2026-10-05",
-          "progress": "/progress#ask-and-answer-on-one-screen"
-        },
-        {
-          "key": "NOTE-35492",
-          "title": "Tap left to go back",
-          "shipped": "2026-10-05",
-          "progress": "/progress#tap-left-to-go-back"
-        },
-        {
-          "key": "NOTE-3651",
-          "title": "Add an agent, tucked away",
-          "shipped": "2026-10-05",
-          "progress": "/progress#add-an-agent-tucked-away"
         }
       ]
     }
