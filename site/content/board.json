@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T15:36:24.637Z",
+  "updated": "2026-11-04T16:15:30.496Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1468,13 +1468,6 @@
           "summary": "Web pages are named for what is on them",
           "shipped": "2026-10-05",
           "progress": "/progress#web-pages-are-named-for-what-is-on-them"
-        },
-        {
-          "key": "YUI-304",
-          "title": "/web workout, Start opens the runner full screen, sets and rest",
-          "summary": "Start opens the workout on the web too, one set at a time",
-          "shipped": "2026-10-05",
-          "progress": "/progress#start-opens-the-workout-on-the-web-too-one-set-at-a-time"
         }
       ]
     }
