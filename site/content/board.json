@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T05:40:51.677Z",
+  "updated": "2026-11-04T06:04:01.602Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1676,20 +1676,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#claude-and-chatgpt-draw-the-venn-and-the-contour-too",
           "commit": "https://github.com/postscarcityai/yui/commit/66d3cc5"
-        },
-        {
-          "key": "NOTE-4897",
-          "title": "Yui gave up on a question",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-question-nobody-answered-says-so-with-try-again"
-        },
-        {
-          "key": "YUI-291",
-          "title": "Drawing kit step 1, Venn overlaps, closed regions, contours, curved arrows in the spec, parsers and playground",
-          "summary": "Draw a Venn, a contour or a loop with a few lines",
-          "shipped": "2026-10-05",
-          "progress": "/progress#draw-a-venn-a-contour-or-a-loop-with-a-few-lines",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1d7ae74e"
         }
       ]
     }
