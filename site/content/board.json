@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T23:25:33.297Z",
+  "updated": "2026-11-04T23:30:39.996Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1416,24 +1416,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#the-web-drawer-is-calm-too-chats-first-nothing-else",
           "commit": "https://github.com/postscarcityai/yuigui/commit/9ee6ce1a"
-        },
-        {
-          "key": "NOTE-60149",
-          "title": "No more cards inside cards",
-          "shipped": "2026-10-05",
-          "progress": "/progress#decks-are-a-stage-that-morphs"
-        },
-        {
-          "key": "NOTE-45868",
-          "title": "Decks that fill the screen and move",
-          "shipped": "2026-10-05",
-          "progress": "/progress#decks-are-a-stage-that-morphs"
-        },
-        {
-          "key": "NOTE-44205",
-          "title": "Pages that morph, not a line",
-          "shipped": "2026-10-05",
-          "progress": "/progress#decks-are-a-stage-that-morphs"
         }
       ]
     }
