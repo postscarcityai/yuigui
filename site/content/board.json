@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T06:45:26.105Z",
+  "updated": "2026-11-04T07:02:29.830Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1639,13 +1639,6 @@
           "summary": "Agent tables work in the browser too",
           "shipped": "2026-10-05",
           "progress": "/progress#agent-tables-work-in-the-browser-too"
-        },
-        {
-          "key": "YUI-294",
-          "title": "Four TestFlight notes fixed on main, shots and close-out",
-          "summary": "Four tester notes, proven",
-          "shipped": "2026-10-05",
-          "progress": "/progress#four-tester-notes-proven"
         }
       ]
     }
