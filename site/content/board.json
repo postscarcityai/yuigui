@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T03:26:30.826Z",
+  "updated": "2026-11-04T03:50:18.927Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1711,13 +1711,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#the-spec-says-half-filled-answers-are-kept",
           "commit": "https://github.com/postscarcityai/yuigui/commit/4757892c"
-        },
-        {
-          "key": "YUI-289",
-          "title": "/web plan and form answers survive a reload",
-          "summary": "A half-filled plan survives a reload on the web",
-          "shipped": "2026-10-04",
-          "progress": "/progress#a-half-filled-plan-survives-a-reload-on-the-web"
         }
       ]
     }
