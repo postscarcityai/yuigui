@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T12:45:17.401Z",
+  "updated": "2026-11-04T12:50:53.730Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1510,14 +1510,6 @@
           "title": "Fewer buttons on the stage",
           "shipped": "2026-10-05",
           "progress": "/progress#fewer-buttons-on-the-stage"
-        },
-        {
-          "key": "SITE-189",
-          "title": "Thought for the build that ships voice first",
-          "summary": "A Thought for build 522: say it first",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-for-build-522-say-it-first",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f9cb7999"
         }
       ]
     }
