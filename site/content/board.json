@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T07:25:16.678Z",
+  "updated": "2026-11-04T07:45:24.596Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1617,13 +1617,6 @@
           "summary": "Mark the spot by hand: scribbles, underlines and ticks",
           "shipped": "2026-10-05",
           "progress": "/progress#mark-the-spot-by-hand-scribbles-underlines-and-ticks"
-        },
-        {
-          "key": "YUI-297",
-          "title": "The app draws callout, bracket and arc shapes, the same as the playground",
-          "summary": "Callouts, brackets and bent arrows on the phone",
-          "shipped": "2026-10-05",
-          "progress": "/progress#callouts-brackets-and-bent-arrows-on-the-phone"
         }
       ]
     }
