@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T08:15:23.626Z",
+  "updated": "2026-11-04T08:25:17.528Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1587,15 +1587,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-agents-mark-the-spot-by-hand",
           "commit": "https://github.com/postscarcityai/yuigui/commit/c1da1695"
-        },
-        {
-          "key": "YUI-36",
-          "title": "Optional encrypted sync for agent tables",
-          "step": "Step 1",
-          "summary": "Your tables, synced and private",
-          "shipped": "2026-10-05",
-          "progress": "/progress#your-tables-synced-and-private",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/0b2d64ca"
         }
       ]
     }
