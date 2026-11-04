@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T12:05:25.480Z",
+  "updated": "2026-11-04T12:15:17.139Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1532,13 +1532,6 @@
           "summary": "Every drawing on the phone matches the web",
           "shipped": "2026-10-05",
           "progress": "/progress#every-drawing-on-the-phone-matches-the-web"
-        },
-        {
-          "key": "SITE-196",
-          "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
-          "summary": "Link sweep: nothing broken",
-          "shipped": "2026-10-05",
-          "progress": "/progress#link-sweep-nothing-broken"
         }
       ]
     }
