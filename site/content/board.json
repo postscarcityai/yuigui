@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T09:30:18.815Z",
+  "updated": "2026-11-04T09:35:19.128Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1564,14 +1564,6 @@
           "summary": "Function deploys unstuck, tests green",
           "shipped": "2026-10-05",
           "progress": "/progress#function-deploys-unstuck-tests-green"
-        },
-        {
-          "key": "SITE-195",
-          "title": "Thought, every agent can draw a table",
-          "summary": "A Thought: every agent can draw a table",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-every-agent-can-draw-a-table",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f987db31"
         }
       ]
     }
