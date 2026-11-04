@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T04:25:20.725Z",
+  "updated": "2026-11-04T05:00:33.146Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1697,13 +1697,6 @@
           "summary": "The docs say the phone keeps stage answers too",
           "shipped": "2026-10-05",
           "progress": "/progress#the-docs-say-the-phone-keeps-stage-answers-too"
-        },
-        {
-          "key": "YUI-290",
-          "title": "/web choice cards' type-your-own field gets a mic, audit covers preset fields",
-          "summary": "Say your own answer on the web",
-          "shipped": "2026-10-05",
-          "progress": "/progress#say-your-own-answer-on-the-web"
         }
       ]
     }
