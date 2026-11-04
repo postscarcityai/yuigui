@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T07:45:24.596Z",
+  "updated": "2026-11-04T07:55:17.921Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1610,13 +1610,6 @@
           "summary": "A Thought: your agent keeps its own tables",
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-your-agent-keeps-its-own-tables"
-        },
-        {
-          "key": "YUI-298",
-          "title": "Hand-drawn shapes and marks",
-          "summary": "Mark the spot by hand: scribbles, underlines and ticks",
-          "shipped": "2026-10-05",
-          "progress": "/progress#mark-the-spot-by-hand-scribbles-underlines-and-ticks"
         }
       ]
     }
