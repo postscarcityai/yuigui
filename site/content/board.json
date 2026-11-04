@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T21:25:32.381Z",
+  "updated": "2026-11-04T22:55:31.843Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1449,18 +1449,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#music-and-edits-on-the-fly-inside-the-workout",
           "commit": "https://github.com/postscarcityai/yuigui/commit/751f5a2e"
-        },
-        {
-          "key": "NOTE-50415",
-          "title": "A cleaner drawer",
-          "shipped": "2026-10-05",
-          "progress": "/progress#the-drawer-is-the-chats-and-calm"
-        },
-        {
-          "key": "NOTE-7746",
-          "title": "A calmer home screen, chats first",
-          "shipped": "2026-10-05",
-          "progress": "/progress#the-drawer-is-the-chats-and-calm"
         }
       ]
     }
