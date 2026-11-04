@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T23:30:39.996Z",
+  "updated": "2026-11-04T23:40:28.910Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1408,14 +1408,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#tabs-named-for-what-is-on-them",
           "commit": "https://github.com/postscarcityai/yui/commit/3610bec"
-        },
-        {
-          "key": "YUI-303",
-          "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick",
-          "summary": "The web drawer is calm too: chats first, nothing else",
-          "shipped": "2026-10-05",
-          "progress": "/progress#the-web-drawer-is-calm-too-chats-first-nothing-else",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/9ee6ce1a"
         }
       ]
     }
