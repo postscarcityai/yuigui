@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T23:20:33.089Z",
+  "updated": "2026-11-04T23:25:33.297Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1434,13 +1434,6 @@
           "title": "Pages that morph, not a line",
           "shipped": "2026-10-05",
           "progress": "/progress#decks-are-a-stage-that-morphs"
-        },
-        {
-          "key": "NOTE-61729",
-          "title": "Drop the agent roster page",
-          "shipped": "2026-10-05",
-          "progress": "/progress#yui-s-home-is-a-calm-chat-again",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/405cb844"
         }
       ]
     }
