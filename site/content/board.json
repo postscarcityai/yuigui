@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T22:55:31.843Z",
+  "updated": "2026-11-04T23:20:33.089Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1441,14 +1441,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#yui-s-home-is-a-calm-chat-again",
           "commit": "https://github.com/postscarcityai/yuigui/commit/405cb844"
-        },
-        {
-          "key": "YUI-305",
-          "title": "Workouts with music and live edits",
-          "summary": "Music and edits on the fly, inside the workout",
-          "shipped": "2026-10-05",
-          "progress": "/progress#music-and-edits-on-the-fly-inside-the-workout",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/751f5a2e"
         }
       ]
     }
