@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T06:17:24.740Z",
+  "updated": "2026-11-04T06:45:26.105Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1646,13 +1646,6 @@
           "summary": "Four tester notes, proven",
           "shipped": "2026-10-05",
           "progress": "/progress#four-tester-notes-proven"
-        },
-        {
-          "key": "YUI-295",
-          "title": "Venn fits the frame in the MCP App at desktop width",
-          "summary": "Venns fit on a laptop too",
-          "shipped": "2026-10-05",
-          "progress": "/progress#venns-fit-on-a-laptop-too"
         }
       ]
     }
