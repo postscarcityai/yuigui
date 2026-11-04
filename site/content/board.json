@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T01:56:08.605Z",
+  "updated": "2026-11-04T02:51:07.591Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1725,14 +1725,6 @@
           "summary": "Voice first, the wrap-up in pictures",
           "shipped": "2026-10-04",
           "progress": "/progress#voice-first-the-wrap-up-in-pictures"
-        },
-        {
-          "key": "YUI-288",
-          "title": "/web full-screen pages go back with a tap on the left third",
-          "summary": "Tap the left side to go back, on the web",
-          "shipped": "2026-10-04",
-          "progress": "/progress#tap-the-left-side-to-go-back-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/187fe271"
         }
       ]
     }
