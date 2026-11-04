@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T23:40:28.910Z",
+  "updated": "2026-11-04T23:45:29.252Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1401,13 +1401,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-a-page-is-named-for-what-is-on-it",
           "commit": "https://github.com/postscarcityai/yuigui/commit/de942f70"
-        },
-        {
-          "key": "NOTE-26959",
-          "title": "Tabs named for what is on them",
-          "shipped": "2026-10-05",
-          "progress": "/progress#tabs-named-for-what-is-on-them",
-          "commit": "https://github.com/postscarcityai/yui/commit/3610bec"
         }
       ]
     }
