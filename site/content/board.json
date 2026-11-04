@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T07:55:17.921Z",
+  "updated": "2026-11-04T08:15:23.626Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1596,20 +1596,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#your-tables-synced-and-private",
           "commit": "https://github.com/postscarcityai/yuigui/commit/0b2d64ca"
-        },
-        {
-          "key": "YUI-299",
-          "title": "+hand and marks on the phone",
-          "summary": "Hand drawn marks on the phone",
-          "shipped": "2026-10-05",
-          "progress": "/progress#hand-drawn-marks-on-the-phone"
-        },
-        {
-          "key": "SITE-193",
-          "title": "Thought, your agent's tables on the phone and the web",
-          "summary": "A Thought: your agent keeps its own tables",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-your-agent-keeps-its-own-tables"
         }
       ]
     }
