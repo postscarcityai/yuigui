@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T05:00:33.146Z",
+  "updated": "2026-11-04T05:40:51.677Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1690,13 +1690,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#draw-a-venn-a-contour-or-a-loop-with-a-few-lines",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1d7ae74e"
-        },
-        {
-          "key": "SITE-191",
-          "title": "The spec says the phone keeps stage answers too",
-          "summary": "The docs say the phone keeps stage answers too",
-          "shipped": "2026-10-05",
-          "progress": "/progress#the-docs-say-the-phone-keeps-stage-answers-too"
         }
       ]
     }
