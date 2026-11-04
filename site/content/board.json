@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T09:35:19.128Z",
+  "updated": "2026-11-04T09:53:08.927Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1557,13 +1557,6 @@
           "title": "Add an agent, tucked away",
           "shipped": "2026-10-05",
           "progress": "/progress#add-an-agent-tucked-away"
-        },
-        {
-          "key": "YUI-300",
-          "title": "Function deploys run clean again, the table sync migration recorded, test_flywheel green",
-          "summary": "Function deploys unstuck, tests green",
-          "shipped": "2026-10-05",
-          "progress": "/progress#function-deploys-unstuck-tests-green"
         }
       ]
     }
