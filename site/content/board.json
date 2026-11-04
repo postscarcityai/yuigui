@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T12:15:17.139Z",
+  "updated": "2026-11-04T12:45:17.401Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1518,20 +1518,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-for-build-522-say-it-first",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f9cb7999"
-        },
-        {
-          "key": "YUI-301",
-          "title": "The drawing kit on /web gets its own e2e test",
-          "summary": "The drawings on the web are checked on every run",
-          "shipped": "2026-10-05",
-          "progress": "/progress#the-drawings-on-the-web-are-checked-on-every-run"
-        },
-        {
-          "key": "YUI-302",
-          "title": "Every drawing on the phone matches the hub, side by side",
-          "summary": "Every drawing on the phone matches the web",
-          "shipped": "2026-10-05",
-          "progress": "/progress#every-drawing-on-the-phone-matches-the-web"
         }
       ]
     }
