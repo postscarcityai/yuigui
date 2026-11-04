@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T07:02:29.830Z",
+  "updated": "2026-11-04T07:25:16.678Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1624,21 +1624,6 @@
           "summary": "Callouts, brackets and bent arrows on the phone",
           "shipped": "2026-10-05",
           "progress": "/progress#callouts-brackets-and-bent-arrows-on-the-phone"
-        },
-        {
-          "key": "YUI-276",
-          "title": "Draw anything on any screen",
-          "summary": "Drawing on the phone, proven",
-          "shipped": "2026-10-05",
-          "progress": "/progress#drawing-on-the-phone-proven",
-          "commit": "https://github.com/postscarcityai/yui/commit/b54f03e"
-        },
-        {
-          "key": "YUI-296",
-          "title": "Agent tables work in the browser, the same as on the phone",
-          "summary": "Agent tables work in the browser too",
-          "shipped": "2026-10-05",
-          "progress": "/progress#agent-tables-work-in-the-browser-too"
         }
       ]
     }
