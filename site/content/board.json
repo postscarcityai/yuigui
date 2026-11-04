@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T16:15:30.496Z",
+  "updated": "2026-11-04T21:25:32.381Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1461,13 +1461,6 @@
           "title": "A calmer home screen, chats first",
           "shipped": "2026-10-05",
           "progress": "/progress#the-drawer-is-the-chats-and-calm"
-        },
-        {
-          "key": "YUI-306",
-          "title": "/web side pages named for what is on them, never Screen N",
-          "summary": "Web pages are named for what is on them",
-          "shipped": "2026-10-05",
-          "progress": "/progress#web-pages-are-named-for-what-is-on-them"
         }
       ]
     }
