@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T19:05:53.102Z",
+  "updated": "2026-11-05T19:20:54.930Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -975,14 +975,6 @@
           "summary": "A Thought: Films get a look pass",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-films-get-a-look-pass"
-        },
-        {
-          "key": "SITE-224",
-          "title": "The chat-is-home Thought gets a Try it link and a clip",
-          "summary": "The chat-is-home Thought now has a clip and a Try it link",
-          "shipped": "2026-10-06",
-          "progress": "/progress#the-chat-is-home-thought-now-has-a-clip-and-a-try-it-link",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e8e8f97b"
         }
       ]
     }
