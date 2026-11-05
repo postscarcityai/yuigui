@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T09:31:18.715Z",
+  "updated": "2026-11-05T09:45:51.990Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1217,13 +1217,6 @@
           "summary": "A Thought: films start in about six seconds",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-films-start-in-about-six-seconds"
-        },
-        {
-          "key": "SITE-211",
-          "title": "Content sync stops refusing timeline.json, no task ids on the site",
-          "summary": "The site sync no longer stops on card ids",
-          "shipped": "2026-10-06",
-          "progress": "/progress#the-site-sync-no-longer-stops-on-card-ids"
         }
       ]
     }
