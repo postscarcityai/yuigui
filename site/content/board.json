@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T21:55:49.248Z",
+  "updated": "2026-11-05T22:45:49.257Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -954,13 +954,6 @@
           "summary": "A Thought: Films now say what they are drawing",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-films-now-say-what-they-are-drawing"
-        },
-        {
-          "key": "SITE-227",
-          "title": "A Thought, a short first scene",
-          "summary": "A Thought: A shorter first scene did not help either",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-a-shorter-first-scene-did-not-help-either"
         }
       ]
     }
