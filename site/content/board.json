@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T17:15:51.821Z",
+  "updated": "2026-11-05T17:35:54.590Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1022,38 +1022,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-yui-makes-its-own-design-picks",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2fe536e6"
-        },
-        {
-          "key": "NOTE-54787",
-          "title": "Drawings that look designed",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "NOTE-3941",
-          "title": "Drawings that look designed",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "NOTE-43312",
-          "title": "Drawings that look designed",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "NOTE-13658",
-          "title": "Drawings that look designed",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "YUI-267",
-          "title": "Drawings that look designed",
-          "summary": "A drawn phone is an animated wireframe",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-drawn-phone-is-an-animated-wireframe",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/40d7bff5"
         }
       ]
     }
