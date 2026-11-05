@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T17:50:50.609Z",
+  "updated": "2026-11-05T18:25:53.194Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -998,14 +998,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-chat-is-home-the-stage-is-for-pictures",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3291e084"
-        },
-        {
-          "key": "YUI-314",
-          "title": "/web proves chat is home",
-          "summary": "Chat is home on the web too",
-          "shipped": "2026-10-06",
-          "progress": "/progress#chat-is-home-on-the-web-too",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/96a9fe0b"
         }
       ]
     }
