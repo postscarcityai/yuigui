@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T06:25:49.427Z",
+  "updated": "2026-11-05T06:50:50.229Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1262,14 +1262,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#films-play-on-your-phone-build-545-is-in-testflight",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ef129a8d"
-        },
-        {
-          "key": "SITE-208",
-          "title": "Thought, Yui draws anything",
-          "summary": "Yui draws anything: a Thought with the films",
-          "shipped": "2026-10-06",
-          "progress": "/progress#yui-draws-anything-a-thought-with-the-films",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f9350ac9"
         }
       ]
     }
