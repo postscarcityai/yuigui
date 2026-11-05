@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T11:20:52.942Z",
+  "updated": "2026-11-05T12:15:51.499Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1163,13 +1163,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#the-small-models-thought-shows-the-llama-fix",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2e145212"
-        },
-        {
-          "key": "INT-27",
-          "title": "Small models stop labelling their own replies, no stray [Response:] bubble",
-          "summary": "Small models stop talking to themselves",
-          "shipped": "2026-10-06",
-          "progress": "/progress#small-models-stop-talking-to-themselves"
         }
       ]
     }
