@@ -192,7 +192,7 @@ const K = (() => {
     if (t <= t0 - 0.1) return;
     const w = back(prog(t, t0, t0 + 0.5));
     $("owm").style.opacity = clamp(prog(t, t0, t0 + 0.15));
-    $("owm").style.transform = `translateX(-50%) scale(${0.6 + 0.4 * w + prog(t, t0 + 0.5, t0 + 8) * 0.03})`;
+    $("owm").style.transform = `translateX(-55%) scale(${0.6 + 0.4 * w + prog(t, t0 + 0.5, t0 + 8) * 0.03})`;
     textIO("otag", t, t0 + 0.4, 999, 30);
     textIO("ourl", t, t0 + 0.8, 999, 30);
     textIO("onote", t, t0 + 1.2, 999, 20);
