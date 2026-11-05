@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T23:45:29.252Z",
+  "updated": "2026-11-05T00:00:39.203Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1393,14 +1393,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-a-deck-is-one-drawing-that-morphs",
           "commit": "https://github.com/postscarcityai/yuigui/commit/84c1f95a"
-        },
-        {
-          "key": "SITE-199",
-          "title": "Thought, side pages say what is on them",
-          "summary": "A Thought: a page is named for what is on it",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-a-page-is-named-for-what-is-on-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/de942f70"
         }
       ]
     }
