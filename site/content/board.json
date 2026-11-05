@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T00:25:31.299Z",
+  "updated": "2026-11-05T00:50:44.980Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1362,14 +1362,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#new-thought-a-question-carries-its-own-context",
           "commit": "https://github.com/postscarcityai/yuigui/commit/42aeae02"
-        },
-        {
-          "key": "YUI-308",
-          "title": "/web questions show what they ask about, right above the buttons",
-          "summary": "Web questions say what they ask about",
-          "shipped": "2026-10-05",
-          "progress": "/progress#web-questions-say-what-they-ask-about",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ebf805e8"
         }
       ]
     }
