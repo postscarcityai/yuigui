@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T00:00:39.203Z",
+  "updated": "2026-11-05T00:20:29.837Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1378,21 +1378,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#web-decks-morph-too",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ded28580"
-        },
-        {
-          "key": "NOTE-57356",
-          "title": "Questions that say what they ask",
-          "shipped": "2026-10-05",
-          "progress": "/progress#each-question-says-what-it-asks-about",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/cb46981a"
-        },
-        {
-          "key": "SITE-200",
-          "title": "Thought, decks that morph instead of slides",
-          "summary": "A Thought: a deck is one drawing that morphs",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-a-deck-is-one-drawing-that-morphs",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/84c1f95a"
         }
       ]
     }
