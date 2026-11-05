@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T12:15:51.499Z",
+  "updated": "2026-11-05T12:25:51.031Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1155,14 +1155,6 @@
           "title": "Ship the drawings now",
           "shipped": "2026-10-06",
           "progress": "/progress#explainers-draw-every-page"
-        },
-        {
-          "key": "SITE-215",
-          "title": "The small-models Thought shows the llama fix, before and after",
-          "summary": "The small-models Thought shows the llama fix",
-          "shipped": "2026-10-06",
-          "progress": "/progress#the-small-models-thought-shows-the-llama-fix",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2e145212"
         }
       ]
     }
