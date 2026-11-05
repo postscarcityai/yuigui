@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T01:50:34.928Z",
+  "updated": "2026-11-05T01:55:29.452Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1323,14 +1323,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-reminders-ring-with-the-tab-closed",
           "commit": "https://github.com/postscarcityai/yuigui/commit/2bf9bb0a"
-        },
-        {
-          "key": "YUI-258",
-          "title": "Reminders fire from a closed tab through Web Push",
-          "summary": "Reminders ring on the web with the tab closed",
-          "shipped": "2026-10-05",
-          "progress": "/progress#reminders-ring-on-the-web-with-the-tab-closed",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/93db7fed"
         }
       ]
     }
