@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T15:10:50.766Z",
+  "updated": "2026-11-05T15:20:50.358Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1103,13 +1103,6 @@
           "summary": "Where Yui can plug in, every model provider",
           "shipped": "2026-10-06",
           "progress": "/progress#where-yui-can-plug-in-every-model-provider"
-        },
-        {
-          "key": "SITE-219",
-          "title": "The small-models Thought says what the llama fix did",
-          "shipped": "2026-10-06",
-          "progress": "/progress#the-small-models-thought-says-what-the-llama-fix-did",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/f86c813b"
         }
       ]
     }
