@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T08:45:50.179Z",
+  "updated": "2026-11-05T08:55:52.957Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1232,13 +1232,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#films-start-in-about-6-seconds-every-time",
           "commit": "https://github.com/postscarcityai/yui/commit/57f1705"
-        },
-        {
-          "key": "SITE-210",
-          "title": "Thought, films in your browser, timed",
-          "summary": "A Thought: films play in your browser too, timed",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-films-play-in-your-browser-too-timed"
         }
       ]
     }
