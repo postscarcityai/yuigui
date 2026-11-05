@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T07:20:50.043Z",
+  "updated": "2026-11-05T07:35:53.702Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1246,14 +1246,6 @@
           "summary": "A real agent's film on the web, timed",
           "shipped": "2026-10-06",
           "progress": "/progress#a-real-agent-s-film-on-the-web-timed"
-        },
-        {
-          "key": "YUI-40",
-          "title": "New builds stuck at Apple, widget App Group. Daily release held",
-          "summary": "Upload failed",
-          "shipped": "2026-10-06",
-          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/90ab4219"
         }
       ]
     }
