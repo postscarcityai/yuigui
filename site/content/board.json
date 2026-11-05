@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T01:25:35.831Z",
+  "updated": "2026-11-05T01:30:49.299Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1339,14 +1339,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-yui-0-6-4-decks-fill-the-screen-home-goes-calm",
           "commit": "https://github.com/postscarcityai/yuigui/commit/aad7722d"
-        },
-        {
-          "key": "SITE-202",
-          "title": "Thought, change the workout without stopping it",
-          "summary": "A Thought: change the workout without stopping it",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-change-the-workout-without-stopping-it",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/201b2a4a"
         }
       ]
     }
