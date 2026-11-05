@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T00:50:44.980Z",
+  "updated": "2026-11-05T01:05:29.111Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1354,14 +1354,6 @@
           "summary": "Change the workout mid-set, on the web too",
           "shipped": "2026-10-05",
           "progress": "/progress#change-the-workout-mid-set-on-the-web-too"
-        },
-        {
-          "key": "SITE-201",
-          "title": "Thought, a question carries its own context",
-          "summary": "New Thought: A question carries its own context",
-          "shipped": "2026-10-05",
-          "progress": "/progress#new-thought-a-question-carries-its-own-context",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/42aeae02"
         }
       ]
     }
