@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T18:25:53.194Z",
+  "updated": "2026-11-05T18:36:00.993Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -990,14 +990,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#try-chat-is-home-in-the-playground",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f02a94a6"
-        },
-        {
-          "key": "SITE-223",
-          "title": "A Thought",
-          "summary": "A Thought: Chat is home, the stage is for pictures",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-chat-is-home-the-stage-is-for-pictures",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3291e084"
         }
       ]
     }
