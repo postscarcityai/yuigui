@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T19:20:54.930Z",
+  "updated": "2026-11-05T20:55:49.992Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -968,13 +968,6 @@
           "summary": "A Thought: Films did not start faster",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-films-did-not-start-faster"
-        },
-        {
-          "key": "SITE-225",
-          "title": "A Thought, films get a look pass",
-          "summary": "A Thought: Films get a look pass",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-films-get-a-look-pass"
         }
       ]
     }
