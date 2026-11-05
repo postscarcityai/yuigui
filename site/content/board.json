@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T11:10:52.735Z",
+  "updated": "2026-11-05T11:20:52.942Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1170,14 +1170,6 @@
           "summary": "Small models stop talking to themselves",
           "shipped": "2026-10-06",
           "progress": "/progress#small-models-stop-talking-to-themselves"
-        },
-        {
-          "key": "INT-26",
-          "title": "Your own model remembers the thread again, 3 stream checks green",
-          "summary": "Your own model remembers the thread",
-          "shipped": "2026-10-06",
-          "progress": "/progress#your-own-model-remembers-the-thread",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/8a3ee153"
         }
       ]
     }
