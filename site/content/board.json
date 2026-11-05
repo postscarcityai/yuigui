@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T08:55:52.957Z",
+  "updated": "2026-11-05T09:31:18.715Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1224,14 +1224,6 @@
           "summary": "The site sync no longer stops on card ids",
           "shipped": "2026-10-06",
           "progress": "/progress#the-site-sync-no-longer-stops-on-card-ids"
-        },
-        {
-          "key": "YUI-313",
-          "title": "Faster scene 1, 9 of 9 first frames under 10 s",
-          "summary": "Films start in about 6 seconds, every time",
-          "shipped": "2026-10-06",
-          "progress": "/progress#films-start-in-about-6-seconds-every-time",
-          "commit": "https://github.com/postscarcityai/yui/commit/57f1705"
         }
       ]
     }
