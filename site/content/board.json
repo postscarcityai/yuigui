@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T01:05:29.111Z",
+  "updated": "2026-11-05T01:25:35.831Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1347,13 +1347,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-change-the-workout-without-stopping-it",
           "commit": "https://github.com/postscarcityai/yuigui/commit/201b2a4a"
-        },
-        {
-          "key": "YUI-309",
-          "title": "/web workout runner gets edits on the fly and a music strip, the twin of YUI-305",
-          "summary": "Change the workout mid-set, on the web too",
-          "shipped": "2026-10-05",
-          "progress": "/progress#change-the-workout-mid-set-on-the-web-too"
         }
       ]
     }
