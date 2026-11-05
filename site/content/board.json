@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T12:25:51.031Z",
+  "updated": "2026-11-05T12:35:49.945Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1149,12 +1149,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-on-explainers-drawing-every-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b40bde66"
-        },
-        {
-          "key": "NOTE-52023",
-          "title": "Ship the drawings now",
-          "shipped": "2026-10-06",
-          "progress": "/progress#explainers-draw-every-page"
         }
       ]
     }
