@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T07:35:53.702Z",
+  "updated": "2026-11-05T08:45:50.179Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1239,13 +1239,6 @@
           "summary": "A Thought: films play in your browser too, timed",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-films-play-in-your-browser-too-timed"
-        },
-        {
-          "key": "YUI-312",
-          "title": "A real agent's film on /web, live and timed",
-          "summary": "A real agent's film on the web, timed",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-real-agent-s-film-on-the-web-timed"
         }
       ]
     }
