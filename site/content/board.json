@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T01:30:49.299Z",
+  "updated": "2026-11-05T01:50:34.928Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1331,14 +1331,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#reminders-ring-on-the-web-with-the-tab-closed",
           "commit": "https://github.com/postscarcityai/yuigui/commit/93db7fed"
-        },
-        {
-          "key": "SITE-203",
-          "title": "Thought for Yui 0.6.4, Chris's Oct 5 notes",
-          "summary": "A Thought: Yui 0.6.4, decks fill the screen, Home goes calm",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-yui-0-6-4-decks-fill-the-screen-home-goes-calm",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/aad7722d"
         }
       ]
     }
