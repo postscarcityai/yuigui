@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T16:15:51.355Z",
+  "updated": "2026-11-05T16:25:50.810Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1073,13 +1073,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#a-drawn-phone-plays-before-into-after-on-the-web-too",
           "commit": "https://github.com/postscarcityai/yuigui/commit/40d7bff5"
-        },
-        {
-          "key": "SITE-221",
-          "title": "The any-model Thought gets the Grok, Le Chat and Gemini how-to",
-          "shipped": "2026-10-06",
-          "progress": "/progress#the-any-model-thought-gets-the-grok-le-chat-and-gemini-how-to",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/7afecb57"
         }
       ]
     }
