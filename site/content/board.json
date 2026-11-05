@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T13:50:50.581Z",
+  "updated": "2026-11-05T14:00:58.396Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1125,14 +1125,6 @@
           "summary": "The models page shows which small models draw",
           "shipped": "2026-10-06",
           "progress": "/progress#the-models-page-shows-which-small-models-draw"
-        },
-        {
-          "key": "SITE-217",
-          "title": "A Thought",
-          "summary": "A Thought: small models write films",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-small-models-write-films",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ba4801a8"
         }
       ]
     }
