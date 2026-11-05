@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T01:55:29.452Z",
+  "updated": "2026-11-05T02:10:33.277Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1315,14 +1315,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-question-sits-on-the-page-it-asks-about",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b5487da0"
-        },
-        {
-          "key": "SITE-204",
-          "title": "Thought, reminders ring with the tab closed",
-          "summary": "A Thought: Reminders ring with the tab closed",
-          "shipped": "2026-10-05",
-          "progress": "/progress#a-thought-reminders-ring-with-the-tab-closed",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2bf9bb0a"
         }
       ]
     }
