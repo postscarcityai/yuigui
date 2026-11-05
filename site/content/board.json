@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T10:00:57.981Z",
+  "updated": "2026-11-05T10:20:50.597Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1194,14 +1194,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#a-second-small-local-model-family-draws-screens",
           "commit": "https://github.com/postscarcityai/yuigui/commit/faa41bcb"
-        },
-        {
-          "key": "SITE-213",
-          "title": "Thought, a laptop model draws Yui screens",
-          "summary": "A Thought: a model on your laptop draws Yui screens",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-a-model-on-your-laptop-draws-yui-screens",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3b81bffb"
         }
       ]
     }
