@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T20:55:49.992Z",
+  "updated": "2026-11-05T21:55:49.248Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -961,13 +961,6 @@
           "summary": "A Thought: A shorter first scene did not help either",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-a-shorter-first-scene-did-not-help-either"
-        },
-        {
-          "key": "SITE-226",
-          "title": "A Thought, films start fast",
-          "summary": "A Thought: Films did not start faster",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-films-did-not-start-faster"
         }
       ]
     }
