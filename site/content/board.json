@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T14:00:58.396Z",
+  "updated": "2026-11-05T14:35:50.964Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1118,13 +1118,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#the-small-llama-gets-its-film-back",
           "commit": "https://github.com/postscarcityai/yuigui/commit/5e4db93f"
-        },
-        {
-          "key": "SITE-218",
-          "title": "The models page shows which small models draw screens and films",
-          "summary": "The models page shows which small models draw",
-          "shipped": "2026-10-06",
-          "progress": "/progress#the-models-page-shows-which-small-models-draw"
         }
       ]
     }
