@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T16:05:25.666Z",
+  "updated": "2026-11-05T16:15:51.355Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1080,13 +1080,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#the-any-model-thought-gets-the-grok-le-chat-and-gemini-how-to",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7afecb57"
-        },
-        {
-          "key": "INT-24",
-          "title": "Add Yui to Grok, Le Chat and Gemini by pasting one URL",
-          "step": "Step 2",
-          "shipped": "2026-10-06",
-          "progress": "/progress#add-yui-to-grok-le-chat-and-gemini-by-pasting-one-url"
         }
       ]
     }
