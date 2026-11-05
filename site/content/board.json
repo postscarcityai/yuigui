@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T17:05:52.668Z",
+  "updated": "2026-11-05T17:10:52.958Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1060,12 +1060,6 @@
           "title": "One thought per full screen",
           "shipped": "2026-10-06",
           "progress": "/progress#one-thought-per-full-screen-built"
-        },
-        {
-          "key": "NOTE-50900",
-          "title": "The working screen, more alive",
-          "shipped": "2026-10-06",
-          "progress": "/progress#the-working-screen-is-lighter-and-more-alive"
         }
       ]
     }
