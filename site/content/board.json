@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T04:05:00.210Z",
+  "updated": "2026-11-05T06:25:49.427Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1270,14 +1270,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#yui-draws-anything-a-thought-with-the-films",
           "commit": "https://github.com/postscarcityai/yuigui/commit/f9350ac9"
-        },
-        {
-          "key": "YUI-311",
-          "title": "/web plays motion films full screen, twin of MOTION-1d",
-          "summary": "Films play on the web",
-          "shipped": "2026-10-06",
-          "progress": "/progress#films-play-on-the-web",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/28943ed5"
         }
       ]
     }
