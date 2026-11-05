@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T16:25:50.810Z",
+  "updated": "2026-11-05T17:05:52.668Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1066,13 +1066,6 @@
           "title": "The working screen, more alive",
           "shipped": "2026-10-06",
           "progress": "/progress#the-working-screen-is-lighter-and-more-alive"
-        },
-        {
-          "key": "YUI-267",
-          "title": "Pick the drawing look, A, B or C",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-drawn-phone-plays-before-into-after-on-the-web-too",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/40d7bff5"
         }
       ]
     }
