@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T09:55:50.485Z",
+  "updated": "2026-11-05T10:00:57.981Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1202,14 +1202,6 @@
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-a-model-on-your-laptop-draws-yui-screens",
           "commit": "https://github.com/postscarcityai/yuigui/commit/3b81bffb"
-        },
-        {
-          "key": "INT-23",
-          "title": "A small local model draws screens again (qwen2.5:7b)",
-          "summary": "A small local model draws screens again",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-small-local-model-draws-screens-again",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ca8e000d"
         }
       ]
     }
