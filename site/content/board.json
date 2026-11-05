@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T00:20:29.837Z",
+  "updated": "2026-11-05T00:25:31.299Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -1370,14 +1370,6 @@
           "shipped": "2026-10-05",
           "progress": "/progress#web-questions-say-what-they-ask-about",
           "commit": "https://github.com/postscarcityai/yuigui/commit/ebf805e8"
-        },
-        {
-          "key": "YUI-307",
-          "title": "/web decks fill the stage and morph between pages, the twin of the app fix",
-          "summary": "Web decks morph too",
-          "shipped": "2026-10-05",
-          "progress": "/progress#web-decks-morph-too",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/ded28580"
         }
       ]
     }
