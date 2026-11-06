@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-05T23:25:50.833Z",
+  "updated": "2026-11-06T00:25:52.367Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -940,13 +940,6 @@
           "summary": "A Thought: We tried one short scene for small asks",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-we-tried-one-short-scene-for-small-asks"
-        },
-        {
-          "key": "SITE-229",
-          "title": "A Thought, films draw the real thing",
-          "summary": "A Thought: We tried to make films draw the real thing",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-we-tried-to-make-films-draw-the-real-thing"
         }
       ]
     }
