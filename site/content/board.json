@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T00:25:52.367Z",
+  "updated": "2026-11-06T01:10:51.805Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -933,13 +933,6 @@
           "summary": "A Thought: A film check that answers the same twice",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-a-film-check-that-answers-the-same-twice"
-        },
-        {
-          "key": "SITE-230",
-          "title": "A Thought, small asks get one short scene",
-          "summary": "A Thought: We tried one short scene for small asks",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-we-tried-one-short-scene-for-small-asks"
         }
       ]
     }
