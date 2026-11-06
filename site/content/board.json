@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T01:10:51.805Z",
+  "updated": "2026-11-06T02:45:49.397Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -926,13 +926,6 @@
           "summary": "A Thought: We checked the film judge before fixing the films",
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-we-checked-the-film-judge-before-fixing-the-films"
-        },
-        {
-          "key": "SITE-231",
-          "title": "A Thought, a film check that answers the same twice",
-          "summary": "A Thought: A film check that answers the same twice",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-a-film-check-that-answers-the-same-twice"
         }
       ]
     }
