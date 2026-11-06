@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-06T02:45:49.397Z",
+  "updated": "2026-11-06T03:55:49.092Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -919,13 +919,6 @@
           "summary": "A Thought: Films that sit still, we checked the check first",
           "shipped": "2026-10-07",
           "progress": "/progress#a-thought-films-that-sit-still-we-checked-the-check-first"
-        },
-        {
-          "key": "SITE-232",
-          "title": "A Thought, we checked the film judge first",
-          "summary": "A Thought: We checked the film judge before fixing the films",
-          "shipped": "2026-10-06",
-          "progress": "/progress#a-thought-we-checked-the-film-judge-before-fixing-the-films"
         }
       ]
     }
