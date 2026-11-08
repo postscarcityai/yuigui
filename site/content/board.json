@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-08T12:05:56.439Z",
+  "updated": "2026-11-08T14:05:57.586Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -371,12 +371,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "BIZ-13",
-          "title": "Research week, ChatGPT Intelligent UI + Claude Dashboards + Claude Motion, and the open equivalent",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/a2783b7b",
-          "needsDemo": true
         }
       ]
     },
